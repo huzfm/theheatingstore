@@ -101,29 +101,6 @@ export default function FloorRevealSection() {
       className="relative h-[340vh] bg-ink-950"
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* Warm bloom behind the model */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(60vw 50vh at 50% 55%, rgba(255,138,61,0.10), transparent 70%)',
-          }}
-        />
-
-        {/* Screen-blended warm haze over the canvas. This stands in for the
-            GPU bloom pass that was removed for performance: the compositor
-            draws one gradient per frame regardless of scene complexity,
-            where a real bloom pass scales with resolution. */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-[1] mix-blend-screen"
-          style={{
-            background:
-              'radial-gradient(38vw 32vh at 50% 52%, rgba(255,138,61,0.16), transparent 68%)',
-          }}
-        />
-
         <div className="absolute inset-0">
           {mounted ? (
             <FloorCutawayScene progressRef={progressRef} active={active} />

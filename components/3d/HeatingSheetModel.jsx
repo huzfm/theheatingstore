@@ -106,7 +106,7 @@ function FeatureLabel({ feature, rotationRef, progressRef }) {
       <div
         ref={wrapRef}
         style={{ opacity: 0, transition: 'opacity 120ms linear' }}
-        className="relative w-[200px] select-none sm:w-[248px]"
+        className="relative w-[150px] select-none sm:w-[248px]"
       >
         {/* ── Connector tail ───────────────────────────────────────────
             A leader dropping from the card's bottom edge to a glowing node.
@@ -115,21 +115,23 @@ function FeatureLabel({ feature, rotationRef, progressRef }) {
             drei's <Html center> centers the whole wrapper, so a separately
             positioned node can't reliably land on the 3D corner — this keeps
             the whole readout self-contained. */}
-        <div className="pointer-events-none absolute left-8 top-full flex flex-col items-center">
+        <div className="pointer-events-none absolute left-5 top-full flex flex-col items-center sm:left-8">
           <span
-            className="h-9 w-px"
+            className="h-6 w-px sm:h-9"
             style={{ background: 'linear-gradient(to bottom, rgba(255,176,97,0.9), rgba(255,176,97,0.15))' }}
           />
           <span
-            className="h-[7px] w-[7px] rounded-full bg-heat-400"
+            className="h-[6px] w-[6px] rounded-full bg-heat-400 sm:h-[7px] sm:w-[7px]"
             style={{ boxShadow: '0 0 0 4px rgba(255,138,61,0.12), 0 0 18px 4px rgba(255,138,61,0.8)' }}
           />
         </div>
 
-        {/* ── Card ─────────────────────────────────────────────────────── */}
+        {/* ── Card ─────────────────────────────────────────────────────
+            Every size below is responsive: the base values fit a phone,
+            the sm: values (≥640px) restore the full desktop card unchanged. */}
         <div
           ref={cardRef}
-          className="relative overflow-hidden rounded-2xl p-[1px]"
+          className="relative overflow-hidden rounded-xl p-[1px] sm:rounded-2xl"
           style={{
             // Gradient border: bright warm at top-left, fading to hairline —
             // one of the cheapest ways to make a card read as lit.
@@ -139,7 +141,7 @@ function FeatureLabel({ feature, rotationRef, progressRef }) {
           }}
         >
           <div
-            className="relative overflow-hidden rounded-[15px] px-5 pb-4 pt-4"
+            className="relative overflow-hidden rounded-[11px] px-3 pb-2.5 pt-2.5 sm:rounded-[15px] sm:px-5 sm:pb-4 sm:pt-4"
             style={{
               background:
                 'linear-gradient(158deg, #1c1813 0%, #131110 46%, #100e0c 100%)',
@@ -148,7 +150,7 @@ function FeatureLabel({ feature, rotationRef, progressRef }) {
             {/* Ghosted index numeral behind the copy */}
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute -right-1 -top-3 font-display text-[64px] font-bold leading-none text-white/[0.045]"
+              className="pointer-events-none absolute -right-0.5 -top-2 font-display text-[40px] font-bold leading-none text-white/[0.045] sm:-right-1 sm:-top-3 sm:text-[64px]"
             >
               {feature.index}
             </span>
@@ -156,28 +158,28 @@ function FeatureLabel({ feature, rotationRef, progressRef }) {
             {/* Warm wash bleeding in from the lit corner */}
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute -left-6 -top-6 h-20 w-20 rounded-full"
+              className="pointer-events-none absolute -left-5 -top-5 h-14 w-14 rounded-full sm:-left-6 sm:-top-6 sm:h-20 sm:w-20"
               style={{ background: 'radial-gradient(circle, rgba(255,138,61,0.16), transparent 70%)' }}
             />
 
             {/* Header row: index chip + eyebrow */}
-            <div className="relative flex items-center gap-2.5">
-              <span className="flex h-[18px] items-center rounded-full bg-heat-500/15 px-2 font-mono text-[9px] font-medium tracking-[0.18em] text-heat-300 ring-1 ring-inset ring-heat-400/25">
+            <div className="relative flex items-center gap-1.5 sm:gap-2.5">
+              <span className="flex h-[15px] items-center rounded-full bg-heat-500/15 px-1.5 font-mono text-[8px] font-medium tracking-[0.14em] text-heat-300 ring-1 ring-inset ring-heat-400/25 sm:h-[18px] sm:px-2 sm:text-[9px] sm:tracking-[0.18em]">
                 {feature.index}
               </span>
-              <span className="text-[8.5px] font-medium uppercase tracking-[0.32em] text-white/35">
+              <span className="text-[7px] font-medium uppercase tracking-[0.24em] text-white/35 sm:text-[8.5px] sm:tracking-[0.32em]">
                 {feature.kicker}
               </span>
             </div>
 
-            <p className="relative mt-3 font-display text-[15px] font-semibold leading-[1.15] tracking-[-0.01em] text-white">
+            <p className="relative mt-2 font-display text-[11.5px] font-semibold leading-[1.15] tracking-[-0.01em] text-white sm:mt-3 sm:text-[15px]">
               {feature.title}
             </p>
 
             {/* Hairline divider */}
-            <div className="relative mt-3 h-px w-full bg-gradient-to-r from-white/12 via-white/5 to-transparent" />
+            <div className="relative mt-2 h-px w-full bg-gradient-to-r from-white/12 via-white/5 to-transparent sm:mt-3" />
 
-            <p className="relative mt-3 text-[11.5px] leading-relaxed text-white/55">
+            <p className="relative mt-2 text-[9.5px] leading-relaxed text-white/55 sm:mt-3 sm:text-[11.5px]">
               {feature.body}
             </p>
 
@@ -185,11 +187,11 @@ function FeatureLabel({ feature, rotationRef, progressRef }) {
                 value, which is what makes the whole card read as technical
                 rather than marketing. */}
             {feature.spec ? (
-              <div className="relative mt-3.5 flex items-baseline gap-1.5">
-                <span className="font-display text-[17px] font-bold leading-none text-heat-400">
+              <div className="relative mt-2.5 flex items-baseline gap-1.5 sm:mt-3.5">
+                <span className="font-display text-[13px] font-bold leading-none text-heat-400 sm:text-[17px]">
                   {feature.spec}
                 </span>
-                <span className="text-[9px] uppercase tracking-[0.22em] text-white/40">
+                <span className="text-[7.5px] uppercase tracking-[0.18em] text-white/40 sm:text-[9px] sm:tracking-[0.22em]">
                   {feature.specLabel}
                 </span>
               </div>
