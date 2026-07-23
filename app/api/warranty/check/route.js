@@ -1,3 +1,4 @@
+
 import { NextResponse } from "next/server";
 
 const BACKEND = process.env.NEXT_PUBLIC_API_URL || "https://evulation-api-electrichamambackend.0psc8x.easypanel.host";

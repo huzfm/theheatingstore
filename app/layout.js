@@ -5,6 +5,7 @@ import "./globals.css";
 import Footer from "./components/footer";
 import AIChatbot from "./components/Chatbot";
 import SiteHeader from './components/SiteHeader';
+import SiteChrome from './components/SiteChrome';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -128,10 +129,14 @@ export default function RootLayout({ children }) {
 
         <main className="min-h-screen">
           {children}
-          <AIChatbot />
+          <SiteChrome>
+            <AIChatbot />
+          </SiteChrome>
         </main>
 
-        <Footer />
+        <SiteChrome>
+          <Footer />
+        </SiteChrome>
       </body>
     </html>
   );
