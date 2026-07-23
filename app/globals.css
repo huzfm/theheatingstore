@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-heading);
+  --font-serif: var(--font-heading);
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+*, *::before, *::after {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+/* ── Premium serif typography (Cormorant Garamond) ─────────── */
+h1, h2, h3, h4, h5, h6,
+.heading, .section-heading, .font-serif {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: clamp(2rem, 5vw, 4rem);   font-weight: 800; }
+h2 { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 700; }
+h3 { font-size: clamp(1.25rem, 3vw, 1.875rem); font-weight: 600; }
+h4 { font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 600; }
+
+/* Body text */
+p, li, span, div, td, th {
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+strong, b, .bold-text {
+  font-weight: 600;
+}
+
+/* Section heading spacing */
+.section-heading {
+  margin-bottom: 1rem;
+}
+
+/* Body text readability */
+.body-text {
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  color: #3C2B27;
+  line-height: 1.75;
+  font-weight: 500;
+}

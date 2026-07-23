@@ -1,0 +1,15 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Disallow admin and private routes
+Disallow: /api/
+Disallow: /admin/
+Disallow: /SpaceVerification
+Disallow: /warranty-check
+
+# Sitemap
+Sitemap: https://electrichammam.com/sitemap.xml
+
+# Crawl delay (optional, be respectful)
+Crawl-delay: 1
