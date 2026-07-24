@@ -246,7 +246,7 @@ function ColdTail() {
  * The heating mat: fibreglass scrim, cable at real spacing, cold tail and
  * factory splice.
  */
-function HeatingSheetModel({ rotationRef, progressRef, showLabels = true }) {
+function HeatingSheetModel({ rotationRef, progressRef, showLabels = true, levelRef = null }) {
   const mesh = useMemo(() => meshAlpha(), []);
 
   return (
@@ -275,7 +275,7 @@ function HeatingSheetModel({ rotationRef, progressRef, showLabels = true }) {
       </mesh>
 
       <group position={[0, 0.018, 0]}>
-        <CableModel width={MAT_W} length={MAT_L} spacing={CABLE_SPACING} />
+        <CableModel width={MAT_W} length={MAT_L} spacing={CABLE_SPACING} levelRef={levelRef} />
       </group>
 
       <ColdTail />

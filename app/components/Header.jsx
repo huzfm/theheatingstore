@@ -17,7 +17,7 @@ import { Search, X, ChevronDown, ArrowRight, Menu } from 'lucide-react';
 
 const PRIMARY_NAV = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/AboutSection' },
+  { label: 'About', href: '/about' },
   { label: 'Products', href: '/product' },
   { label: 'Installation', href: '/installation' },
 ];
@@ -37,7 +37,7 @@ const SEARCH_ITEMS = [
   { label: 'Products', href: '/product' },
   { label: 'Installation', href: '/installation' },
   { label: 'How It Works', href: '/how-it-works' },
-  { label: 'About Us', href: '/AboutSection' },
+  { label: 'About Us', href: '/about' },
   { label: 'Contact', href: '/contact' },
   { label: 'Why Choose Us', href: '/why-choose-us' },
   { label: 'Certifications', href: '/certifications' },

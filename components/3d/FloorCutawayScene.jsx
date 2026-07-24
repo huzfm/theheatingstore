@@ -10,7 +10,7 @@ import { TileLayer, AdhesiveLayer } from './FloorLayers';
 import { InsulationLayer, SubfloorLayer } from './BaseLayers';
 import { TIMELINE } from '@/lib/floor-timeline';
 import { damp, stageProgress, smoothstep } from '@/lib/three-utils';
-import { disposeTextures, groundShadow } from '@/lib/textures';
+import { retainTextures, releaseTextures, groundShadow } from '@/lib/textures';
 
 /**
  * Baked shadow plane, in place of drei's ContactShadows.
@@ -142,7 +142,10 @@ function SceneRig({ progressRef, reduced }) {
 }
 
 function TextureCleanup() {
-  useEffect(() => () => disposeTextures(), []);
+  useEffect(() => {
+    retainTextures();
+    return () => releaseTextures();
+  }, []);
   return null;
 }
 

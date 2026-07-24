@@ -3,7 +3,7 @@
 import { memo, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { PALETTE } from '@/lib/three-utils';
+import { PALETTE, clamp } from '@/lib/three-utils';
 import { radialGlow, cableSheath, cableHeat } from '@/lib/textures';
 
 /**
@@ -98,6 +98,11 @@ function FixingTabs({ curve, count = 44 }) {
  *
  * All animation mutates material/object properties in useFrame — this mounts
  * once and never re-renders.
+ *
+ * `levelRef` is an optional 0→1 ref scaling how powered the cable looks, for
+ * callers that need it to go genuinely cold and light up again (the About
+ * story rail). Omitting it pins the level at 1, which is the original
+ * behaviour exactly — `intensity * 1` is the expression that was there.
  */
 function CableModel({
   width,
@@ -106,6 +111,7 @@ function CableModel({
   radius = 0.005,
   intensity = 0.9,
   pulses = 2,
+  levelRef = null,
 }) {
   const materialRef = useRef(null);
   const shellRef = useRef(null);
@@ -176,6 +182,8 @@ function CableModel({
     const t = state.clock.elapsedTime;
     const dt = Math.min(delta, 0.05);
 
+    const level = levelRef ? clamp(levelRef.current, 0, 1) : 1;
+
     // Scroll the heat map along the cable. Offset rather than a shader
     // uniform, so this needs no custom material and can't break across
     // three.js versions.
@@ -183,10 +191,10 @@ function CableModel({
 
     if (materialRef.current) {
       // Slow breath on top of the travelling gradient.
-      materialRef.current.emissiveIntensity = intensity * (1 + Math.sin(t * 1.4) * 0.28);
+      materialRef.current.emissiveIntensity = intensity * level * (1 + Math.sin(t * 1.4) * 0.28);
     }
     if (shellRef.current) {
-      shellRef.current.material.opacity = 0.1 + Math.sin(t * 1.4) * 0.035;
+      shellRef.current.material.opacity = (0.1 + Math.sin(t * 1.4) * 0.035) * level;
     }
 
     for (let i = 0; i < pulseRefs.current.length; i += 1) {
@@ -195,7 +203,10 @@ function CableModel({
       const phase = (t * 0.11 + i / pulses) % 1;
       curve.getPointAt(phase, sprite.position);
       sprite.position.y += 0.02;
-      sprite.scale.setScalar(0.14 + Math.sin(phase * Math.PI) * 0.09);
+      // Scaled by level rather than faded: at level 0 the sprite collapses to
+      // nothing, so an unpowered cable has no travelling highlight crawling
+      // along it at zero opacity.
+      sprite.scale.setScalar((0.14 + Math.sin(phase * Math.PI) * 0.09) * level);
     }
   });
 
