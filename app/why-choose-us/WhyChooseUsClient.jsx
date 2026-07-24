@@ -621,7 +621,7 @@ function Badge({ children }) {
 					gap: 8,
 					whiteSpace: 'nowrap',
 					padding: '8px 28px',
-					fontFamily: "'DM Sans', sans-serif",
+					fontFamily: "var(--font-body)",
 					fontSize: 10,
 					fontWeight: 500,
 					textTransform: 'uppercase',
@@ -669,7 +669,7 @@ function SectionHeading({
 			<Badge>{badge}</Badge>
 			<h1
 				style={{
-					fontFamily: "'Cormorant Garamond', serif",
+					fontFamily: "var(--font-heading)",
 					fontSize: 'clamp(28px, 4vw, 52px)',
 					fontWeight: 600,
 					lineHeight: 1.1,
@@ -693,7 +693,7 @@ function SectionHeading({
 				<p
 					style={{
 						marginTop: 16,
-						fontFamily: "'DM Sans', sans-serif",
+						fontFamily: "var(--font-body)",
 						fontSize: 'clamp(14px, 2vw, 17px)',
 						lineHeight: 1.75,
 						color: '#3C2B27',
@@ -986,7 +986,7 @@ export default function WhyChooseUsClient() {
 								</div>
 								<p
 									style={{
-										fontFamily: "'DM Sans', sans-serif",
+										fontFamily: "var(--font-body)",
 										fontSize: 13,
 										color: '#3C2B27',
 									}}>
@@ -1054,7 +1054,7 @@ export default function WhyChooseUsClient() {
 								<Icon.Trophy size={14} color='#F5B97A' />
 								<span
 									style={{
-										fontFamily: "'DM Sans', sans-serif",
+										fontFamily: "var(--font-body)",
 										fontSize: 10,
 										fontWeight: 500,
 										letterSpacing: '0.28em',
@@ -1076,7 +1076,7 @@ export default function WhyChooseUsClient() {
 								<h3
 									className='wcu-hero-h3'
 									style={{
-										fontFamily: "'Cormorant Garamond', serif",
+										fontFamily: "var(--font-heading)",
 										fontSize: 26,
 										fontWeight: 600,
 										color: 'white',
@@ -1101,7 +1101,7 @@ export default function WhyChooseUsClient() {
 										<span
 											key={s}
 											style={{
-												fontFamily: "'DM Sans', sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 10,
 												fontWeight: 500,
 												letterSpacing: '0.06em',
@@ -1163,7 +1163,7 @@ export default function WhyChooseUsClient() {
 										</div>
 										<span
 											style={{
-												fontFamily: "'DM Sans', sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 9,
 												fontWeight: 700,
 												letterSpacing: '0.14em',
@@ -1180,7 +1180,7 @@ export default function WhyChooseUsClient() {
 									<p
 										className='wcu-stat-counter'
 										style={{
-											fontFamily: "'Cormorant Garamond', serif",
+											fontFamily: "var(--font-heading)",
 											fontSize: 'clamp(30px,4vw,42px)',
 											fontWeight: 600,
 											color: '#B86B45',
@@ -1192,7 +1192,7 @@ export default function WhyChooseUsClient() {
 									</p>
 									<p
 										style={{
-											fontFamily: "'DM Sans', sans-serif",
+											fontFamily: "var(--font-body)",
 											fontSize: 11,
 											fontWeight: 600,
 											letterSpacing: '0.12em',
@@ -1203,7 +1203,7 @@ export default function WhyChooseUsClient() {
 									</p>
 									<p
 										style={{
-											fontFamily: "'DM Sans', sans-serif",
+											fontFamily: "var(--font-body)",
 											fontSize: 11,
 											color: '#6B4A2D',
 											marginTop: 2,
@@ -1268,7 +1268,7 @@ export default function WhyChooseUsClient() {
 												/>
 												<span
 													style={{
-														fontFamily: "'DM Sans', sans-serif",
+														fontFamily: "var(--font-body)",
 														fontSize: 11.5,
 														color: '#4A3528',
 														lineHeight: 1.3,
@@ -1305,7 +1305,7 @@ export default function WhyChooseUsClient() {
 									<div style={{ flex: 1 }}>
 										<h3
 											style={{
-												fontFamily: "'Cormorant Garamond', serif",
+												fontFamily: "var(--font-heading)",
 												fontSize: 'clamp(20px,3vw,24px)',
 												fontWeight: 600,
 												color: '#3C2A25',
@@ -1315,7 +1315,7 @@ export default function WhyChooseUsClient() {
 										</h3>
 										<p
 											style={{
-												fontFamily: "'DM Sans', sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 14,
 												color: '#3C2B27',
 												marginTop: 8,
@@ -1394,7 +1394,7 @@ export default function WhyChooseUsClient() {
 											<div>
 												<p
 													style={{
-														fontFamily: "'DM Sans', sans-serif",
+														fontFamily: "var(--font-body)",
 														fontSize: 12.5,
 														fontWeight: 600,
 														color: '#3C2A25',
@@ -1404,7 +1404,7 @@ export default function WhyChooseUsClient() {
 												</p>
 												<p
 													style={{
-														fontFamily: "'DM Sans', sans-serif",
+														fontFamily: "var(--font-body)",
 														fontSize: 11,
 														color: '#6B4A2D',
 														marginTop: 3,
@@ -1441,7 +1441,7 @@ export default function WhyChooseUsClient() {
 									<div>
 										<h3
 											style={{
-												fontFamily: "'Cormorant Garamond', serif",
+												fontFamily: "var(--font-heading)",
 												fontSize: 'clamp(20px,3vw,24px)',
 												fontWeight: 600,
 												color: '#3C2A25',
@@ -1450,7 +1450,7 @@ export default function WhyChooseUsClient() {
 										</h3>
 										<p
 											style={{
-												fontFamily: "'DM Sans', sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 14,
 												color: '#3C2B27',
 												marginTop: 6,
@@ -1505,7 +1505,7 @@ export default function WhyChooseUsClient() {
 											<Flag code={c.code} name={c.name} />
 											<span
 												style={{
-													fontFamily: "'DM Sans', sans-serif",
+													fontFamily: "var(--font-body)",
 													fontSize: 11.5,
 													fontWeight: 500,
 													color: '#3C2A25',
@@ -1532,7 +1532,7 @@ export default function WhyChooseUsClient() {
 									<div>
 										<p
 											style={{
-												fontFamily: "'Cormorant Garamond', serif",
+												fontFamily: "var(--font-heading)",
 												fontSize: 26,
 												fontWeight: 600,
 												color: '#B86B45',
@@ -1542,7 +1542,7 @@ export default function WhyChooseUsClient() {
 										</p>
 										<p
 											style={{
-												fontFamily: "'DM Sans', sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 11,
 												color: '#6B4A2D',
 												marginTop: 3,
@@ -1578,7 +1578,7 @@ export default function WhyChooseUsClient() {
 									<div style={{ textAlign: 'right' }}>
 										<p
 											style={{
-												fontFamily: "'Cormorant Garamond', serif",
+												fontFamily: "var(--font-heading)",
 												fontSize: 20,
 												fontWeight: 600,
 												color: '#B86B45',
@@ -1588,7 +1588,7 @@ export default function WhyChooseUsClient() {
 										</p>
 										<p
 											style={{
-												fontFamily: "'DM Sans', sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 11,
 												color: '#6B4A2D',
 												marginTop: 3,
@@ -1597,7 +1597,7 @@ export default function WhyChooseUsClient() {
 										</p>
 										<p
 											style={{
-												fontFamily: "'DM Sans', sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 11,
 												color: '#B86B45',
 												fontWeight: 600,
@@ -1680,7 +1680,7 @@ export default function WhyChooseUsClient() {
 								</div>
 								<p
 									style={{
-										fontFamily: "'DM Sans', sans-serif",
+										fontFamily: "var(--font-body)",
 										fontSize: 14,
 										color: '#3C2B27',
 										lineHeight: 1.75,
@@ -1714,14 +1714,14 @@ export default function WhyChooseUsClient() {
 											fontSize: 15,
 											fontWeight: 700,
 											color: 'white',
-											fontFamily: "'DM Sans', sans-serif",
+											fontFamily: "var(--font-body)",
 										}}>
 										{t.initials}
 									</div>
 									<div style={{ flex: 1, minWidth: 120 }}>
 										<p
 											style={{
-												fontFamily: "'DM Sans', sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 13.5,
 												fontWeight: 600,
 												color: '#3C2A25',
@@ -1730,7 +1730,7 @@ export default function WhyChooseUsClient() {
 										</p>
 										<p
 											style={{
-												fontFamily: "'DM Sans', sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 11.5,
 												color: '#6B4A2D',
 												marginTop: 2,
@@ -1740,7 +1740,7 @@ export default function WhyChooseUsClient() {
 									</div>
 									<span
 										style={{
-											fontFamily: "'DM Sans', sans-serif",
+											fontFamily: "var(--font-body)",
 											fontSize: 9,
 											fontWeight: 700,
 											letterSpacing: '0.08em',
@@ -1788,7 +1788,7 @@ export default function WhyChooseUsClient() {
 								<div>
 									<p
 										style={{
-											fontFamily: "'DM Sans', sans-serif",
+											fontFamily: "var(--font-body)",
 											fontSize: 10,
 											fontWeight: 500,
 											letterSpacing: '0.35em',
@@ -1800,7 +1800,7 @@ export default function WhyChooseUsClient() {
 									</p>
 									<h3
 										style={{
-											fontFamily: "'Cormorant Garamond', serif",
+											fontFamily: "var(--font-heading)",
 											fontSize: 'clamp(24px,4vw,32px)',
 											fontWeight: 600,
 											color: '#3C2A25',
@@ -1810,7 +1810,7 @@ export default function WhyChooseUsClient() {
 									</h3>
 									<p
 										style={{
-											fontFamily: "'DM Sans', sans-serif",
+											fontFamily: "var(--font-body)",
 											fontSize: 'clamp(14px,2vw,16px)',
 											color: '#3C2B27',
 											marginTop: 14,
@@ -1826,7 +1826,7 @@ export default function WhyChooseUsClient() {
 								<div>
 									<p
 										style={{
-											fontFamily: "'DM Sans', sans-serif",
+											fontFamily: "var(--font-body)",
 											fontSize: 10,
 											fontWeight: 600,
 											letterSpacing: '0.2em',
@@ -1865,7 +1865,7 @@ export default function WhyChooseUsClient() {
 													display: 'inline-flex',
 													alignItems: 'center',
 													gap: 7,
-													fontFamily: "'DM Sans', sans-serif",
+													fontFamily: "var(--font-body)",
 													fontSize: 12,
 													fontWeight: 500,
 													color: '#3C2B27',
@@ -1898,7 +1898,7 @@ export default function WhyChooseUsClient() {
 											justifyContent: 'center',
 											borderRadius: 999,
 											padding: '14px 32px',
-											fontFamily: "'DM Sans', sans-serif",
+											fontFamily: "var(--font-body)",
 											fontSize: 13,
 											fontWeight: 600,
 											color: 'white',
@@ -1924,7 +1924,7 @@ export default function WhyChooseUsClient() {
 											border: '1px solid #FFD6A6',
 											background: 'rgba(255,255,255,0.7)',
 											padding: '10px 24px',
-											fontFamily: "'DM Sans', sans-serif",
+											fontFamily: "var(--font-body)",
 											fontSize: 13,
 											fontWeight: 500,
 											color: '#3C2B27',
@@ -1937,7 +1937,7 @@ export default function WhyChooseUsClient() {
 									</a>
 									<p
 										style={{
-											fontFamily: "'DM Sans', sans-serif",
+											fontFamily: "var(--font-body)",
 											fontSize: 10.5,
 											color: '#6B4A2D',
 											textAlign: 'center',

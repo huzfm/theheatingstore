@@ -240,7 +240,7 @@ function SceneSurvey({ active }) {
 				strokeWidth='1'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7'
 				fill='#8A6448'
 				x='89'
@@ -249,7 +249,7 @@ function SceneSurvey({ active }) {
 				BATHROOM
 			</text>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7'
 				fill='#8A6448'
 				x='89'
@@ -258,7 +258,7 @@ function SceneSurvey({ active }) {
 				HALLWAY
 			</text>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7'
 				fill='#8A6448'
 				x='178'
@@ -326,7 +326,7 @@ function SceneSurvey({ active }) {
 				opacity='0.7'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7'
 				fill='#A88060'
 				x='140'
@@ -343,7 +343,7 @@ function SceneSurvey({ active }) {
 				strokeWidth='0.7'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7'
 				fill='#A88060'
 				x='254'
@@ -364,7 +364,7 @@ function SceneSurvey({ active }) {
 				strokeWidth='0.7'
 			/>
 			<text
-				fontFamily="'Cormorant Garamond',serif"
+				fontFamily="var(--font-heading)"
 				fontSize='8'
 				fontWeight='600'
 				fill='#3C2A25'
@@ -381,7 +381,7 @@ function SceneSurvey({ active }) {
 				strokeWidth='0.5'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7'
 				fill='#6B4A2D'
 				x='45'
@@ -389,7 +389,7 @@ function SceneSurvey({ active }) {
 				Project: Premium Residential
 			</text>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7'
 				fill='#6B4A2D'
 				x='45'
@@ -397,7 +397,7 @@ function SceneSurvey({ active }) {
 				Cable: ProWarm 150W/m²
 			</text>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7'
 				fill='#6B4A2D'
 				x='45'
@@ -405,7 +405,7 @@ function SceneSurvey({ active }) {
 				Zones: 3 · Total area: 18.2m²
 			</text>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7'
 				fill='#B86B45'
 				fontWeight='600'
@@ -483,7 +483,7 @@ function SceneSurvey({ active }) {
 				opacity='0.4'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='6'
 				fill='#8A6448'
 				x='308'
@@ -510,7 +510,7 @@ function SceneSurvey({ active }) {
 				fill='#F0E0CC'
 			/>
 			<text
-				fontFamily="'Cormorant Garamond',serif"
+				fontFamily="var(--font-heading)"
 				fontSize='13'
 				fontWeight='600'
 				fill='#B86B45'
@@ -520,7 +520,7 @@ function SceneSurvey({ active }) {
 				22.4°
 			</text>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='6'
 				fill='#8A6448'
 				x='308'
@@ -532,7 +532,7 @@ function SceneSurvey({ active }) {
 			<circle cx='308' cy='216' r='6' fill='#C17A50' opacity='0.75' />
 			<circle cx='326' cy='216' r='6' fill='#E8D0BC' />
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='6'
 				fill='#8A6448'
 				x='308'
@@ -556,7 +556,7 @@ function SceneSurvey({ active }) {
 						strokeDasharray='4 3'
 					/>
 					<text
-						fontFamily="'Cormorant Garamond',serif"
+						fontFamily="var(--font-heading)"
 						fontSize='10'
 						fontWeight='700'
 						fill='#C17A50'
@@ -566,7 +566,7 @@ function SceneSurvey({ active }) {
 						FREE
 					</text>
 					<text
-						fontFamily="'DM Sans',sans-serif"
+						fontFamily="var(--font-body)"
 						fontSize='6'
 						fill='#C17A50'
 						x='316'
@@ -619,7 +619,7 @@ function SceneInstall({ active }) {
 				fill='url(#iscreedG)'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='8'
 				fill='#8A6448'
 				x='28'
@@ -649,7 +649,7 @@ function SceneInstall({ active }) {
 				fill='url(#iinsG)'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='8'
 				fill='#7A5A3C'
 				x='28'
@@ -680,7 +680,7 @@ function SceneInstall({ active }) {
 				opacity='0.6'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7.5'
 				fill='#7A5A3C'
 				x='28'
@@ -736,7 +736,7 @@ function SceneInstall({ active }) {
 					/>
 				))}
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='8'
 				fill='#7A5A3C'
 				x='28'
@@ -775,7 +775,7 @@ function SceneInstall({ active }) {
 				opacity='0.5'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='8'
 				fill='#7A5A3C'
 				x='28'
@@ -838,7 +838,7 @@ function SceneInstall({ active }) {
 				strokeWidth='0.9'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='8'
 				fill='#C17A50'
 				x='350'
@@ -857,7 +857,7 @@ function SceneInstall({ active }) {
 				strokeDasharray='3 2'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7'
 				fill='#A88060'
 				x='6'
@@ -883,7 +883,7 @@ function SceneInstall({ active }) {
 						strokeWidth='1'
 					/>
 					<text
-						fontFamily="'DM Sans',sans-serif"
+						fontFamily="var(--font-body)"
 						fontSize='7'
 						fontWeight='700'
 						fill='#C17A50'
@@ -901,7 +901,7 @@ function SceneInstall({ active }) {
 						strokeWidth='0.5'
 					/>
 					<text
-						fontFamily="'DM Sans',sans-serif"
+						fontFamily="var(--font-body)"
 						fontSize='6.5'
 						fill='#6B4A2D'
 						x='284'
@@ -910,7 +910,7 @@ function SceneInstall({ active }) {
 						Every installation inspected
 					</text>
 					<text
-						fontFamily="'DM Sans',sans-serif"
+						fontFamily="var(--font-body)"
 						fontSize='6.5'
 						fill='#6B4A2D'
 						x='284'
@@ -1028,7 +1028,7 @@ function SceneRadiant({ active }) {
 						opacity={op}
 					/>
 					<text
-						fontFamily="'DM Sans',sans-serif"
+						fontFamily="var(--font-body)"
 						fontSize='8'
 						fill='#C17A50'
 						x='312'
@@ -1039,7 +1039,7 @@ function SceneRadiant({ active }) {
 				</g>
 			))}
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7'
 				fill='#A88060'
 				x='336'
@@ -1090,7 +1090,7 @@ function SceneRadiant({ active }) {
 				strokeDasharray='3 2'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='6.5'
 				fill='#A08070'
 				x='41'
@@ -1163,7 +1163,7 @@ function SceneRadiant({ active }) {
 								strokeOpacity='0.4'
 							/>
 							<text
-								fontFamily="'DM Sans',sans-serif"
+								fontFamily="var(--font-body)"
 								fontSize='7'
 								fill='#B86B45'
 								x='42'
@@ -1248,7 +1248,7 @@ function SceneThermostat({ active }) {
 			)}
 			<circle cx='150' cy='60' r='5' fill='#C17A50' opacity='0.9' />
 			<text
-				fontFamily="'Cormorant Garamond',serif"
+				fontFamily="var(--font-heading)"
 				fontSize='34'
 				fontWeight='300'
 				fill='#3C2A25'
@@ -1258,7 +1258,7 @@ function SceneThermostat({ active }) {
 				{displayTemp}°C
 			</text>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='8'
 				fill='#A88060'
 				x='175'
@@ -1268,7 +1268,7 @@ function SceneThermostat({ active }) {
 				FLOOR TEMP
 			</text>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='8'
 				fill='#A88060'
 				x='114'
@@ -1277,7 +1277,7 @@ function SceneThermostat({ active }) {
 				5°
 			</text>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='8'
 				fill='#A88060'
 				x='236'
@@ -1303,7 +1303,7 @@ function SceneThermostat({ active }) {
 				transition={{ duration: 1.8, repeat: Infinity }}
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='8'
 				fill='#6A4A34'
 				x='136'
@@ -1320,7 +1320,7 @@ function SceneThermostat({ active }) {
 				opacity='0.8'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7.5'
 				fill='#6A4A34'
 				x='135'
@@ -1340,7 +1340,7 @@ function SceneThermostat({ active }) {
 				strokeWidth='0.7'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7.5'
 				fill='#8A4A2A'
 				x='201'
@@ -1367,7 +1367,7 @@ function SceneThermostat({ active }) {
 				opacity='0.8'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='6.5'
 				fill='#8A6448'
 				x='175'
@@ -1386,7 +1386,7 @@ function SceneThermostat({ active }) {
 				strokeDasharray='2 2'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='8'
 				fill='#7A5A3C'
 				x='286'
@@ -1394,7 +1394,7 @@ function SceneThermostat({ active }) {
 				Dual sensor
 			</text>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7.5'
 				fill='#A88060'
 				x='286'
@@ -1411,7 +1411,7 @@ function SceneThermostat({ active }) {
 				strokeDasharray='2 2'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='8'
 				fill='#7A5A3C'
 				x='286'
@@ -1419,7 +1419,7 @@ function SceneThermostat({ active }) {
 				±0.5°C
 			</text>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7.5'
 				fill='#A88060'
 				x='286'
@@ -1438,7 +1438,7 @@ function SceneThermostat({ active }) {
 				strokeWidth='0.8'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='6.5'
 				fontWeight='600'
 				fill='#C17A50'
@@ -1460,7 +1460,7 @@ function SceneThermostat({ active }) {
 						opacity={i === 2 ? '0.85' : '0.38'}
 					/>
 					<text
-						fontFamily="'DM Sans',sans-serif"
+						fontFamily="var(--font-body)"
 						fontSize='6.5'
 						fill='#8A6448'
 						x='40'
@@ -1470,7 +1470,7 @@ function SceneThermostat({ active }) {
 				</g>
 			))}
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='6.5'
 				fill='#8A6448'
 				x='50'
@@ -1527,7 +1527,7 @@ function SceneWarranty({ active }) {
 				opacity='0.88'
 			/>
 			<text
-				fontFamily="'Cormorant Garamond',serif"
+				fontFamily="var(--font-heading)"
 				fontSize='10'
 				fontWeight='700'
 				fill='white'
@@ -1538,7 +1538,7 @@ function SceneWarranty({ active }) {
 				CERTIFICATE OF WARRANTY
 			</text>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='7.5'
 				fill='rgba(255,255,255,0.85)'
 				x='150'
@@ -1569,7 +1569,7 @@ function SceneWarranty({ active }) {
 				/>
 				{active && (
 					<motion.text
-						fontFamily="'Cormorant Garamond',serif"
+						fontFamily="var(--font-heading)"
 						fontSize='22'
 						fill='#C17A50'
 						x='0'
@@ -1583,7 +1583,7 @@ function SceneWarranty({ active }) {
 				)}
 			</g>
 			<text
-				fontFamily="'Cormorant Garamond',serif"
+				fontFamily="var(--font-heading)"
 				fontSize='40'
 				fontWeight='600'
 				fill='#B86B45'
@@ -1594,7 +1594,7 @@ function SceneWarranty({ active }) {
 				25 Years
 			</text>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='9'
 				fill='#6B4A2D'
 				x='150'
@@ -1638,7 +1638,7 @@ function SceneWarranty({ active }) {
 						{icon}
 					</text>
 					<text
-						fontFamily="'DM Sans',sans-serif"
+						fontFamily="var(--font-body)"
 						fontSize='7.5'
 						fill='#4A3020'
 						x='68'
@@ -1656,7 +1656,7 @@ function SceneWarranty({ active }) {
 				strokeWidth='0.7'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='6.5'
 				fill='#A88060'
 				x='94'
@@ -1673,7 +1673,7 @@ function SceneWarranty({ active }) {
 				strokeWidth='0.7'
 			/>
 			<text
-				fontFamily="'DM Sans',sans-serif"
+				fontFamily="var(--font-body)"
 				fontSize='6.5'
 				fill='#A88060'
 				x='206'
@@ -1705,7 +1705,7 @@ function SceneWarranty({ active }) {
 						strokeDasharray='3 2'
 					/>
 					<text
-						fontFamily="'Cormorant Garamond',serif"
+						fontFamily="var(--font-heading)"
 						fontSize='9'
 						fontWeight='700'
 						fill='#C17A50'
@@ -1715,7 +1715,7 @@ function SceneWarranty({ active }) {
 						OFFICIAL
 					</text>
 					<text
-						fontFamily="'DM Sans',sans-serif"
+						fontFamily="var(--font-body)"
 						fontSize='7'
 						fill='#B86B45'
 						x='298'
@@ -1724,7 +1724,7 @@ function SceneWarranty({ active }) {
 						GUARANTEE
 					</text>
 					<text
-						fontFamily="'DM Sans',sans-serif"
+						fontFamily="var(--font-body)"
 						fontSize='6.5'
 						fill='#A88060'
 						x='298'
@@ -1753,7 +1753,7 @@ function SceneWarranty({ active }) {
 			].map(({ val, lab }, i) => (
 				<g key={lab}>
 					<text
-						fontFamily="'Cormorant Garamond',serif"
+						fontFamily="var(--font-heading)"
 						fontSize='13'
 						fontWeight='600'
 						fill='#B86B45'
@@ -1763,7 +1763,7 @@ function SceneWarranty({ active }) {
 						{val}
 					</text>
 					<text
-						fontFamily="'DM Sans',sans-serif"
+						fontFamily="var(--font-body)"
 						fontSize='6.5'
 						fill='#8A6448'
 						x='317'
@@ -1914,7 +1914,7 @@ export default function HowItWorksClient() {
 					overflow: 'hidden',
 					backgroundImage:
 						'linear-gradient(180deg,#FFFFFF 0%,#FFF4E8 35%,#FFE0C2 70%,#F5B97A 100%)',
-					fontFamily: "'DM Sans',sans-serif",
+					fontFamily: "var(--font-body)",
 				}}>
 				{/* Same heat glow as WhyChooseUs */}
 				<motion.div
@@ -2025,7 +2025,7 @@ export default function HowItWorksClient() {
 									gap: 8,
 									whiteSpace: 'nowrap',
 									padding: '8px 28px',
-									fontFamily: "'DM Sans',sans-serif",
+									fontFamily: "var(--font-body)",
 									fontSize: 10,
 									fontWeight: 500,
 									textTransform: 'uppercase',
@@ -2057,7 +2057,7 @@ export default function HowItWorksClient() {
 						{/* H2 — same Playfair, semibold, #3C2A25, accent #B86B45 */}
 						<h2
 							style={{
-								fontFamily: "'Cormorant Garamond',serif",
+								fontFamily: "var(--font-heading)",
 								fontSize: 'clamp(30px,4vw,54px)',
 								fontWeight: 600,
 								lineHeight: 1.1,
@@ -2078,7 +2078,7 @@ export default function HowItWorksClient() {
 						<p
 							style={{
 								marginTop: 20,
-								fontFamily: "'DM Sans',sans-serif",
+								fontFamily: "var(--font-body)",
 								fontSize: 'clamp(14px,2vw,17px)',
 								lineHeight: 1.75,
 								color: '#3C2B27',
@@ -2113,7 +2113,7 @@ export default function HowItWorksClient() {
 									gap: 8,
 									padding: '8px 18px',
 									borderRadius: 999,
-									fontFamily: "'DM Sans',sans-serif",
+									fontFamily: "var(--font-body)",
 									fontSize: 12,
 									fontWeight: 500,
 									letterSpacing: '0.04em',
@@ -2160,7 +2160,7 @@ export default function HowItWorksClient() {
 										position: 'absolute',
 										top: 18,
 										left: 26,
-										fontFamily: "'Cormorant Garamond',serif",
+										fontFamily: "var(--font-heading)",
 										fontSize: 'clamp(60px, 10vw, 118px)',
 										lineHeight: 1,
 										color: 'rgba(193,122,80,0.07)',
@@ -2207,7 +2207,7 @@ export default function HowItWorksClient() {
 										/>
 										<span
 											style={{
-												fontFamily: "'DM Sans',sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 9,
 												fontWeight: 600,
 												letterSpacing: '0.2em',
@@ -2303,7 +2303,7 @@ export default function HowItWorksClient() {
 										</div>
 										<span
 											style={{
-												fontFamily: "'DM Sans',sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 11,
 												color: '#A88060',
 												letterSpacing: '0.1em',
@@ -2338,7 +2338,7 @@ export default function HowItWorksClient() {
 									}}>
 									<p
 										style={{
-											fontFamily: "'Cormorant Garamond',serif",
+											fontFamily: "var(--font-heading)",
 											fontSize: 34,
 											fontWeight: 600,
 											color: '#B86B45',
@@ -2359,7 +2359,7 @@ export default function HowItWorksClient() {
 									<div>
 										<p
 											style={{
-												fontFamily: "'DM Sans',sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 10,
 												fontWeight: 600,
 												letterSpacing: '0.2em',
@@ -2371,7 +2371,7 @@ export default function HowItWorksClient() {
 										</p>
 										<p
 											style={{
-												fontFamily: "'DM Sans',sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 13,
 												color: '#3C2B27',
 												lineHeight: 1.4,
@@ -2380,7 +2380,7 @@ export default function HowItWorksClient() {
 										</p>
 										<p
 											style={{
-												fontFamily: "'DM Sans',sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 11,
 												color: '#6B4A2D',
 												marginTop: 3,
@@ -2417,7 +2417,7 @@ export default function HowItWorksClient() {
 												display: 'flex',
 												alignItems: 'center',
 												justifyContent: 'center',
-												fontFamily: "'Cormorant Garamond',serif",
+												fontFamily: "var(--font-heading)",
 												fontSize: 15,
 												fontWeight: 600,
 												color: '#B86B45',
@@ -2429,7 +2429,7 @@ export default function HowItWorksClient() {
 										</div>
 										<p
 											style={{
-												fontFamily: "'DM Sans',sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 10,
 												fontWeight: 600,
 												letterSpacing: '0.35em',
@@ -2443,7 +2443,7 @@ export default function HowItWorksClient() {
 									{/* Title — Playfair semibold + light italic accent, same as WhyChooseUs h3 */}
 									<h3
 										style={{
-											fontFamily: "'Cormorant Garamond',serif",
+											fontFamily: "var(--font-heading)",
 											fontSize: 'clamp(26px,3.5vw,42px)',
 											fontWeight: 600,
 											lineHeight: 1.12,
@@ -2478,10 +2478,10 @@ export default function HowItWorksClient() {
 										transition={{ duration: 0.6, delay: 0.1 }}
 									/>
 
-									{/* Description — DM Sans, #3C2B27, lineHeight 1.75 */}
+									{/* Description — Hanken Grotesk, #3C2B27, lineHeight 1.75 */}
 									<p
 										style={{
-											fontFamily: "'DM Sans',sans-serif",
+											fontFamily: "var(--font-body)",
 											fontSize: 'clamp(13.5px,1.8vw,16px)',
 											lineHeight: 1.8,
 											color: '#3C2B27',
@@ -2543,7 +2543,7 @@ export default function HowItWorksClient() {
 												<div>
 													<p
 														style={{
-															fontFamily: "'DM Sans',sans-serif",
+															fontFamily: "var(--font-body)",
 															fontSize: 13.5,
 															fontWeight: 600,
 															color: '#3C2A25',
@@ -2553,7 +2553,7 @@ export default function HowItWorksClient() {
 													</p>
 													<p
 														style={{
-															fontFamily: "'DM Sans',sans-serif",
+															fontFamily: "var(--font-body)",
 															fontSize: 12.5,
 															color: '#6B4A2D',
 															lineHeight: 1.55,
@@ -2584,7 +2584,7 @@ export default function HowItWorksClient() {
 												gap: 8,
 												borderRadius: 999,
 												padding: '13px 30px',
-												fontFamily: "'DM Sans',sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 13,
 												fontWeight: 600,
 												color: 'white',
@@ -2619,7 +2619,7 @@ export default function HowItWorksClient() {
 												gap: 8,
 												borderRadius: 999,
 												padding: '11px 26px',
-												fontFamily: "'DM Sans',sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 13,
 												fontWeight: 500,
 												color: '#3C2B27',
@@ -2698,7 +2698,7 @@ export default function HowItWorksClient() {
 										display: 'flex',
 										alignItems: 'center',
 										justifyContent: 'center',
-										fontFamily: "'Cormorant Garamond',serif",
+										fontFamily: "var(--font-heading)",
 										fontSize: 14,
 										fontWeight: 700,
 										color: index === i ? 'white' : '#B86B45',
@@ -2709,7 +2709,7 @@ export default function HowItWorksClient() {
 								</div>
 								<p
 									style={{
-										fontFamily: "'DM Sans',sans-serif",
+										fontFamily: "var(--font-body)",
 										fontSize: 9,
 										fontWeight: 600,
 										letterSpacing: '0.2em',
@@ -2721,7 +2721,7 @@ export default function HowItWorksClient() {
 								</p>
 								<p
 									style={{
-										fontFamily: "'Cormorant Garamond',serif",
+										fontFamily: "var(--font-heading)",
 										fontSize: 13,
 										fontWeight: 600,
 										color: '#3C2A25',
@@ -2732,7 +2732,7 @@ export default function HowItWorksClient() {
 								</p>
 								<p
 									style={{
-										fontFamily: "'Cormorant Garamond',serif",
+										fontFamily: "var(--font-heading)",
 										fontSize: 12.5,
 										fontWeight: 300,
 										color: '#B86B45',

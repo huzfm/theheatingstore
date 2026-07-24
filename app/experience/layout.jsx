@@ -13,7 +13,7 @@ const sora = Sora({
   display: 'swap',
 });
 
-/* Body copy reuses the DM Sans already loaded by the root layout as
+/* Body copy reuses the Hanken Grotesk already loaded by the root layout as
    --font-body, so this route adds exactly one font to the page weight. */
 
 export const metadata = {

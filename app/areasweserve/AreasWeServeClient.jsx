@@ -49,7 +49,7 @@ function Badge({ children }) {
         style={{
           position: 'relative', display: 'inline-flex', alignItems: 'center', gap: 8,
           whiteSpace: 'nowrap', padding: '8px 22px',
-          fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 500,
+          fontFamily: "var(--font-body)", fontSize: 10, fontWeight: 500,
           textTransform: 'uppercase', letterSpacing: '0.32em', color: '#4FA3D1',
           borderRadius: 999, background: 'rgba(255,255,255,0.22)',
           backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
@@ -101,7 +101,7 @@ export default function AreasWeServeClient() {
             style={{
               fontSize: 'clamp(1.875rem, 4.5vw, 3.25rem)',
               fontWeight: 600,
-              fontFamily: "'Cormorant Garamond', serif",
+              fontFamily: "var(--font-heading)",
               color: '#3C2A25', lineHeight: 1.15, margin: '8px 0 0',
             }}
           >
@@ -109,7 +109,7 @@ export default function AreasWeServeClient() {
           </h1>
           <p
             style={{
-              fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: '#6B4A2D',
+              fontFamily: "var(--font-body)", fontSize: 16, color: '#6B4A2D',
               lineHeight: 1.75, marginTop: 16, maxWidth: 620, margin: '16px auto 0',
             }}
           >
@@ -157,7 +157,7 @@ export default function AreasWeServeClient() {
                 </div>
                 <h3
                   style={{
-                    fontFamily: "'Cormorant Garamond', serif",
+                    fontFamily: "var(--font-heading)",
                     fontSize: 22, fontWeight: 600, color: '#3C2A25',
                     margin: 0, lineHeight: 1.2,
                   }}
@@ -166,7 +166,7 @@ export default function AreasWeServeClient() {
                 </h3>
                 <p
                   style={{
-                    fontFamily: "'DM Sans', sans-serif", fontSize: 14,
+                    fontFamily: "var(--font-body)", fontSize: 14,
                     color: '#6B4A2D', lineHeight: 1.6, margin: '10px 0 0',
                     flexGrow: 1,
                   }}
@@ -178,7 +178,7 @@ export default function AreasWeServeClient() {
                   className="inline-flex items-center gap-1.5 mt-5 text-sm font-semibold transition-transform hover:translate-x-1"
                   style={{
                     color: '#B86B45', textDecoration: 'none',
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-body)",
                   }}
                 >
                   View Page
@@ -212,7 +212,7 @@ export default function AreasWeServeClient() {
             <div style={{ flex: '1', minWidth: '280px' }}>
               <p
                 style={{
-                  fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 700,
+                  fontFamily: "var(--font-body)", fontSize: 10, fontWeight: 700,
                   letterSpacing: '0.3em', color: 'rgba(255,255,255,0.6)',
                   textTransform: 'uppercase', marginBottom: '10px',
                 }}
@@ -221,7 +221,7 @@ export default function AreasWeServeClient() {
               </p>
               <h3
                 style={{
-                  fontFamily: "'Cormorant Garamond', serif",
+                  fontFamily: "var(--font-heading)",
                   fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
                   fontWeight: 600, color: 'white', lineHeight: 1.2,
                 }}
@@ -230,7 +230,7 @@ export default function AreasWeServeClient() {
               </h3>
               <p
                 style={{
-                  fontFamily: "'DM Sans', sans-serif", fontSize: 14,
+                  fontFamily: "var(--font-body)", fontSize: 14,
                   color: 'rgba(255,255,255,0.75)', marginTop: '10px',
                 }}
               >

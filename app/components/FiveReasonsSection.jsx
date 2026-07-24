@@ -204,7 +204,7 @@ export default function FiveReasonsSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, ease: EASE }}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 24px', fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.35em', color: '#4FA3D1', borderRadius: 999, background: 'rgba(255,255,255,0.28)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.45)', marginBottom: 24 }}>
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 24px', fontFamily: "var(--font-body)", fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.35em', color: '#4FA3D1', borderRadius: 999, background: 'rgba(255,255,255,0.28)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.45)', marginBottom: 24 }}>
               <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#E88C2A', flexShrink: 0, boxShadow: '0 0 6px rgba(232,140,42,0.7)', animation: 'fr-blink 2s ease-in-out infinite' }} />
               Why Electric Hamam
             </motion.div>
@@ -212,14 +212,14 @@ export default function FiveReasonsSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
-              style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, lineHeight: 1.1, color: '#2C1810', margin: 0 }}>
+              style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, lineHeight: 1.1, color: '#2C1810', margin: 0 }}>
               7 Reasons to Install
             </motion.h2>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.18, ease: EASE }}
-              style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, color: '#E88C2A', margin: '4px 0 0' }}>
+              style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, color: '#E88C2A', margin: '4px 0 0' }}>
               Electric Hamam This Winter
             </motion.h2>
             <motion.div
@@ -287,11 +287,11 @@ export default function FiveReasonsSection() {
                           >
                             <r.IconComp size={22} color={r.color} />
                           </div>
-                          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.18rem', fontWeight: 700, color: '#2C1810', lineHeight: 1.2, margin: 0 }}>
+                          <h3 style={{ fontFamily: "var(--font-heading)", fontSize: '1.18rem', fontWeight: 700, color: '#2C1810', lineHeight: 1.2, margin: 0 }}>
                             {r.title}
                           </h3>
                         </div>
-                        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: '#6B4A2D', lineHeight: 1.7, margin: 0 }}>
+                        <p style={{ fontFamily: "var(--font-body)", fontSize: 13, color: '#6B4A2D', lineHeight: 1.7, margin: 0 }}>
                           {r.desc}
                         </p>
                         <div style={{ marginTop: 'auto', width: 28, height: 3, borderRadius: 2, background: `linear-gradient(90deg, ${r.color}, ${r.color}50)` }} />

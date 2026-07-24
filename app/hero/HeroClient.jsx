@@ -236,7 +236,7 @@ export default function HeroUnderfloorPremiumOrange() {
 
 				/* ── heading ── */
 				.hero-heading {
-					font-family: 'Cormorant Garamond', Georgia, serif;
+					font-family: var(--font-heading);
 					font-weight: 700;
 					font-size: clamp(1.5rem, 3.2vw, 2.65rem);
 					line-height: 1.08;
@@ -271,7 +271,7 @@ export default function HeroUnderfloorPremiumOrange() {
 				.hero-stat-icon { color: var(--copper-light); flex-shrink: 0; display: flex; }
 				.hero-stat-text { display: flex; flex-direction: column; gap: 1px; }
 				.hero-stat-val {
-					font-family: 'Cormorant Garamond', Georgia, serif;
+					font-family: var(--font-heading);
 					font-size: 1.4rem;
 					font-weight: 700;
 					color: var(--ivory);

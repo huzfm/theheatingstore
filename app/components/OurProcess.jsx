@@ -130,7 +130,7 @@ export default function OurProcess() {
         .wcu-badge {
           display: inline-flex; align-items: center; gap: 8px;
           padding: 6px 20px;
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: 10px; font-weight: 600;
           text-transform: uppercase; letter-spacing: 0.32em;
           color: #E88C2A;
@@ -140,7 +140,7 @@ export default function OurProcess() {
           margin-bottom: 22px;
         }
         .wcu-title {
-          font-family: 'Cormorant Garamond', serif;
+          font-family: var(--font-heading);
           font-size: clamp(30px, 4vw, 50px);
           font-weight: 700;
           line-height: 1.1;
@@ -152,7 +152,7 @@ export default function OurProcess() {
           font-style: italic;
         }
         .wcu-sub {
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: clamp(13px, 1.4vw, 15.5px);
           color: rgba(255,248,240,0.62);
           line-height: 1.8;
@@ -194,7 +194,7 @@ export default function OurProcess() {
           justify-content: space-between;
         }
         .wcu-card-title {
-          font-family: 'Cormorant Garamond', serif;
+          font-family: var(--font-heading);
           font-size: clamp(17px, 2vw, 21px);
           font-weight: 700;
           color: #B86B45;
@@ -202,7 +202,7 @@ export default function OurProcess() {
           line-height: 1.2;
         }
         .wcu-card-num {
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: 11px;
           font-weight: 700;
           letter-spacing: 0.15em;
@@ -224,7 +224,7 @@ export default function OurProcess() {
           gap: 14px;
         }
         .wcu-card-desc {
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: clamp(13px, 1.1vw, 14px);
           color: #3C2B27;
           line-height: 1.8;
@@ -240,7 +240,7 @@ export default function OurProcess() {
           margin-top: auto;
         }
         .wcu-card-step-label {
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: 10px;
           font-weight: 600;
           letter-spacing: 0.14em;

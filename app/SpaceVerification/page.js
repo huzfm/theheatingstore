@@ -466,7 +466,7 @@ const glassInput = {
   padding: '10px 16px',
   fontSize: 14,
   color: '#2C1810',
-  fontFamily: "'DM Sans', sans-serif",
+  fontFamily: "var(--font-body)",
   width: '100%',
   outline: 'none',
   transition: 'border-color 0.2s, box-shadow 0.2s',
@@ -486,7 +486,7 @@ function UnitToggle({ value, onChange }) {
             borderRadius: 999,
             fontSize: 13,
             fontWeight: 600,
-            fontFamily: "'DM Sans', sans-serif",
+            fontFamily: "var(--font-body)",
             cursor: 'pointer',
             transition: 'all 0.2s ease',
             border: 'none',
@@ -532,7 +532,7 @@ function OptionCard({ selected, onClick, icon: IconComp, label, sublabel, infoCh
         </div>
       )}
       {badge && !selected && (
-        <div style={{ position: 'absolute', top: 10, right: 10, padding: '3px 10px', borderRadius: 999, fontSize: 10, fontWeight: 700, background: badgeColor ? `${badgeColor}18` : '#3C2A25', color: badgeColor || 'white', border: `1px solid ${badgeColor ? badgeColor + '30' : 'transparent'}`, fontFamily: "'DM Sans', sans-serif" }}>
+        <div style={{ position: 'absolute', top: 10, right: 10, padding: '3px 10px', borderRadius: 999, fontSize: 10, fontWeight: 700, background: badgeColor ? `${badgeColor}18` : '#3C2A25', color: badgeColor || 'white', border: `1px solid ${badgeColor ? badgeColor + '30' : 'transparent'}`, fontFamily: "var(--font-body)" }}>
           {badge}
         </div>
       )}
@@ -542,17 +542,17 @@ function OptionCard({ selected, onClick, icon: IconComp, label, sublabel, infoCh
         </div>
       )}
       {label && (
-        <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(0.95rem, 1.5vw, 1.05rem)', fontWeight: 600, color: '#2C1810', lineHeight: 1.2, margin: 0 }}>
+        <h3 style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(0.95rem, 1.5vw, 1.05rem)', fontWeight: 600, color: '#2C1810', lineHeight: 1.2, margin: 0 }}>
           {label}
         </h3>
       )}
       {sublabel && (
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: '#6B4A2D', lineHeight: 1.5, margin: 0 }}>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: 12, color: '#6B4A2D', lineHeight: 1.5, margin: 0 }}>
           {sublabel}
         </p>
       )}
       {infoChip && (
-        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10.5, color: '#C4623A', background: 'rgba(196,98,58,0.08)', padding: '3px 10px', borderRadius: 999, fontWeight: 500 }}>
+        <span style={{ fontFamily: "var(--font-body)", fontSize: 10.5, color: '#C4623A', background: 'rgba(196,98,58,0.08)', padding: '3px 10px', borderRadius: 999, fontWeight: 500 }}>
           {infoChip}
         </span>
       )}
@@ -577,7 +577,7 @@ function PrimaryButton({ children, onClick, disabled, loading }) {
         color: 'white',
         border: 'none',
         borderRadius: 16,
-        fontFamily: "'DM Sans', sans-serif",
+        fontFamily: "var(--font-body)",
         fontSize: 14,
         fontWeight: 600,
         cursor: disabled ? 'not-allowed' : 'pointer',
@@ -603,7 +603,7 @@ function PrimaryButton({ children, onClick, disabled, loading }) {
 // ── Step Heading ──────────────────────────────────────────────────────────────
 function StepHeading({ children }) {
   return (
-    <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 700, color: '#2C1810', margin: '0 0 12px', textAlign: 'center', lineHeight: 1.1 }}>
+    <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 700, color: '#2C1810', margin: '0 0 12px', textAlign: 'center', lineHeight: 1.1 }}>
       {children}
     </h2>
   );
@@ -611,7 +611,7 @@ function StepHeading({ children }) {
 
 function StepSub({ children }) {
   return (
-    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: '#6B4A2D', lineHeight: 1.65, margin: '0 0 36px', textAlign: 'center', maxWidth: 520 }}>
+    <p style={{ fontFamily: "var(--font-body)", fontSize: 14, color: '#6B4A2D', lineHeight: 1.65, margin: '0 0 36px', textAlign: 'center', maxWidth: 520 }}>
       {children}
     </p>
   );
@@ -625,11 +625,11 @@ function SummaryRow({ icon: IconComp, label, value, color = '#C4623A', onEdit })
         <IconComp />
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: '#6B4A2D', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 2px' }}>{label}</p>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 600, color: '#2C1810', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', margin: 0 }}>{value}</p>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: 11, color: '#6B4A2D', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 2px' }}>{label}</p>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 600, color: '#2C1810', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', margin: 0 }}>{value}</p>
       </div>
       {onEdit && (
-        <button onClick={onEdit} style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: '#C4623A', textDecoration: 'underline', flexShrink: 0, padding: '4px 0' }}>
+        <button onClick={onEdit} style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: "var(--font-body)", fontSize: 11, color: '#C4623A', textDecoration: 'underline', flexShrink: 0, padding: '4px 0' }}>
           Edit
         </button>
       )}
@@ -794,16 +794,16 @@ export default function SpaceVerification() {
             }}>
               <Icon.CheckCircle />
             </div>
-            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 700, color: '#2C1810', margin: '0 0 16px' }}>
+            <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 28, fontWeight: 700, color: '#2C1810', margin: '0 0 16px' }}>
               Space Details Submitted!
             </h2>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: '#6B4A2D', lineHeight: 1.65, margin: '0 0 24px' }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: 14, color: '#6B4A2D', lineHeight: 1.65, margin: '0 0 24px' }}>
               Thank you, <strong>{name}</strong>. We'll review your configuration and reach out on <strong>{phone}</strong> with a custom installation plan.
             </p>
             {location?.address && (
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, padding: '12px 16px', background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.5)', borderRadius: 14, textAlign: 'left', color: '#C4623A' }}>
                 <span style={{ marginTop: 2, flexShrink: 0 }}><Icon.Location /></span>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: '#6B4A2D', lineHeight: 1.6, margin: 0 }}>{location.address}</p>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: 12, color: '#6B4A2D', lineHeight: 1.6, margin: 0 }}>{location.address}</p>
               </div>
             )}
           </motion.div>
@@ -874,7 +874,7 @@ export default function SpaceVerification() {
         .fr-topbar { position: sticky; top: 0; z-index: 200; background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.4); padding: 14px 24px; }
         .fr-pbar { height: 3px; background: #E8D5C0; }
         .fr-pbar-fill { height: 100%; background: linear-gradient(90deg, #C4623A, #E88C2A); transition: width 0.5s ease; }
-        .glass-input { background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.50); border-radius: 12px; padding: 11px 16px; font-size: 14px; color: #2C1810; font-family: 'DM Sans', sans-serif; width: 100%; outline: none; transition: border-color 0.2s, box-shadow 0.2s; box-sizing: border-box; }
+        .glass-input { background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.50); border-radius: 12px; padding: 11px 16px; font-size: 14px; color: #2C1810; font-family: var(--font-body); width: 100%; outline: none; transition: border-color 0.2s, box-shadow 0.2s; box-sizing: border-box; }
         .glass-input:focus { border-color: rgba(196,98,58,0.5); box-shadow: 0 0 0 3px rgba(196,98,58,0.12); }
         .glass-input::placeholder { color: rgba(107,74,45,0.45); }
         input[type="range"].fr-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 999px; outline: none; cursor: pointer; }
@@ -952,7 +952,7 @@ export default function SpaceVerification() {
               onClick={() => step > 1 && goToStep(step - 1)}
               style={{
                 display: 'flex', alignItems: 'center', gap: 6,
-                fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 600,
+                fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600,
                 textTransform: 'uppercase', letterSpacing: '0.1em', color: '#6B4A2D',
                 background: 'none', border: 'none', cursor: step > 1 ? 'pointer' : 'default',
                 opacity: step > 1 ? 1 : 0,
@@ -962,13 +962,13 @@ export default function SpaceVerification() {
               <Icon.Back /> Back
             </button>
 
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.15em', color: '#6B4A2D' }}>
+            <span style={{ fontFamily: "var(--font-body)", fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.15em', color: '#6B4A2D' }}>
               Step {step} of {totalSteps}
             </span>
 
             <button
               onClick={handleReset}
-              style={{ display: 'flex', alignItems: 'center', gap: 6, fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#6B4A2D', background: 'none', border: 'none', cursor: 'pointer', padding: 0, transition: 'opacity 0.2s' }}
+              style={{ display: 'flex', alignItems: 'center', gap: 6, fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#6B4A2D', background: 'none', border: 'none', cursor: 'pointer', padding: 0, transition: 'opacity 0.2s' }}
             >
               <Icon.Restart /> Start Again
             </button>
@@ -1009,7 +1009,7 @@ export default function SpaceVerification() {
                       margin: '0 auto 40px',
                     }}>
                       <h1 style={{
-                        fontFamily: "'Cormorant Garamond', serif",
+                        fontFamily: "var(--font-heading)",
                         fontSize: 'clamp(28px, 5vw, 48px)',
                         fontWeight: 700,
                         color: '#2C1810',
@@ -1094,7 +1094,7 @@ export default function SpaceVerification() {
                             )}
                             <div style={{
                               padding: '14px 12px 16px',
-                              fontFamily: "'Cormorant Garamond', serif",
+                              fontFamily: "var(--font-heading)",
                               fontSize: 16,
                               fontWeight: 600,
                               color: roomType === room.id ? '#C4623A' : '#2C1810',
@@ -1176,7 +1176,7 @@ export default function SpaceVerification() {
                             )}
                             <div style={{ padding: '16px 20px 20px' }}>
                               <div style={{
-                                fontFamily: "'Cormorant Garamond', serif",
+                                fontFamily: "var(--font-heading)",
                                 fontSize: 20,
                                 fontWeight: 600,
                                 color: subfloor === floor.id ? '#C4623A' : '#2C1810',
@@ -1186,7 +1186,7 @@ export default function SpaceVerification() {
                                 {floor.label}
                               </div>
                               <div style={{
-                                fontFamily: "'DM Sans', sans-serif",
+                                fontFamily: "var(--font-body)",
                                 fontSize: 13,
                                 color: '#6B4A2D',
                                 marginBottom: 12,
@@ -1196,7 +1196,7 @@ export default function SpaceVerification() {
                               </div>
                               <div style={{
                                 display: 'inline-block',
-                                fontFamily: "'DM Sans', sans-serif",
+                                fontFamily: "var(--font-body)",
                                 fontSize: 11,
                                 fontWeight: 600,
                                 color: floor.chipColor,
@@ -1283,7 +1283,7 @@ export default function SpaceVerification() {
 
                             {/* Label */}
                             <div style={{
-                              fontFamily: "'Cormorant Garamond', serif",
+                              fontFamily: "var(--font-heading)",
                               fontSize: 22,
                               fontWeight: 600,
                               color: floorSurface === surface.id ? surface.color : '#2C1810',
@@ -1295,7 +1295,7 @@ export default function SpaceVerification() {
 
                             {/* Sublabel */}
                             <div style={{
-                              fontFamily: "'DM Sans', sans-serif",
+                              fontFamily: "var(--font-body)",
                               fontSize: 13,
                               color: '#6B4A2D',
                               lineHeight: 1.5,
@@ -1306,7 +1306,7 @@ export default function SpaceVerification() {
 
                             {/* Chip */}
                             <div style={{
-                              fontFamily: "'DM Sans', sans-serif",
+                              fontFamily: "var(--font-body)",
                               fontSize: 11,
                               fontWeight: 600,
                               color: surface.color,
@@ -1357,7 +1357,7 @@ export default function SpaceVerification() {
                   }}>
                     <div style={{ textAlign: 'center', marginBottom: 40, maxWidth: 560, margin: '0 auto 40px' }}>
                       <h1 style={{
-                        fontFamily: "'Cormorant Garamond', serif",
+                        fontFamily: "var(--font-heading)",
                         fontSize: 'clamp(28px, 5vw, 46px)',
                         fontWeight: 700,
                         color: '#2C1810',
@@ -1367,7 +1367,7 @@ export default function SpaceVerification() {
                         What are your room dimensions?
                       </h1>
                       <p style={{
-                        fontFamily: "'DM Sans', sans-serif",
+                        fontFamily: "var(--font-body)",
                         fontSize: 15,
                         color: '#6B4A2D',
                         lineHeight: 1.7,
@@ -1405,7 +1405,7 @@ export default function SpaceVerification() {
                             key={u.val}
                             onClick={() => setMeasurementUnit(u.val)}
                             style={{
-                              fontFamily: "'DM Sans', sans-serif",
+                              fontFamily: "var(--font-body)",
                               fontSize: 14,
                               fontWeight: 600,
                               padding: '8px 28px',
@@ -1436,7 +1436,7 @@ export default function SpaceVerification() {
                       }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                           <label style={{
-                            fontFamily: "'DM Sans', sans-serif",
+                            fontFamily: "var(--font-body)",
                             fontSize: 11,
                             fontWeight: 700,
                             letterSpacing: '0.1em',
@@ -1454,7 +1454,7 @@ export default function SpaceVerification() {
                             onChange={e => setLength(e.target.value)}
                             style={{
                               width: '100%',
-                              fontFamily: "'Cormorant Garamond', serif",
+                              fontFamily: "var(--font-heading)",
                               fontSize: 36,
                               fontWeight: 600,
                               color: '#2C1810',
@@ -1474,7 +1474,7 @@ export default function SpaceVerification() {
                         </div>
 
                         <div style={{
-                          fontFamily: "'Cormorant Garamond', serif",
+                          fontFamily: "var(--font-heading)",
                           fontSize: 36,
                           color: '#C4623A',
                           opacity: 0.4,
@@ -1484,7 +1484,7 @@ export default function SpaceVerification() {
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                           <label style={{
-                            fontFamily: "'DM Sans', sans-serif",
+                            fontFamily: "var(--font-body)",
                             fontSize: 11,
                             fontWeight: 700,
                             letterSpacing: '0.1em',
@@ -1502,7 +1502,7 @@ export default function SpaceVerification() {
                             onChange={e => setWidth(e.target.value)}
                             style={{
                               width: '100%',
-                              fontFamily: "'Cormorant Garamond', serif",
+                              fontFamily: "var(--font-heading)",
                               fontSize: 36,
                               fontWeight: 600,
                               color: '#2C1810',
@@ -1552,7 +1552,7 @@ export default function SpaceVerification() {
                             </svg>
                           </div>
                           <div style={{
-                            fontFamily: "'DM Sans', sans-serif",
+                            fontFamily: "var(--font-body)",
                             fontSize: 11,
                             fontWeight: 700,
                             letterSpacing: '0.12em',
@@ -1563,7 +1563,7 @@ export default function SpaceVerification() {
                             Total Room Area
                           </div>
                           <div style={{
-                            fontFamily: "'Cormorant Garamond', serif",
+                            fontFamily: "var(--font-heading)",
                             fontSize: 54,
                             fontWeight: 700,
                             color: '#2C1810',
@@ -1573,7 +1573,7 @@ export default function SpaceVerification() {
                             {(parseFloat(length) * parseFloat(width)).toFixed(1)}
                           </div>
                           <div style={{
-                            fontFamily: "'DM Sans', sans-serif",
+                            fontFamily: "var(--font-body)",
                             fontSize: 14,
                             color: '#8B6A5A',
                             marginBottom: 12,
@@ -1584,7 +1584,7 @@ export default function SpaceVerification() {
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: 6,
-                            fontFamily: "'DM Sans', sans-serif",
+                            fontFamily: "var(--font-body)",
                             fontSize: 12,
                             color: '#8B3A2A',
                             background: 'rgba(139,58,42,0.06)',
@@ -1610,7 +1610,7 @@ export default function SpaceVerification() {
                             width: '100%',
                             background: 'linear-gradient(135deg, #C4623A, #E88C2A)',
                             color: '#fff',
-                            fontFamily: "'DM Sans', sans-serif",
+                            fontFamily: "var(--font-body)",
                             fontSize: 15,
                             fontWeight: 600,
                             padding: '16px',
@@ -1637,7 +1637,7 @@ export default function SpaceVerification() {
 
                     <p style={{
                       marginTop: 16,
-                      fontFamily: "'DM Sans', sans-serif",
+                      fontFamily: "var(--font-body)",
                       fontSize: 12,
                       color: '#8B6A5A',
                       textAlign: 'center',
@@ -1660,7 +1660,7 @@ export default function SpaceVerification() {
                   }}>
                     <div style={{ textAlign: 'center', maxWidth: 560, margin: '0 auto 40px' }}>
                       <h1 style={{
-                        fontFamily: "'Cormorant Garamond', serif",
+                        fontFamily: "var(--font-heading)",
                         fontSize: 'clamp(28px, 5vw, 46px)',
                         fontWeight: 700,
                         color: '#2C1810',
@@ -1688,7 +1688,7 @@ export default function SpaceVerification() {
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: 8,
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "var(--font-body)",
                           fontSize: 13,
                           fontWeight: 600,
                           color: '#6B4A2D',
@@ -1724,7 +1724,7 @@ export default function SpaceVerification() {
                           </svg>
                         </div>
                         <div style={{
-                          fontFamily: "'Cormorant Garamond', serif",
+                          fontFamily: "var(--font-heading)",
                           fontSize: 64,
                           fontWeight: 700,
                           color: '#C4623A',
@@ -1734,7 +1734,7 @@ export default function SpaceVerification() {
                           {heatedArea}
                         </div>
                         <div style={{
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "var(--font-body)",
                           fontSize: 14,
                           color: '#8B6A5A',
                           marginBottom: 4,
@@ -1742,7 +1742,7 @@ export default function SpaceVerification() {
                           {unitLabel} heated
                         </div>
                         <div style={{
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "var(--font-body)",
                           fontSize: 13,
                           fontWeight: 700,
                           color: '#C4623A',
@@ -1768,7 +1768,7 @@ export default function SpaceVerification() {
                         <div style={{
                           display: 'flex',
                           justifyContent: 'space-between',
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "var(--font-body)",
                           fontSize: 11,
                           color: '#8B6A5A',
                           marginTop: 8,
@@ -1789,7 +1789,7 @@ export default function SpaceVerification() {
                         {heatedPercent >= 70 && heatedPercent <= 80 ? (
                           <div style={{
                             display: 'inline-flex', alignItems: 'center', gap: 6,
-                            fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 600,
+                            fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600,
                             color: '#6BAE7F', background: 'rgba(107,174,127,0.1)',
                             border: '1px solid rgba(107,174,127,0.3)', borderRadius: 999, padding: '7px 16px',
                           }}>
@@ -1801,7 +1801,7 @@ export default function SpaceVerification() {
                         ) : heatedPercent < 70 ? (
                           <div style={{
                             display: 'inline-flex', alignItems: 'center', gap: 6,
-                            fontFamily: "'DM Sans', sans-serif", fontSize: 12,
+                            fontFamily: "var(--font-body)", fontSize: 12,
                             color: '#E88C2A', background: 'rgba(232,140,42,0.08)',
                             border: '1px solid rgba(232,140,42,0.25)', borderRadius: 999, padding: '7px 16px',
                           }}>
@@ -1815,7 +1815,7 @@ export default function SpaceVerification() {
                         ) : (
                           <div style={{
                             display: 'inline-flex', alignItems: 'center', gap: 6,
-                            fontFamily: "'DM Sans', sans-serif", fontSize: 12,
+                            fontFamily: "var(--font-body)", fontSize: 12,
                             color: '#4FA3D1', background: 'rgba(79,163,209,0.08)',
                             border: '1px solid rgba(79,163,209,0.25)', borderRadius: 999, padding: '7px 16px',
                           }}>
@@ -1833,7 +1833,7 @@ export default function SpaceVerification() {
                           width: '100%',
                           background: 'linear-gradient(135deg, #C4623A, #E88C2A)',
                           color: '#fff',
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "var(--font-body)",
                           fontSize: 15,
                           fontWeight: 600,
                           padding: '16px',
@@ -1859,7 +1859,7 @@ export default function SpaceVerification() {
 
                     <p style={{
                       marginTop: 16,
-                      fontFamily: "'DM Sans', sans-serif",
+                      fontFamily: "var(--font-body)",
                       fontSize: 12,
                       color: '#8B6A5A',
                       textAlign: 'center',
@@ -1882,7 +1882,7 @@ export default function SpaceVerification() {
                   }}>
                     <div style={{ textAlign: 'center', maxWidth: 560, margin: '0 auto 40px' }}>
                       <h1 style={{
-                        fontFamily: "'Cormorant Garamond', serif",
+                        fontFamily: "var(--font-heading)",
                         fontSize: 'clamp(28px, 5vw, 46px)',
                         fontWeight: 700,
                         color: '#2C1810',
@@ -1892,7 +1892,7 @@ export default function SpaceVerification() {
                         Select a thermostat
                       </h1>
                       <p style={{
-                        fontFamily: "'DM Sans', sans-serif",
+                        fontFamily: "var(--font-body)",
                         fontSize: 15,
                         color: '#6B4A2D',
                         lineHeight: 1.7,
@@ -1970,7 +1970,7 @@ export default function SpaceVerification() {
                               position: 'absolute',
                               top: 14,
                               right: 14,
-                              fontFamily: "'DM Sans', sans-serif",
+                              fontFamily: "var(--font-body)",
                               fontSize: 11,
                               fontWeight: 700,
                               color: '#fff',
@@ -2023,7 +2023,7 @@ export default function SpaceVerification() {
                           <div style={{ padding: '20px 24px 0', width: '100%', boxSizing: 'border-box' }}>
                             {/* Label */}
                             <div style={{
-                              fontFamily: "'Cormorant Garamond', serif",
+                              fontFamily: "var(--font-heading)",
                               fontSize: 22,
                               fontWeight: 600,
                               color: thermostat === t.id ? t.color : '#2C1810',
@@ -2035,7 +2035,7 @@ export default function SpaceVerification() {
 
                             {/* Sublabel */}
                             <div style={{
-                              fontFamily: "'DM Sans', sans-serif",
+                              fontFamily: "var(--font-body)",
                               fontSize: 12,
                               fontWeight: 600,
                               color: t.color,
@@ -2047,7 +2047,7 @@ export default function SpaceVerification() {
 
                             {/* Description */}
                             <div style={{
-                              fontFamily: "'DM Sans', sans-serif",
+                              fontFamily: "var(--font-body)",
                               fontSize: 13,
                               color: '#6B4A2D',
                               lineHeight: 1.6,
@@ -2101,7 +2101,7 @@ export default function SpaceVerification() {
                           marginTop: 32,
                           background: 'linear-gradient(135deg, #C4623A, #E88C2A)',
                           color: '#fff',
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "var(--font-body)",
                           fontSize: 15,
                           fontWeight: 600,
                           padding: '16px 48px',
@@ -2139,7 +2139,7 @@ export default function SpaceVerification() {
                   }}>
                     <div style={{ textAlign: 'center', maxWidth: 560, margin: '0 auto 40px' }}>
                       <h1 style={{
-                        fontFamily: "'Cormorant Garamond', serif",
+                        fontFamily: "var(--font-heading)",
                         fontSize: 'clamp(28px, 5vw, 46px)',
                         fontWeight: 700,
                         color: '#2C1810',
@@ -2149,7 +2149,7 @@ export default function SpaceVerification() {
                         Select insulation
                       </h1>
                       <p style={{
-                        fontFamily: "'DM Sans', sans-serif",
+                        fontFamily: "var(--font-body)",
                         fontSize: 15,
                         color: '#6B4A2D',
                         lineHeight: 1.7,
@@ -2214,7 +2214,7 @@ export default function SpaceVerification() {
                               position: 'absolute',
                               top: 14,
                               right: 14,
-                              fontFamily: "'DM Sans', sans-serif",
+                              fontFamily: "var(--font-body)",
                               fontSize: 11,
                               fontWeight: 700,
                               color: '#fff',
@@ -2249,7 +2249,7 @@ export default function SpaceVerification() {
                           </div>
 
                           <div style={{
-                            fontFamily: "'Cormorant Garamond', serif",
+                            fontFamily: "var(--font-heading)",
                             fontSize: 22,
                             fontWeight: 600,
                             color: insulation === i.id ? i.color : '#2C1810',
@@ -2260,7 +2260,7 @@ export default function SpaceVerification() {
                           </div>
 
                           <div style={{
-                            fontFamily: "'DM Sans', sans-serif",
+                            fontFamily: "var(--font-body)",
                             fontSize: 13,
                             color: '#6B4A2D',
                             lineHeight: 1.5,
@@ -2270,7 +2270,7 @@ export default function SpaceVerification() {
                           </div>
 
                           <div style={{
-                            fontFamily: "'DM Sans', sans-serif",
+                            fontFamily: "var(--font-body)",
                             fontSize: 13,
                             color: '#6B4A2D',
                             lineHeight: 1.6,
@@ -2321,7 +2321,7 @@ export default function SpaceVerification() {
                           marginTop: 32,
                           background: 'linear-gradient(135deg, #C4623A, #E88C2A)',
                           color: '#fff',
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "var(--font-body)",
                           fontSize: 15,
                           fontWeight: 600,
                           padding: '16px 48px',
@@ -2369,7 +2369,7 @@ export default function SpaceVerification() {
                         style={{ ...cardBase, padding: '28px 24px' }}
                       >
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-                          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: '#E88C2A', margin: 0 }}>
+                          <p style={{ fontFamily: "var(--font-body)", fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: '#E88C2A', margin: 0 }}>
                             Your Configuration
                           </p>
                         </div>
@@ -2404,7 +2404,7 @@ export default function SpaceVerification() {
                         style={{ ...cardBase, padding: '28px 24px' }}
                       >
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-                          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: '#E88C2A', margin: 0 }}>
+                          <p style={{ fontFamily: "var(--font-body)", fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: '#E88C2A', margin: 0 }}>
                             Your Details
                           </p>
                         </div>
@@ -2412,7 +2412,7 @@ export default function SpaceVerification() {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
                           {/* Name */}
                           <div>
-                            <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 600, color: '#6B4A2D', display: 'block', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                            <label style={{ fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, color: '#6B4A2D', display: 'block', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                               Full Name *
                             </label>
                             <input
@@ -2426,7 +2426,7 @@ export default function SpaceVerification() {
 
                           {/* Phone */}
                           <div>
-                            <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 600, color: '#6B4A2D', display: 'block', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                            <label style={{ fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, color: '#6B4A2D', display: 'block', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                               Phone Number *
                             </label>
                             <input
@@ -2440,7 +2440,7 @@ export default function SpaceVerification() {
 
                           {/* Email */}
                           <div>
-                            <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 600, color: '#6B4A2D', display: 'block', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                            <label style={{ fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, color: '#6B4A2D', display: 'block', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                               Email <span style={{ fontWeight: 400, opacity: 0.6 }}>(optional)</span>
                             </label>
                             <input
@@ -2454,7 +2454,7 @@ export default function SpaceVerification() {
 
                           {/* Location */}
                           <div>
-                            <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 600, color: '#6B4A2D', display: 'block', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                            <label style={{ fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, color: '#6B4A2D', display: 'block', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
                                 <span style={{ color: '#C4623A' }}><Icon.Location /></span>
                                 Your Location <span style={{ fontWeight: 400, opacity: 0.6 }}>(for site visit)</span>
@@ -2465,7 +2465,7 @@ export default function SpaceVerification() {
 
                           {/* Message */}
                           <div>
-                            <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 600, color: '#6B4A2D', display: 'block', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                            <label style={{ fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, color: '#6B4A2D', display: 'block', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                               Message <span style={{ fontWeight: 400, opacity: 0.6 }}>(optional)</span>
                             </label>
                             <textarea

@@ -1,23 +1,27 @@
 
 
-import { Cormorant_Garamond, DM_Sans } from 'next/font/google';
+import { Bebas_Neue, Hanken_Grotesk } from 'next/font/google';
 import "./globals.css";
 import Footer from "./components/footer";
 import AIChatbot from "./components/Chatbot";
 import SiteHeader from './components/SiteHeader';
 import SiteChrome from './components/SiteChrome';
+import SmoothScroll from './components/SmoothScroll';
 
-const cormorant = Cormorant_Garamond({
+// Display / headline font — Bebas Neue (Google Fonts, self-hosted at build).
+// Tall condensed all-caps gothic; ships a single 400 weight (never faux-bold it).
+const bebasNeue = Bebas_Neue({
   subsets: ['latin'],
-  weight: ['600', '700'],
+  weight: ['400'],
   variable: '--font-heading',
-  style: ['normal', 'italic'],
   display: 'swap',
 });
 
-const dmSans = DM_Sans({
+// Body / UI font — Hanken Grotesk (Google Fonts, self-hosted at build).
+// Clean, readable grotesque that pairs with the condensed gothic headlines.
+const hankenGrotesk = Hanken_Grotesk({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-body',
   display: 'swap',
 });
@@ -122,8 +126,9 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body
-        className={`${cormorant.variable} ${dmSans.variable} antialiased bg-white text-slate-900`}
+        className={`${bebasNeue.variable} ${hankenGrotesk.variable} antialiased bg-white text-slate-900`}
       >
+        <SmoothScroll />
         {/* <Header /> */}
         <SiteHeader/>
 

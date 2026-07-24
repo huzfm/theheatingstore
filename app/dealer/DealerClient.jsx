@@ -70,7 +70,7 @@ const inputStyle = {
   borderRadius: 10,
   padding: '12px 14px',
   fontSize: 14,
-  fontFamily: "'DM Sans', sans-serif",
+  fontFamily: "var(--font-body)",
   color: 'rgba(255,255,255,0.96)',
   outline: 'none',
   transition: 'border-color 0.2s, box-shadow 0.2s',
@@ -79,7 +79,7 @@ const inputStyle = {
 const labelStyle = {
   fontSize: 12.5,
   fontWeight: 600,
-  fontFamily: "'DM Sans', sans-serif",
+  fontFamily: "var(--font-body)",
   color: 'rgba(214,198,184,0.85)',
   marginBottom: 8,
   display: 'block',
@@ -147,7 +147,7 @@ export default function DealerClient() {
                 color: '#E8933A',
                 textTransform: 'uppercase',
                 marginBottom: 18,
-                fontFamily: "'DM Sans', sans-serif",
+                fontFamily: "var(--font-body)",
               }}
             >
               Dealer Program · 2026
@@ -161,7 +161,7 @@ export default function DealerClient() {
             viewport={{ once: true }}
             custom={1}
             style={{
-              fontFamily: "'Cormorant Garamond', 'Times New Roman', serif",
+              fontFamily: "var(--font-heading)",
               fontWeight: 500,
               fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
               lineHeight: 1.05,
@@ -180,7 +180,7 @@ export default function DealerClient() {
             viewport={{ once: true }}
             custom={2}
             style={{
-              fontFamily: "'DM Sans', sans-serif",
+              fontFamily: "var(--font-body)",
               fontSize: 'clamp(1.05rem, 1.6vw, 1.2rem)',
               color: '#E8933A',
               marginTop: 18,
@@ -197,7 +197,7 @@ export default function DealerClient() {
             viewport={{ once: true }}
             custom={3}
             style={{
-              fontFamily: "'DM Sans', sans-serif",
+              fontFamily: "var(--font-body)",
               fontSize: 'clamp(14px, 1.4vw, 15.5px)',
               color: 'rgba(214,198,184,0.85)',
               lineHeight: 1.75,
@@ -239,7 +239,7 @@ export default function DealerClient() {
               >
                 <span
                   style={{
-                    fontFamily: "'Cormorant Garamond', serif",
+                    fontFamily: "var(--font-heading)",
                     fontSize: 20,
                     fontWeight: 600,
                     color: '#E8933A',
@@ -250,7 +250,7 @@ export default function DealerClient() {
                 </span>
                 <span
                   style={{
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-body)",
                     fontSize: 11.5,
                     fontWeight: 600,
                     letterSpacing: '0.1em',
@@ -281,7 +281,7 @@ export default function DealerClient() {
                 gap: 8,
                 background: 'linear-gradient(135deg, #E8933A 0%, #D4642A 100%)',
                 color: 'white',
-                fontFamily: "'DM Sans', sans-serif",
+                fontFamily: "var(--font-body)",
                 fontSize: 14,
                 fontWeight: 600,
                 letterSpacing: '0.03em',
@@ -323,7 +323,7 @@ export default function DealerClient() {
           >
             <h2
               style={{
-                fontFamily: "'Cormorant Garamond', serif",
+                fontFamily: "var(--font-heading)",
                 fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
                 fontWeight: 500,
                 color: 'rgba(255,255,255,0.96)',
@@ -335,7 +335,7 @@ export default function DealerClient() {
             </h2>
             <p
               style={{
-                fontFamily: "'DM Sans', sans-serif",
+                fontFamily: "var(--font-body)",
                 fontSize: 14.5,
                 color: 'rgba(214,198,184,0.75)',
                 marginTop: 10,
@@ -387,7 +387,7 @@ export default function DealerClient() {
                 </div>
                 <h3
                   style={{
-                    fontFamily: "'Cormorant Garamond', serif",
+                    fontFamily: "var(--font-heading)",
                     fontSize: 22,
                     fontWeight: 600,
                     color: 'rgba(255,255,255,0.96)',
@@ -398,7 +398,7 @@ export default function DealerClient() {
                 </h3>
                 <p
                   style={{
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-body)",
                     fontSize: 14,
                     color: 'rgba(214,198,184,0.8)',
                     lineHeight: 1.7,
@@ -436,14 +436,14 @@ export default function DealerClient() {
                 color: '#E8933A',
                 textTransform: 'uppercase',
                 marginBottom: 12,
-                fontFamily: "'DM Sans', sans-serif",
+                fontFamily: "var(--font-body)",
               }}
             >
               Social Proof
             </p>
             <h2
               style={{
-                fontFamily: "'Cormorant Garamond', serif",
+                fontFamily: "var(--font-heading)",
                 fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
                 fontWeight: 500,
                 color: 'rgba(255,255,255,0.96)',
@@ -455,7 +455,7 @@ export default function DealerClient() {
             </h2>
             <p
               style={{
-                fontFamily: "'DM Sans', sans-serif",
+                fontFamily: "var(--font-body)",
                 fontSize: 14.5,
                 color: 'rgba(214,198,184,0.75)',
                 marginTop: 10,
@@ -506,7 +506,7 @@ export default function DealerClient() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontFamily: "'DM Sans', sans-serif",
+                      fontFamily: "var(--font-body)",
                       fontWeight: 700,
                       fontSize: 16,
                       color: 'white',
@@ -519,7 +519,7 @@ export default function DealerClient() {
                   <div style={{ minWidth: 0 }}>
                     <h3
                       style={{
-                        fontFamily: "'Cormorant Garamond', serif",
+                        fontFamily: "var(--font-heading)",
                         fontSize: 19,
                         fontWeight: 600,
                         color: 'rgba(255,255,255,0.96)',
@@ -541,7 +541,7 @@ export default function DealerClient() {
                       gap: 6,
                       fontSize: 11.5,
                       fontWeight: 600,
-                      fontFamily: "'DM Sans', sans-serif",
+                      fontFamily: "var(--font-body)",
                       color: 'rgba(214,198,184,0.85)',
                       background: 'rgba(255,255,255,0.04)',
                       border: '1px solid rgba(255,255,255,0.1)',
@@ -559,7 +559,7 @@ export default function DealerClient() {
                     style={{
                       fontSize: 11.5,
                       fontWeight: 600,
-                      fontFamily: "'DM Sans', sans-serif",
+                      fontFamily: "var(--font-body)",
                       color: 'rgba(214,198,184,0.85)',
                       background: 'rgba(255,255,255,0.04)',
                       border: '1px solid rgba(255,255,255,0.1)',
@@ -593,7 +593,7 @@ export default function DealerClient() {
                       border: '1px solid rgba(232,147,58,0.25)',
                       borderRadius: 999,
                       padding: '4px 11px',
-                      fontFamily: "'DM Sans', sans-serif",
+                      fontFamily: "var(--font-body)",
                     }}
                   >
                     <span
@@ -633,7 +633,7 @@ export default function DealerClient() {
           >
             <h2
               style={{
-                fontFamily: "'Cormorant Garamond', serif",
+                fontFamily: "var(--font-heading)",
                 fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
                 fontWeight: 500,
                 color: 'rgba(255,255,255,0.96)',
@@ -645,7 +645,7 @@ export default function DealerClient() {
             </h2>
             <p
               style={{
-                fontFamily: "'DM Sans', sans-serif",
+                fontFamily: "var(--font-body)",
                 fontSize: 14.5,
                 color: 'rgba(214,198,184,0.75)',
                 marginTop: 10,
@@ -834,7 +834,7 @@ export default function DealerClient() {
                     width: '100%',
                     background: 'linear-gradient(135deg, #E8933A 0%, #D4642A 100%)',
                     color: 'white',
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-body)",
                     fontSize: 14.5,
                     fontWeight: 600,
                     letterSpacing: '0.03em',
@@ -863,7 +863,7 @@ export default function DealerClient() {
                     color: 'rgba(255,255,255,0.4)',
                     textAlign: 'center',
                     margin: 0,
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-body)",
                   }}
                 >
                   By submitting, you agree to be contacted by The Heating Store dealer team.
@@ -901,7 +901,7 @@ export default function DealerClient() {
                 </div>
                 <h3
                   style={{
-                    fontFamily: "'Cormorant Garamond', serif",
+                    fontFamily: "var(--font-heading)",
                     fontSize: 'clamp(1.5rem, 3vw, 2rem)',
                     fontWeight: 500,
                     color: 'rgba(255,255,255,0.96)',
@@ -912,7 +912,7 @@ export default function DealerClient() {
                 </h3>
                 <p
                   style={{
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-body)",
                     fontSize: 14.5,
                     color: 'rgba(214,198,184,0.85)',
                     lineHeight: 1.7,
@@ -932,7 +932,7 @@ export default function DealerClient() {
                     gap: 8,
                     background: '#25D366',
                     color: 'white',
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-body)",
                     fontSize: 14,
                     fontWeight: 600,
                     padding: '12px 24px',
@@ -998,7 +998,7 @@ export default function DealerClient() {
             <div style={{ position: 'relative', flex: '1 1 280px' }}>
               <h3
                 style={{
-                  fontFamily: "'Cormorant Garamond', serif",
+                  fontFamily: "var(--font-heading)",
                   fontSize: 'clamp(1.35rem, 2.5vw, 1.75rem)',
                   fontWeight: 500,
                   color: 'rgba(255,255,255,0.96)',
@@ -1010,7 +1010,7 @@ export default function DealerClient() {
               </h3>
               <p
                 style={{
-                  fontFamily: "'DM Sans', sans-serif",
+                  fontFamily: "var(--font-body)",
                   fontSize: 13.5,
                   color: 'rgba(214,198,184,0.7)',
                   marginTop: 8,
@@ -1031,7 +1031,7 @@ export default function DealerClient() {
                   gap: 8,
                   background: 'linear-gradient(135deg, #E8933A 0%, #D4642A 100%)',
                   color: 'white',
-                  fontFamily: "'DM Sans', sans-serif",
+                  fontFamily: "var(--font-body)",
                   fontSize: 14,
                   fontWeight: 600,
                   padding: '13px 26px',

@@ -177,14 +177,14 @@ function SearchModal({ open, onClose }) {
                   border: 'none',
                   outline: 'none',
                   color: C.textPrimary,
-                  fontFamily: "'DM Sans', system-ui, sans-serif",
+                  fontFamily: "var(--font-body)",
                   fontSize: 16,
                   fontWeight: 500,
                 }}
               />
               <kbd
                 style={{
-                  fontFamily: "'DM Sans', system-ui, sans-serif",
+                  fontFamily: "var(--font-body)",
                   fontSize: 11,
                   padding: '3px 7px',
                   borderRadius: 6,
@@ -218,7 +218,7 @@ function SearchModal({ open, onClose }) {
                     padding: 24,
                     textAlign: 'center',
                     color: C.textMuted,
-                    fontFamily: "'DM Sans', system-ui, sans-serif",
+                    fontFamily: "var(--font-body)",
                     fontSize: 13.5,
                   }}
                 >
@@ -238,7 +238,7 @@ function SearchModal({ open, onClose }) {
                       borderRadius: 12,
                       textDecoration: 'none',
                       color: C.textPrimary,
-                      fontFamily: "'DM Sans', system-ui, sans-serif",
+                      fontFamily: "var(--font-body)",
                       fontSize: 14,
                       fontWeight: 500,
                       transition: 'background 0.18s ease',
@@ -250,7 +250,7 @@ function SearchModal({ open, onClose }) {
                       <Search size={14} color={C.textMuted} />
                       {item.label}
                     </span>
-                    <span style={{ fontSize: 11, color: C.textMuted, fontFamily: "'DM Sans', system-ui, sans-serif" }}>
+                    <span style={{ fontSize: 11, color: C.textMuted, fontFamily: "var(--font-body)" }}>
                       {item.href}
                     </span>
                   </Link>
@@ -335,7 +335,7 @@ function MobileMenu({ open, onClose, pathname, onSearchOpen }) {
                     padding: '14px 12px',
                     borderRadius: 12,
                     textDecoration: 'none',
-                    fontFamily: "'DM Sans', system-ui, sans-serif",
+                    fontFamily: "var(--font-body)",
                     fontSize: 15,
                     fontWeight: active ? 600 : 500,
                     color: active ? C.warmOrange : C.textPrimary,
@@ -364,7 +364,7 @@ function MobileMenu({ open, onClose, pathname, onSearchOpen }) {
                 cursor: 'pointer',
                 width: '100%',
                 textAlign: 'left',
-                fontFamily: "'DM Sans', system-ui, sans-serif",
+                fontFamily: "var(--font-body)",
                 fontSize: 15,
                 fontWeight: 500,
                 color: moreExpanded ? C.textPrimary : C.textSecondary,
@@ -403,7 +403,7 @@ function MobileMenu({ open, onClose, pathname, onSearchOpen }) {
                             padding: '12px 12px 12px 20px',
                             borderRadius: 12,
                             textDecoration: 'none',
-                            fontFamily: "'DM Sans', system-ui, sans-serif",
+                            fontFamily: "var(--font-body)",
                             fontSize: 14,
                             fontWeight: active ? 600 : 500,
                             color: active ? C.warmOrange : C.textSecondary,
@@ -446,7 +446,7 @@ function MobileMenu({ open, onClose, pathname, onSearchOpen }) {
                 border: `1px solid ${C.glassBorder}`,
                 color: C.textPrimary,
                 cursor: 'pointer',
-                fontFamily: "'DM Sans', system-ui, sans-serif",
+                fontFamily: "var(--font-body)",
                 fontSize: 14,
                 fontWeight: 500,
               }}
@@ -468,7 +468,7 @@ function MobileMenu({ open, onClose, pathname, onSearchOpen }) {
                 background: `linear-gradient(135deg, ${C.warmOrange}, ${C.warmAccent})`,
                 color: '#fff',
                 textDecoration: 'none',
-                fontFamily: "'DM Sans', system-ui, sans-serif",
+                fontFamily: "var(--font-body)",
                 fontSize: 14,
                 fontWeight: 600,
                 boxShadow: '0 8px 24px rgba(232,147,58,0.32)',
@@ -517,7 +517,7 @@ function NavLinks({ pathname }) {
 
   const linkStyle = (active) => ({
     textDecoration: 'none',
-    fontFamily: "'DM Sans', system-ui, sans-serif",
+    fontFamily: "var(--font-body)",
     fontSize: 12.5,
     fontWeight: 500,
     letterSpacing: '0.18em',
@@ -613,7 +613,7 @@ function NavLinks({ pathname }) {
                       padding: '10px 12px',
                       borderRadius: 10,
                       textDecoration: 'none',
-                      fontFamily: "'DM Sans', system-ui, sans-serif",
+                      fontFamily: "var(--font-body)",
                       fontSize: 13,
                       fontWeight: active ? 600 : 500,
                       color: active ? C.warmOrange : C.textPrimary,
@@ -768,7 +768,7 @@ export default function Header() {
                 background: `linear-gradient(135deg, ${C.warmOrange}, ${C.warmAccent})`,
                 color: '#fff',
                 textDecoration: 'none',
-                fontFamily: "'DM Sans', system-ui, sans-serif",
+                fontFamily: "var(--font-body)",
                 fontSize: 12.5,
                 fontWeight: 600,
                 letterSpacing: '0.08em',

@@ -30,7 +30,7 @@ const CHECKS = [
   {
     n: '04',
     title: 'Type system',
-    body: 'Sora for display at a fluid clamp() scale, DM Sans for body. Tight tracking up top, generous line-height below.',
+    body: 'Sora for display at a fluid clamp() scale, Hanken Grotesk for body. Tight tracking up top, generous line-height below.',
   },
 ];
 

@@ -15,7 +15,7 @@ export default function CertificationsClient() {
 			style={{
 				background:
 					'linear-gradient(180deg,#FFFFFF 0%,#FFF4E8 35%,#FFE0C2 70%,#F5B97A 100%)',
-				fontFamily: "'DM Sans', sans-serif",
+				fontFamily: "var(--font-body)",
 			}}>
 			{/* Warm texture overlays */}
 			<div className='pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(184,107,69,0.08),transparent_70%)]' />
@@ -35,7 +35,7 @@ export default function CertificationsClient() {
 
 					<h1
 						className='mb-6 tracking-tight'
-						style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.75rem, 4vw, 3rem)', fontWeight: 700, lineHeight: 1.1, color: '#3C2A25' }}>
+						style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.75rem, 4vw, 3rem)', fontWeight: 700, lineHeight: 1.1, color: '#3C2A25' }}>
 						Electric Hamam Certifications &{' '}
 						<span className='text-[#B86B45]'>Installation Standards</span>
 					</h1>
@@ -63,7 +63,7 @@ export default function CertificationsClient() {
 							<div className='h-10 w-1 bg-gradient-to-b from-[#E8933A] to-[#B86B45] rounded-full'></div>
 							<h2
 								className='text-2xl font-bold text-[#3C2A25]'
-								style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+								style={{ fontFamily: "var(--font-heading)" }}>
 								Kashmir-Installed Premium Brands
 							</h2>
 						</div>
@@ -92,7 +92,7 @@ export default function CertificationsClient() {
 					<div className='flex items-center gap-3 mb-8'>
 						<div className='h-8 w-1 bg-gradient-to-b from-[#E8933A] to-[#B86B45] rounded-full'></div>
 						<h2
-							style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.375rem, 3vw, 1.875rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.2 }}>
+							style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.375rem, 3vw, 1.875rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.2 }}>
 							International Certifications
 						</h2>
 						<span
@@ -120,7 +120,7 @@ export default function CertificationsClient() {
 										CE
 									</div>
 									<h3
-										style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
+										style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
 										CE & UKCA Certification
 									</h3>
 								</div>
@@ -173,7 +173,7 @@ export default function CertificationsClient() {
 										IEC
 									</div>
 									<h3
-										style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
+										style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
 										IEC 60335 Safety
 									</h3>
 								</div>
@@ -208,7 +208,7 @@ export default function CertificationsClient() {
 										ISO
 									</div>
 									<h3
-										style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
+										style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
 										ISO 9001:2015
 									</h3>
 								</div>
@@ -241,7 +241,7 @@ export default function CertificationsClient() {
 										UL
 									</div>
 									<h3
-										style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
+										style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
 										Global Approvals
 									</h3>
 								</div>
@@ -303,7 +303,7 @@ export default function CertificationsClient() {
 					<div className='flex items-center gap-3 mb-8'>
 						<div className='h-8 w-1 bg-gradient-to-b from-[#E8933A] to-[#B86B45] rounded-full'></div>
 						<h2
-							style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.375rem, 3vw, 1.875rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.2 }}>
+							style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.375rem, 3vw, 1.875rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.2 }}>
 							Water-Based Standards
 						</h2>
 						<span
@@ -328,7 +328,7 @@ export default function CertificationsClient() {
 								WRAS
 							</div>
 							<h3
-								style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
+								style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
 								WRAS Approved Components
 							</h3>
 							<p className='text-[#3C2B27]/80'>
@@ -356,7 +356,7 @@ export default function CertificationsClient() {
 								EN ISO
 							</div>
 							<h3
-								style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
+								style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
 								EN ISO 21003 Multilayer Pipe
 							</h3>
 							<p className='text-[#3C2B27]/80 mb-3'>
@@ -389,7 +389,7 @@ export default function CertificationsClient() {
 					<div className='flex items-center gap-3 mb-8'>
 						<div className='h-8 w-1 bg-gradient-to-b from-[#E8933A] to-[#B86B45] rounded-full'></div>
 						<h2
-							style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.375rem, 3vw, 1.875rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.2 }}>
+							style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.375rem, 3vw, 1.875rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.2 }}>
 							Safety & Installation
 						</h2>
 					</div>
@@ -473,7 +473,7 @@ export default function CertificationsClient() {
 					<div className='flex items-center gap-3 mb-8'>
 						<div className='h-8 w-1 bg-gradient-to-b from-[#E8933A] to-[#B86B45] rounded-full'></div>
 						<h2
-							style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.375rem, 3vw, 1.875rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.2 }}>
+							style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.375rem, 3vw, 1.875rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.2 }}>
 							Warranty & Protection
 						</h2>
 					</div>
@@ -496,7 +496,7 @@ export default function CertificationsClient() {
 								COVERAGE
 							</div>
 							<h3
-								style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.5rem' }}>
+								style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.5rem' }}>
 								Installation Protection
 							</h3>
 							<p className='text-[#3C2B27]/80 text-sm'>
@@ -522,7 +522,7 @@ export default function CertificationsClient() {
 								YEARS
 							</div>
 							<h3
-								style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.5rem' }}>
+								style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.5rem' }}>
 								Pipe Guarantee
 							</h3>
 							<p className='text-[#3C2B27]/80 text-sm'>
@@ -550,7 +550,7 @@ export default function CertificationsClient() {
 						<div className='flex items-center gap-3 mb-6'>
 							<div className='h-8 w-1 bg-gradient-to-b from-[#E8933A] to-[#B86B45] rounded-full'></div>
 							<h2
-								style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.375rem, 3vw, 1.875rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.2 }}>
+								style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.375rem, 3vw, 1.875rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.2 }}>
 								Global Track Record
 							</h2>
 						</div>
@@ -627,7 +627,7 @@ export default function CertificationsClient() {
 					<div className='flex items-center gap-3 mb-8'>
 						<div className='h-8 w-1 bg-gradient-to-b from-[#E8933A] to-[#B86B45] rounded-full' />
 						<h2
-							style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.375rem, 3vw, 1.875rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.2 }}>
+							style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.375rem, 3vw, 1.875rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.2 }}>
 							Project Intelligence
 						</h2>
 					</div>
@@ -643,7 +643,7 @@ export default function CertificationsClient() {
 								boxShadow: '0 8px 32px rgba(60,42,37,0.07)',
 							}}>
 							<h3
-								style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
+								style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
 								Installation-First Product Experience
 							</h3>
 							<p className='text-[#3C2B27]/80 text-sm'>
@@ -663,7 +663,7 @@ export default function CertificationsClient() {
 								boxShadow: '0 8px 32px rgba(60,42,37,0.07)',
 							}}>
 							<h3
-								style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
+								style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
 								Intelligent Project Cost Calculator
 							</h3>
 							<p className='text-[#3C2B27]/80 text-sm'>
@@ -683,7 +683,7 @@ export default function CertificationsClient() {
 								boxShadow: '0 8px 32px rgba(60,42,37,0.07)',
 							}}>
 							<h3
-								style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
+								style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)', fontWeight: 700, color: '#3C2A25', lineHeight: 1.3, marginBottom: '0.75rem' }}>
 								End-to-End Project Guidance
 							</h3>
 							<p className='text-[#3C2B27]/80 text-sm'>
@@ -705,7 +705,7 @@ export default function CertificationsClient() {
 						<div className='flex flex-col md:flex-row justify-between items-start md:items-center gap-6'>
 							<div>
 								<h2
-									style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.25rem, 3vw, 1.875rem)', fontWeight: 700, color: 'white', lineHeight: 1.2, marginBottom: '1rem', letterSpacing: '0' }}>
+									style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.25rem, 3vw, 1.875rem)', fontWeight: 700, color: 'white', lineHeight: 1.2, marginBottom: '1rem', letterSpacing: '0' }}>
 									Technical Support & Kashmir Expertise
 								</h2>
 								<p className='text-white/90 max-w-2xl'>

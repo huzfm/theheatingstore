@@ -69,7 +69,7 @@ export default function Footer() {
             {/* Wordmark */}
             <Link href="/" style={{ textDecoration: 'none', display: 'inline-block' }}>
               <span style={{
-                fontFamily: "'Cormorant Garamond', 'Times New Roman', serif",
+                fontFamily: "var(--font-heading)",
                 fontSize: 26,
                 letterSpacing: '0.04em',
                 whiteSpace: 'nowrap',
@@ -90,7 +90,7 @@ export default function Footer() {
               lineHeight: 1.75,
               color: 'rgba(214,198,184,0.85)',
               maxWidth: 280,
-              fontFamily: "'DM Sans', sans-serif",
+              fontFamily: "var(--font-body)",
             }}>
               Premium electric hammam &amp; underfloor heating — engineered for Kashmir's extreme winters and India's most demanding spaces.
             </p>
@@ -113,7 +113,7 @@ export default function Footer() {
               ].map(({ icon, text }, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
                   <span style={{ marginTop: 2, flexShrink: 0 }}>{icon}</span>
-                  <span style={{ fontSize: 13, color: 'rgba(214,198,184,0.8)', fontFamily: "'DM Sans', sans-serif", lineHeight: 1.5 }}>{text}</span>
+                  <span style={{ fontSize: 13, color: 'rgba(214,198,184,0.8)', fontFamily: "var(--font-body)", lineHeight: 1.5 }}>{text}</span>
                 </div>
               ))}
             </div>
@@ -149,7 +149,7 @@ export default function Footer() {
 
           {/* ── COL 2: QUICK LINKS ── */}
           <motion.div variants={FADE_UP} initial="hidden" whileInView="show" viewport={{ once: true }} custom={1}>
-            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', fontFamily: "'DM Sans', sans-serif", marginBottom: 20 }}>
+            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', fontFamily: "var(--font-body)", marginBottom: 20 }}>
               Quick Links
             </p>
             <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -159,7 +159,7 @@ export default function Footer() {
                     fontSize: 13.5,
                     color: 'rgba(214,198,184,0.75)',
                     textDecoration: 'none',
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-body)",
                     display: 'flex',
                     alignItems: 'center',
                     gap: 6,
@@ -178,7 +178,7 @@ export default function Footer() {
 
           {/* ── COL 3: SERVICES ── */}
           <motion.div variants={FADE_UP} initial="hidden" whileInView="show" viewport={{ once: true }} custom={2}>
-            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', fontFamily: "'DM Sans', sans-serif", marginBottom: 20 }}>
+            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', fontFamily: "var(--font-body)", marginBottom: 20 }}>
               Services
             </p>
             <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -188,7 +188,7 @@ export default function Footer() {
                     fontSize: 13.5,
                     color: 'rgba(214,198,184,0.75)',
                     textDecoration: 'none',
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-body)",
                     display: 'flex',
                     alignItems: 'center',
                     gap: 6,
@@ -207,7 +207,7 @@ export default function Footer() {
 
           {/* ── COL 4: RESOURCES ── */}
           <motion.div variants={FADE_UP} initial="hidden" whileInView="show" viewport={{ once: true }} custom={3}>
-            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', fontFamily: "'DM Sans', sans-serif", marginBottom: 20 }}>
+            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', fontFamily: "var(--font-body)", marginBottom: 20 }}>
               Resources
             </p>
             <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -217,7 +217,7 @@ export default function Footer() {
                     fontSize: 13.5,
                     color: 'rgba(214,198,184,0.75)',
                     textDecoration: 'none',
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-body)",
                     display: 'flex',
                     alignItems: 'center',
                     gap: 6,
@@ -236,7 +236,7 @@ export default function Footer() {
 
           {/* ── COL 5: OUTREACH ── */}
           <motion.div variants={FADE_UP} initial="hidden" whileInView="show" viewport={{ once: true }} custom={4}>
-            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', fontFamily: "'DM Sans', sans-serif", marginBottom: 20 }}>
+            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', fontFamily: "var(--font-body)", marginBottom: 20 }}>
               Outreach
             </p>
 
@@ -248,10 +248,10 @@ export default function Footer() {
               padding: '16px 18px',
               marginTop: 12,
             }}>
-              <p style={{ fontSize: 13.5, fontWeight: 600, fontFamily: "'DM Sans', sans-serif", color: 'rgba(255,255,255,0.92)', margin: '0 0 6px' }}>
+              <p style={{ fontSize: 13.5, fontWeight: 600, fontFamily: "var(--font-body)", color: 'rgba(255,255,255,0.92)', margin: '0 0 6px' }}>
                 Become a Dealer
               </p>
-              <p style={{ fontSize: 12.5, lineHeight: 1.65, color: 'rgba(214,198,184,0.75)', fontFamily: "'DM Sans', sans-serif", margin: '0 0 14px' }}>
+              <p style={{ fontSize: 12.5, lineHeight: 1.65, color: 'rgba(214,198,184,0.75)', fontFamily: "var(--font-body)", margin: '0 0 14px' }}>
                 Join our authorized dealer network across India.
               </p>
 
@@ -261,7 +261,7 @@ export default function Footer() {
                 background: 'transparent',
                 border: '1px solid rgba(232,147,58,0.4)',
                 color: '#E8933A',
-                fontFamily: "'DM Sans', sans-serif",
+                fontFamily: "var(--font-body)",
                 fontSize: 12.5,
                 fontWeight: 600,
                 letterSpacing: '0.03em',
@@ -299,12 +299,12 @@ export default function Footer() {
         }}
         className="sm:flex-row sm:items-center sm:justify-between"
         >
-          <p style={{ fontSize: 12, color: 'rgba(250, 249, 247, 1)', fontFamily: "'DM Sans', sans-serif", margin: 0 }}>
+          <p style={{ fontSize: 12, color: 'rgba(250, 249, 247, 1)', fontFamily: "var(--font-body)", margin: 0 }}>
             © 2011 The Heating Store. All rights reserved.
           </p>
           <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
             {['Safety-Driven', 'Compliance-Ready', 'Built for Longevity'].map(t => (
-              <span key={t} style={{ fontSize: 11.5, color: 'rgba(250, 248, 247, 0.5)', fontFamily: "'DM Sans', sans-serif", letterSpacing: '0.04em' }}>
+              <span key={t} style={{ fontSize: 11.5, color: 'rgba(250, 248, 247, 0.5)', fontFamily: "var(--font-body)", letterSpacing: '0.04em' }}>
                 {t}
               </span>
             ))}

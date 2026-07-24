@@ -107,7 +107,7 @@ function Badge({ children }) {
       <p style={{
         position: 'relative', display: 'inline-flex', alignItems: 'center', gap: 8,
         whiteSpace: 'nowrap', padding: '8px 22px',
-        fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 500,
+        fontFamily: "var(--font-body)", fontSize: 10, fontWeight: 500,
         textTransform: 'uppercase', letterSpacing: '0.32em', color: '#4FA3D1',
         borderRadius: 999, background: 'rgba(255,255,255,0.22)',
         backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
@@ -146,7 +146,7 @@ function SectionHeading({ badge, title, accent, sub, center = false }) {
     }}>
       <Badge>{badge}</Badge>
       <h2 style={{
-        fontFamily: "'Cormorant Garamond', serif",
+        fontFamily: "var(--font-heading)",
         fontSize: 'clamp(1.625rem, 3.5vw, 2.5rem)',
         fontWeight: 600, lineHeight: 1.15, letterSpacing: '-0.01em',
         color: '#3C2A25', margin: 0,
@@ -158,7 +158,7 @@ function SectionHeading({ badge, title, accent, sub, center = false }) {
       </h2>
       {sub && (
         <p style={{
-          marginTop: 14, fontFamily: "'DM Sans', sans-serif",
+          marginTop: 14, fontFamily: "var(--font-body)",
           fontSize: 'clamp(14px, 1.6vw, 16px)', lineHeight: 1.75, color: '#3C2B27',
           fontWeight: 400, maxWidth: 560, margin: center ? '14px auto 0' : '14px 0 0',
         }}>
@@ -179,7 +179,7 @@ function FaqItem({ q, a, isOpen, onToggle }) {
           width: '100%', textAlign: 'left', padding: '20px 24px',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16,
           background: 'transparent', border: 'none', cursor: 'pointer',
-          fontFamily: "'DM Sans', sans-serif",
+          fontFamily: "var(--font-body)",
         }}
         aria-expanded={isOpen}
       >
@@ -202,7 +202,7 @@ function FaqItem({ q, a, isOpen, onToggle }) {
       }}>
         <p style={{
           padding: '0 24px 22px', margin: 0,
-          fontFamily: "'DM Sans', sans-serif", fontSize: 14,
+          fontFamily: "var(--font-body)", fontSize: 14,
           color: '#6B4A2D', lineHeight: 1.75,
         }}>
           {a}
@@ -293,20 +293,20 @@ export default function ProductPageTemplate({
           <Badge>UK Imported · Kashmir Specialist</Badge>
           <h1 style={{
             fontSize: 'clamp(1.875rem, 4.5vw, 3.25rem)',
-            fontWeight: 600, fontFamily: "'Cormorant Garamond', serif",
+            fontWeight: 600, fontFamily: "var(--font-heading)",
             color: '#3C2A25', lineHeight: 1.15, margin: '8px 0 0',
           }}>
             {productName}
           </h1>
           <p style={{
-            fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: '#6B4A2D',
+            fontFamily: "var(--font-body)", fontSize: 16, color: '#6B4A2D',
             lineHeight: 1.75, marginTop: 16, maxWidth: 620, margin: '16px auto 0',
           }}>
             {heroTagline}
           </p>
           {heroSubtitle && (
             <p style={{
-              fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: '#6B4A2D',
+              fontFamily: "var(--font-body)", fontSize: 14, color: '#6B4A2D',
               lineHeight: 1.7, marginTop: 10, maxWidth: 580, margin: '10px auto 0',
             }}>
               {heroSubtitle}
@@ -349,14 +349,14 @@ export default function ProductPageTemplate({
           <GlassCard style={{ padding: 'clamp(28px,4vw,44px)' }}>
             <Badge>The Basics</Badge>
             <h2 style={{
-              fontFamily: "'Cormorant Garamond', serif",
+              fontFamily: "var(--font-heading)",
               fontSize: 'clamp(1.5rem, 3vw, 2.125rem)', fontWeight: 600,
               color: '#3C2A25', lineHeight: 1.2, margin: '4px 0 0',
             }}>
               What is {productName}?
             </h2>
             <div style={{
-              fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: '#3C2B27',
+              fontFamily: "var(--font-body)", fontSize: 15, color: '#3C2B27',
               lineHeight: 1.8, marginTop: 16,
             }}>
               {whatIsText}
@@ -407,14 +407,14 @@ export default function ProductPageTemplate({
                   <b.Icon color={b.color} />
                 </div>
                 <h3 style={{
-                  fontFamily: "'Cormorant Garamond', serif",
+                  fontFamily: "var(--font-heading)",
                   fontSize: 19, fontWeight: 600, color: '#3C2A25',
                   margin: 0, lineHeight: 1.25,
                 }}>
                   {b.title}
                 </h3>
                 <p style={{
-                  fontFamily: "'DM Sans', sans-serif", fontSize: 13,
+                  fontFamily: "var(--font-body)", fontSize: 13,
                   color: '#6B4A2D', lineHeight: 1.6, margin: '8px 0 0',
                 }}>
                   {b.desc}
@@ -460,14 +460,14 @@ export default function ProductPageTemplate({
                     <a.Icon color="#B86B45" />
                   </div>
                   <h3 style={{
-                    fontFamily: "'Cormorant Garamond', serif",
+                    fontFamily: "var(--font-heading)",
                     fontSize: 19, fontWeight: 600, color: '#3C2A25',
                     margin: 0, lineHeight: 1.25,
                   }}>
                     {a.title}
                   </h3>
                   <p style={{
-                    fontFamily: "'DM Sans', sans-serif", fontSize: 13.5,
+                    fontFamily: "var(--font-body)", fontSize: 13.5,
                     color: '#6B4A2D', lineHeight: 1.65, margin: '8px 0 0',
                   }}>
                     {a.desc}
@@ -511,14 +511,14 @@ export default function ProductPageTemplate({
               <Badge>UK Imported</Badge>
             </div>
             <h2 style={{
-              fontFamily: "'Cormorant Garamond', serif",
+              fontFamily: "var(--font-heading)",
               fontSize: 'clamp(1.5rem, 3vw, 2.125rem)', fontWeight: 600,
               color: 'white', lineHeight: 1.2, margin: 0,
             }}>
               Why UK-imported {productName}?
             </h2>
             <p style={{
-              fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: 'rgba(255,255,255,0.85)',
+              fontFamily: "var(--font-body)", fontSize: 15, color: 'rgba(255,255,255,0.85)',
               lineHeight: 1.8, margin: 0, maxWidth: 760,
             }}>
               {whyUkImportedText || `Every ${productName} we install is sourced from leading UK manufacturers, certified for safety and efficiency, and built to perform in the most demanding climates. We don't sell local imitations — we sell the same systems used in European homes for decades, now installed by our Kashmir team.`}
@@ -526,7 +526,7 @@ export default function ProductPageTemplate({
             <div className="flex flex-wrap gap-3 mt-2">
               {['CE Certified', '25+ Year Warranty', '0.01% Fault Rate', 'Since 2011'].map((t) => (
                 <span key={t} style={{
-                  fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 500,
+                  fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 500,
                   background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.18)',
                   borderRadius: 999, padding: '6px 14px', color: 'rgba(255,255,255,0.9)',
                 }}>
@@ -557,7 +557,7 @@ export default function ProductPageTemplate({
           <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-5 items-stretch">
             <GlassCard style={{ padding: '28px 26px' }}>
               <h3 style={{
-                fontFamily: "'Cormorant Garamond', serif", fontSize: 22,
+                fontFamily: "var(--font-heading)", fontSize: 22,
                 fontWeight: 600, color: '#3C2A25', margin: 0, lineHeight: 1.2,
               }}>
                 The Heating Store
@@ -569,13 +569,13 @@ export default function ProductPageTemplate({
                   </span>
                   <div>
                     <p style={{
-                      fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 600,
+                      fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 600,
                       color: '#3C2A25', margin: 0,
                     }}>
                       Store Address
                     </p>
                     <p style={{
-                      fontFamily: "'DM Sans', sans-serif", fontSize: 14,
+                      fontFamily: "var(--font-body)", fontSize: 14,
                       color: '#6B4A2D', margin: '2px 0 0', lineHeight: 1.6,
                     }}>
                       Rajbagh, Srinagar, J&amp;K 190008
@@ -588,7 +588,7 @@ export default function ProductPageTemplate({
                   </span>
                   <div>
                     <p style={{
-                      fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 600,
+                      fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 600,
                       color: '#3C2A25', margin: 0,
                     }}>
                       Phone
@@ -596,7 +596,7 @@ export default function ProductPageTemplate({
                     <a
                       href="tel:+919070907035"
                       style={{
-                        fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: '#B86B45',
+                        fontFamily: "var(--font-body)", fontSize: 14, color: '#B86B45',
                         fontWeight: 600, textDecoration: 'none', display: 'inline-block',
                         marginTop: 2,
                       }}
@@ -691,7 +691,7 @@ export default function ProductPageTemplate({
                         background: 'rgba(255,255,255,0.7)',
                         backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
                         border: '1px solid rgba(255,255,255,0.55)',
-                        color: '#3C2A25', fontFamily: "'DM Sans', sans-serif",
+                        color: '#3C2A25', fontFamily: "var(--font-body)",
                         fontSize: 14, fontWeight: 500, textDecoration: 'none',
                         boxShadow: '0 4px 16px rgba(60,42,37,0.05)',
                         transition: 'all 0.22s ease',

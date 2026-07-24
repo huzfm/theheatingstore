@@ -166,7 +166,7 @@ export default function TrustedBrandsSection() {
           align-items: center;
           padding: 4px 14px;
           border-radius: 999px;
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: 9px;
           font-weight: 700;
           letter-spacing: 0.2em;
@@ -208,19 +208,19 @@ export default function TrustedBrandsSection() {
             transition={{ duration: 0.8, ease: EASE }}
             style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: 52 }}>
 
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 24px', fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.35em', color: '#2C1810', borderRadius: 999, background: 'rgba(255,255,255,0.28)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.45)', boxShadow: '0 4px 16px rgba(60,42,37,0.08)', marginBottom: 24 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 24px', fontFamily: "var(--font-body)", fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.35em', color: '#2C1810', borderRadius: 999, background: 'rgba(255,255,255,0.28)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.45)', boxShadow: '0 4px 16px rgba(60,42,37,0.08)', marginBottom: 24 }}>
               <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#E88C2A', flexShrink: 0, boxShadow: '0 0 6px rgba(232,140,42,0.7)', animation: 'tbs-blink 2s ease-in-out infinite' }} />
               Trusted Brands
             </div>
 
-            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 600, lineHeight: 1.1, color: '#2C1810', margin: '0 0 4px', textAlign: 'center' }}>
+            <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 600, lineHeight: 1.1, color: '#2C1810', margin: '0 0 4px', textAlign: 'center' }}>
               World Class Heating,
             </h2>
-            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 600, lineHeight: 1.1, color: '#8B3A2A', margin: '0 0 20px', textAlign: 'center' }}>
+            <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 600, lineHeight: 1.1, color: '#8B3A2A', margin: '0 0 20px', textAlign: 'center' }}>
               Backed by Our Warranty
             </h2>
             <div style={{ width: 56, height: 2, borderRadius: 2, background: 'linear-gradient(90deg,#E88C2A,#FF7E5F)', marginBottom: 20 }} />
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'clamp(14px, 1.5vw, 16px)', lineHeight: 1.8, color: '#3C2B27', maxWidth: 500, margin: 0 }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: 'clamp(14px, 1.5vw, 16px)', lineHeight: 1.8, color: '#3C2B27', maxWidth: 500, margin: 0 }}>
               We partner exclusively with the world's most trusted underfloor heating and electric hamam brands.
             </p>
           </motion.div>
@@ -270,7 +270,7 @@ export default function TrustedBrandsSection() {
                       }}
                       onError={e => {
                         e.target.style.display = 'none';
-                        e.target.parentElement.innerHTML = `<span style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:#2C1810">${b.name}</span>`;
+                        e.target.parentElement.innerHTML = `<span style="font-family:var(--font-heading);font-size:26px;font-weight:700;color:#2C1810">${b.name}</span>`;
                       }}
                     />
                   </div>
@@ -286,7 +286,7 @@ export default function TrustedBrandsSection() {
                     </span> */}
 
                     {/* Brand name */}
-                    {/* <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.35rem', fontWeight: 700, color: '#2C1810', margin: 0, lineHeight: 1.2 }}>
+                    {/* <h3 style={{ fontFamily: "var(--font-heading)", fontSize: '1.35rem', fontWeight: 700, color: '#2C1810', margin: 0, lineHeight: 1.2 }}>
                       {b.name}
                     </h3> */}
 
@@ -299,7 +299,7 @@ export default function TrustedBrandsSection() {
                     />
 
                     {/* Description */}
-                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: '#5A3A2A', lineHeight: 1.75, margin: 0 }}>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: 13, color: '#5A3A2A', lineHeight: 1.75, margin: 0 }}>
                       {b.desc}
                     </p>
                   </div>
@@ -335,15 +335,15 @@ export default function TrustedBrandsSection() {
               { val: '2011', label: 'Trusted Since' },
             ].map((s, i) => (
               <div key={s.label} style={{ padding: '22px 0', textAlign: 'center', borderRight: i < 2 ? '1px solid rgba(184,107,69,0.12)' : 'none' }}>
-                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(20px,2.5vw,28px)', fontWeight: 700, color: '#2C1810', margin: 0 }}>{s.val}</p>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: '#6B4A2D', marginTop: 4, margin: '4px 0 0' }}>{s.label}</p>
+                <p style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(20px,2.5vw,28px)', fontWeight: 700, color: '#2C1810', margin: 0 }}>{s.val}</p>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: 11, color: '#6B4A2D', marginTop: 4, margin: '4px 0 0' }}>{s.label}</p>
               </div>
             ))}
           </motion.div>
 
           {/* ── Footer CTA ── */}
           <div style={{ textAlign: 'center', marginTop: 28 }}>
-            <a href='/contact' style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13.5, fontWeight: 500, color: '#8B3A2A', textDecoration: 'none' }}>
+            <a href='/contact' style={{ fontFamily: "var(--font-body)", fontSize: 13.5, fontWeight: 500, color: '#8B3A2A', textDecoration: 'none' }}>
               Talk to our experts to find the perfect fit →
             </a>
           </div>

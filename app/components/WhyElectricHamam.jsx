@@ -151,7 +151,7 @@ export default function WhyElectricHamam() {
   return (
     <>
       <style>{`
-        .weh-section { font-family: 'DM Sans', sans-serif; }
+        .weh-section { font-family: var(--font-body); }
         @keyframes weh-blink { 0%,100%{opacity:1} 50%{opacity:.3} }
         @media (max-width: 640px) {
           .weh-stats-grid { grid-template-columns: repeat(2,1fr) !important; }
@@ -209,7 +209,7 @@ export default function WhyElectricHamam() {
                   animation: 'weh-blink 2s infinite',
                 }} />
                 <span style={{
-                  fontFamily: "'DM Sans', sans-serif",
+                  fontFamily: "var(--font-body)",
                   fontSize: 10,
                   fontWeight: 600,
                   letterSpacing: '0.12em',
@@ -221,7 +221,7 @@ export default function WhyElectricHamam() {
               </div>
 
               <h2 style={{
-                fontFamily: "'Cormorant Garamond', serif",
+                fontFamily: "var(--font-heading)",
                 fontSize: 'clamp(28px, 4vw, 44px)',
                 fontWeight: 700,
                 color: '#2C1810',
@@ -269,7 +269,7 @@ export default function WhyElectricHamam() {
                   borderRight: i < STATS.length - 1 ? '1px solid rgba(184,107,69,0.18)' : 'none',
                 }}>
                   <div style={{
-                    fontFamily: "'Cormorant Garamond', serif",
+                    fontFamily: "var(--font-heading)",
                     fontSize: 'clamp(28px, 3vw, 36px)',
                     fontWeight: 700,
                     color: '#C4623A',
@@ -278,7 +278,7 @@ export default function WhyElectricHamam() {
                     {stat.value}
                   </div>
                   <div style={{
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-body)",
                     fontSize: 11.5,
                     color: '#6B4A2D',
                     lineHeight: 1.5,
@@ -363,7 +363,7 @@ export default function WhyElectricHamam() {
                         {/* Watermark number */}
                         <div style={{
                           position: 'absolute', bottom: 16, right: 20,
-                          fontFamily: "'Cormorant Garamond', serif",
+                          fontFamily: "var(--font-heading)",
                           fontSize: 64, fontWeight: 700,
                           color: card.accentColor + '08',
                           lineHeight: 1, userSelect: 'none', pointerEvents: 'none',
@@ -387,7 +387,7 @@ export default function WhyElectricHamam() {
 
                         {/* Title */}
                         <h3 style={{
-                          fontFamily: "'Cormorant Garamond', serif",
+                          fontFamily: "var(--font-heading)",
                           fontSize: 'clamp(20px, 2vw, 24px)',
                           fontWeight: 700, color: '#2C1810',
                           lineHeight: 1.2, margin: 0,
@@ -404,7 +404,7 @@ export default function WhyElectricHamam() {
 
                         {/* Body */}
                         <p style={{
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "var(--font-body)",
                           fontSize: 13.5, color: '#3C2B27',
                           opacity: 0.82, lineHeight: 1.72, margin: 0, flex: 1,
                         }}>
@@ -449,7 +449,7 @@ export default function WhyElectricHamam() {
             >
               {/* Quote mark */}
               <div style={{
-                fontFamily: "'Cormorant Garamond', serif",
+                fontFamily: "var(--font-heading)",
                 fontSize: 72,
                 color: 'rgba(196,98,58,0.2)',
                 lineHeight: 1,
@@ -462,7 +462,7 @@ export default function WhyElectricHamam() {
               {/* Content */}
               <div>
                 <p style={{
-                  fontFamily: "'Cormorant Garamond', serif",
+                  fontFamily: "var(--font-heading)",
                   fontSize: 'clamp(15px, 1.5vw, 18px)',
                   fontStyle: 'italic',
                   color: '#2C1810',
@@ -489,7 +489,7 @@ export default function WhyElectricHamam() {
                     display: 'inline-block',
                   }} />
                   <span style={{
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-body)",
                     fontSize: 12,
                     fontWeight: 700,
                     color: '#B86B45',
@@ -502,7 +502,7 @@ export default function WhyElectricHamam() {
                     color: '#B86B45',
                     padding: '2px 8px',
                     borderRadius: 999,
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-body)",
                     fontSize: 10,
                   }}>
                     Kashmir Observer, Dec 2023

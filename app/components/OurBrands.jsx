@@ -11,7 +11,7 @@ function Badge({ children }) {
 	return (
 		<div style={{ position: 'relative', display: 'inline-flex', marginBottom: 24 }}>
 			<span aria-hidden style={{ position: 'absolute', inset: 0, borderRadius: 999, pointerEvents: 'none', background: 'linear-gradient(180deg,rgba(255,255,255,0.55),rgba(255,255,255,0.08))', opacity: 0.7 }} />
-			<p style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: 8, whiteSpace: 'nowrap', padding: '8px 28px', fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.45em', color: '#4FA3D1', borderRadius: 999, background: 'rgba(255,255,255,0.22)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.3)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.45), 0 14px 40px rgba(15,23,42,0.22)', margin: 0 }}>
+			<p style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: 8, whiteSpace: 'nowrap', padding: '8px 28px', fontFamily: "var(--font-body)", fontSize: 10, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.45em', color: '#4FA3D1', borderRadius: 999, background: 'rgba(255,255,255,0.22)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.3)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.45), 0 14px 40px rgba(15,23,42,0.22)', margin: 0 }}>
 				<span style={{ width: 6, height: 6, borderRadius: '50%', background: '#B86B45', flexShrink: 0, animation: 'wcu-blink 2s ease-in-out infinite' }} />
 				{children}
 			</p>
@@ -23,11 +23,11 @@ function SectionHeading({ badge, title, accent, sub, center = false }) {
 	return (
 		<div style={{ textAlign: center ? 'center' : 'left', maxWidth: center ? 580 : 'none', margin: center ? '0 auto' : 0 }}>
 			<Badge>{badge}</Badge>
-			<h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(28px, 4vw, 52px)', fontWeight: 600, lineHeight: 1.15, letterSpacing: '-0.01em', color: '#3C2A25', marginBottom: 0 }}>
+			<h2 style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(28px, 4vw, 52px)', fontWeight: 600, lineHeight: 1.15, letterSpacing: '-0.01em', color: '#3C2A25', marginBottom: 0 }}>
 				{title}
 				{accent && <span style={{ display: 'inline', fontWeight: 300, color: '#B86B45' }}> {accent}</span>}
 			</h2>
-			{sub && <p style={{ marginTop: 20, fontFamily: "'DM Sans', sans-serif", fontSize: 'clamp(14px, 2vw, 17px)', lineHeight: 1.75, color: '#3C2B27', fontWeight: 400, maxWidth: center ? 520 : 540 }}>{sub}</p>}
+			{sub && <p style={{ marginTop: 20, fontFamily: "var(--font-body)", fontSize: 'clamp(14px, 2vw, 17px)', lineHeight: 1.75, color: '#3C2B27', fontWeight: 400, maxWidth: center ? 520 : 540 }}>{sub}</p>}
 		</div>
 	);
 }
@@ -89,7 +89,7 @@ export default function OurBrands() {
 					opacity: 0;
 					transform: translateY(8px);
 					transition: all 0.3s ease;
-					font-family: 'DM Sans', sans-serif;
+					font-family: var(--font-body);
 					font-size: 10.5px;
 					font-weight: 600;
 					letter-spacing: 0.18em;
@@ -123,7 +123,7 @@ export default function OurBrands() {
 								sub="We partner exclusively with the world's most trusted underfloor heating and electric hamam brands. Every system backed by our Kashmir installation warranty."
 							/>
 							<div style={{ marginTop: 32, padding: '22px 24px', background: 'rgba(255,255,255,0.55)', border: '1px solid rgba(255,255,255,0.5)', borderRadius: 18 }}>
-								<p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10.5, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#B86B45', marginBottom: 18 }}>
+								<p style={{ fontFamily: "var(--font-body)", fontSize: 10.5, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#B86B45', marginBottom: 18 }}>
 									Our Capability
 								</p>
 								{[
@@ -134,8 +134,8 @@ export default function OurBrands() {
 								].map((item, i) => (
 									<div key={item.label} style={{ marginBottom: i < 3 ? 14 : 0 }}>
 										<div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-											<span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12.5, fontWeight: 500, color: '#3C2A25' }}>{item.label}</span>
-											<span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12.5, fontWeight: 600, color: '#B86B45' }}>{item.pct}%</span>
+											<span style={{ fontFamily: "var(--font-body)", fontSize: 12.5, fontWeight: 500, color: '#3C2A25' }}>{item.label}</span>
+											<span style={{ fontFamily: "var(--font-body)", fontSize: 12.5, fontWeight: 600, color: '#B86B45' }}>{item.pct}%</span>
 										</div>
 										<div style={{ height: 5, borderRadius: 3, background: 'rgba(184,107,69,0.14)', overflow: 'hidden' }}>
 											<motion.div
@@ -157,8 +157,8 @@ export default function OurBrands() {
 							transition={{ duration: 0.8, delay: 0.15, ease: EASE }}>
 							<GlassCard hover={false} style={{ overflow: 'hidden' }}>
 								<div style={{ padding: '22px 28px 18px', borderBottom: '1px solid rgba(184,107,69,0.1)' }}>
-									<h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 19, fontWeight: 600, color: '#5d4943ff' }}>Trusted Brands</h4>
-									<p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: '#3C2B27', marginTop: 4 }}>World-class heating technology, backed by our Kashmir installation warranty.</p>
+									<h4 style={{ fontFamily: "var(--font-heading)", fontSize: 19, fontWeight: 600, color: '#5d4943ff' }}>Trusted Brands</h4>
+									<p style={{ fontFamily: "var(--font-body)", fontSize: 13, color: '#3C2B27', marginTop: 4 }}>World-class heating technology, backed by our Kashmir installation warranty.</p>
 								</div>
 								<div className='ob-brand-portfolio-grid'>
 									{BRANDS.map((b, i) => (
@@ -175,15 +175,15 @@ export default function OurBrands() {
 												<div style={{ width: 80, height: 80, borderRadius: 16, background: 'white', border: '1px solid rgba(245,185,122,0.25)', boxShadow: '0 4px 16px rgba(0,0,0,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: 8 }}>
 													<img src={b.img} alt={b.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
 												</div>
-												<span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 700, color: '#3C2A25' }}>{b.name}</span>
-												<span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: '#6B4A2D', lineHeight: 1.45 }}>{b.desc}</span>
+												<span style={{ fontFamily: "var(--font-body)", fontSize: 18, fontWeight: 700, color: '#3C2A25' }}>{b.name}</span>
+												<span style={{ fontFamily: "var(--font-body)", fontSize: 11, color: '#6B4A2D', lineHeight: 1.45 }}>{b.desc}</span>
 												<span className='ob-view-products'>View Products →</span>
 											</Link>
 										</motion.div>
 									))}
 								</div>
 								<div style={{ padding: '13px 28px', textAlign: 'center', borderBottom: '1px solid rgba(184,107,69,0.1)' }}>
-									<a href='/contact' style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 500, color: '#B86B45', textDecoration: 'none' }}>Talk to our experts to find the perfect fit →</a>
+									<a href='/contact' style={{ fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 500, color: '#B86B45', textDecoration: 'none' }}>Talk to our experts to find the perfect fit →</a>
 								</div>
 								<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)' }}>
 									{[
@@ -192,8 +192,8 @@ export default function OurBrands() {
 										{ val: '2011', label: 'Trusted Since' },
 									].map((s, i) => (
 										<div key={s.label} style={{ padding: '18px 0', textAlign: 'center', borderRight: i < 2 ? '1px solid rgba(184,107,69,0.1)' : 'none' }}>
-											<p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(16px,3vw,22px)', fontWeight: 600, color: '#3C2A25' }}>{s.val}</p>
-											<p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: '#6B4A2D', marginTop: 3 }}>{s.label}</p>
+											<p style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(16px,3vw,22px)', fontWeight: 600, color: '#3C2A25' }}>{s.val}</p>
+											<p style={{ fontFamily: "var(--font-body)", fontSize: 11, color: '#6B4A2D', marginTop: 3 }}>{s.label}</p>
 										</div>
 									))}
 								</div>

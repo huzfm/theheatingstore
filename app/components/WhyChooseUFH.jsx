@@ -114,7 +114,7 @@ export default function WhyChooseUFH() {
 
           <h2>
             <span style={{
-              fontFamily: "'Cormorant Garamond', serif",
+              fontFamily: "var(--font-heading)",
               fontSize: 'clamp(38px,4vw,58px)',
               fontWeight: 700,
               color: '#FFF8F0',
@@ -124,7 +124,7 @@ export default function WhyChooseUFH() {
               Why Kashmir Families Are
             </span>
             <span style={{
-              fontFamily: "'Cormorant Garamond', serif",
+              fontFamily: "var(--font-heading)",
               fontSize: 'clamp(38px,4vw,58px)',
               fontWeight: 700,
               color: '#C4623A',
@@ -166,7 +166,7 @@ export default function WhyChooseUFH() {
               </svg>
             </div>
             <p style={{
-              fontFamily: "'DM Sans', sans-serif",
+              fontFamily: "var(--font-body)",
               fontSize: 'clamp(13.5px, 1.3vw, 15px)',
               color: 'rgba(255,255,255,0.72)',
               lineHeight: 1.85,
@@ -199,7 +199,7 @@ export default function WhyChooseUFH() {
               </svg>
             </div>
             <p style={{
-              fontFamily: "'DM Sans', sans-serif",
+              fontFamily: "var(--font-body)",
               fontSize: 'clamp(13.5px, 1.3vw, 15px)',
               color: 'rgba(255,255,255,0.72)',
               lineHeight: 1.85,
@@ -232,7 +232,7 @@ export default function WhyChooseUFH() {
               </svg>
             </div>
          <p style={{
-              fontFamily: "'DM Sans', sans-serif",
+              fontFamily: "var(--font-body)",
               fontSize: 'clamp(13.5px, 1.3vw, 15px)',
               color: 'rgba(255,255,255,0.72)',
               lineHeight: 1.85,

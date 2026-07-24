@@ -111,7 +111,7 @@ function HeroSection({ brand }) {
 					top: 28,
 					left: 32,
 					zIndex: 5,
-					fontFamily: "'DM Sans', sans-serif",
+					fontFamily: "var(--font-body)",
 					fontSize: 12,
 					letterSpacing: '0.18em',
 					textTransform: 'uppercase',
@@ -175,7 +175,7 @@ function HeroSection({ brand }) {
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8, ease: EASE, delay: 0.25 }}
 					style={{
-						fontFamily: "'Cormorant Garamond', Georgia, serif",
+						fontFamily: "var(--font-heading)",
 						fontSize: 'clamp(40px, 7vw, 72px)',
 						fontWeight: 600,
 						color: '#fff',
@@ -212,7 +212,7 @@ function HeroSection({ brand }) {
 			>
 				<span
 					style={{
-						fontFamily: "'DM Sans', sans-serif",
+						fontFamily: "var(--font-body)",
 						fontSize: 10,
 						letterSpacing: '0.3em',
 						textTransform: 'uppercase',
@@ -284,7 +284,7 @@ function BrandStory({ brand }) {
 							margin: 0,
 							marginBottom: 16,
 							padding: '6px 16px',
-							fontFamily: "'DM Sans', sans-serif",
+							fontFamily: "var(--font-body)",
 							fontSize: 10,
 							fontWeight: 500,
 							letterSpacing: '0.3em',
@@ -298,7 +298,7 @@ function BrandStory({ brand }) {
 					</p>
 					<h2
 						style={{
-							fontFamily: "'Cormorant Garamond', Georgia, serif",
+							fontFamily: "var(--font-heading)",
 							fontSize: 'clamp(32px, 4vw, 52px)',
 							fontWeight: 600,
 							color: '#3C2A25',
@@ -315,7 +315,7 @@ function BrandStory({ brand }) {
 						<p
 							key={i}
 							style={{
-								fontFamily: "'DM Sans', sans-serif",
+								fontFamily: "var(--font-body)",
 								fontSize: 16,
 								lineHeight: 1.85,
 								color: '#3C2B27',
@@ -357,7 +357,7 @@ function BrandStory({ brand }) {
 							>
 								<p
 									style={{
-										fontFamily: "'Cormorant Garamond', Georgia, serif",
+										fontFamily: "var(--font-heading)",
 										fontSize: 'clamp(22px, 3vw, 30px)',
 										fontWeight: 600,
 										color: brand.accentColor,
@@ -368,7 +368,7 @@ function BrandStory({ brand }) {
 								</p>
 								<p
 									style={{
-										fontFamily: "'DM Sans', sans-serif",
+										fontFamily: "var(--font-body)",
 										fontSize: 11,
 										color: '#6B4A2D',
 										margin: 0,
@@ -396,7 +396,7 @@ function BrandStory({ brand }) {
 					>
 						<p
 							style={{
-								fontFamily: "'DM Sans', sans-serif",
+								fontFamily: "var(--font-body)",
 								fontSize: 10.5,
 								fontWeight: 600,
 								letterSpacing: '0.2em',
@@ -413,7 +413,7 @@ function BrandStory({ brand }) {
 								<span
 									key={c}
 									style={{
-										fontFamily: "'DM Sans', sans-serif",
+										fontFamily: "var(--font-body)",
 										fontSize: 12,
 										fontWeight: 500,
 										color: '#3C2A25',
@@ -436,7 +436,7 @@ function BrandStory({ brand }) {
 						>
 							<p
 								style={{
-									fontFamily: "'DM Sans', sans-serif",
+									fontFamily: "var(--font-body)",
 									fontSize: 10.5,
 									fontWeight: 600,
 									letterSpacing: '0.2em',
@@ -450,7 +450,7 @@ function BrandStory({ brand }) {
 							</p>
 							<p
 								style={{
-									fontFamily: "'Cormorant Garamond', Georgia, serif",
+									fontFamily: "var(--font-heading)",
 									fontSize: 18,
 									fontWeight: 600,
 									color: '#3C2A25',
@@ -501,7 +501,7 @@ function USPCards({ brand }) {
 							margin: 0,
 							marginBottom: 16,
 							padding: '6px 16px',
-							fontFamily: "'DM Sans', sans-serif",
+							fontFamily: "var(--font-body)",
 							fontSize: 10,
 							fontWeight: 500,
 							letterSpacing: '0.3em',
@@ -515,7 +515,7 @@ function USPCards({ brand }) {
 					</p>
 					<h2
 						style={{
-							fontFamily: "'Cormorant Garamond', Georgia, serif",
+							fontFamily: "var(--font-heading)",
 							fontSize: 'clamp(32px, 4vw, 52px)',
 							fontWeight: 600,
 							color: '#3C2A25',
@@ -583,7 +583,7 @@ function USPCards({ brand }) {
 								</div>
 								<h3
 									style={{
-										fontFamily: "'Cormorant Garamond', Georgia, serif",
+										fontFamily: "var(--font-heading)",
 										fontSize: 20,
 										fontWeight: 600,
 										color: '#3C2A25',
@@ -595,7 +595,7 @@ function USPCards({ brand }) {
 								</h3>
 								<p
 									style={{
-										fontFamily: "'DM Sans', sans-serif",
+										fontFamily: "var(--font-body)",
 										fontSize: 13.5,
 										color: '#3C2B27',
 										lineHeight: 1.6,
@@ -669,7 +669,7 @@ function ProductsGrid({ brand }) {
 							margin: 0,
 							marginBottom: 16,
 							padding: '6px 16px',
-							fontFamily: "'DM Sans', sans-serif",
+							fontFamily: "var(--font-body)",
 							fontSize: 10,
 							fontWeight: 500,
 							letterSpacing: '0.3em',
@@ -683,7 +683,7 @@ function ProductsGrid({ brand }) {
 					</p>
 					<h2
 						style={{
-							fontFamily: "'Cormorant Garamond', Georgia, serif",
+							fontFamily: "var(--font-heading)",
 							fontSize: 'clamp(32px, 4vw, 52px)',
 							fontWeight: 600,
 							color: '#3C2A25',
@@ -696,7 +696,7 @@ function ProductsGrid({ brand }) {
 					</h2>
 					<p
 						style={{
-							fontFamily: "'DM Sans', sans-serif",
+							fontFamily: "var(--font-body)",
 							fontSize: 15,
 							color: '#3C2B27',
 							margin: 0,
@@ -722,7 +722,7 @@ function ProductsGrid({ brand }) {
 							key={f}
 							onClick={() => setActiveFilter(f)}
 							style={{
-								fontFamily: "'DM Sans', sans-serif",
+								fontFamily: "var(--font-body)",
 								fontSize: 12,
 								fontWeight: 500,
 								letterSpacing: '0.05em',
@@ -805,7 +805,7 @@ function ProductsGrid({ brand }) {
 											borderRadius: 999,
 											background: brand.accentColor,
 											color: '#fff',
-											fontFamily: "'DM Sans', sans-serif",
+											fontFamily: "var(--font-body)",
 											fontSize: 9.5,
 											fontWeight: 700,
 											letterSpacing: '0.18em',
@@ -822,7 +822,7 @@ function ProductsGrid({ brand }) {
 							<div style={{ padding: '20px 18px 18px', flex: 1, display: 'flex', flexDirection: 'column' }}>
 								<h3
 									style={{
-										fontFamily: "'Cormorant Garamond', Georgia, serif",
+										fontFamily: "var(--font-heading)",
 										fontSize: 20,
 										fontWeight: 600,
 										color: '#3C2A25',
@@ -835,7 +835,7 @@ function ProductsGrid({ brand }) {
 								</h3>
 								<p
 									style={{
-										fontFamily: "'DM Sans', sans-serif",
+										fontFamily: "var(--font-body)",
 										fontSize: 13,
 										color: '#6B4A2D',
 										margin: 0,
@@ -851,7 +851,7 @@ function ProductsGrid({ brand }) {
 									{p.wattage !== '—' && (
 										<span
 											style={{
-												fontFamily: "'DM Sans', sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 11,
 												fontWeight: 500,
 												color: brand.accentColor,
@@ -867,7 +867,7 @@ function ProductsGrid({ brand }) {
 									{p.coverage !== '—' && (
 										<span
 											style={{
-												fontFamily: "'DM Sans', sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 11,
 												fontWeight: 500,
 												color: brand.accentColor,
@@ -885,7 +885,7 @@ function ProductsGrid({ brand }) {
 								{/* Price */}
 								<p
 									style={{
-										fontFamily: "'DM Sans', sans-serif",
+										fontFamily: "var(--font-body)",
 										fontSize: 16,
 										fontWeight: 700,
 										color: brand.accentColor,
@@ -912,7 +912,7 @@ function ProductsGrid({ brand }) {
 												display: 'flex',
 												alignItems: 'flex-start',
 												gap: 8,
-												fontFamily: "'DM Sans', sans-serif",
+												fontFamily: "var(--font-body)",
 												fontSize: 12.5,
 												color: '#3C2B27',
 												lineHeight: 1.5,
@@ -941,7 +941,7 @@ function ProductsGrid({ brand }) {
 											borderRadius: 10,
 											background: brand.accentColor,
 											color: '#fff',
-											fontFamily: "'DM Sans', sans-serif",
+											fontFamily: "var(--font-body)",
 											fontSize: 12,
 											fontWeight: 600,
 											letterSpacing: '0.06em',
@@ -960,7 +960,7 @@ function ProductsGrid({ brand }) {
 											borderRadius: 10,
 											background: 'transparent',
 											color: brand.accentColor,
-											fontFamily: "'DM Sans', sans-serif",
+											fontFamily: "var(--font-body)",
 											fontSize: 12,
 											fontWeight: 600,
 											letterSpacing: '0.06em',
@@ -1022,7 +1022,7 @@ function TrustStrip() {
 				<div>
 					<h2
 						style={{
-							fontFamily: "'Cormorant Garamond', Georgia, serif",
+							fontFamily: "var(--font-heading)",
 							fontSize: 'clamp(28px, 3.5vw, 44px)',
 							fontWeight: 600,
 							color: '#fff',
@@ -1036,7 +1036,7 @@ function TrustStrip() {
 					</h2>
 					<p
 						style={{
-							fontFamily: "'DM Sans', sans-serif",
+							fontFamily: "var(--font-body)",
 							fontSize: 15,
 							color: 'rgba(255,255,255,0.9)',
 							margin: 0,
@@ -1071,7 +1071,7 @@ function TrustStrip() {
 									alignItems: 'center',
 									gap: 8,
 									color: '#fff',
-									fontFamily: "'DM Sans', sans-serif",
+									fontFamily: "var(--font-body)",
 									fontSize: 13,
 									fontWeight: 500,
 								}}
@@ -1091,7 +1091,7 @@ function TrustStrip() {
 							borderRadius: 999,
 							background: '#fff',
 							color: '#B86B45',
-							fontFamily: "'DM Sans', sans-serif",
+							fontFamily: "var(--font-body)",
 							fontSize: 14,
 							fontWeight: 600,
 							letterSpacing: '0.05em',
@@ -1138,7 +1138,7 @@ function RelatedBrands({ related }) {
 							margin: 0,
 							marginBottom: 16,
 							padding: '6px 16px',
-							fontFamily: "'DM Sans', sans-serif",
+							fontFamily: "var(--font-body)",
 							fontSize: 10,
 							fontWeight: 500,
 							letterSpacing: '0.3em',
@@ -1152,7 +1152,7 @@ function RelatedBrands({ related }) {
 					</p>
 					<h2
 						style={{
-							fontFamily: "'Cormorant Garamond', Georgia, serif",
+							fontFamily: "var(--font-heading)",
 							fontSize: 'clamp(32px, 4vw, 52px)',
 							fontWeight: 600,
 							color: '#3C2A25',
@@ -1228,7 +1228,7 @@ function RelatedBrands({ related }) {
 								</div>
 								<p
 									style={{
-										fontFamily: "'Cormorant Garamond', Georgia, serif",
+										fontFamily: "var(--font-heading)",
 										fontSize: 24,
 										fontWeight: 600,
 										color: '#3C2A25',
@@ -1240,7 +1240,7 @@ function RelatedBrands({ related }) {
 								</p>
 								<p
 									style={{
-										fontFamily: "'DM Sans', sans-serif",
+										fontFamily: "var(--font-body)",
 										fontSize: 10.5,
 										letterSpacing: '0.25em',
 										textTransform: 'uppercase',
@@ -1291,7 +1291,7 @@ function MobileBottomCTA({ brand }) {
 					borderRadius: 12,
 					background: brand.accentColor,
 					color: '#fff',
-					fontFamily: "'DM Sans', sans-serif",
+					fontFamily: "var(--font-body)",
 					fontSize: 13,
 					fontWeight: 600,
 					letterSpacing: '0.04em',
@@ -1338,7 +1338,7 @@ function BackButton() {
 					display: 'inline-flex',
 					alignItems: 'center',
 					gap: 8,
-					fontFamily: "'DM Sans', sans-serif",
+					fontFamily: "var(--font-body)",
 					fontSize: 12,
 					fontWeight: 500,
 					letterSpacing: '0.12em',

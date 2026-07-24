@@ -1,7 +1,7 @@
 import Hero from "../hero/page";
 import OurProcess from "./OurProcess";
 import TrustedBrandsSection from "./TrustedBrandsSection";
-import FiveReasonsSection from "./FiveReasonsSection";
+import WhyElectricHamamShowcase from "@/components/sections/WhyElectricHamam/WhyElectricHamam";
 import FaqSection from "./FaqSection";
 import ContactPage from "../contact/ContactClient";
 import AboutSectionPremium from "../about/AboutClient";
@@ -27,7 +27,7 @@ export default function HomePage() {
           wave of colour (green → orange) moves through it word by word as the
           section scrolls past. */}
       <WarmthRevealSection />
-      <FiveReasonsSection />
+      <WhyElectricHamamShowcase />
       {/* <VideoGallery/> */}
       <TrustedBrandsSection />
       <OurProcess />

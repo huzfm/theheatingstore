@@ -28,23 +28,6 @@ const GLASS = "rgba(255,255,255,0.82)";
 const EASE = [0.16, 1, 0.3, 1];
 
 // ═══════════════════════════════════════════════════════════════════════════
-// FONT LOADER — Cormorant Garamond (headings) + DM Sans (body), matching WhyElectricHamam
-// ═══════════════════════════════════════════════════════════════════════════
-function FontLoader() {
-  useEffect(() => {
-    const id = "weh-tst-fonts";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
-  return <></>;
-}
-
-// ═══════════════════════════════════════════════════════════════════════════
 // ATOMS
 // ═══════════════════════════════════════════════════════════════════════════
 
@@ -75,7 +58,7 @@ function Eyebrow({ label }) {
     }}>
       <PulsingDot />
       <span style={{
-        fontFamily: "'DM Sans', sans-serif",
+        fontFamily: "var(--font-body)",
         fontSize: 10,
         fontWeight: 600,
         textTransform: "uppercase",
@@ -119,7 +102,7 @@ function FloatingSphere({ variant, size, initials }) {
         display: "flex", alignItems: "center", justifyContent: "center",
       }}>
         <span style={{
-          fontFamily: "'DM Sans', sans-serif",
+          fontFamily: "var(--font-body)",
           fontWeight: 700,
           fontSize: size * 0.28,
           color: "#ffffff",
@@ -308,7 +291,7 @@ function TestimonialSlide({
 
         {/* Name */}
         <div style={{
-          fontFamily: "'DM Sans', sans-serif",
+          fontFamily: "var(--font-body)",
           fontWeight: 700,
           fontSize: isActive ? 16 : 14.5,
           letterSpacing: "-0.01em",
@@ -343,7 +326,7 @@ function TestimonialSlide({
 
         {/* Review text — clamped to 4 lines */}
         <p style={{
-          fontFamily: "'DM Sans', sans-serif",
+          fontFamily: "var(--font-body)",
           fontWeight: 400,
           fontSize: isActive ? 13.5 : 13,
           lineHeight: 1.75,
@@ -413,12 +396,10 @@ export default function Testimonials() {
         position: "relative",
         padding: "104px 32px 128px",
         background: "linear-gradient(155deg, #FFFFFF 0%, #FFF4E8 35%, #FFE8D0 70%, #F8C084 100%)",
-        fontFamily: "'DM Sans', sans-serif",
+        fontFamily: "var(--font-body)",
         overflow: "hidden",
       }}
     >
-      <FontLoader />
-
       {/* Ambient orbs — matching WhyElectricHamam's warm glow positions */}
       <div aria-hidden="true" style={{
         position: "absolute", borderRadius: "50%", pointerEvents: "none",
@@ -450,7 +431,7 @@ export default function Testimonials() {
           <h2
             id="tst-heading"
             style={{
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontFamily: "var(--font-heading)",
               fontWeight: 700,
               fontSize: "clamp(32px, 5vw, 52px)",
               lineHeight: 1.1,
@@ -471,7 +452,7 @@ export default function Testimonials() {
           }} />
 
           <p style={{
-            fontFamily: "'DM Sans', sans-serif",
+            fontFamily: "var(--font-body)",
             fontSize: 15,
             fontWeight: 400,
             color: P.amberDark,

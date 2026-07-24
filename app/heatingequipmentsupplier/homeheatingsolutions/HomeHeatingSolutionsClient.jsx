@@ -137,7 +137,7 @@ function Badge({ children }) {
         style={{
           position: 'relative', display: 'inline-flex', alignItems: 'center', gap: 8,
           whiteSpace: 'nowrap', padding: '8px 22px',
-          fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 500,
+          fontFamily: "var(--font-body)", fontSize: 10, fontWeight: 500,
           textTransform: 'uppercase', letterSpacing: '0.32em', color: '#4FA3D1',
           borderRadius: 999, background: 'rgba(255,255,255,0.22)',
           backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
@@ -177,7 +177,7 @@ function SectionHeading({ badge, title, accent, sub, center = false }) {
     }}>
       <Badge>{badge}</Badge>
       <h2 style={{
-        fontFamily: "'Cormorant Garamond', serif",
+        fontFamily: "var(--font-heading)",
         fontSize: 'clamp(1.625rem, 3.5vw, 2.5rem)',
         fontWeight: 600, lineHeight: 1.15, letterSpacing: '-0.01em',
         color: '#3C2A25', margin: 0,
@@ -189,7 +189,7 @@ function SectionHeading({ badge, title, accent, sub, center = false }) {
       </h2>
       {sub && (
         <p style={{
-          marginTop: 14, fontFamily: "'DM Sans', sans-serif",
+          marginTop: 14, fontFamily: "var(--font-body)",
           fontSize: 'clamp(14px, 1.6vw, 16px)', lineHeight: 1.75, color: '#3C2B27',
           fontWeight: 400, maxWidth: 560, margin: center ? '14px auto 0' : '14px 0 0',
         }}>
@@ -210,7 +210,7 @@ function FaqItem({ q, a, isOpen, onToggle }) {
           width: '100%', textAlign: 'left', padding: '20px 24px',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16,
           background: 'transparent', border: 'none', cursor: 'pointer',
-          fontFamily: "'DM Sans', sans-serif",
+          fontFamily: "var(--font-body)",
         }}
         aria-expanded={isOpen}
       >
@@ -233,7 +233,7 @@ function FaqItem({ q, a, isOpen, onToggle }) {
       }}>
         <p style={{
           padding: '0 24px 22px', margin: 0,
-          fontFamily: "'DM Sans', sans-serif", fontSize: 14,
+          fontFamily: "var(--font-body)", fontSize: 14,
           color: '#6B4A2D', lineHeight: 1.75,
         }}>
           {a}
@@ -295,19 +295,19 @@ export default function HomeHeatingSolutionsClient() {
           <Badge>UK Imported · Kashmir Specialist</Badge>
           <h1 style={{
             fontSize: 'clamp(1.875rem, 4.5vw, 3.25rem)',
-            fontWeight: 600, fontFamily: "'Cormorant Garamond', serif",
+            fontWeight: 600, fontFamily: "var(--font-heading)",
             color: '#3C2A25', lineHeight: 1.15, margin: '8px 0 0',
           }}>
             Home Heating Solutions in Jammu Kashmir
           </h1>
           <p style={{
-            fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: '#6B4A2D',
+            fontFamily: "var(--font-body)", fontSize: 16, color: '#6B4A2D',
             lineHeight: 1.75, marginTop: 16, maxWidth: 620, margin: '16px auto 0',
           }}>
             Premium UK-imported home heating solutions for houses, villas, and apartments across Kashmir.
           </p>
           <p style={{
-            fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: '#6B4A2D',
+            fontFamily: "var(--font-body)", fontSize: 14, color: '#6B4A2D',
             lineHeight: 1.7, marginTop: 10, maxWidth: 580, margin: '10px auto 0',
           }}>
             From single-room electric hamams to whole-home underfloor heating — designed for Kashmir's sub-zero winters.
@@ -349,14 +349,14 @@ export default function HomeHeatingSolutionsClient() {
           <GlassCard style={{ padding: 'clamp(28px,4vw,44px)' }}>
             <Badge>Why It Matters</Badge>
             <h2 style={{
-              fontFamily: "'Cormorant Garamond', serif",
+              fontFamily: "var(--font-heading)",
               fontSize: 'clamp(1.5rem, 3vw, 2.125rem)', fontWeight: 600,
               color: '#3C2A25', lineHeight: 1.2, margin: '4px 0 0',
             }}>
               Kashmir winters demand quality home heating
             </h2>
             <div style={{
-              fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: '#3C2B27',
+              fontFamily: "var(--font-body)", fontSize: 15, color: '#3C2B27',
               lineHeight: 1.8, marginTop: 16,
             }}>
               <p style={{ margin: 0 }}>
@@ -413,14 +413,14 @@ export default function HomeHeatingSolutionsClient() {
                   <s.Icon className="w-5 h-5" style={{ color: s.color }} />
                 </div>
                 <h3 style={{
-                  fontFamily: "'Cormorant Garamond', serif",
+                  fontFamily: "var(--font-heading)",
                   fontSize: 22, fontWeight: 600, color: '#3C2A25',
                   margin: 0, lineHeight: 1.2,
                 }}>
                   {s.name}
                 </h3>
                 <p style={{
-                  fontFamily: "'DM Sans', sans-serif", fontSize: 14,
+                  fontFamily: "var(--font-body)", fontSize: 14,
                   color: '#6B4A2D', lineHeight: 1.65, margin: '10px 0 0',
                   flexGrow: 1,
                 }}>
@@ -431,7 +431,7 @@ export default function HomeHeatingSolutionsClient() {
                   className="inline-flex items-center gap-1.5 mt-5 text-sm font-semibold transition-transform hover:translate-x-1"
                   style={{
                     color: '#B86B45', textDecoration: 'none',
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-body)",
                   }}
                 >
                   Learn More
@@ -477,14 +477,14 @@ export default function HomeHeatingSolutionsClient() {
                     <g.Icon className="w-5 h-5" style={{ color: g.color }} />
                   </div>
                   <h3 style={{
-                    fontFamily: "'Cormorant Garamond', serif",
+                    fontFamily: "var(--font-heading)",
                     fontSize: 20, fontWeight: 600, color: '#3C2A25',
                     margin: 0, lineHeight: 1.25,
                   }}>
                     {g.title}
                   </h3>
                   <p style={{
-                    fontFamily: "'DM Sans', sans-serif", fontSize: 13.5,
+                    fontFamily: "var(--font-body)", fontSize: 13.5,
                     color: '#6B4A2D', lineHeight: 1.65, margin: '8px 0 0',
                   }}>
                     {g.desc}
@@ -525,14 +525,14 @@ export default function HomeHeatingSolutionsClient() {
               <Badge>Why Us</Badge>
             </div>
             <h2 style={{
-              fontFamily: "'Cormorant Garamond', serif",
+              fontFamily: "var(--font-heading)",
               fontSize: 'clamp(1.5rem, 3vw, 2.125rem)', fontWeight: 600,
               color: 'white', lineHeight: 1.2, margin: '8px 0 0',
             }}>
               Why choose The Heating Store for your home?
             </h2>
             <p style={{
-              fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: 'rgba(255,255,255,0.85)',
+              fontFamily: "var(--font-body)", fontSize: 15, color: 'rgba(255,255,255,0.85)',
               lineHeight: 1.8, margin: '16px 0 0', maxWidth: 760,
             }}>
               We've been supplying and installing premium UK-imported heating systems for Kashmir homes since 2011. Every project is handled by our own Srinagar-based team — from the free site survey to the final thermal check — and backed by a 10–25 year manufacturer warranty plus our own Kashmir installation guarantee.
@@ -557,13 +557,13 @@ export default function HomeHeatingSolutionsClient() {
                   </div>
                   <div>
                     <p style={{
-                      fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 600,
+                      fontFamily: "var(--font-body)", fontSize: 14, fontWeight: 600,
                       color: 'white', margin: 0, lineHeight: 1.3,
                     }}>
                       {h.title}
                     </p>
                     <p style={{
-                      fontFamily: "'DM Sans', sans-serif", fontSize: 12.5,
+                      fontFamily: "var(--font-body)", fontSize: 12.5,
                       color: 'rgba(255,255,255,0.75)', margin: '4px 0 0', lineHeight: 1.5,
                     }}>
                       {h.desc}
@@ -595,7 +595,7 @@ export default function HomeHeatingSolutionsClient() {
           <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-5 items-stretch">
             <GlassCard style={{ padding: '28px 26px' }}>
               <h3 style={{
-                fontFamily: "'Cormorant Garamond', serif", fontSize: 22,
+                fontFamily: "var(--font-heading)", fontSize: 22,
                 fontWeight: 600, color: '#3C2A25', margin: 0, lineHeight: 1.2,
               }}>
                 The Heating Store
@@ -607,13 +607,13 @@ export default function HomeHeatingSolutionsClient() {
                   </span>
                   <div>
                     <p style={{
-                      fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 600,
+                      fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 600,
                       color: '#3C2A25', margin: 0,
                     }}>
                       Store Address
                     </p>
                     <p style={{
-                      fontFamily: "'DM Sans', sans-serif", fontSize: 14,
+                      fontFamily: "var(--font-body)", fontSize: 14,
                       color: '#6B4A2D', margin: '2px 0 0', lineHeight: 1.6,
                     }}>
                       Rajbagh, Srinagar, J&amp;K 190008
@@ -626,7 +626,7 @@ export default function HomeHeatingSolutionsClient() {
                   </span>
                   <div>
                     <p style={{
-                      fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 600,
+                      fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 600,
                       color: '#3C2A25', margin: 0,
                     }}>
                       Phone
@@ -634,7 +634,7 @@ export default function HomeHeatingSolutionsClient() {
                     <a
                       href="tel:+919070907035"
                       style={{
-                        fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: '#B86B45',
+                        fontFamily: "var(--font-body)", fontSize: 14, color: '#B86B45',
                         fontWeight: 600, textDecoration: 'none', display: 'inline-block',
                         marginTop: 2,
                       }}

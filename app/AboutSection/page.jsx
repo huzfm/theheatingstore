@@ -158,7 +158,7 @@ export default function AboutSection() {
   return (
     <>
       <style>{`
-        .about-page { font-family: 'DM Sans', sans-serif; }
+        .about-page { font-family: var(--font-body); }
 
         /* Hero */
         .about-hero {
@@ -189,7 +189,7 @@ export default function AboutSection() {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: 12px;
           font-weight: 700;
           letter-spacing: 0.16em;
@@ -231,14 +231,14 @@ export default function AboutSection() {
           box-shadow: 0 6px 16px rgba(184,107,69,0.3);
         }
         .about-trust-label {
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: 13.5px;
           font-weight: 700;
           color: #2C1810;
           line-height: 1.3;
         }
         .about-trust-sub {
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: 11.5px;
           color: #3C2B27;
           opacity: 0.7;
@@ -256,7 +256,7 @@ export default function AboutSection() {
           margin: 0 auto;
         }
         .about-intro-eyebrow {
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: 12px;
           font-weight: 700;
           letter-spacing: 0.14em;
@@ -275,7 +275,7 @@ export default function AboutSection() {
         }
         .about-marquee-heading {
           text-align: center;
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: 12px;
           font-weight: 700;
           letter-spacing: 0.14em;
@@ -295,7 +295,7 @@ export default function AboutSection() {
           to { transform: translateX(-50%); }
         }
         .about-marquee-logo {
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: 13px;
           font-weight: 700;
           letter-spacing: 0.08em;
@@ -370,7 +370,7 @@ export default function AboutSection() {
         .about-coil-badge {
           position: absolute;
           top: 14px; left: 14px;
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: 11px;
           font-weight: 700;
           letter-spacing: 0.08em;
@@ -383,7 +383,7 @@ export default function AboutSection() {
         }
         .about-alt-eyebrow {
           display: none;
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: 11.5px;
           font-weight: 700;
           letter-spacing: 0.1em;
@@ -392,7 +392,7 @@ export default function AboutSection() {
           margin-bottom: 10px;
         }
         .about-alt-title {
-          font-family: 'Cormorant Garamond', serif;
+          font-family: var(--font-heading);
           font-size: clamp(22px, 2.5vw, 32px);
           font-weight: 700;
           color: #2C1810;
@@ -405,7 +405,7 @@ export default function AboutSection() {
           margin-bottom: 18px;
         }
         .about-alt-desc {
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: clamp(13.5px, 1.3vw, 15px);
           color: #3C2B27;
           line-height: 1.85;
@@ -432,7 +432,7 @@ export default function AboutSection() {
           border: 1px solid rgba(184,107,69,0.16);
         }
         .about-stat-value {
-          font-family: 'Cormorant Garamond', serif;
+          font-family: var(--font-heading);
           font-size: clamp(26px, 3vw, 36px);
           font-weight: 700;
           color: #B86B45;
@@ -440,7 +440,7 @@ export default function AboutSection() {
           margin-bottom: 8px;
         }
         .about-stat-label {
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: 12.5px;
           color: #3C2B27;
           opacity: 0.75;
@@ -460,14 +460,14 @@ export default function AboutSection() {
           box-shadow: 0 24px 60px rgba(44,24,16,0.28);
         }
         .about-cta-title {
-          font-family: 'Cormorant Garamond', serif;
+          font-family: var(--font-heading);
           font-size: clamp(22px, 3vw, 32px);
           font-weight: 700;
           color: #fff;
           margin: 0 0 12px;
         }
         .about-cta-sub {
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: 14px;
           color: rgba(255,255,255,0.72);
           margin: 0 0 26px;
@@ -476,7 +476,7 @@ export default function AboutSection() {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body);
           font-size: 14px;
           font-weight: 700;
           color: #2C1810;
@@ -550,7 +550,7 @@ export default function AboutSection() {
           >
             <div className="about-hero-eyebrow">Since 2011</div>
             <h1 style={{
-              fontFamily: "'Cormorant Garamond', serif",
+              fontFamily: "var(--font-heading)",
               fontSize: 'clamp(34px, 5.5vw, 68px)',
               fontWeight: 700,
               color: '#FFFFFF',
@@ -560,7 +560,7 @@ export default function AboutSection() {
               About Us
             </h1>
             <p style={{
-              fontFamily: "'DM Sans', sans-serif",
+              fontFamily: "var(--font-body)",
               fontSize: 'clamp(13px, 1.5vw, 17px)',
               color: 'rgba(255,255,255,0.78)',
               margin: 0,
@@ -603,10 +603,10 @@ export default function AboutSection() {
             transition={{ duration: 0.75, ease: EASE }}
           >
             <p className="about-intro-eyebrow">Our Story</p>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'clamp(14px,1.4vw,16px)', color: '#3C2B27', lineHeight: 1.9, margin: '0 0 16px' }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: 'clamp(14px,1.4vw,16px)', color: '#3C2B27', lineHeight: 1.9, margin: '0 0 16px' }}>
               At TheHeatingStore, we are dedicated to providing high quality underfloor heating solutions to our customers. Our company was founded in 2011 by a team of heating experts who wanted to offer a better, more efficient way to heat homes and businesses.
             </p>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'clamp(14px,1.4vw,16px)', color: '#3C2B27', lineHeight: 1.9, margin: 0 }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: 'clamp(14px,1.4vw,16px)', color: '#3C2B27', lineHeight: 1.9, margin: 0 }}>
               Since then, we have grown into one of the largest suppliers of underfloor heating systems in Kashmir, with a range of products to suit every need and budget. We pride ourselves on our excellent customer service, knowledgeable staff, and commitment to providing the best possible products and solutions.
             </p>
           </motion.div>

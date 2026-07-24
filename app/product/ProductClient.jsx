@@ -69,7 +69,7 @@ function WhereItsUsed() {
 							gap: 8,
 							whiteSpace: 'nowrap',
 							padding: '8px 24px',
-							fontFamily: "'DM Sans', sans-serif",
+							fontFamily: "var(--font-body)",
 							fontSize: 10,
 							fontWeight: 500,
 							textTransform: 'uppercase',
@@ -95,7 +95,7 @@ function WhereItsUsed() {
 					</div>
 					<h2
 						style={{
-							fontFamily: "'Cormorant Garamond', serif",
+							fontFamily: "var(--font-heading)",
 							fontSize: 'clamp(28px, 4vw, 48px)',
 							fontWeight: 600,
 							lineHeight: 1.1,
@@ -106,7 +106,7 @@ function WhereItsUsed() {
 					</h2>
 					<p
 						style={{
-							fontFamily: "'DM Sans', sans-serif",
+							fontFamily: "var(--font-body)",
 							fontSize: 'clamp(14px, 2vw, 17px)',
 							lineHeight: 1.75,
 							color: '#3C2B27',
@@ -155,7 +155,7 @@ function WhereItsUsed() {
 							<div style={{ padding: 'clamp(14px, 3vw, 20px) clamp(14px, 3vw, 20px) clamp(16px, 3vw, 24px)' }}>
 								<h3
 									style={{
-										fontFamily: "'Cormorant Garamond', serif",
+										fontFamily: "var(--font-heading)",
 										fontSize: 'clamp(1rem, 2vw, 1.125rem)',
 										fontWeight: 600,
 										color: '#3C2A25',
@@ -165,7 +165,7 @@ function WhereItsUsed() {
 								</h3>
 								<p
 									style={{
-										fontFamily: "'DM Sans', sans-serif",
+										fontFamily: "var(--font-body)",
 										fontSize: 'clamp(0.75rem, 1.5vw, 0.8125rem)',
 										color: '#3C2B27',
 										lineHeight: 1.6,

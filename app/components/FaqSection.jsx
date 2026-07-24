@@ -80,7 +80,7 @@ function FaqItem({ faq, index, inView }) {
 			<button
 				onClick={() => setOpen(!open)}
 				style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: '20px 0', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: 16 }}>
-				<span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(0.95rem, 1.5vw, 1.1rem)', fontWeight: 600, color: open ? '#8B3A2A' : '#2C1810', lineHeight: 1.3, flex: 1 }}>
+				<span style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(0.95rem, 1.5vw, 1.1rem)', fontWeight: 600, color: open ? '#8B3A2A' : '#2C1810', lineHeight: 1.3, flex: 1 }}>
 					{faq.q}
 				</span>
 				<span style={{ width: 32, height: 32, borderRadius: '50%', background: open ? '#8B3A2A' : 'rgba(139,58,42,0.08)', border: '1px solid rgba(139,58,42,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.25s ease' }}>
@@ -96,7 +96,7 @@ function FaqItem({ faq, index, inView }) {
 					animate={{ opacity: 1, height: 'auto' }}
 					transition={{ duration: 0.3, ease: EASE }}
 					style={{ paddingBottom: 20, overflow: 'hidden' }}>
-					<p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'clamp(13px, 1.5vw, 15px)', color: '#6B4A2D', lineHeight: 1.8, margin: 0 }}>
+					<p style={{ fontFamily: "var(--font-body)", fontSize: 'clamp(13px, 1.5vw, 15px)', color: '#6B4A2D', lineHeight: 1.8, margin: 0 }}>
 						{faq.a}
 					</p>
 				</motion.div>
@@ -132,11 +132,11 @@ export default function FaqSection() {
 						animate={inView ? { opacity: 1, y: 0 } : {}}
 						transition={{ duration: 0.7, ease: EASE }}
 						style={{ textAlign: 'center', marginBottom: 48 }}>
-						<div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 24px', fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.35em', color: '#4FA3D1', borderRadius: 999, background: 'rgba(255,255,255,0.45)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.5)', boxShadow: '0 4px 16px rgba(60,42,37,0.08)', marginBottom: 20 }}>
+						<div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 24px', fontFamily: "var(--font-body)", fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.35em', color: '#4FA3D1', borderRadius: 999, background: 'rgba(255,255,255,0.45)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.5)', boxShadow: '0 4px 16px rgba(60,42,37,0.08)', marginBottom: 20 }}>
 							<span style={{ width: 7, height: 7, borderRadius: '50%', background: '#E88C2A', flexShrink: 0 }} />
 							Common Questions
 						</div>
-						<h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, lineHeight: 1.1, color: '#2C1810', margin: 0 }}>
+						<h2 style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, lineHeight: 1.1, color: '#2C1810', margin: 0 }}>
 							Frequently Asked Questions
 						</h2>
 						<div style={{ width: 48, height: 3, borderRadius: 2, background: 'linear-gradient(90deg,#C4623A,#E88C2A)', margin: '16px auto 0' }} />
@@ -159,7 +159,7 @@ export default function FaqSection() {
 											border: isActive ? 'none' : '1px solid rgba(139,58,42,0.15)',
 											background: isActive ? 'linear-gradient(135deg, #8B3A2A, #B86B45)' : 'rgba(139,58,42,0.06)',
 											color: isActive ? 'white' : '#8B3A2A',
-											fontFamily: "'DM Sans', sans-serif",
+											fontFamily: "var(--font-body)",
 											fontSize: 13,
 											fontWeight: 600,
 											cursor: 'pointer',

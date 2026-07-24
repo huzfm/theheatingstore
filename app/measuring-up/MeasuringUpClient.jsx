@@ -5,8 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 /* ───────────────── DESIGN TOKENS (mirror app/AboutClient & SpaceVerification) ── */
-const FONT_HEADING = "'Cormorant Garamond', Georgia, serif";
-const FONT_BODY = "'DM Sans', sans-serif";
+const FONT_HEADING = "var(--font-heading)";
+const FONT_BODY = "var(--font-body)";
 const COLOR_TEXT = "#2C1810";
 const COLOR_BODY = "#6B4A2D";
 const COLOR_ACCENT = "#C4623A";
@@ -225,7 +225,7 @@ export default function MeasuringUpClient() {
           display: inline-flex; align-items: center; justify-content: center; gap: 8px;
           padding: 14px 32px; border-radius: 16px; border: none; cursor: pointer;
           background: linear-gradient(135deg, #C4623A, #E88C2A);
-          color: #fff; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+          color: #fff; font-family: var(--font-body); font-size: 15px; font-weight: 600;
           letter-spacing: 0.02em;
           box-shadow: 0 8px 24px rgba(196,98,58,0.35);
           transition: transform .2s ease, box-shadow .2s ease;
@@ -237,7 +237,7 @@ export default function MeasuringUpClient() {
           padding: 14px 32px; border-radius: 16px; cursor: pointer;
           background: transparent;
           color: #2C1810; border: 1.5px solid rgba(44,24,16,0.30);
-          font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+          font-family: var(--font-body); font-size: 15px; font-weight: 600;
           letter-spacing: 0.02em;
           transition: all .2s ease;
         }

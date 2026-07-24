@@ -202,10 +202,10 @@ export default function ContactPage() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           style={{ maxWidth: '720px', margin: '0 auto', textAlign: 'center', padding: 'clamp(64px,8vw,96px) clamp(20px,4vw,40px) 56px' }}
         >
-          <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 600, fontFamily: "'Cormorant Garamond', serif", color: '#3C2A25', lineHeight: 1.2 }}>
+          <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 600, fontFamily: "var(--font-heading)", color: '#3C2A25', lineHeight: 1.2 }}>
             Contact Us
           </h1>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '16px', color: '#6B4A2D', lineHeight: 1.75, marginTop: '12px', maxWidth: '560px', margin: '12px auto 0' }}>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: '16px', color: '#6B4A2D', lineHeight: 1.75, marginTop: '12px', maxWidth: '560px', margin: '12px auto 0' }}>
             We are here to help you across India. Our technical team handles everything from your first enquiry to post installation support.
           </p>
           <div className="flex flex-row justify-center gap-3 mt-8 sm:mt-7">
@@ -244,19 +244,19 @@ export default function ContactPage() {
             >
               <div className="flex items-center gap-2.5 mb-3">
                 <span style={{ color: '#B86B45' }}><PhoneIcon /></span>
-                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '20px', fontWeight: 600, color: '#3C2A25', marginBottom: 0 }}>Call Us</h3>
+                <h3 style={{ fontFamily: "var(--font-heading)", fontSize: '20px', fontWeight: 600, color: '#3C2A25', marginBottom: 0 }}>Call Us</h3>
               </div>
-   <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', color: '#6B4A2D', lineHeight: 1.6 }}>
+   <p style={{ fontFamily: "var(--font-body)", fontSize: '14px', color: '#6B4A2D', lineHeight: 1.6 }}>
   To discuss your installation, call us on
   <br />
   <a href="tel:+919070907035" style={{ color: '#B86B45', fontWeight: 600, textDecoration: 'none' }}>
     +91 90709 07035
   </a>
 </p>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: '#6B4A2D', marginTop: '10px' }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: '13px', color: '#6B4A2D', marginTop: '10px' }}>
                 Our team is available Monday to Saturday, 9am to 7pm IST.
               </p>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: '#6B4A2D', marginTop: '6px' }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: '13px', color: '#6B4A2D', marginTop: '6px' }}>
                 For WhatsApp enquiries, message us any time — we respond within 2 hours during business hours.
               </p>
             </motion.div>
@@ -270,17 +270,17 @@ export default function ContactPage() {
             >
               <div className="flex items-center gap-2.5 mb-3">
                 <span style={{ color: '#B86B45' }}><MailIcon /></span>
-                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '20px', fontWeight: 600, color: '#3C2A25', marginBottom: 0 }}>Email Us</h3>
+                <h3 style={{ fontFamily: "var(--font-heading)", fontSize: '20px', fontWeight: 600, color: '#3C2A25', marginBottom: 0 }}>Email Us</h3>
               </div>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', color: '#6B4A2D' }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: '14px', color: '#6B4A2D' }}>
                 Sales and installation enquiries:{' '}
                 <a href="mailto:theheatingstore.in" style={{ color: '#B86B45', fontWeight: 600, textDecoration: 'underline' }}>theheatingstore.in</a>
               </p>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', color: '#6B4A2D', marginTop: '8px' }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: '14px', color: '#6B4A2D', marginTop: '8px' }}>
                 Customer support:{' '}
                 <a href="mailto:support@electrichamam.in" style={{ color: '#B86B45', fontWeight: 600, textDecoration: 'underline' }}>support@electrichamam.in</a>
               </p>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', color: '#6B4A2D', marginTop: '8px' }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: '14px', color: '#6B4A2D', marginTop: '8px' }}>
                 Accounts and trade:{' '}
                 <a href="mailto:trade@electrichamam.in" style={{ color: '#B86B45', fontWeight: 600, textDecoration: 'underline' }}>trade@electrichamam.in</a>
               </p>
@@ -295,9 +295,9 @@ export default function ContactPage() {
             >
               <div className="flex items-center gap-2.5 mb-3">
                 <span style={{ color: '#B86B45' }}><CalendarIcon /></span>
-                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '20px', fontWeight: 600, color: '#3C2A25', marginBottom: 0 }}>Book a Site Survey</h3>
+                <h3 style={{ fontFamily: "var(--font-heading)", fontSize: '20px', fontWeight: 600, color: '#3C2A25', marginBottom: 0 }}>Book a Site Survey</h3>
               </div>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', color: '#6B4A2D', lineHeight: 1.6 }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: '14px', color: '#6B4A2D', lineHeight: 1.6 }}>
                 Book site survey with our engineer. We visit your home across J&K and Ladakh, assess the space, and provide a detailed written quotation.
               </p>
               <a
@@ -317,9 +317,9 @@ export default function ContactPage() {
             >
               <div className="flex items-center gap-2.5 mb-3">
                 <span style={{ color: '#B86B45' }}><MessageIcon /></span>
-                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '20px', fontWeight: 600, color: '#3C2A25', marginBottom: 0 }}>WhatsApp Us</h3>
+                <h3 style={{ fontFamily: "var(--font-heading)", fontSize: '20px', fontWeight: 600, color: '#3C2A25', marginBottom: 0 }}>WhatsApp Us</h3>
               </div>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', color: '#6B4A2D', lineHeight: 1.6 }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: '14px', color: '#6B4A2D', lineHeight: 1.6 }}>
                 Send photos of your space on WhatsApp and get an instant installation estimate. Our team responds within 2 hours during business hours.
               </p>
               <a
@@ -343,7 +343,7 @@ export default function ContactPage() {
           style={{ maxWidth: '900px', margin: '0 auto', padding: '0 clamp(16px,4vw,40px) 56px' }}
         >
           <h2 style={{
-            fontFamily: "'Cormorant Garamond', serif",
+            fontFamily: "var(--font-heading)",
             fontSize: 'clamp(1.5rem, 3vw, 2rem)',
             fontWeight: 600, color: '#3C2A25',
             textAlign: 'center', marginBottom: '6px',
@@ -351,7 +351,7 @@ export default function ContactPage() {
             Visit our showroom in Srinagar
           </h2>
           <p style={{
-            fontFamily: "'DM Sans', sans-serif", fontSize: '14px',
+            fontFamily: "var(--font-body)", fontSize: '14px',
             color: '#6B4A2D', textAlign: 'center', marginBottom: '24px',
           }}>
             Our showroom and technical office is located in Srinagar, Kashmir. Open Saturday to Thursday, 10am to 6pm. Click the map to get directions.
@@ -396,7 +396,7 @@ export default function ContactPage() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           style={{ maxWidth: '640px', margin: '0 auto', padding: '0 clamp(16px,4vw,40px) 56px' }}
         >
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 700, letterSpacing: '0.3em', color: '#B86B45', textTransform: 'uppercase', marginBottom: '16px', textAlign: 'center' }}>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: '10px', fontWeight: 700, letterSpacing: '0.3em', color: '#B86B45', textTransform: 'uppercase', marginBottom: '16px', textAlign: 'center' }}>
             Installation Inquiry
           </p>
 
@@ -404,7 +404,7 @@ export default function ContactPage() {
             className="rounded-[28px] bg-white/85 backdrop-blur border border-black/8 p-7 sm:p-10"
             style={{ boxShadow: '0 40px 90px -40px rgba(60,42,37,0.3)' }}
           >
-            <h2 style={{ fontSize: 'clamp(1.25rem, 3vw, 1.625rem)', fontWeight: 600, fontFamily: "'Cormorant Garamond', serif", color: '#3C2A25', lineHeight: 1.2 }}>
+            <h2 style={{ fontSize: 'clamp(1.25rem, 3vw, 1.625rem)', fontWeight: 600, fontFamily: "var(--font-heading)", color: '#3C2A25', lineHeight: 1.2 }}>
               Electric Hamam Installation Inquiry
             </h2>
             <p className="mt-1.5 text-sm text-[#6B4A2D]">Reviewed personally by our installation team within 24 hours.</p>
@@ -501,8 +501,8 @@ export default function ContactPage() {
     }}
   >
     <span style={{ fontSize: '28px' }}>🏔️</span>
-    <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '18px', fontWeight: 600, color: '#3C2A25', marginTop: '12px' }}>North Kashmir</h4>
-    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: '#6B4A2D', lineHeight: 1.6, marginTop: '8px' }}>
+    <h4 style={{ fontFamily: "var(--font-heading)", fontSize: '18px', fontWeight: 600, color: '#3C2A25', marginTop: '12px' }}>North Kashmir</h4>
+    <p style={{ fontFamily: "var(--font-body)", fontSize: '13px', color: '#6B4A2D', lineHeight: 1.6, marginTop: '8px' }}>
       Baramulla, Sopore, Kupwara, Bandipora, Handwara, Rafiabad, Uri, Tangmarg.
     </p>
     <span style={{ display: 'inline-block', marginTop: '12px', background: 'rgba(184,107,69,0.10)', color: '#B86B45', fontSize: '11px', fontWeight: 700, borderRadius: '999px', padding: '4px 12px' }}>
@@ -525,8 +525,8 @@ export default function ContactPage() {
     }}
   >
     <span style={{ fontSize: '28px' }}>🕌</span>
-    <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '18px', fontWeight: 600, color: '#3C2A25', marginTop: '12px' }}>Central Kashmir</h4>
-    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: '#6B4A2D', lineHeight: 1.6, marginTop: '8px' }}>
+    <h4 style={{ fontFamily: "var(--font-heading)", fontSize: '18px', fontWeight: 600, color: '#3C2A25', marginTop: '12px' }}>Central Kashmir</h4>
+    <p style={{ fontFamily: "var(--font-body)", fontSize: '13px', color: '#6B4A2D', lineHeight: 1.6, marginTop: '8px' }}>
       Srinagar, Budgam, Ganderbal, Beerwah, Magam, Chadoora, Narbal, Khansahib.
     </p>
     <span style={{ display: 'inline-block', marginTop: '12px', background: 'rgba(184,107,69,0.10)', color: '#B86B45', fontSize: '11px', fontWeight: 700, borderRadius: '999px', padding: '4px 12px' }}>
@@ -549,8 +549,8 @@ export default function ContactPage() {
     }}
   >
     <span style={{ fontSize: '28px' }}>🌿</span>
-    <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '18px', fontWeight: 600, color: '#3C2A25', marginTop: '12px' }}>South Kashmir</h4>
-    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: '#6B4A2D', lineHeight: 1.6, marginTop: '8px' }}>
+    <h4 style={{ fontFamily: "var(--font-heading)", fontSize: '18px', fontWeight: 600, color: '#3C2A25', marginTop: '12px' }}>South Kashmir</h4>
+    <p style={{ fontFamily: "var(--font-body)", fontSize: '13px', color: '#6B4A2D', lineHeight: 1.6, marginTop: '8px' }}>
       Anantnag, Pulwama, Shopian, Kulgam, Awantipora, Bijbehara, Dooru, Qazigund.
     </p>
     <span style={{ display: 'inline-block', marginTop: '12px', background: 'rgba(184,107,69,0.10)', color: '#B86B45', fontSize: '11px', fontWeight: 700, borderRadius: '999px', padding: '4px 12px' }}>
@@ -581,13 +581,13 @@ export default function ContactPage() {
             }}
           >
             <div style={{ flex: '1', minWidth: '280px' }}>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 700, letterSpacing: '0.3em', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', marginBottom: '10px' }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: '10px', fontWeight: 700, letterSpacing: '0.3em', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', marginBottom: '10px' }}>
                 Not Sure Where to Start?
               </p>
-              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)', fontWeight: 600, color: 'white', lineHeight: 1.2 }}>
+              <h3 style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)', fontWeight: 600, color: 'white', lineHeight: 1.2 }}>
                 Let us help you find the right system.
               </h3>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', color: 'rgba(255,255,255,0.7)', marginTop: '10px' }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: '14px', color: 'rgba(255,255,255,0.7)', marginTop: '10px' }}>
                 Answer a few quick questions and our expert will recommend the right electric hamam system for your home.
               </p>
             </div>

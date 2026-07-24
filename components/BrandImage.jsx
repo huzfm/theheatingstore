@@ -84,7 +84,7 @@ export default function BrandImage({
 				{initials && (
 					<span
 						style={{
-							fontFamily: "'Cormorant Garamond', Georgia, serif",
+							fontFamily: "var(--font-heading)",
 							fontSize: 'clamp(40px, 7vw, 80px)',
 							fontWeight: 600,
 							letterSpacing: '-0.02em',
