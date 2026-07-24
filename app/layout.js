@@ -139,7 +139,7 @@ export default function RootLayout({ children }) {
           </SiteChrome>
         </main>
 
-        <SiteChrome>
+        <SiteChrome hidePrefixes={['/experience', '/product', '/brands', '/installation']}>
           <Footer />
         </SiteChrome>
       </body>
