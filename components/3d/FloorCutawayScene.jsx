@@ -107,6 +107,17 @@ function SceneRig({ progressRef, reduced }) {
     state.camera.position.z = damp(state.camera.position.z, camZ * fit, 3.5, dt);
     state.camera.lookAt(0, rise * 0.42, 0);
 
+    // Fog is distance-based, but on a narrow phone the camera dollies back by
+    // `fit` to keep the wide mat framed — which would push the layers deeper
+    // into the fog and visibly darken them toward the near-black fog colour.
+    // Scaling the fog bounds by the same factor keeps the perceived fog
+    // density constant across aspect ratios, so mobile reads as bright as
+    // desktop.
+    if (state.scene.fog) {
+      state.scene.fog.near = 9 * fit;
+      state.scene.fog.far = 21 * fit;
+    }
+
     if (groupRef.current && !reduced) {
       const t = state.clock.elapsedTime;
       groupRef.current.rotation.y = Math.sin(t * 0.18) * 0.04;

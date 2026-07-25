@@ -145,6 +145,23 @@ export default function FloorRevealSection() {
           </div>
         </div>
 
+        {/* Scroll cue — a mouse-style indicator inviting the visitor to keep
+            scrolling. Bottom-centre on mobile; pinned to the right edge and
+            vertically centred on wider screens. Persistent — it stays put for
+            the whole sequence rather than fading on scroll. */}
+        <div className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2.5 md:bottom-auto md:left-auto md:right-6 md:top-1/2 md:-translate-x-0 md:-translate-y-1/2">
+          <span className="flex h-9 w-[19px] items-start justify-center rounded-full border border-white/30">
+            <motion.span
+              className="mt-1.5 h-1.5 w-1.5 rounded-full bg-heat-500"
+              animate={{ y: [0, 9, 0], opacity: [1, 0.35, 1] }}
+              transition={{ duration: 1.6, ease: 'easeInOut', repeat: Infinity }}
+            />
+          </span>
+          <span className="text-[10px] uppercase tracking-[0.3em] text-white/55">
+            Scroll
+          </span>
+        </div>
+
         {/* Progress rail — ticks that fill as each stage completes.
             Left-aligned on mobile so it clears the floating chat bubble that
             sits bottom-right on the home page; moves to the right on wider

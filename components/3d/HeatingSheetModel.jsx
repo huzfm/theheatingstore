@@ -80,7 +80,7 @@ const FEATURES = [
  * re-sample the canvas behind every card each frame, which is expensive. The
  * layered dark gradient fill reads the same and costs nothing.
  */
-function FeatureLabel({ feature, rotationRef, progressRef }) {
+function FeatureLabel({ feature, rotationRef, progressRef, activeIdRef }) {
   const wrapRef = useRef(null);
   const cardRef = useRef(null);
 
@@ -91,8 +91,11 @@ function FeatureLabel({ feature, rotationRef, progressRef }) {
     // The camera looks down -Z, so this corner faces us when
     // cos(rotY + azimuth) ≈ 1.
     const facing = Math.cos(rotationRef.current + feature.azimuth);
-    const unlocked = progressRef.current >= feature.unlock ? 1 : 0;
-    const opacity = Math.min(1, Math.max(0, (facing - 0.1) / 0.5)) * unlocked;
+    // Only the single front-most unlocked label is live (see the winner pick
+    // in HeatingSheetModel), so exactly one callout shows at a time and the
+    // earlier ones clear the moment a later corner turns into view.
+    const active = activeIdRef.current === feature.id ? 1 : 0;
+    const opacity = Math.min(1, Math.max(0, (facing - 0.1) / 0.5)) * active;
 
     wrap.style.opacity = opacity.toFixed(3);
     // Card lifts and settles as it resolves; the node/leader stay put.
@@ -249,6 +252,29 @@ function ColdTail() {
 function HeatingSheetModel({ rotationRef, progressRef, showLabels = true, levelRef = null }) {
   const mesh = useMemo(() => meshAlpha(), []);
 
+  /**
+   * Which callout owns the screen right now. Each frame we pick the single
+   * unlocked label whose corner most directly faces the camera; every other
+   * label reads this and stays hidden. This is what makes the reveal strictly
+   * sequential — as the mat turns and a new corner comes forward it takes over,
+   * and the previous callouts drop away rather than lingering two-at-a-time.
+   */
+  const activeIdRef = useRef(null);
+  useFrame(() => {
+    let bestId = null;
+    let best = 0.12; // ignore corners barely edge-on to the camera
+    for (let i = 0; i < FEATURES.length; i += 1) {
+      const f = FEATURES[i];
+      if (progressRef.current < f.unlock) continue;
+      const facing = Math.cos(rotationRef.current + f.azimuth);
+      if (facing > best) {
+        best = facing;
+        bestId = f.id;
+      }
+    }
+    activeIdRef.current = bestId;
+  });
+
   return (
     <group>
       {/* Fibreglass scrim. Real mats are an open weave you can see through,
@@ -287,6 +313,7 @@ function HeatingSheetModel({ rotationRef, progressRef, showLabels = true, levelR
             feature={f}
             rotationRef={rotationRef}
             progressRef={progressRef}
+            activeIdRef={activeIdRef}
           />
         ))}
     </group>
