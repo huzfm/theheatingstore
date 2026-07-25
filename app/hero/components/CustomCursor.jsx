@@ -12,13 +12,13 @@ import { damp } from '../lib/ease';
  * This site previously argued against a custom cursor at all (see
  * `useMagnetic`) on the grounds that it's the most worn Awwwards cliché and
  * costs conversions on a lead-gen page. That argument holds against the
- * *common* version — a large shape hard-glued to the pointer, obscuring it.
+ * *common* version, a large shape hard-glued to the pointer, obscuring it.
  * What's built here is the opposite of that: it never replaces the system
  * pointer, stays small, and only reacts near the handful of targets tagged
  * `data-cursor-target` (the CTAs) rather than editorialising the whole page.
  *
  * Damped on the GSAP ticker rather than CSS-transitioned, matching every
- * other continuous value in this hero — a transition on top of a per-frame
+ * other continuous value in this hero, a transition on top of a per-frame
  * target produces two lags fighting each other.
  */
 export default function CustomCursor({ active = true }) {

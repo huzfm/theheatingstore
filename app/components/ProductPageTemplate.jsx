@@ -229,10 +229,10 @@ export default function ProductPageTemplate({
   const [openFaq, setOpenFaq] = useState(0);
 
   const defaultBenefits = [
-    { title: 'Consistent Warmth', desc: 'Even heat across the entire floor surface — no cold spots, no drafts.', Icon: FlameIcon, color: '#B86B45' },
+    { title: 'Consistent Warmth', desc: 'Even heat across the entire floor surface, no cold spots, no drafts.', Icon: FlameIcon, color: '#B86B45' },
     { title: 'Energy Efficient', desc: 'Engineered to use less power while delivering more heat per watt.', Icon: BoltIcon, color: '#4FA3D1' },
-    { title: 'Silent Operation', desc: 'No fans, no noise — just quiet, radiant warmth from the floor up.', Icon: VolumeOffIcon, color: '#6BAE7F' },
-    { title: 'Low Maintenance', desc: 'No moving parts, no servicing — install once, enjoy for decades.', Icon: ToolIcon, color: '#E8933A' },
+    { title: 'Silent Operation', desc: 'No fans, no noise, just quiet, radiant warmth from the floor up.', Icon: VolumeOffIcon, color: '#6BAE7F' },
+    { title: 'Low Maintenance', desc: 'No moving parts, no servicing, install once, enjoy for decades.', Icon: ToolIcon, color: '#E8933A' },
   ];
 
   const finalBenefits = benefits.length > 0 ? benefits : defaultBenefits;
@@ -521,7 +521,7 @@ export default function ProductPageTemplate({
               fontFamily: "var(--font-body)", fontSize: 15, color: 'rgba(255,255,255,0.85)',
               lineHeight: 1.8, margin: 0, maxWidth: 760,
             }}>
-              {whyUkImportedText || `Every ${productName} we install is sourced from leading UK manufacturers, certified for safety and efficiency, and built to perform in the most demanding climates. We don't sell local imitations — we sell the same systems used in European homes for decades, now installed by our Kashmir team.`}
+              {whyUkImportedText || `Every ${productName} we install is sourced from leading UK manufacturers, certified for safety and efficiency, and built to perform in the most demanding climates. We don't sell local imitations, we sell the same systems used in European homes for decades, now installed by our Kashmir team.`}
             </p>
             <div className="flex flex-wrap gap-3 mt-2">
               {['CE Certified', '25+ Year Warranty', '0.01% Fault Rate', 'Since 2011'].map((t) => (
@@ -642,7 +642,7 @@ export default function ProductPageTemplate({
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title={`The Heating Store — ${productName}`}
+                  title={`The Heating Store, ${productName}`}
                 />
               </div>
             </a>
@@ -720,7 +720,7 @@ export default function ProductPageTemplate({
               <SectionHeading
                 badge="FAQ"
                 title={productName}
-                accent=" — Frequently Asked Questions"
+                accent=", Frequently Asked Questions"
                 center
                 sub="Answers to the most common questions we hear from customers across Kashmir."
               />

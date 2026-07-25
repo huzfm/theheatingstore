@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 
 /**
  * Hides global page furniture (footer, chatbot) on routes that provide their
- * own — currently the /experience 3D site, which has a bespoke dark footer
+ * own, currently the /experience 3D site, which has a bespoke dark footer
  * and must not have a light-theme chatbot bubble floating over its canvas.
  *
  * Mirrors the prefix logic in SiteHeader.jsx; kept as a thin client wrapper

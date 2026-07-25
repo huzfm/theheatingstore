@@ -5,7 +5,7 @@ import GlowCard from '@/components/ui/GlowCard';
 import { PRINCIPLES } from './data';
 
 /**
- * The three things we stand for — distinct cursor-glow cards rather than a
+ * The three things we stand for, distinct cursor-glow cards rather than a
  * generic icon grid. Reuses GlowCard (dark, pointer-tracked border light) and
  * the shared reveal stagger.
  */

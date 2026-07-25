@@ -6,7 +6,7 @@ import { clamp, smoothstep } from './ease';
  * space. Progress runs 0→1 across the whole pinned scroll.
  *
  * Deliberately restrained compared to an early pass at this scene, which
- * dove the camera down to floor level and in close — it read as a game
+ * dove the camera down to floor level and in close, it read as a game
  * camera exploring a room, not a product being presented. Every position
  * here stays elevated and at a respectful distance; what moves is framing
  * and focus, not altitude. Narrower fov throughout (26–30° rather than the

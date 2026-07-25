@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MainHero — luxury editorial hero. Fully self-contained: every custom
+   MainHero, luxury editorial hero. Fully self-contained: every custom
    property lives on .root, so nothing here leaks into the rest of the site
    and nothing from the rest of the site can accidentally leak in.
    ========================================================================== */

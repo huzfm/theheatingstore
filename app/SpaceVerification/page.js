@@ -672,9 +672,9 @@ export default function SpaceVerification() {
   };
 
   const getSliderStatus = () => {
-    if (heatedPercent < 70) return { color: '#E05252', text: '⚠ Not recommended — insufficient coverage for efficient heating', type: 'warn' };
+    if (heatedPercent < 70) return { color: '#E05252', text: '⚠ Not recommended, insufficient coverage for efficient heating', type: 'warn' };
     if (heatedPercent <= 80) return { color: '#6BAE7F', text: '✓ Recommended coverage for comfort and efficiency', type: 'good' };
-    return { color: '#E88C2A', text: '↑ High coverage — ensure no fixed furniture in heated zone', type: 'high' };
+    return { color: '#E88C2A', text: '↑ High coverage, ensure no fixed furniture in heated zone', type: 'high' };
   };
 
   useEffect(() => {
@@ -1260,7 +1260,7 @@ export default function SpaceVerification() {
                               width: '100%',
                             }}
                           >
-                            {/* Icon container — colored bg circle */}
+                            {/* Icon container, colored bg circle */}
                             <div style={{
                               width: 72,
                               height: 72,
@@ -1822,7 +1822,7 @@ export default function SpaceVerification() {
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                               <polyline points="20 6 9 17 4 12"/>
                             </svg>
-                            Full coverage — ideal for open-plan spaces
+                            Full coverage, ideal for open-plan spaces
                           </div>
                         )}
                       </div>
@@ -2376,14 +2376,14 @@ export default function SpaceVerification() {
                         <div style={{ height: 1, background: '#E8D5C0', margin: '12px 0 4px' }} />
 
                         {[
-                          { icon: roomType ? roomIcons[roomType] : null, label: 'Room', value: roomType ? roomLabels[roomType] : '—', color: roomType ? roomColors[roomType] : '#C4623A', step: 1 },
-                          { icon: subfloor ? subfloorIcons[subfloor] : null, label: 'Subfloor', value: subfloor ? subfloorLabels[subfloor] : '—', color: subfloor ? subfloorColors[subfloor] : '#C4623A', step: 2 },
-                          { icon: floorSurface ? surfaceIcons[floorSurface] : null, label: 'Surface', value: floorSurface ? surfaceLabels[floorSurface] : '—', color: floorSurface ? surfaceColors[floorSurface] : '#C4623A', step: 3 },
-                          { icon: Icon.Ruler, label: 'Dimensions', value: length && width ? `${length} × ${width} ${measurementUnit === 'feet' ? 'ft' : 'm'}` : '—', step: 4 },
-                          { icon: Icon.Grid, label: 'Total Area', value: totalArea ? `${totalArea} ${unitLabel}` : '—', step: 4 },
-                          { icon: Icon.Zap, label: 'Heated Area', value: heatedArea ? `${heatedArea} ${unitLabel} (${heatedPercent}%)` : '—', step: 5 },
-                          { icon: thermostat ? thermostatIcons[thermostat] : null, label: 'Thermostat', value: thermostat ? thermostatLabels[thermostat] : '—', color: thermostat ? thermostatColors[thermostat] : '#C4623A', step: 6 },
-                          { icon: Icon.Insulation, label: 'Insulation', value: insulation ? `${insulation.toUpperCase()} — ${insulationThickness}` : '—', step: 7 },
+                          { icon: roomType ? roomIcons[roomType] : null, label: 'Room', value: roomType ? roomLabels[roomType] : ' ', color: roomType ? roomColors[roomType] : '#C4623A', step: 1 },
+                          { icon: subfloor ? subfloorIcons[subfloor] : null, label: 'Subfloor', value: subfloor ? subfloorLabels[subfloor] : ' ', color: subfloor ? subfloorColors[subfloor] : '#C4623A', step: 2 },
+                          { icon: floorSurface ? surfaceIcons[floorSurface] : null, label: 'Surface', value: floorSurface ? surfaceLabels[floorSurface] : ' ', color: floorSurface ? surfaceColors[floorSurface] : '#C4623A', step: 3 },
+                          { icon: Icon.Ruler, label: 'Dimensions', value: length && width ? `${length} × ${width} ${measurementUnit === 'feet' ? 'ft' : 'm'}` : ' ', step: 4 },
+                          { icon: Icon.Grid, label: 'Total Area', value: totalArea ? `${totalArea} ${unitLabel}` : ' ', step: 4 },
+                          { icon: Icon.Zap, label: 'Heated Area', value: heatedArea ? `${heatedArea} ${unitLabel} (${heatedPercent}%)` : ' ', step: 5 },
+                          { icon: thermostat ? thermostatIcons[thermostat] : null, label: 'Thermostat', value: thermostat ? thermostatLabels[thermostat] : ' ', color: thermostat ? thermostatColors[thermostat] : '#C4623A', step: 6 },
+                          { icon: Icon.Insulation, label: 'Insulation', value: insulation ? `${insulation.toUpperCase()}, ${insulationThickness}` : ' ', step: 7 },
                         ].map((item) => (
                           <SummaryRow
                             key={item.label}

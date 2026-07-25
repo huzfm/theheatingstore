@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Warm animated mesh-gradient — pure CSS, no WebGL.
+ * Warm animated mesh-gradient, pure CSS, no WebGL.
  *
  * Soft blurred thermal orbs drift and breathe behind the glass, blending
  * (mix-blend: screen) into a living pool of warmth; embers rise and fade off a

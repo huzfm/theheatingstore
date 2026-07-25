@@ -83,7 +83,7 @@ export default function ReasonCard({
       animate="visible"
       exit="exit"
     >
-      {/* Meta row — small icon chip + position counter. Kept compact so it
+      {/* Meta row, small icon chip + position counter. Kept compact so it
           reads as a label, never competing with the title below. */}
       <motion.div variants={item} className="flex items-center gap-3">
         <span
@@ -102,7 +102,7 @@ export default function ReasonCard({
         </span>
       </motion.div>
 
-      {/* Index + title lockup — the number is the single dominant numeral for
+      {/* Index + title lockup, the number is the single dominant numeral for
           the reason, set beside the title as an editorial anchor (no floating
           watermark, so it can never overlap the copy). */}
       <motion.div variants={item} className="weh-step-1 mt-7 flex items-center gap-5 sm:gap-6">

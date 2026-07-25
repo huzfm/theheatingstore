@@ -1,7 +1,7 @@
 export const metadata = {
   title: "How Underfloor Heating Works | Electric Hamam Installation Process",
   description:
-    "Understand how electric hamam and underfloor heating systems work — from heating elements and thermostat controls to Kashmir floor layers and heat retention design. A complete technical breakdown.",
+    "Understand how electric hamam and underfloor heating systems work, from heating elements and thermostat controls to Kashmir floor layers and heat retention design. A complete technical breakdown.",
   keywords: [
     "how underfloor heating works Kashmir",
     "electric hamam working principle Kashmir",
@@ -12,7 +12,7 @@ export const metadata = {
   openGraph: {
     title: "How Underfloor Heating Works | Electric Hamam Installation Process",
     description:
-      "Understand how electric hamam and underfloor heating systems work — complete technical breakdown.",
+      "Understand how electric hamam and underfloor heating systems work, complete technical breakdown.",
   },
 };
 

@@ -6,7 +6,7 @@ import { useSceneReducedMotion } from './scene-context';
 import { PALETTE } from '@/lib/three-utils';
 
 /**
- * Pipeline smoke test — a rounded slab and a torus on the brand accent.
+ * Pipeline smoke test, a rounded slab and a torus on the brand accent.
  *
  * Exists purely to prove the R3F path end to end (dynamic import → Canvas →
  * default lights → animated frame loop) before any product geometry is built
@@ -18,7 +18,7 @@ export default function PlaceholderScene() {
   const reduced = useSceneReducedMotion();
 
   useFrame((state, delta) => {
-    // Under reduced motion the objects hold their pose — the scene still
+    // Under reduced motion the objects hold their pose, the scene still
     // renders and lights correctly, it just doesn't move on its own.
     if (reduced) return;
     if (slabRef.current) slabRef.current.rotation.y += delta * 0.35;

@@ -3,7 +3,7 @@
 import { EYEBROW, TITLE } from './content';
 
 /**
- * The cold open — the section's original eyebrow badge and heading, now
+ * The cold open, the section's original eyebrow badge and heading, now
  * playing as their own title card instead of sitting above a carousel.
  */
 export default function TitleScene({ rootRef }) {

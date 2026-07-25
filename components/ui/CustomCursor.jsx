@@ -9,7 +9,7 @@ import { useExperienceStore } from '@/lib/store';
  * expands into a warm glow and the dot shrinks.
  *
  * Position is written straight to the DOM inside a RAF loop rather than
- * through state — a cursor that re-renders React on mousemove is the single
+ * through state, a cursor that re-renders React on mousemove is the single
  * easiest way to make a site feel heavy.
  */
 export default function CustomCursor() {
@@ -92,7 +92,7 @@ export default function CustomCursor() {
   /**
    * Hover detection by event delegation rather than per-element handlers.
    * One listener covers every button, link and [data-cursor] element on the
-   * page — including anything mounted later — so no component has to
+   * page, including anything mounted later, so no component has to
    * remember to wire the cursor up.
    */
   useEffect(() => {

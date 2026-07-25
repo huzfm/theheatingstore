@@ -3,12 +3,12 @@
 import { QUOTE } from './content';
 
 /**
- * The emotional finale. Minimal composition, soft warm background — the one
+ * The emotional finale. Minimal composition, soft warm background, the one
  * deliberate palette shift away from the benefit scenes, so it reads as the
  * sequence's turn toward warmth rather than another chapter.
  *
  * Mark, quote, and attribution all sit on one frosted glass card and arrive
- * together with the beat (see usePinnedTimeline: only `root` is animated) —
+ * together with the beat (see usePinnedTimeline: only `root` is animated) 
  * a single complete composition to read, not a sequence of reveals.
  */
 export default function QuoteScene({ rootRef }) {
@@ -23,7 +23,7 @@ export default function QuoteScene({ rootRef }) {
           <span className="weh-quote-name-row">
             <span className="weh-quote-dot" aria-hidden="true" />
             <span className="weh-quote-name">
-              {QUOTE.name} <span className="weh-quote-role">— {QUOTE.role}</span>
+              {QUOTE.name} <span className="weh-quote-role"> {QUOTE.role}</span>
             </span>
           </span>
           <span className="weh-quote-source">{QUOTE.source}</span>

@@ -1,5 +1,5 @@
 /**
- * HomeHero.css — the static, art-directed home hero that replaces the
+ * HomeHero.css, the static, art-directed home hero that replaces the
  * scroll-driven WebGL cutaway. One cinematic plate, a warm scrim, and a
  * single left-set copy column. Everything is authored against the same
  * copper / ivory tokens the rest of the site uses, so it reads as the same
@@ -106,7 +106,7 @@
   to   { opacity: 1; }
 }
 
-/* Fine film grain — kills gradient banding and adds a photographic tooth. */
+/* Fine film grain, kills gradient banding and adds a photographic tooth. */
 .hhero__grain {
   position: absolute;
   inset: 0;
@@ -199,7 +199,7 @@
   color: var(--muted);
 }
 
-/* climate line — small, refined, with a hairline rule */
+/* climate line, small, refined, with a hairline rule */
 .hhero__climate {
   display: flex;
   align-items: center;

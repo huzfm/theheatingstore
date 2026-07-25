@@ -21,7 +21,7 @@ const FONT_CSS = `
   }
 
   /* Fluid sizes live here (not inline) so a height media query can override
-     them — the pinned stage must fit the viewport at any height without the
+     them, the pinned stage must fit the viewport at any height without the
      copy crowding the bottom edge. */
   .weh-showcase .weh-index { font-size: clamp(3rem, 6vw, 5.25rem); }
   .weh-showcase .weh-title { font-size: clamp(1.85rem, 3vw, 3rem); }
@@ -33,7 +33,7 @@ const FONT_CSS = `
   .weh-track::-webkit-scrollbar { display: none; }
 
   /* Short viewports (most laptops): tighten type + rhythm so the tallest
-     reason — the three-line "Energy Efficient Heating" — clears the bottom. */
+     reason, the three-line "Energy Efficient Heating", clears the bottom. */
   @media (max-height: 840px) {
     .weh-showcase .weh-index { font-size: clamp(2.5rem, 4.6vw, 3.75rem); }
     .weh-showcase .weh-title { font-size: clamp(1.5rem, 2.4vw, 2.35rem); }
@@ -65,7 +65,7 @@ export default function WhyElectricHamam() {
 
   const [active, setActive] = useState(0);
   // The canvas is mounted only while the section is near the viewport and
-  // unmounted when far away — reclaims the GPU without toggling frameloop.
+  // unmounted when far away, reclaims the GPU without toggling frameloop.
   const [nearby, setNearby] = useState(false);
   // The 3D panel only ever shows at lg+ (it's `hidden lg:flex`). On phones and
   // tablets we must not even mount the WebGL canvas: a display:none canvas still
@@ -103,7 +103,7 @@ export default function WhyElectricHamam() {
   /* Mount the canvas while the section is near the viewport; unmount it once
      it's well out of view so the WebGL context stops costing anything on the
      rest of the page. `isDesktop` is a dependency because the desktop section
-     (which owns `wrapperRef`) only renders once it turns true — the first mount
+     (which owns `wrapperRef`) only renders once it turns true, the first mount
      shows the mobile carousel, where wrapperRef is unattached. Without this the
      observer would never be created on desktop and the two WebGL visuals
      (reasons 2 & 3) would never load. */
@@ -118,7 +118,7 @@ export default function WhyElectricHamam() {
     return () => io.disconnect();
   }, [reduce, isDesktop]);
 
-  /* Cursor-following glow, written straight to CSS vars — no re-render. */
+  /* Cursor-following glow, written straight to CSS vars, no re-render. */
   const handleMove = useCallback((e) => {
     const el = glowRef.current;
     if (!el) return;
@@ -146,7 +146,7 @@ export default function WhyElectricHamam() {
 
   /* Left/right arrow keys step through the reasons, but only while the section
      is on screen (`nearby`) and only on desktop, so they never hijack the page
-     elsewhere. We don't touch Up/Down — those must stay free for page scroll. */
+     elsewhere. We don't touch Up/Down, those must stay free for page scroll. */
   useEffect(() => {
     if (!isDesktop) return undefined;
     const onKey = (e) => {
@@ -178,7 +178,7 @@ export default function WhyElectricHamam() {
     return () => io.disconnect();
   }, [isDesktop, reduce]);
 
-  /* Dot / arrow jump on the mobile carousel — smooth-scrolls the chosen card to
+  /* Dot / arrow jump on the mobile carousel, smooth-scrolls the chosen card to
      centre using native scroll. */
   const goToMobile = useCallback((i) => {
     const track = trackRef.current;
@@ -189,7 +189,7 @@ export default function WhyElectricHamam() {
   /* Scroll direction (+1 down / -1 up), derived during render by comparing the
      active index to the one we last committed. It's what makes the card slide
      the RIGHT way: entering from the right on the way down, from the left on the
-     way back up — a real carousel feel rather than a one-way animation. */
+     way back up, a real carousel feel rather than a one-way animation. */
   const prevActiveRef = useRef(active);
   const direction = active >= prevActiveRef.current ? 1 : -1;
   useEffect(() => {
@@ -359,7 +359,7 @@ export default function WhyElectricHamam() {
         // `contain: paint` isolates the stage as its own paint root.
         style={{ contain: 'paint' }}
       >
-        {/* Ambient base wash — its own compositor layer so the large radial
+        {/* Ambient base wash, its own compositor layer so the large radial
             gradients are painted once and only composited. */}
         <div
           aria-hidden="true"
@@ -373,7 +373,7 @@ export default function WhyElectricHamam() {
           }}
         />
 
-        {/* Per-reason accent glow — crossfades as the active reason changes */}
+        {/* Per-reason accent glow, crossfades as the active reason changes */}
         <AnimatePresence>
           <motion.div
             key={current.num}
@@ -392,7 +392,7 @@ export default function WhyElectricHamam() {
           />
         </AnimatePresence>
 
-        {/* Cursor-following light — only rendered on hover-capable (desktop)
+        {/* Cursor-following light, only rendered on hover-capable (desktop)
             pointers; on touch it would never move yet still cost a full-screen
             gradient layer. */}
         {canHover && (
@@ -418,7 +418,7 @@ export default function WhyElectricHamam() {
           <SectionHeading className="weh-head-gap mb-8" />
 
           <div className="grid min-h-0 items-stretch gap-8 lg:grid-cols-[1.05fr_0.9fr] lg:gap-12">
-            {/* Text stage — the active reason, vertically centred in its column.
+            {/* Text stage, the active reason, vertically centred in its column.
                 min-h keeps the absolutely-positioned card from collapsing below
                 lg (where the 3D panel that would otherwise set the row height is
                 hidden). */}
@@ -433,7 +433,7 @@ export default function WhyElectricHamam() {
               </AnimatePresence>
             </div>
 
-            {/* Persistent 3D panel — plain surface (no backdrop-blur) so it
+            {/* Persistent 3D panel, plain surface (no backdrop-blur) so it
                 doesn't repaint on every scroll frame */}
             <div className="hidden items-center justify-center lg:flex">
               <div
@@ -444,7 +444,7 @@ export default function WhyElectricHamam() {
                   boxShadow: '0 40px 90px -40px rgba(0,0,0,0.8)',
                 }}
               >
-                {/* Shared WebGL layer — the two 3D reasons (cable / floor).
+                {/* Shared WebGL layer, the two 3D reasons (cable / floor).
                     Mounted while the section is near the viewport; faded out
                     under the SVG reasons via opacity. */}
                 <div
@@ -459,7 +459,7 @@ export default function WhyElectricHamam() {
                   ) : null}
                 </div>
 
-                {/* SVG layer — the five non-3D reasons, crossfaded */}
+                {/* SVG layer, the five non-3D reasons, crossfaded */}
                 <AnimatePresence mode="wait">
                   {!is3D && (
                     <motion.div
@@ -482,7 +482,7 @@ export default function WhyElectricHamam() {
                   </div>
                 )}
 
-                {/* Product-plate footer — a subtle catalogue tag, not a second
+                {/* Product-plate footer, a subtle catalogue tag, not a second
                     giant numeral (the dominant one lives beside the title). */}
                 <div className="pointer-events-none absolute bottom-5 left-5 right-5 flex items-center justify-between">
                   <span
@@ -500,7 +500,7 @@ export default function WhyElectricHamam() {
           </div>
         </div>
 
-        {/* Prev / next — desktop is click-driven, so these arrows are the
+        {/* Prev / next, desktop is click-driven, so these arrows are the
             primary control. They disable at the ends so the bounds are obvious,
             and a counter sits alongside. */}
         <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center gap-3 md:bottom-10">
@@ -536,7 +536,7 @@ export default function WhyElectricHamam() {
           </span>
         </div>
 
-        {/* Vertical stepper — reads as a clear progress index. The overall
+        {/* Vertical stepper, reads as a clear progress index. The overall
             "NN / 07" counter caps it so the visitor always knows where they
             are; each rung is a click target that jumps to that reason. */}
         <div className="pointer-events-none absolute right-5 top-1/2 hidden -translate-y-1/2 md:right-9 md:block">

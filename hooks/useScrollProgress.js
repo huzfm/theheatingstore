@@ -13,7 +13,7 @@ if (typeof window !== 'undefined') {
  * calling setState.
  *
  * Scroll fires on every frame. Routing that through React state would
- * re-render the subscriber — and in an R3F tree, its whole subtree — 60+
+ * re-render the subscriber, and in an R3F tree, its whole subtree, 60+
  * times a second. Instead the value lands in a plain ref that render-loop
  * consumers (useFrame) read imperatively, so the scene animates without React
  * re-rendering at all.

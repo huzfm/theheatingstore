@@ -5,14 +5,14 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 /**
  * Decides how much hero the visitor's device should be asked to render.
  *
- *   Tier 0 — still. The room sits at its final warm state, fully legible, with
+ *   Tier 0, still. The room sits at its final warm state, fully legible, with
  *            no ignition, no idle life and no parallax. This is what
  *            `prefers-reduced-motion` gets: a photograph, not a degraded
  *            animation.
- *   Tier 1 — the full CSS + GSAP experience. Grade, ignition, thermal type,
+ *   Tier 1, the full CSS + GSAP experience. Grade, ignition, thermal type,
  *            depth parallax, magnetic CTAs, the scroll match-cut. This is the
  *            baseline everyone else receives and it is complete on its own.
- *   Tier 2 — Tier 1 plus the WebGL layer: heat-haze refraction, coil bloom,
+ *   Tier 2, Tier 1 plus the WebGL layer: heat-haze refraction, coil bloom,
  *            embers and film grain. Desktop, capable GPU, unmetered only.
  *
  * The tiering lives here as one decision rather than as scattered `if`s so
@@ -24,7 +24,7 @@ const useIsomorphicLayoutEffect =
   typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
 /**
- * WebGL2 support has to be probed rather than assumed — it is absent on older
+ * WebGL2 support has to be probed rather than assumed, it is absent on older
  * iOS, on some locked-down enterprise browsers, and whenever hardware
  * acceleration has been switched off, in which case a canvas would fall back to
  * software rasterising a fullscreen shader. That is far worse than no shader.
@@ -74,7 +74,7 @@ function detectTier() {
 /**
  * Unlike the previous photographic hero, the 3D scene is the hero's primary
  * content on tier 2 rather than a decorative enhancement layered over an
- * already-complete experience — so this waits only long enough to let the
+ * already-complete experience, so this waits only long enough to let the
  * ignition sequence's first frames paint uncontested, not for full idle. The
  * timeout is the safety net for pages that never go idle.
  */
@@ -83,8 +83,8 @@ const WEBGL_DELAY_MS = 400;
 export function useCapabilityTier() {
   /**
    * Deliberately identical on the server and on the first client render.
-   * Nothing in the hero's markup branches on `tier` or `reduced` — they are
-   * applied imperatively as a data attribute — and `webgl` starts false
+   * Nothing in the hero's markup branches on `tier` or `reduced`, they are
+   * applied imperatively as a data attribute, and `webgl` starts false
    * everywhere, so there is no hydration mismatch to reconcile.
    */
   const [state, setState] = useState({

@@ -17,7 +17,7 @@ import {
 
 const EASE = [0.16, 1, 0.3, 1];
 
-// ── Icon wrappers — consistent size + brand colour, sized per usage ──────────
+// ── Icon wrappers, consistent size + brand colour, sized per usage ──────────
 // `color` prop is forwarded as a CSS color so the existing call sites
 // (`<f.Icon color={f.color} />`, `<item.Icon color="#B86B45" />`) keep working.
 function withIconDefaults(Icon, { size = 'w-5 h-5', strokeWidth = 1.75, defaultColor = '#B86B45' } = {}) {
@@ -182,15 +182,15 @@ export default function AreaPageTemplate({
   const [openFaq, setOpenFaq] = useState(0);
 
   const features = [
-    { title: 'Consistent Warmth', desc: 'Even heat across the entire floor surface — no cold spots, no drafts.', Icon: FlameIcon, color: '#B86B45' },
+    { title: 'Consistent Warmth', desc: 'Even heat across the entire floor surface, no cold spots, no drafts.', Icon: FlameIcon, color: '#B86B45' },
     { title: 'Energy Efficient', desc: 'Engineered to use less power while delivering more heat per watt.', Icon: BoltIcon, color: '#4FA3D1' },
-    { title: 'Silent Operation', desc: 'No fans, no noise — just quiet, radiant warmth from the floor up.', Icon: VolumeOffIcon, color: '#6BAE7F' },
-    { title: 'Low Maintenance', desc: 'No moving parts, no servicing — install once, enjoy for decades.', Icon: ToolIcon, color: '#E8933A' },
+    { title: 'Silent Operation', desc: 'No fans, no noise, just quiet, radiant warmth from the floor up.', Icon: VolumeOffIcon, color: '#6BAE7F' },
+    { title: 'Low Maintenance', desc: 'No moving parts, no servicing, install once, enjoy for decades.', Icon: ToolIcon, color: '#E8933A' },
   ];
 
   const whyUs = [
     { Icon: ShieldIcon, title: 'UK Imported Quality', desc: 'Every system we install is sourced from leading UK manufacturers and certified for safety, efficiency, and longevity.' },
-    { Icon: MapIcon, title: 'Local Kashmir Expertise', desc: 'Our team is based in Srinagar and has installed hundreds of systems across the valley — we know Kashmiri winters.' },
+    { Icon: MapIcon, title: 'Local Kashmir Expertise', desc: 'Our team is based in Srinagar and has installed hundreds of systems across the valley, we know Kashmiri winters.' },
     { Icon: MapPinIcon, title: 'Based in Rajbagh', desc: 'Visit our Rajbagh showroom to see, touch, and compare the systems we install. Same-day site visits are possible.' },
   ];
 
@@ -549,7 +549,7 @@ export default function AreaPageTemplate({
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title={`The Heating Store — serving ${areaName}`}
+                  title={`The Heating Store, serving ${areaName}`}
                 />
               </div>
             </a>
@@ -569,7 +569,7 @@ export default function AreaPageTemplate({
               <SectionHeading
                 badge="FAQ"
                 title={`Electric Hamam in ${areaName}`}
-                accent=" — Frequently Asked Questions"
+                accent=", Frequently Asked Questions"
                 center
                 sub="Answers to the most common questions we hear from homeowners in your area."
               />
@@ -603,7 +603,7 @@ export default function AreaPageTemplate({
                 title="UK-Imported Heating"
                 accent=" Solutions"
                 center
-                sub="Browse our full range of premium heating systems — all UK-imported and engineered for Kashmir's sub-zero winters."
+                sub="Browse our full range of premium heating systems, all UK-imported and engineered for Kashmir's sub-zero winters."
               />
             </div>
             <div className="flex flex-wrap justify-center gap-3">

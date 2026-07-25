@@ -92,7 +92,7 @@ export default function Footer() {
               maxWidth: 280,
               fontFamily: "var(--font-body)",
             }}>
-              Premium electric hammam &amp; underfloor heating — engineered for Kashmir's extreme winters and India's most demanding spaces.
+              Premium electric hammam &amp; underfloor heating, engineered for Kashmir's extreme winters and India's most demanding spaces.
             </p>
 
             {/* Contact */}
@@ -240,7 +240,7 @@ export default function Footer() {
               Outreach
             </p>
 
-            {/* Card 2 — Become a Dealer */}
+            {/* Card 2, Become a Dealer */}
             <div style={{
               background: 'rgba(255,255,255,0.04)',
               border: '1px solid rgba(255,255,255,0.08)',

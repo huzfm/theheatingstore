@@ -61,14 +61,14 @@ const REASONS = [
     num: '03',
     IconComp: Icon.Package,
     title: 'Excellent Service Support',
-    desc: 'From your first enquiry to post-installation aftercare, our qualified team is available at every stage. Technical questions, system troubleshooting, or warranty claims — we respond fast and resolve faster.',
+    desc: 'From your first enquiry to post-installation aftercare, our qualified team is available at every stage. Technical questions, system troubleshooting, or warranty claims, we respond fast and resolve faster.',
     img: 'https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&q=80',
   },
   {
     num: '04',
     IconComp: Icon.Tool,
     title: 'Price Match Promise',
-    desc: 'Found the same system cheaper elsewhere? We will match any like-for-like price from an authorised supplier. Same product, same warranty, same certified installation — guaranteed at the best price.',
+    desc: 'Found the same system cheaper elsewhere? We will match any like-for-like price from an authorised supplier. Same product, same warranty, same certified installation, guaranteed at the best price.',
     img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
   },
   {
@@ -365,7 +365,7 @@ export default function OurProcess() {
                         : '0 4px 16px rgba(0,0,0,0.12)',
                     }}
                   >
-                    {/* Card top — title + num */}
+                    {/* Card top, title + num */}
                     <div className='wcu-card-top'>
                       <h3 className='wcu-card-title'>{step.title}</h3>
                       <span className='wcu-card-num'>{step.num}</span>

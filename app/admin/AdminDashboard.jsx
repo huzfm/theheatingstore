@@ -178,7 +178,7 @@ export default function AdminDashboard() {
 									<div key={s.name} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
 										<span style={{ width: 10, height: 10, borderRadius: '50%', background: s.color, display: 'inline-block' }} />
 										<span style={{ fontFamily: "var(--font-body)", fontSize: 11, color: '#6B4A2D' }}>
-											{s.name} — {total > 0 ? Math.round((s.value / total) * 100) : 0}%
+											{s.name}, {total > 0 ? Math.round((s.value / total) * 100) : 0}%
 										</span>
 									</div>
 								))}
@@ -211,14 +211,14 @@ export default function AdminDashboard() {
 									<tbody>
 										{leads.map((lead, i) => (
 											<tr key={i} style={{ borderBottom: '1px solid rgba(184,107,69,0.06)' }}>
-												<td style={{ padding: '12px 12px', fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 600, color: '#2C1810' }}>{lead.name || '—'}</td>
-												<td style={{ padding: '12px 12px', fontFamily: "var(--font-body)", fontSize: 13, color: '#6B4A2D' }}>{lead.phone || '—'}</td>
-												<td style={{ padding: '12px 12px', fontFamily: "var(--font-body)", fontSize: 13, color: '#6B4A2D' }}>{lead.location || '—'}</td>
+												<td style={{ padding: '12px 12px', fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 600, color: '#2C1810' }}>{lead.name || ' '}</td>
+												<td style={{ padding: '12px 12px', fontFamily: "var(--font-body)", fontSize: 13, color: '#6B4A2D' }}>{lead.phone || ' '}</td>
+												<td style={{ padding: '12px 12px', fontFamily: "var(--font-body)", fontSize: 13, color: '#6B4A2D' }}>{lead.location || ' '}</td>
 												<td style={{ padding: '12px 12px' }}>
 													<span className='adm-badge' style={{ background: 'rgba(79,163,209,0.12)', color: '#4FA3D1' }}>{lead.source || 'Form'}</span>
 												</td>
 												<td style={{ padding: '12px 12px', fontFamily: "var(--font-body)", fontSize: 12, color: '#6B4A2D' }}>
-													{lead.createdAt ? new Date(lead.createdAt).toLocaleDateString() : '—'}
+													{lead.createdAt ? new Date(lead.createdAt).toLocaleDateString() : ' '}
 												</td>
 											</tr>
 										))}

@@ -42,7 +42,7 @@ const journal = [
 		title: 'Electric vs Hydronic Underfloor Heating',
 		dek: 'Cable mats or hot water pipes? Choosing the right system for your home in Srinagar.',
 		quote:
-			'Warmth should be felt, never seen — the quiet mark of a truly considered interior.',
+			'Warmth should be felt, never seen, the quiet mark of a truly considered interior.',
 		img: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=1600&q=80',
 		role: 'quote',
 	},
@@ -245,7 +245,7 @@ export default function ArticlesSection() {
 							transition={{ duration: 0.9, ease: EASE, delay: 0.45 }}
 							className='mt-6 max-w-md text-sm sm:text-base leading-relaxed text-[#5A4F47]'>
 							Four studies on how invisible heating shapes the way a home
-							feels — from Kashmir&rsquo;s coldest winters to its quietest
+							feels, from Kashmir&rsquo;s coldest winters to its quietest
 							luxury interiors.
 						</motion.p>
 					</div>
@@ -256,7 +256,7 @@ export default function ArticlesSection() {
 						viewport={{ once: true }}
 						transition={{ duration: 1, ease: EASE, delay: 0.5 }}
 						className='shrink-0 text-[11px] font-medium uppercase tracking-[0.3em] text-[#8A7A6D] lg:text-right'>
-						Vol. I — On Warmth &amp; Architecture
+						Vol. I, On Warmth &amp; Architecture
 					</motion.p>
 				</div>
 
@@ -288,7 +288,7 @@ export default function ArticlesSection() {
 							transition={{ duration: 0.9, ease: EASE, delay: 0.35 }}
 							className='mt-7 max-w-lg'>
 							<p className='text-[11px] font-medium uppercase tracking-[0.3em] text-[#A6633F]'>
-								{feature.id} — {feature.tag}
+								{feature.id}, {feature.tag}
 							</p>
 							<h3 className='mt-3 font-serif font-medium leading-snug text-[#2B2622] text-2xl sm:text-3xl lg:text-4xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[2px]'>
 								{feature.title}
@@ -321,7 +321,7 @@ export default function ArticlesSection() {
 							transition={{ duration: 0.9, ease: EASE, delay: 0.5 }}
 							className='mt-7'>
 							<p className='text-[11px] font-medium uppercase tracking-[0.3em] text-[#A6633F]'>
-								{tall.id} — {tall.tag}
+								{tall.id}, {tall.tag}
 							</p>
 							<h3 className='mt-3 font-serif font-medium leading-snug text-[#2B2622] text-2xl sm:text-3xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[2px]'>
 								{tall.title}
@@ -354,7 +354,7 @@ export default function ArticlesSection() {
 								transition={{ duration: 0.9, ease: EASE, delay: 0.5 }}
 								className='absolute inset-x-0 bottom-0 p-6 sm:p-10 lg:p-12'>
 								<p className='text-[11px] font-medium uppercase tracking-[0.3em] text-[#E6D5B8]'>
-									{panorama.id} — {panorama.tag}
+									{panorama.id}, {panorama.tag}
 								</p>
 								<h3 className='mt-3 max-w-2xl font-serif font-medium leading-snug text-white text-2xl sm:text-3xl lg:text-4xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[2px]'>
 									{panorama.title}
@@ -387,7 +387,7 @@ export default function ArticlesSection() {
 							transition={{ duration: 0.9, ease: EASE, delay: 0.3 }}
 							className='lg:col-span-7'>
 							<p className='text-[11px] font-medium uppercase tracking-[0.3em] text-[#A6633F]'>
-								{quote.id} — {quote.tag}
+								{quote.id}, {quote.tag}
 							</p>
 							<p className='mt-4 font-serif italic leading-snug text-[#2B2622] text-xl sm:text-2xl lg:text-3xl'>
 								&ldquo;{quote.quote}&rdquo;

@@ -10,7 +10,7 @@ import { calmAt } from '../../lib/sceneTimeline';
 
 /**
  * The cinematic camera. Samples `cameraPath` at the current scroll progress,
- * then damps toward that sample every frame rather than snapping to it — the
+ * then damps toward that sample every frame rather than snapping to it, the
  * lag is what turns a scrubbed value into something that reads as a camera
  * operator rather than a progress bar.
  *
@@ -18,7 +18,7 @@ import { calmAt } from '../../lib/sceneTimeline';
  * hero's camera-overscan-resolving-on-load, so the very first frame is
  * already arriving rather than static) and a pointer parallax so the room
  * keeps acknowledging the visitor the way the old photographic hero did. Both
- * fade out across `calmAt` toward the end of the scroll — the closing shot
+ * fade out across `calmAt` toward the end of the scroll, the closing shot
  * needs the camera to read as having actually stopped, not just as having
  * run out of path to follow.
  */
@@ -37,7 +37,7 @@ export default function CameraRig({ reduced = false }) {
 
     const fov = sampleCameraPath(heroState.sceneProgress, targetPos, targetLook);
 
-    // Settle in from a higher, further-back establishing position — the 3D
+    // Settle in from a higher, further-back establishing position, the 3D
     // equivalent of the DOM hero's camera resolving from a 4.5% overscan.
     const bootOffset = (1 - heroState.boot) * 0.85;
     targetPos.y += bootOffset;
@@ -54,7 +54,7 @@ export default function CameraRig({ reduced = false }) {
     currentLook.z = damp(currentLook.z, targetLook.z, 2.8, dt);
 
     if (!reduced) {
-      // Breathing, not exploring — kept small enough that it registers as
+      // Breathing, not exploring, kept small enough that it registers as
       // "alive" without ever reading as the camera moving through space.
       // Damped toward zero across the closing shot, so the very last frames
       // read as genuinely still rather than quietly still swaying.

@@ -1,4 +1,4 @@
-/** Hero iconography — the CTA arrow. */
+/** Hero iconography, the CTA arrow. */
 
 export function ArrowIcon() {
   return (

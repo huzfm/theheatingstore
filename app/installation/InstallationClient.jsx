@@ -13,7 +13,7 @@ import Link from 'next/link';
 import { useRef } from 'react';
 
 /* ══════════════════════════════════════════════════════════════════════════
-   INSTALLATION — dark cinematic
+   INSTALLATION, dark cinematic
    Near-black stage, heat-orange scroll-fill timeline, oversized Bebas Neue,
    cursor-tilt 3D step images. Global footer hidden on /installation.
    ══════════════════════════════════════════════════════════════════════════ */
@@ -32,7 +32,7 @@ const steps = [
 	{
 		title: 'Install Insulation',
 		image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
-		desc: 'Clean the subfloor thoroughly. Our expert will install high-density insulation boards across the entire surface, directing all generated heat upward into the living space — leading to quicker heat-up times and significant cost savings.',
+		desc: 'Clean the subfloor thoroughly. Our expert will install high-density insulation boards across the entire surface, directing all generated heat upward into the living space, leading to quicker heat-up times and significant cost savings.',
 		points: [
 			'High-density boards eliminate downward heat loss',
 			'Perimeter edge strip fitted for screed expansion',
@@ -68,7 +68,7 @@ const steps = [
 	{
 		title: 'Register Guarantee',
 		image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80',
-		desc: 'Finally, our expert will register the system, activating a 10-year worry-free guarantee. After this period, the system continues to be covered by a lifetime warranty — providing you with enduring support and complete peace of mind.',
+		desc: 'Finally, our expert will register the system, activating a 10-year worry-free guarantee. After this period, the system continues to be covered by a lifetime warranty, providing you with enduring support and complete peace of mind.',
 		points: [
 			'Full electrical safety validation and sensor placement verified',
 			'Manufacturer warranty registered and handover certificate issued',
@@ -120,7 +120,7 @@ export default function InstallationContent() {
 
 			{/* ── HERO ── */}
 			<section style={{ position: 'relative', padding: '160px 6vw 60px', overflow: 'hidden' }}>
-				{/* relevant background image — underfloor heating install, masked to fade into the dark page */}
+				{/* relevant background image, underfloor heating install, masked to fade into the dark page */}
 				<div
 					aria-hidden
 					style={{
@@ -152,7 +152,7 @@ export default function InstallationContent() {
 					</motion.h1>
 
 					<motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: EASE, delay: 0.2 }} style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(15px, 2vw, 18px)', lineHeight: 1.7, color: BONE_MUTE, maxWidth: 640, marginTop: 30 }}>
-						Every stage is engineered to the highest installation standard — from subfloor preparation and insulation to cable laying, screed depth, and thermostat commissioning. Our layered method maximises thermal mass, delivering sustained warmth long after the system powers down. Built for reliability, backed by manufacturer warranties, completed by certified technicians on every project.
+						Every stage is engineered to the highest installation standard, from subfloor preparation and insulation to cable laying, screed depth, and thermostat commissioning. Our layered method maximises thermal mass, delivering sustained warmth long after the system powers down. Built for reliability, backed by manufacturer warranties, completed by certified technicians on every project.
 					</motion.p>
 				</div>
 			</section>
@@ -197,7 +197,7 @@ export default function InstallationContent() {
 											</div>
 										</div>
 
-										{/* image — desktop only */}
+										{/* image, desktop only */}
 										<div className='inst-card-img'>
 											<TiltImage src={step.image} alt={step.title} />
 										</div>
@@ -221,7 +221,7 @@ export default function InstallationContent() {
 						<span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: HEAT, color: INK, padding: '6px 16px', borderRadius: 999, fontFamily: 'var(--font-body)', fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' }}>Kashmir Climate Note</span>
 					</div>
 					<p style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(15px, 2vw, 18px)', color: BONE_MUTE, lineHeight: 1.75, margin: '10px 0 0' }}>
-						Using insulation ensures heat retention for <span style={{ color: HEAT, fontWeight: 600 }}>6–8 hours</span> even during electricity cut-offs (load shedding) — optimised for the Kashmir climate.
+						Using insulation ensures heat retention for <span style={{ color: HEAT, fontWeight: 600 }}>6–8 hours</span> even during electricity cut-offs (load shedding), optimised for the Kashmir climate.
 					</p>
 				</motion.div>
 			</section>
@@ -237,7 +237,7 @@ export default function InstallationContent() {
 						<span style={{ color: HEAT }}>site visit today.</span>
 					</h2>
 					<p style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(15px, 2vw, 18px)', lineHeight: 1.7, color: BONE_MUTE, maxWidth: 540, margin: '0 auto 40px' }}>
-						Our certified engineers survey your space, recommend the right system, and handle every stage above — backed by our Kashmir installation warranty.
+						Our certified engineers survey your space, recommend the right system, and handle every stage above, backed by our Kashmir installation warranty.
 					</p>
 					<div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
 						<Link href='/contact' className='inst-cta inst-cta--solid'><span>Book a free site visit</span><span className='inst-cta-arrow'>→</span></Link>

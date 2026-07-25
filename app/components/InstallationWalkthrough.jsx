@@ -9,14 +9,14 @@ const productImages = ['/images/p1.png', '/images/p3.png', '/images/p2.png'];
 
 const stepsInfo = [
 	'Our Kashmir team prepares the floor and routes electrical wiring for the electric hamam system.',
-	'The Kashmir layered method: insulation board, concrete base, and heating cable mat — engineered for heat retention during power cuts.',
+	'The Kashmir layered method: insulation board, concrete base, and heating cable mat, engineered for heat retention during power cuts.',
 	'System testing, thermostat commissioning, and final handover with your Kashmir installation warranty activated.',
 ];
 
 const altSteps = [
-	'Professional electric hamam installation in a Kashmir home — floor preparation and wiring by The Heating Store team',
-	'The layered concrete sandwich method for electric hamam in Kashmir — insulation, concrete, and heating cable installation',
-	'Completed electric hamam installation in Srinagar — tested, commissioned, and covered by our Kashmir installation warranty',
+	'Professional electric hamam installation in a Kashmir home, floor preparation and wiring by The Heating Store team',
+	'The layered concrete sandwich method for electric hamam in Kashmir, insulation, concrete, and heating cable installation',
+	'Completed electric hamam installation in Srinagar, tested, commissioned, and covered by our Kashmir installation warranty',
 ];
 
 export default function InstallationWalkthrough() {

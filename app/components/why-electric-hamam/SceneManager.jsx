@@ -13,25 +13,25 @@ import CTAEnding from './CTAEnding';
  * viewport-covering stage and lets usePinnedTimeline drive which one is
  * visible. In reduced-motion mode the CSS on the ancestor `.weh-static`
  * wrapper (see WhyElectricHamam.jsx) overrides the stacking to normal
- * document flow — this component's markup doesn't change between modes.
+ * document flow, this component's markup doesn't change between modes.
  *
  * Each chapter registers only the refs its own motion actually needs: every
  * chapter gets a `root` (the one composition-wide camera move); benefit
  * scenes additionally get `image`/`frame`/`sweep` for the photograph's own
- * physical motion. Nothing else is individually animated — headings, body
+ * physical motion. Nothing else is individually animated, headings, body
  * copy, stats and quote text are plain nested DOM that simply inherits
  * root's opacity/blur/transform, so they always arrive, hold and leave as
  * one composition.
  *
  * Three blurred ambient glow layers sit behind the stage content and
- * parallax at different rates off the raw scroll progress — the
+ * parallax at different rates off the raw scroll progress, the
  * foreground/midground/background depth the visual brief asks for. Their
  * tint follows whichever scene is currently active.
  */
 export default function SceneManager({ wrapperRef, ctaHref, reduced }) {
   const titleRoot = useRef(null);
 
-  // Plain {current: null} ref-shaped objects, one set per scene — a stable
+  // Plain {current: null} ref-shaped objects, one set per scene, a stable
   // array built once so identity never changes across renders. React treats
   // any object with a settable `.current` exactly like a real ref.
   const sceneRefsRef = useRef(null);

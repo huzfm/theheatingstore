@@ -11,7 +11,7 @@ import { FLOOR_LIFT } from './dimensions';
 
 /**
  * Cheap volumetric light, staged as a soft skylight falling onto the exhibit
- * rather than sunlight through a window — there is no window in this scene
+ * rather than sunlight through a window, there is no window in this scene
  * any more. A real volumetric pass (raymarched fog, or postprocessing
  * god-rays through a light-source mesh) means an extra full-screen sample
  * per frame; three soft additive sprites angled down from above read as

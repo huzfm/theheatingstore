@@ -64,12 +64,12 @@ function SceneRig({ progressRef, reduced }) {
     const spin = stageProgress(p, ...TIMELINE.rotate);
 
     if (matRef.current) {
-      // 0.4 rather than 0.65 — the larger lift left an obvious empty gap
+      // 0.4 rather than 0.65, the larger lift left an obvious empty gap
       // between the mat and the insulation it's supposed to sit on.
       matRef.current.position.y = damp(matRef.current.position.y, rise * 0.4, 5, dt);
 
       // A quarter turn as it lifts, then a full 360°. The lift's tilt unwinds
-      // by (1 - spin) so the turn ends at exactly 360° — square to camera —
+      // by (1 - spin) so the turn ends at exactly 360°, square to camera 
       // rather than 405°, which would leave the mat sitting askew. Both terms
       // are absolute, so scrubbing back rewinds to the same angle.
       const target = rise * Math.PI * 0.25 * (1 - spin) + spin * Math.PI * 2;
@@ -78,7 +78,7 @@ function SceneRig({ progressRef, reduced }) {
       matRef.current.rotation.z = damp(matRef.current.rotation.z, rise * 0.07 * (1 - spin), 5, dt);
     }
 
-    // Pulls in for the mat reveal, then eases back out for the rotation —
+    // Pulls in for the mat reveal, then eases back out for the rotation 
     // at full turn the mat's diagonal is wider than its face, so holding the
     // close framing cropped its corners off the edge of the viewport.
     const camY = 2.75 - rise * 0.35 + spin * 0.15;
@@ -108,7 +108,7 @@ function SceneRig({ progressRef, reduced }) {
     state.camera.lookAt(0, rise * 0.42, 0);
 
     // Fog is distance-based, but on a narrow phone the camera dollies back by
-    // `fit` to keep the wide mat framed — which would push the layers deeper
+    // `fit` to keep the wide mat framed, which would push the layers deeper
     // into the fog and visibly darken them toward the near-black fog colour.
     // Scaling the fog bounds by the same factor keeps the perceived fog
     // density constant across aspect ratios, so mobile reads as bright as

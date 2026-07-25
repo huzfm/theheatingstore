@@ -11,7 +11,7 @@ import { radialGlow, cableSheath, cableHeat } from '@/lib/textures';
  * X, stepping over in Z, alternating direction.
  *
  * A centripetal Catmull-Rom rounds the U-turns without the overshoot a
- * uniform/chordal curve produces — overshoot would push the cable outside
+ * uniform/chordal curve produces, overshoot would push the cable outside
  * the mat edge at every turn, which reads as a modelling bug.
  */
 export function createSerpentinePath({ width, length, spacing, margin = 0.1 }) {
@@ -32,7 +32,7 @@ export function createSerpentinePath({ width, length, spacing, margin = 0.1 }) {
 /**
  * Adhesive fixing tabs.
  *
- * On a real mat the cable is bonded to the scrim at intervals — it doesn't
+ * On a real mat the cable is bonded to the scrim at intervals, it doesn't
  * float. The tabs are small and mostly read as a rhythm of dark ticks along
  * the run, but that rhythm is a strong "this is a manufactured assembly"
  * cue. One InstancedMesh, so ~90 of them cost a single draw call.
@@ -54,7 +54,7 @@ function FixingTabs({ curve, count = 44 }) {
       curve.getPointAt(t, point);
       curve.getTangentAt(t, tangent);
 
-      // Skip tabs that land on a U-turn — on a real mat they're applied to
+      // Skip tabs that land on a U-turn, on a real mat they're applied to
       // the straight runs, and one wrapped around a tight bend looks wrong.
       const straightness = Math.abs(tangent.x);
 
@@ -73,7 +73,7 @@ function FixingTabs({ curve, count = 44 }) {
   return (
     <instancedMesh ref={ref} args={[undefined, undefined, count]}>
       {/* Small and dim on purpose. At the previous size and near-white
-          colour these read as confetti scattered over the mat — they should
+          colour these read as confetti scattered over the mat, they should
           be a quiet rhythm of ticks you notice only on close inspection. */}
       <boxGeometry args={[0.022, 0.005, 0.014]} />
       <meshStandardMaterial color="#8d8578" roughness={0.9} metalness={0.05} />
@@ -96,13 +96,13 @@ function FixingTabs({ curve, count = 44 }) {
  *  - an additive outer shell, which fakes the light bleed a bloom pass would
  *    give at a fraction of the cost
  *
- * All animation mutates material/object properties in useFrame — this mounts
+ * All animation mutates material/object properties in useFrame, this mounts
  * once and never re-renders.
  *
  * `levelRef` is an optional 0→1 ref scaling how powered the cable looks, for
  * callers that need it to go genuinely cold and light up again (the About
  * story rail). Omitting it pins the level at 1, which is the original
- * behaviour exactly — `intensity * 1` is the expression that was there.
+ * behaviour exactly, `intensity * 1` is the expression that was there.
  */
 function CableModel({
   width,
@@ -128,7 +128,7 @@ function CableModel({
 
   /**
    * Segment count scales with cable length so curvature stays smooth at any
-   * spacing — a fixed count goes polygonal on the U-turns once the run gets
+   * spacing, a fixed count goes polygonal on the U-turns once the run gets
    * long. Radial segments stay low: at this diameter the silhouette is a
    * couple of pixels wide.
    */
@@ -212,7 +212,7 @@ function CableModel({
 
   return (
     <group>
-      {/* Soft outer shell — additive, backside, so it reads as light bleeding
+      {/* Soft outer shell, additive, backside, so it reads as light bleeding
           off the cable rather than a second solid tube around it. */}
       <mesh ref={shellRef} geometry={shellGeometry}>
         <meshBasicMaterial

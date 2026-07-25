@@ -13,7 +13,7 @@ import Link from 'next/link';
 import { BRANDS } from '../lib/brandsData';
 
 /* ══════════════════════════════════════════════════════════════════════════
-   PRODUCTS — dark cinematic brands showcase
+   PRODUCTS, dark cinematic brands showcase
    Near-black stage, heat-orange glow, oversized Bebas Neue display type.
    Each brand is a full panel with a scroll-linked 3D card turn plus an
    interactive cursor-tilt. Self-contained: no shared light-theme sections.
@@ -65,7 +65,7 @@ function Hero() {
 				padding: '160px 6vw 120px',
 				overflow: 'hidden',
 			}}>
-			{/* relevant background image — warm premium interior, masked to fade into the dark page */}
+			{/* relevant background image, warm premium interior, masked to fade into the dark page */}
 			<div
 				aria-hidden
 				style={{
@@ -106,7 +106,7 @@ function Hero() {
 					transition={{ duration: 0.8, ease: EASE }}
 					style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 28 }}>
 					<span style={{ width: 7, height: 7, borderRadius: '50%', background: HEAT, boxShadow: `0 0 12px ${HEAT}` }} />
-					<Eyebrow color={BONE_MUTE}>The Heating Store — Product Portfolio</Eyebrow>
+					<Eyebrow color={BONE_MUTE}>The Heating Store, Product Portfolio</Eyebrow>
 				</motion.div>
 
 				<h1
@@ -152,7 +152,7 @@ function Hero() {
 						maxWidth: 620,
 						marginTop: 32,
 					}}>
-					One uncompromising standard of installation. Explore the brands we trust to keep Kashmir warm — from decades of British engineering to radiant systems built to hold heat at −25°C.
+					One uncompromising standard of installation. Explore the brands we trust to keep Kashmir warm, from decades of British engineering to radiant systems built to hold heat at −25°C.
 				</motion.p>
 			</motion.div>
 
@@ -256,7 +256,7 @@ function BrandPanel({ brand, index }) {
 				style={{ y: contentY }}
 				className='pb-inner'
 				data-reversed={reversed ? 'true' : 'false'}>
-				{/* LEFT — 3D logo card */}
+				{/* LEFT, 3D logo card */}
 				<div style={{ perspective: 1400 }}>
 					<motion.div style={{ rotateY: cardTurn }}>
 						<motion.div
@@ -321,7 +321,7 @@ function BrandPanel({ brand, index }) {
 					</motion.div>
 				</div>
 
-				{/* RIGHT — copy */}
+				{/* RIGHT, copy */}
 				<motion.div
 					initial={{ opacity: 0, y: 30 }}
 					whileInView={{ opacity: 1, y: 0 }}
@@ -442,7 +442,7 @@ function ClosingCTA() {
 					<span style={{ color: HEAT }}>specify it for you.</span>
 				</h2>
 				<p style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(15px, 2vw, 18px)', lineHeight: 1.7, color: BONE_MUTE, maxWidth: 560, margin: '0 auto 40px' }}>
-					Every system is backed by our Kashmir installation warranty and fitted by factory-trained technicians. Tell us your space — we&apos;ll design the right system.
+					Every system is backed by our Kashmir installation warranty and fitted by factory-trained technicians. Tell us your space, we&apos;ll design the right system.
 				</p>
 				<div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
 					<Link href='/contact' className='pb-cta pb-cta--solid'>

@@ -238,7 +238,7 @@ export default function WhyChooseUFH() {
               lineHeight: 1.85,
               margin: 0
             }}>
-Electric hamam systems can be installed beneath carpet, marble, tile, stone, and other common floor finishes — making them suitable for modern homes, villas, hotels, and traditional Kashmiri interiors alike.
+Electric hamam systems can be installed beneath carpet, marble, tile, stone, and other common floor finishes, making them suitable for modern homes, villas, hotels, and traditional Kashmiri interiors alike.
             </p>
           </motion.div>
         </motion.div>

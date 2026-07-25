@@ -7,8 +7,8 @@ import { clamp, damp } from '../lib/ease';
 /**
  * Turns the pointer into one damped, normalised signal.
  *
- * Everything that responds to the mouse — the depth parallax on the plate, the
- * warm light shifting toward the cursor, the counter-float on the headline —
+ * Everything that responds to the mouse, the depth parallax on the plate, the
+ * warm light shifting toward the cursor, the counter-float on the headline 
  * reads from this single pair of numbers. That is what keeps those responses
  * feeling like one room reacting rather than three independent effects that
  * happen to share an input.
@@ -49,7 +49,7 @@ export function createPointerController({ enabled = true } = {}) {
   };
 
   const onPointerLeave = () => {
-    // Drift back to neutral rather than snapping — a snap would announce that
+    // Drift back to neutral rather than snapping, a snap would announce that
     // the effect was a script all along.
     targetX = 0;
     targetY = 0;

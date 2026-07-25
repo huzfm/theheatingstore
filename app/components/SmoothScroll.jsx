@@ -11,13 +11,13 @@ import { useLenisScroll, useScrollTriggerRefresh } from '@/hooks/useLenis';
  * uses), so scroll-driven sections read as buttery instead of hitching on
  * heavy frames.
  *
- * Excluded on /experience, which mounts its own Lenis inside ExperienceShell —
+ * Excluded on /experience, which mounts its own Lenis inside ExperienceShell 
  * running two instances would have them fighting over the scroll position.
  * Disabled under prefers-reduced-motion so it falls back to native scrolling.
  *
  * Also disabled on small touch screens (< 768px + coarse pointer): native
  * inertial scrolling already feels right there, and smoothing it twice fights
- * the OS and reads as laggy on mid-range phones — a large share of the traffic
+ * the OS and reads as laggy on mid-range phones, a large share of the traffic
  * on this lead-gen site.
  */
 const OWN_LENIS_PREFIXES = ['/experience'];

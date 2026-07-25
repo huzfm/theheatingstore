@@ -45,7 +45,7 @@ export function scrollToTarget(target, options = {}) {
  *
  * The desync gotcha: Lenis animates scroll on its own RAF loop while
  * ScrollTrigger reads scroll position on GSAP's ticker. Two loops, two
- * clocks — pinned sections drift behind the content by a frame or more.
+ * clocks, pinned sections drift behind the content by a frame or more.
  * The fix is to make GSAP the single clock (drive `lenis.raf` from
  * `gsap.ticker`) and make Lenis the single source of scroll truth
  * (`ScrollTrigger.update` fires on Lenis's own scroll event).
@@ -63,7 +63,7 @@ export function useLenisScroll({ enabled = true } = {}) {
 
     const lenis = new Lenis({
       duration: 1.15,
-      // Exponential ease-out — long tail, no rubbery overshoot at rest.
+      // Exponential ease-out, long tail, no rubbery overshoot at rest.
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
@@ -86,7 +86,7 @@ export function useLenisScroll({ enabled = true } = {}) {
     gsap.ticker.lagSmoothing(0);
 
     // ScrollTrigger measures against the window here (Lenis scrolls the real
-    // document rather than a proxy element), so no scrollerProxy is needed —
+    // document rather than a proxy element), so no scrollerProxy is needed 
     // but it must re-measure once Lenis has settled the initial layout.
     ScrollTrigger.refresh();
 

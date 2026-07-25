@@ -11,7 +11,7 @@ import { LAYER_W, LAYER_L } from './FloorLayers';
 /**
  * Insulation board.
  *
- * Gets a foil face on top — a thin, low-roughness, high-metalness plane —
+ * Gets a foil face on top, a thin, low-roughness, high-metalness plane 
  * because that reflective skin is both what real boards have and what sells
  * the layer visually: it catches the cable's glow from above and throws it
  * back, which is exactly the board's actual job.
@@ -74,7 +74,7 @@ function InsulationLayerImpl({ progressRef }) {
 }
 
 /**
- * Concrete subfloor — the structural base everything else sits on.
+ * Concrete subfloor, the structural base everything else sits on.
  * Deliberately the darkest, roughest surface in the stack so it recedes and
  * lets the mat hold focus.
  */

@@ -156,7 +156,7 @@ export default function MeasuringUpClient() {
   // ── CALCULATOR STATE ──
   const [roomWidth, setRoomWidth] = useState("");
   const [roomLength, setRoomLength] = useState("");
-  // Window sill height is for installation planning only — NOT used in any
+  // Window sill height is for installation planning only, NOT used in any
   // area / heatable-area formula. Stored in millimetres. Optional field.
   const [windowSillHeight, setWindowSillHeight] = useState("");
   const [areas, setAreas] = useState([
@@ -164,7 +164,7 @@ export default function MeasuringUpClient() {
   ]);
   const [showResult, setShowResult] = useState(false);
 
-  // Parsed numeric view of the sill height — used only for display/summary.
+  // Parsed numeric view of the sill height, used only for display/summary.
   const windowSillHeightNum = parseFloat(windowSillHeight);
   const hasWindowSillHeight =
     windowSillHeight !== "" &&
@@ -267,7 +267,7 @@ export default function MeasuringUpClient() {
           overflow: "hidden",
         }}
       >
-        {/* warm radial glow — same DNA as AboutPage */}
+        {/* warm radial glow, same DNA as AboutPage */}
         <div
           aria-hidden
           style={{
@@ -473,7 +473,7 @@ export default function MeasuringUpClient() {
                     margin: "0 0 20px",
                   }}
                 >
-                  Enter the length and width of the full room — wall to wall.
+                  Enter the length and width of the full room, wall to wall.
                 </p>
 
                 <div
@@ -671,7 +671,7 @@ export default function MeasuringUpClient() {
                       }}
                     >
                       Measure from the bottom edge of the window to the
-                      finished floor. Optional — leave blank if not
+                      finished floor. Optional, leave blank if not
                       applicable.
                     </p>
                   </div>
@@ -876,7 +876,7 @@ export default function MeasuringUpClient() {
                         marginBottom: 4,
                       }}>
                         {isBelowMinimum
-                          ? `Heatable area is ${heatablePercentage.toFixed(0)}% — minimum is 80%`
+                          ? `Heatable area is ${heatablePercentage.toFixed(0)}%, minimum is 80%`
                           : `Heatable area is ${heatablePercentage.toFixed(0)}% ✓`
                         }
                       </div>
@@ -1153,7 +1153,7 @@ export default function MeasuringUpClient() {
               alignItems: "stretch",
             }}
           >
-            {/* Card A — Electric */}
+            {/* Card A, Electric */}
             <article
               className="mu-step-card"
               style={{

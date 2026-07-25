@@ -9,7 +9,7 @@ import { DPR } from '@/lib/three-utils';
 import { SceneMotionContext } from './scene-context';
 
 /**
- * Base <Canvas> wrapper — the single place camera, renderer and lighting
+ * Base <Canvas> wrapper, the single place camera, renderer and lighting
  * defaults live, so an individual scene only declares its own geometry.
  *
  * Before this existed, FloorCutawayScene and ReasonIcon3D each hand-rolled
@@ -20,12 +20,12 @@ import { SceneMotionContext } from './scene-context';
  * What this handles for every scene:
  *  - ACES filmic tone mapping + alpha, so scenes composite over page content
  *  - a DPR ceiling that self-tunes downward on machines that drop frames
- *  - frameloop parked at 'never' while the canvas is off screen — an idle 3D
+ *  - frameloop parked at 'never' while the canvas is off screen, an idle 3D
  *    section costs nothing once it's scrolled past
  *  - a default three-point light rig, overridable per scene
  *  - prefers-reduced-motion published on a context children can read
  *
- * NOTE: this is the raw component. Do NOT import it directly into a page —
+ * NOTE: this is the raw component. Do NOT import it directly into a page 
  * Three.js has no server runtime and would break the build. Import the
  * lazy-loaded `@/components/3d/Scene3D` instead, which wraps this in a
  * dynamic import with `ssr: false`.
@@ -34,7 +34,7 @@ import { SceneMotionContext } from './scene-context';
 /**
  * The default light rig: key, fill, ambient wash and a warm bounce.
  *
- * Deliberately lights only — no Environment. An environment map costs a
+ * Deliberately lights only, no Environment. An environment map costs a
  * cubemap render and most scenes don't need one; the scenes that do (polished
  * stone, anything metallic) pass `<StudioEnvironment />` as `environment`.
  */
@@ -44,7 +44,7 @@ function DefaultLights({ accent }) {
       {/* Base wash so shadow sides never crush to pure black. */}
       <ambientLight intensity={0.55} />
 
-      {/* Warm sky over cool ground — cheap approximation of a real room. */}
+      {/* Warm sky over cool ground, cheap approximation of a real room. */}
       <hemisphereLight args={['#fff0dc', '#1a1714', 0.5]} />
 
       {/* Key: high and camera-left, matching the studio rig's direction so
@@ -55,7 +55,7 @@ function DefaultLights({ accent }) {
         color="#fff0dc"
       />
 
-      {/* Fill from the opposite side, tinted with the brand accent — this is
+      {/* Fill from the opposite side, tinted with the brand accent, this is
           what ties a 3D object to the warm palette without recolouring it. */}
       <directionalLight position={[-4, 2, 3]} intensity={0.65} color={accent} />
     </>
@@ -88,7 +88,7 @@ export default function SceneCanvas({
   const reduceMotion = useReducedMotion();
 
   // Starts true so the first paint renders a frame even if the observer has
-  // not fired yet — a canvas that boots blank and fills in late is worse than
+  // not fired yet, a canvas that boots blank and fills in late is worse than
   // one wasted frame.
   const [visible, setVisible] = useState(true);
   const [dpr, setDpr] = useState(DPR[1]);

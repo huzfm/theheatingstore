@@ -20,7 +20,7 @@ if (typeof window !== 'undefined') {
 }
 
 /**
- * End-to-end check for the animation foundation. Not a real page section —
+ * End-to-end check for the animation foundation. Not a real page section 
  * delete once the actual sections are built.
  *
  * Exercises, in order: a raw GSAP ScrollTrigger scrub (the layer everything
@@ -37,7 +37,7 @@ export default function FoundationCheckClient() {
 
     const items = el.querySelectorAll('[data-gsap-item]');
 
-    // Reduced motion still gets the end state — just placed, not travelled.
+    // Reduced motion still gets the end state, just placed, not travelled.
     if (reduceMotion) {
       gsap.set(items, { opacity: 1, y: 0 });
       return undefined;
@@ -65,7 +65,7 @@ export default function FoundationCheckClient() {
     }, el);
 
     // gsap.context().revert() kills the tweens AND their ScrollTriggers, and
-    // restores inline styles — the correct teardown under React strict mode's
+    // restores inline styles, the correct teardown under React strict mode's
     // double-invoked effects.
     return () => ctx.revert();
   }, [reduceMotion]);
@@ -80,7 +80,7 @@ export default function FoundationCheckClient() {
       {/* ── 1. GSAP + ScrollTrigger, scrubbed against Lenis ── */}
       <section className="mt-32">
         <h2 className="text-sm uppercase tracking-[0.25em] text-bone-500">
-          01 — GSAP ScrollTrigger (scrubbed)
+          01, GSAP ScrollTrigger (scrubbed)
         </h2>
         <div ref={gsapRowRef} className="mt-10 grid gap-4 sm:grid-cols-3">
           {['Registered client-side', 'Scrubbed to Lenis', 'Refreshes on resize'].map(
@@ -100,7 +100,7 @@ export default function FoundationCheckClient() {
       {/* ── 2. React Three Fiber pipeline ── */}
       <section className="mt-32">
         <h2 className="text-sm uppercase tracking-[0.25em] text-bone-500">
-          02 — React Three Fiber (lazy, ssr:false)
+          02, React Three Fiber (lazy, ssr:false)
         </h2>
         <div className="mt-10 h-[420px] overflow-hidden rounded-2xl border border-white/10 bg-black/40">
           <PlaceholderSceneCanvas />
@@ -110,7 +110,7 @@ export default function FoundationCheckClient() {
       {/* ── 3. Framer Motion primitives ── */}
       <section className="mt-32">
         <h2 className="text-sm uppercase tracking-[0.25em] text-bone-500">
-          03 — Framer Motion primitives
+          03, Framer Motion primitives
         </h2>
         <Reveal>
           <div className="mt-10 flex flex-wrap items-center gap-4">

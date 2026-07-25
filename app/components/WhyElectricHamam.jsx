@@ -6,35 +6,35 @@ import SceneManager from './why-electric-hamam/SceneManager';
 import { BEAT_COUNT, BEAT_VH } from './why-electric-hamam/timeline';
 
 /**
- * Why Electric Hamam — a pinned sequence of complete premium presentation
+ * Why Electric Hamam, a pinned sequence of complete premium presentation
  * cards (title card → 6 benefit scenes → doctor-quote finale → CTA ending),
  * each one a finished editorial composition rather than a stop along a
  * continuously morphing animation. See app/components/why-electric-hamam/
  * for the modular pieces: content.js (verbatim copy), timeline.js (pure
- * scroll-progress math — ENTRY/HOLD/EXIT per chapter), hooks/usePinnedTimeline.js
+ * scroll-progress math, ENTRY/HOLD/EXIT per chapter), hooks/usePinnedTimeline.js
  * (the scrub driver), and one component per chapter.
  *
  * Every chapter owns a disjoint BEAT_VH-tall slice of scroll, so only one is
  * ever visible: it enters as a single composition, holds dead still long
- * enough to read in full, then leaves — the next chapter never begins until
+ * enough to read in full, then leaves, the next chapter never begins until
  * the current one has fully exited.
  *
  * Visual language: warm architectural-material palette (ivory/travertine
- * surfaces, copper/amber accents) rather than a dark "portfolio" look —
+ * surfaces, copper/amber accents) rather than a dark "portfolio" look 
  * closer to a product film for a premium interiors brand than a UI demo.
  * Premium glass surfaces (frosted copy panels, the image's glass-edge
- * frame) sit over an independently alive background — soft mesh-gradient
+ * frame) sit over an independently alive background, soft mesh-gradient
  * glow and procedural grain that keep breathing even while a card holds
  * still. That breathing is deliberately asymmetric (slow rise, much
  * slower decay) and stretched past a minute per layer, so no cycle
- * completes within a normal viewing window — movement stays rare,
+ * completes within a normal viewing window, movement stays rare,
  * stillness stays the default.
  *
  * Presence layer (owned entirely by this file, independent of
  * SceneManager's own scroll-driven motion): a single fixed, heavily
  * blurred warmth field drifts toward wherever the cursor is, on ~2.4s of
- * inertia — gsap.quickTo easing a transform, never a snap-to-pointer
- * spotlight — and fades in/out with an IntersectionObserver on the
+ * inertia, gsap.quickTo easing a transform, never a snap-to-pointer
+ * spotlight, and fades in/out with an IntersectionObserver on the
  * section, so it's only ever present while the room is actually in view.
  * It reads as the space registering that someone is standing in it, not
  * as UI reacting to a mouse. The CTA link gets the same physics at close
@@ -46,7 +46,7 @@ import { BEAT_COUNT, BEAT_VH } from './why-electric-hamam/timeline';
  *
  * The wrapper is sticky rather than GSAP-pinned, matching the convention
  * already established by components/sections/FloorRevealSection.jsx on
- * this site — no pin-spacer means nothing to recalculate on resize.
+ * this site, no pin-spacer means nothing to recalculate on resize.
  */
 const TOTAL_VH = BEAT_VH * BEAT_COUNT;
 function usePrefersReducedMotion() {
@@ -68,7 +68,7 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
   const presenceRef = useRef(null);
   const reduced = usePrefersReducedMotion();
 
-  // Presence + magnetic-CTA system — see the file header for the rationale.
+  // Presence + magnetic-CTA system, see the file header for the rationale.
   // Deliberately independent of SceneManager: reads the CTA link out of the
   // DOM rather than threading a new ref through it, so the scroll-scrub
   // timeline in usePinnedTimeline.js stays untouched.
@@ -159,7 +159,7 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
         .weh-pin-wrapper.weh-static {
           height: auto;
         }
-        /* Barely-there stone/plaster grain — a soft-lit material surface
+        /* Barely-there stone/plaster grain, a soft-lit material surface
            rather than a flat CSS gradient. Kept far too faint to read as
            "texture" consciously; it just stops the surface looking printed. */
         .weh-pin-wrapper::before {
@@ -179,10 +179,10 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
           100% { background-position: 660px 440px; }
         }
 
-        /* ── Presence field — a fixed, blurred warmth that drifts toward
+        /* ── Presence field, a fixed, blurred warmth that drifts toward
            the cursor with heavy inertia (gsap.quickTo on transform only)
            and fades with the section's own viewport intersection. Never
-           positioned via layout — translate + opacity only. ──────────── */
+           positioned via layout, translate + opacity only. ──────────── */
         .weh-presence-glow {
           position: fixed;
           top: 50%; left: 50%;
@@ -213,14 +213,14 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
           overflow: visible;
         }
 
-        /* ── Ambient depth layers — soft blurred mesh-gradient glow. Two
+        /* ── Ambient depth layers, soft blurred mesh-gradient glow. Two
            independent motions stack on the same element without fighting:
            GSAP writes a translateY transform every scroll tick (parallax
            at three different speeds, foreground/midground/background
            depth); a slow autonomous CSS keyframe breathes their opacity and
            blur radius so the background stays visibly alive even while a
            card is fully held and nothing is scrolling. Never sharp, never a
-           pattern — just light. ─────────────────────────────────────────── */
+           pattern, just light. ─────────────────────────────────────────── */
         .weh-ambient-layer {
           position: absolute;
           border-radius: 50%;
@@ -250,7 +250,7 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
           animation-duration: 52s;
           animation-delay: -19s;
         }
-        /* Asymmetric "long exhale" — peak arrives well before the
+        /* Asymmetric "long exhale", peak arrives well before the
            midpoint, so the rise is brisk and the decay is unhurried;
            the two halves never read as a mirrored, mechanical loop. */
         @keyframes weh-ambient-breathe {
@@ -310,7 +310,7 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
         .weh-scene-grid--left { flex-direction: row-reverse; }
 
         /* Premium glass surface for the copy side, mirroring the image
-           panel's own glass-edged frame — type reads as sitting on a placed
+           panel's own glass-edged frame, type reads as sitting on a placed
            material object, not floating directly on the page background. */
         .weh-scene-copy {
           flex: 1 1 46%; max-width: 580px;
@@ -364,7 +364,7 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
           position: relative; width: 100%; max-width: 480px; aspect-ratio: 4 / 5;
           max-height: 74vh; border-radius: var(--weh-frame-radius); overflow: hidden;
           background: var(--weh-surface);
-          /* Shadow expansion — --weh-shadow-t (0→1) is written every scroll
+          /* Shadow expansion, --weh-shadow-t (0→1) is written every scroll
              tick by usePinnedTimeline, in lockstep with the clip-path mask
              reveal, so the drop shadow deepens as the card lifts into place
              rather than appearing at full weight from frame one. */
@@ -382,14 +382,14 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
           position: absolute; inset: 0;
           background: linear-gradient(180deg, rgba(36,26,22,0) 68%, rgba(36,26,22,0.16) 100%);
         }
-        /* Diagonal light sweep — crosses the frame once as it opens. */
+        /* Diagonal light sweep, crosses the frame once as it opens. */
         .weh-image-panel-sweep {
           position: absolute; inset: -20% -55%;
           background: linear-gradient(115deg, transparent 42%, rgba(255,255,255,0.6) 50%, transparent 58%);
           opacity: 0;
           pointer-events: none;
         }
-        /* Soft inner highlight — a hint of physical reflection on the glass. */
+        /* Soft inner highlight, a hint of physical reflection on the glass. */
         .weh-image-panel-edge {
           position: absolute; inset: 0; pointer-events: none;
           box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), inset 0 0 0 1px rgba(255,255,255,0.12);

@@ -1,7 +1,7 @@
 export const metadata = {
   title: "Project Features & Technology | Electric Hamam",
   description:
-    "Discover the advanced features and technology behind The Heating Store's electric hamam and underfloor heating systems — from smart thermostats and heat retention for Kashmir winters to safety sensors and installation innovations.",
+    "Discover the advanced features and technology behind The Heating Store's electric hamam and underfloor heating systems, from smart thermostats and heat retention for Kashmir winters to safety sensors and installation innovations.",
   keywords: [
     "electric hamam features Kashmir",
     "underfloor heating technology Kashmir",

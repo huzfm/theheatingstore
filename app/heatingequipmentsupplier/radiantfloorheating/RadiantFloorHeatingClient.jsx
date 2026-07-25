@@ -10,7 +10,7 @@ const EASE = [0.16, 1, 0.3, 1];
 const BENEFITS = [
   {
     title: 'Consistent Warmth',
-    desc: 'Radiant heat radiates uniformly across the entire floor — enveloping the room in consistent, even warmth from the ground up.',
+    desc: 'Radiant heat radiates uniformly across the entire floor, enveloping the room in consistent, even warmth from the ground up.',
     Icon: Flame,
     color: '#B86B45',
   },
@@ -22,13 +22,13 @@ const BENEFITS = [
   },
   {
     title: 'Silent Operation',
-    desc: 'No fans, no pumps, no moving parts. The system warms silently in the background — perfect for bedrooms, studies, and quiet spaces.',
+    desc: 'No fans, no pumps, no moving parts. The system warms silently in the background, perfect for bedrooms, studies, and quiet spaces.',
     Icon: Volume2,
     color: '#6BAE7F',
   },
   {
     title: 'Long-Term Reliability',
-    desc: 'No moving parts means nothing to service. Install once, enjoy silent radiant warmth for decades — backed by a 25-year warranty.',
+    desc: 'No moving parts means nothing to service. Install once, enjoy silent radiant warmth for decades, backed by a 25-year warranty.',
     Icon: ShieldCheck,
     color: '#E8933A',
   },
@@ -42,17 +42,17 @@ const COMPARISON = [
   },
   {
     feature: 'Air Quality',
-    radiant: 'No drafts, no dust, no dry air — gentle radiant warmth',
+    radiant: 'No drafts, no dust, no dry air, gentle radiant warmth',
     traditional: 'Forced air stirs dust and dries the air',
   },
   {
     feature: 'Noise',
-    radiant: 'Completely silent — no fans, no clicks',
+    radiant: 'Completely silent, no fans, no clicks',
     traditional: 'Bangs, clicks, and fan noise from radiators and boilers',
   },
   {
     feature: 'Wall & Floor Space',
-    radiant: 'Zero visible equipment — total design freedom',
+    radiant: 'Zero visible equipment, total design freedom',
     traditional: 'Bulky radiators take up wall and floor space',
   },
   {
@@ -70,22 +70,22 @@ const COMPARISON = [
 const AUDIENCES = [
   { title: 'Homes', desc: 'Apartments, independent houses, and heritage homes across Kashmir.', Icon: Home },
   { title: 'Villas', desc: 'Large villas and luxury homes needing consistent whole-home comfort.', Icon: Home },
-  { title: 'Hotels', desc: 'Boutique hotels, houseboats, and guesthouses — silent warmth for guests.', Icon: Building2 },
+  { title: 'Hotels', desc: 'Boutique hotels, houseboats, and guesthouses, silent warmth for guests.', Icon: Building2 },
   { title: 'Commercial', desc: 'Offices, showrooms, and commercial buildings requiring zoned, all-day comfort.', Icon: Building2 },
 ];
 
 const FAQS = [
   {
     q: 'What is radiant floor heating?',
-    a: 'Radiant floor heating is a UK-imported underfloor heating system that warms the entire floor surface of a room or home. Heating cables or mats are installed beneath the floor, encapsulated in a concrete screed, and radiate gentle, even heat upward — enveloping the room in consistent warmth with no radiators and no fans.',
+    a: 'Radiant floor heating is a UK-imported underfloor heating system that warms the entire floor surface of a room or home. Heating cables or mats are installed beneath the floor, encapsulated in a concrete screed, and radiate gentle, even heat upward, enveloping the room in consistent warmth with no radiators and no fans.',
   },
   {
     q: 'How does it differ from underfloor heating?',
-    a: 'The terms are often used interchangeably. "Underfloor heating" describes where the system is — under the floor. "Radiant floor heating" describes how the heat is delivered — through radiation rather than convection. All radiant floor heating is underfloor heating; the difference is in the principle of heat transfer, which produces the same consistent, draft-free warmth.',
+    a: 'The terms are often used interchangeably. "Underfloor heating" describes where the system is, under the floor. "Radiant floor heating" describes how the heat is delivered, through radiation rather than convection. All radiant floor heating is underfloor heating; the difference is in the principle of heat transfer, which produces the same consistent, draft-free warmth.',
   },
   {
     q: 'Is it suitable for Kashmir?',
-    a: 'Yes. Radiant floor heating is ideally suited to Kashmir\'s sub-zero climate. The screed acts as thermal mass, retaining heat for 8–10 hours after a power cut — perfect for the long Chilla Kalan winters and frequent power cuts across the valley.',
+    a: 'Yes. Radiant floor heating is ideally suited to Kashmir\'s sub-zero climate. The screed acts as thermal mass, retaining heat for 8–10 hours after a power cut, perfect for the long Chilla Kalan winters and frequent power cuts across the valley.',
   },
   {
     q: 'What types of flooring work best?',
@@ -93,7 +93,7 @@ const FAQS = [
   },
   {
     q: 'Can it be installed during renovation?',
-    a: 'Yes. We routinely retrofit radiant floor heating in existing Kashmir homes during renovation. The process involves lifting the existing floor, installing insulation and heating mats, and re-screeding — typically completed in 1–2 days for a single room.',
+    a: 'Yes. We routinely retrofit radiant floor heating in existing Kashmir homes during renovation. The process involves lifting the existing floor, installing insulation and heating mats, and re-screeding, typically completed in 1–2 days for a single room.',
   },
 ];
 
@@ -285,7 +285,7 @@ export default function RadiantFloorHeatingClient() {
             fontFamily: "var(--font-body)", fontSize: 14, color: '#6B4A2D',
             lineHeight: 1.7, marginTop: 10, maxWidth: 580, margin: '10px auto 0',
           }}>
-            Silent, even radiant warmth — designed for sub-zero Kashmir floors with 8–10 hour heat retention.
+            Silent, even radiant warmth, designed for sub-zero Kashmir floors with 8–10 hour heat retention.
           </p>
           <div className="flex flex-row justify-center gap-3 mt-7">
             <a
@@ -335,7 +335,7 @@ export default function RadiantFloorHeatingClient() {
               lineHeight: 1.8, marginTop: 16,
             }}>
               <p style={{ margin: 0 }}>
-                <strong>Radiant floor heating</strong> delivers heat by radiation — the same principle that warms you in sunlight. UK-imported heating cables or mats are installed beneath the floor surface and encapsulated in a concrete screed. The screed absorbs heat from the cables and radiates it gently and evenly upward, enveloping the entire room in consistent, draft-free warmth. No radiators, no fans, no noise — just radiant comfort from the floor up.
+                <strong>Radiant floor heating</strong> delivers heat by radiation, the same principle that warms you in sunlight. UK-imported heating cables or mats are installed beneath the floor surface and encapsulated in a concrete screed. The screed absorbs heat from the cables and radiates it gently and evenly upward, enveloping the entire room in consistent, draft-free warmth. No radiators, no fans, no noise, just radiant comfort from the floor up.
               </p>
             </div>
           </GlassCard>
@@ -580,7 +580,7 @@ export default function RadiantFloorHeatingClient() {
               fontFamily: "var(--font-body)", fontSize: 15, color: 'rgba(255,255,255,0.85)',
               lineHeight: 1.8, margin: '16px 0 0', maxWidth: 760,
             }}>
-              Every radiant floor heating system we install is sourced from leading UK manufacturers and certified to CE / IEC 60335 safety standards. UK heating systems are designed for some of the harshest European winters — making them ideally suited to Kashmir's Chilla Kalan. We don't sell local imitations; we sell the same systems used in European homes for decades, now installed by our Kashmir team.
+              Every radiant floor heating system we install is sourced from leading UK manufacturers and certified to CE / IEC 60335 safety standards. UK heating systems are designed for some of the harshest European winters, making them ideally suited to Kashmir's Chilla Kalan. We don't sell local imitations; we sell the same systems used in European homes for decades, now installed by our Kashmir team.
             </p>
             <div className="flex flex-wrap gap-3 mt-6">
               {['CE Certified', '25+ Year Warranty', '0.01% Fault Rate', 'Since 2011'].map((t) => (
@@ -701,7 +701,7 @@ export default function RadiantFloorHeatingClient() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="The Heating Store — Radiant Floor Heating"
+                  title="The Heating Store, Radiant Floor Heating"
                 />
               </div>
             </a>
@@ -720,7 +720,7 @@ export default function RadiantFloorHeatingClient() {
             <SectionHeading
               badge="FAQ"
               title="Radiant Floor Heating"
-              accent=" — Frequently Asked Questions"
+              accent=", Frequently Asked Questions"
               center
               sub="Answers to the most common questions we hear from customers across Kashmir."
             />

@@ -213,7 +213,7 @@ export default function WarrantyCheck() {
   };
 
   const formatDate = (d) =>
-    d ? new Date(d).toLocaleDateString("en-PK", { day: "numeric", month: "short", year: "numeric" }) : "—";
+    d ? new Date(d).toLocaleDateString("en-PK", { day: "numeric", month: "short", year: "numeric" }) : " ";
 
   const getDaysLeft = (d) => (d ? Math.ceil((new Date(d) - new Date()) / 86400000) : null);
 
@@ -233,7 +233,7 @@ export default function WarrantyCheck() {
         style={{ background: "radial-gradient(60% 35% at 50% 0%,rgba(245,185,122,0.35),transparent 70%)" }}
       />
 
-      {/* Radiant heat rings — nods to underfloor radiant heating, kept faint */}
+      {/* Radiant heat rings, nods to underfloor radiant heating, kept faint */}
       <motion.div
         aria-hidden
         className="absolute -right-24 top-24 pointer-events-none hidden lg:block"
@@ -261,7 +261,7 @@ export default function WarrantyCheck() {
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-22 lg:py-24">
         <div className="grid gap-8 sm:gap-12 lg:gap-20 lg:grid-cols-[1.05fr_0.95fr] items-center">
 
-          {/* LEFT — form */}
+          {/* LEFT, form */}
           <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }}>
 
             <motion.div variants={fadeUp} className="relative inline-flex mb-1">
@@ -356,7 +356,7 @@ export default function WarrantyCheck() {
             </motion.div>
           </motion.div>
 
-          {/* RIGHT — certificate card */}
+          {/* RIGHT, certificate card */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -463,11 +463,11 @@ export default function WarrantyCheck() {
                         )}
 
                         <div className="grid grid-cols-2 gap-3">
-                          <InfoCard icon={Hash} label="Warranty ID" value={w.warrantyId || "—"} />
+                          <InfoCard icon={Hash} label="Warranty ID" value={w.warrantyId || " "} />
                           <InfoCard
                             icon={Package}
                             label="Period"
-                            value={w.warrantyYears ? `${w.warrantyYears} Year${w.warrantyYears > 1 ? "s" : ""}` : "—"}
+                            value={w.warrantyYears ? `${w.warrantyYears} Year${w.warrantyYears > 1 ? "s" : ""}` : " "}
                           />
                           <InfoCard icon={Calendar} label="Installation" value={formatDate(w.installationDate)} />
                           <InfoCard
@@ -476,11 +476,11 @@ export default function WarrantyCheck() {
                             value={formatDate(w.expiryDate)}
                             highlight={w.status === "EXPIRED"}
                           />
-                          <InfoCard icon={User} label="Customer" value={w.customerName || "—"} />
-                          <InfoCard icon={Phone} label="Phone" value={w.phone || "—"} />
+                          <InfoCard icon={User} label="Customer" value={w.customerName || " "} />
+                          <InfoCard icon={Phone} label="Phone" value={w.phone || " "} />
                         </div>
 
-                        {/* Perforation + barcode footer — certificate/ticket motif */}
+                        {/* Perforation + barcode footer, certificate/ticket motif */}
                         <div
                           className="mt-6 pt-4"
                           style={{ borderTop: `1.5px dashed ${T.border}` }}
@@ -499,7 +499,7 @@ export default function WarrantyCheck() {
                               className="text-[11px] tracking-wider shrink-0"
                               style={{ fontFamily: MONO, color: T.mocha }}
                             >
-                              {w.warrantyId || "—"}
+                              {w.warrantyId || " "}
                             </span>
                           </div>
                         </div>

@@ -9,7 +9,7 @@ import { STAGES, stageAt } from '@/lib/floor-timeline';
 /**
  * Three.js is ~150kB gzipped before any of our own scene code. Loading it
  * eagerly would push it into the home page's initial bundle and hurt LCP on
- * a page whose hero is above this section. ssr:false is required as well —
+ * a page whose hero is above this section. ssr:false is required as well 
  * WebGL has no server-side equivalent.
  */
 const FloorCutawayScene = dynamic(() => import('@/components/3d/FloorCutawayScene'), {
@@ -93,7 +93,7 @@ export default function FloorRevealSection() {
   return (
     // 340vh of scroll: enough that the 360° turn never feels rushed, short
     // enough that it doesn't feel stuck. The inner panel is sticky rather
-    // than GSAP-pinned — no pin-spacer means nothing to recalculate on
+    // than GSAP-pinned, no pin-spacer means nothing to recalculate on
     // resize, which is where pinned sections normally break.
     <section
       ref={wrapperRef}
@@ -118,7 +118,7 @@ export default function FloorRevealSection() {
             </h2>
           </div>
 
-          {/* Stage caption — crossfades as the sequence advances */}
+          {/* Stage caption, crossfades as the sequence advances */}
           <div className="relative h-32 max-w-md">
             {STAGES.map((s, i) => (
               <motion.div
@@ -145,9 +145,9 @@ export default function FloorRevealSection() {
           </div>
         </div>
 
-        {/* Scroll cue — a mouse-style indicator inviting the visitor to keep
+        {/* Scroll cue, a mouse-style indicator inviting the visitor to keep
             scrolling. Bottom-centre on mobile; pinned to the right edge and
-            vertically centred on wider screens. Persistent — it stays put for
+            vertically centred on wider screens. Persistent, it stays put for
             the whole sequence rather than fading on scroll. */}
         <div className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2.5 md:bottom-auto md:left-auto md:right-6 md:top-1/2 md:-translate-x-0 md:-translate-y-1/2">
           <span className="flex h-9 w-[19px] items-start justify-center rounded-full border border-white/30">
@@ -162,7 +162,7 @@ export default function FloorRevealSection() {
           </span>
         </div>
 
-        {/* Progress rail — ticks that fill as each stage completes.
+        {/* Progress rail, ticks that fill as each stage completes.
             Left-aligned on mobile so it clears the floating chat bubble that
             sits bottom-right on the home page; moves to the right on wider
             screens where there's room. */}

@@ -14,7 +14,7 @@ const NEARBY = [
 const FAQS = [
   {
     q: 'Do you install electric hamam in Chanapora?',
-    a: 'Yes. We install UK-imported electric hamam and underfloor heating systems across Chanapora — including homes, apartments, and small commercial spaces.',
+    a: 'Yes. We install UK-imported electric hamam and underfloor heating systems across Chanapora, including homes, apartments, and small commercial spaces.',
   },
   {
     q: 'How quickly can you visit my Chanapora home?',
@@ -51,8 +51,8 @@ export default function ChanaporaClient() {
     <AreaPageTemplate
       areaName="Chanapora"
       areaSlug="chanapora"
-      heroTagline="Premium UK-imported electric hamams for Chanapora homeowners — installed by The Heating Store from our Rajbagh showroom."
-      bodyText="Chanapora is a fast-developing residential area on Srinagar's airport side, and The Heating Store in nearby Rajbagh is the trusted supplier for premium electric hamam and underfloor heating systems here. Every system we install is UK-imported, certified safe for wet areas, and engineered to retain heat for 8–10 hours after a power cut — exactly what Chanapora families need through the long Kashmir winter. Our team handles every project from initial site survey to final handover and warranty registration."
+      heroTagline="Premium UK-imported electric hamams for Chanapora homeowners, installed by The Heating Store from our Rajbagh showroom."
+      bodyText="Chanapora is a fast-developing residential area on Srinagar's airport side, and The Heating Store in nearby Rajbagh is the trusted supplier for premium electric hamam and underfloor heating systems here. Every system we install is UK-imported, certified safe for wet areas, and engineered to retain heat for 8–10 hours after a power cut, exactly what Chanapora families need through the long Kashmir winter. Our team handles every project from initial site survey to final handover and warranty registration."
       directionsText="From Chanapora, head towards Hyderpora and continue to Rajbagh via the airport-road link. The Heating Store is located in Rajbagh, Srinagar 190008."
       nearbyAreas={NEARBY}
       allAreas={ALL_AREAS}

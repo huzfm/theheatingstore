@@ -79,10 +79,10 @@ export default function LeadPopup() {
             onClick={(e) => e.stopPropagation()}
             className="relative w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl bg-white px-6 pt-6 pb-20 sm:pb-10 sm:p-8 shadow-[0_40px_120px_rgba(0,0,0,0.25)]"
           >
-            {/* Drag handle — mobile only */}
+            {/* Drag handle, mobile only */}
             <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-gray-200 sm:hidden" />
 
-            {/* Close button — absolute top right */}
+            {/* Close button, absolute top right */}
             <button
               onClick={() => setOpen(false)}
               className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 text-gray-600 hover:text-gray-800 transition-colors shadow-sm"

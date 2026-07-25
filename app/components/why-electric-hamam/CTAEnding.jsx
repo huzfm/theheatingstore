@@ -3,13 +3,13 @@
 import { CTA_LABEL } from './content';
 
 /**
- * The final frame. Deliberately bare — existing CTA text only, nothing else
+ * The final frame. Deliberately bare, existing CTA text only, nothing else
  * competing for attention on the way out of the sequence. Label and button
  * chrome arrive together with the beat, as one composition, matching every
  * other chapter (see usePinnedTimeline: only `root` is animated).
  *
  * Per-letter spans exist only for the hover micro-interaction (a lift on
- * mouseover), not a scroll reveal — the whole word is present from the
+ * mouseover), not a scroll reveal, the whole word is present from the
  * moment the card is.
  */
 export default function CTAEnding({ rootRef, ctaHref }) {

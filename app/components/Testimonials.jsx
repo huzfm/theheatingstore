@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 // ═══════════════════════════════════════════════════════════════════════════
-// PALETTE — ported 1:1 from WhyElectricHamam.jsx (terracotta + amber, warm cream bg)
+// PALETTE, ported 1:1 from WhyElectricHamam.jsx (terracotta + amber, warm cream bg)
 // ═══════════════════════════════════════════════════════════════════════════
 const P = {
   terracotta:      "#C4623A",
@@ -46,7 +46,7 @@ function PulsingDot({ color = P.amber }) {
   );
 }
 
-// Eyebrow badge — matches WhyElectricHamam's blinking-dot pill badge
+// Eyebrow badge, matches WhyElectricHamam's blinking-dot pill badge
 function Eyebrow({ label }) {
   return (
     <div style={{
@@ -80,7 +80,7 @@ function GlowOrb({ style }) {
   );
 }
 
-// Floating gradient sphere — terracotta / amber gradient, holds reviewer initials
+// Floating gradient sphere, terracotta / amber gradient, holds reviewer initials
 function FloatingSphere({ variant, size, initials }) {
   const mainGradient =
     variant === "terracotta"
@@ -116,23 +116,23 @@ function FloatingSphere({ variant, size, initials }) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// DATA — TheHeatingStore (Kashmir underfloor heating) customer stories
+// DATA, TheHeatingStore (Kashmir underfloor heating) customer stories
 // ═══════════════════════════════════════════════════════════════════════════
 const testimonials = [
   {
     name: "Aamir Khan",
     review:
-      "We'd used a wood hamam for thirty years. My mother was hesitant to switch, but after one winter with the electric floor she told me she doesn't miss the smoke or the ash at all — just the same warmth, minus the work.",
+      "We'd used a wood hamam for thirty years. My mother was hesitant to switch, but after one winter with the electric floor she told me she doesn't miss the smoke or the ash at all, just the same warmth, minus the work.",
   },
   {
     name: "Fatima Mir",
     review:
-      "Installation took less than two days and there was zero mess left behind. What surprised me most was how even the heat felt — no cold corners like our old bukhari used to leave.",
+      "Installation took less than two days and there was zero mess left behind. What surprised me most was how even the heat felt, no cold corners like our old bukhari used to leave.",
   },
   {
     name: "Riyaz Ahmed",
     review:
-      "I was worried about the electricity bill going up, but with the insulation board they installed, it's actually close to what we spent on gas heaters before — and the whole room stays warm, not just one corner.",
+      "I was worried about the electricity bill going up, but with the insulation board they installed, it's actually close to what we spent on gas heaters before, and the whole room stays warm, not just one corner.",
   },
   {
     name: "Nadia Bhat",
@@ -147,7 +147,7 @@ const testimonials = [
   {
     name: "Shabnam Lone",
     review:
-      "Our first winter with it, the power went out for almost three hours one evening. The floor stayed warm the whole time — that heat retention is something I genuinely didn't expect.",
+      "Our first winter with it, the power went out for almost three hours one evening. The floor stayed warm the whole time, that heat retention is something I genuinely didn't expect.",
   },
   {
     name: "Imran Sheikh",
@@ -254,7 +254,7 @@ function TestimonialSlide({
         }
       }}
     >
-      {/* Ambient glow — only on active card, tinted by variant */}
+      {/* Ambient glow, only on active card, tinted by variant */}
       {isActive && (
         <>
           <GlowOrb style={{
@@ -324,7 +324,7 @@ function TestimonialSlide({
           }}
         />
 
-        {/* Review text — clamped to 4 lines */}
+        {/* Review text, clamped to 4 lines */}
         <p style={{
           fontFamily: "var(--font-body)",
           fontWeight: 400,
@@ -400,7 +400,7 @@ export default function Testimonials() {
         overflow: "hidden",
       }}
     >
-      {/* Ambient orbs — matching WhyElectricHamam's warm glow positions */}
+      {/* Ambient orbs, matching WhyElectricHamam's warm glow positions */}
       <div aria-hidden="true" style={{
         position: "absolute", borderRadius: "50%", pointerEvents: "none",
         width: 600, height: 600, top: -260, left: -260,
@@ -481,7 +481,7 @@ export default function Testimonials() {
             minHeight: 400,
           }}
         >
-          {/* Left peek — decorative, navigates on click */}
+          {/* Left peek, decorative, navigates on click */}
           <TestimonialSlide
             data={testimonials[prevIndex]}
             index={prevIndex}
@@ -491,7 +491,7 @@ export default function Testimonials() {
             ariaLabel="View previous testimonial"
           />
 
-          {/* Active slide — animated */}
+          {/* Active slide, animated */}
           <AnimatePresence mode="wait" custom={direction} initial={false}>
             <motion.div
               key={currentIndex}
@@ -512,7 +512,7 @@ export default function Testimonials() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Right peek — decorative, navigates on click */}
+          {/* Right peek, decorative, navigates on click */}
           <TestimonialSlide
             data={testimonials[nextIndex]}
             index={nextIndex}

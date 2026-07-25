@@ -14,7 +14,7 @@ const L = MAT_L + 0.5;
 /**
  * Large-format tiles: 3 x 2 rather than the previous 4 x 3.
  *
- * Real premium floors use big-format porcelain (600mm and up) — small tiles
+ * Real premium floors use big-format porcelain (600mm and up), small tiles
  * read as a bathroom from 1995, and more importantly a dense grid of small
  * squares reads as a *grid*, which is exactly the "diagram" look we're
  * trying to escape. Fewer, larger slabs with a tight grout line is the
@@ -27,7 +27,7 @@ const GROUT = 0.018;
 /**
  * Stack heights, measured from the heating mat at y = 0.
  *
- * These must stay ordered — tile above adhesive, adhesive above mat — and
+ * These must stay ordered, tile above adhesive, adhesive above mat, and
  * the gaps must stay tight. Two things were wrong before: the tiles sat at
  * y = 0 so the adhesive rendered *on top of* the finished floor, and the
  * slabs were ~140mm thick on a 4m floor, which reads as stacked paving.
@@ -132,7 +132,7 @@ function TileLayerImpl({ progressRef }) {
 /**
  * Tile adhesive, combed with a notched trowel.
  *
- * The ridges are the recognisable thing — this is the layer a tiler actually
+ * The ridges are the recognisable thing, this is the layer a tiler actually
  * spreads, and the comb pattern identifies it instantly. Rendered as a
  * texture rather than modelled ridges: real geometry here would be a few
  * thousand extra triangles for a layer that's on screen for a second.
@@ -163,7 +163,7 @@ function AdhesiveLayerImpl({ progressRef }) {
       position={[0, ADHESIVE_Y, 0]}
     >
       {/* Tiled 7x so the comb ridges are a fine trowel pattern. At 1x the
-          26 ridges spanned the full 4m slab — 150mm notches, which rendered
+          26 ridges spanned the full 4m slab, 150mm notches, which rendered
           as brown corrugated cardboard. */}
       <meshStandardMaterial
         map={albedo}

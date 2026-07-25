@@ -15,7 +15,7 @@ import {
 } from '@/lib/textures';
 
 /**
- * "When the power goes out" — the About hero panel.
+ * "When the power goes out", the About hero panel.
  *
  * A polished stone hamam floor, warm from beneath. Every 13 seconds the
  * room's cool light flickers and cuts, and for a few seconds the floor's
@@ -25,8 +25,8 @@ import {
  * This is deliberately NOT the heating mat. That model is the subject of the
  * story rail further down the page (components/sections/About/StoryRail), and
  * showing the same product twice on one page reads as a repeated asset. The
- * hero argues the *outcome* — the sentence sitting next to it is "We keep
- * Kashmir warm when the power goes out" — and leaves the hardware to the rail.
+ * hero argues the *outcome*, the sentence sitting next to it is "We keep
+ * Kashmir warm when the power goes out", and leaves the hardware to the rail.
  */
 
 /* ── The load-shedding cycle, in seconds ──────────────────────────────
@@ -44,7 +44,7 @@ const RETURN_END = 13;
  * Room light level, 0 (blackout) → 1 (lit), for a given time.
  *
  * The flicker is hand-authored rather than noise-driven: a real cut has a
- * shape — it catches, half-recovers, then goes — and random jitter reads as a
+ * shape, it catches, half-recovers, then goes, and random jitter reads as a
  * broken shader instead of a failing supply.
  */
 function roomLevelAt(time) {
@@ -64,14 +64,14 @@ function roomLevelAt(time) {
 
   if (p < RETURN_START) return 0;
 
-  // Mains returning: a fast surge to slightly over, settling back down —
+  // Mains returning: a fast surge to slightly over, settling back down 
   // the way a light actually comes back on.
   const f = (p - RETURN_START) / (RETURN_END - RETURN_START);
   const eased = f * f * (3 - 2 * f);
   return Math.min(1, eased * 1.12);
 }
 
-/** True while the grid is down — drives the instrument readout in the panel. */
+/** True while the grid is down, drives the instrument readout in the panel. */
 function gridDownAt(time) {
   const p = time % CYCLE;
   return p >= DARK_START && p < RETURN_START;
@@ -85,7 +85,7 @@ const SNOW_AREA = { x: 13, y: 7.5, z: 9 };
 /**
  * Cold falling snow that dims out as it approaches the floor.
  *
- * Per-point brightness needs vertex colours — PointsMaterial has a single
+ * Per-point brightness needs vertex colours, PointsMaterial has a single
  * uniform opacity, so a fade band near the floor is impossible without them.
  * Writing 320 colours a frame is a rounding error next to a draw call, and it
  * buys the detail the whole idea rests on: the cold visibly stops at the warm
@@ -131,7 +131,7 @@ function Snow({ roomRef }) {
     const pos = points.geometry.attributes.position.array;
     const col = points.geometry.attributes.color.array;
 
-    // Snow is lit by the room, so it goes nearly dark during a cut — but not
+    // Snow is lit by the room, so it goes nearly dark during a cut, but not
     // fully, or the outage just looks like the snow stopped.
     const room = 0.22 + roomRef.current * 0.78;
 
@@ -150,7 +150,7 @@ function Snow({ roomRef }) {
       // "warm floor" doing its job, stated without a single label.
       const fade = clamp((pos[iy] - 0.35) / 1.55);
       const v = fade * room;
-      // Cool cast — snow lit by winter daylight is blue, not white.
+      // Cool cast, snow lit by winter daylight is blue, not white.
       col[i * 3] = v * 0.78;
       col[i * 3 + 1] = v * 0.86;
       col[i * 3 + 2] = v;
@@ -187,7 +187,7 @@ function Snow({ roomRef }) {
  * the floor, each breathing on its own period so the pool never pulses in
  * unison (which is what makes a glow read as a CSS animation).
  *
- * Additive quads rather than emissive geometry or a bloom pass — this is the
+ * Additive quads rather than emissive geometry or a bloom pass, this is the
  * same call FloorCutawayScene made, and for the same reason: a full-screen HDR
  * post pass is the single most expensive thing you can put on a marketing page.
  */
@@ -203,7 +203,7 @@ function HeatPools({ roomRef }) {
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
-    // The floor's own output never changes — but with the room lights gone
+    // The floor's own output never changes, but with the room lights gone
     // there is nothing competing with it, so it's allowed to read a little
     // stronger. This is eye adaptation, not the heating working harder.
     const dark = 1 - roomRef.current;
@@ -247,7 +247,7 @@ function HeatPools({ roomRef }) {
 }
 
 /**
- * Slow thermal columns lifting off the floor. Four sprites is enough — the
+ * Slow thermal columns lifting off the floor. Four sprites is enough, the
  * effect is peripheral, and any more starts to read as smoke, which is not
  * the association a heating company wants.
  */
@@ -340,7 +340,7 @@ function StoneFloor({ roomRef }) {
      * Dimming the lights alone leaves the studio reflections blazing away on
      * polished stone, so the floor stays bright and the cut doesn't land. The
      * environment is the room; when the room loses power, its reflection has
-     * to go with it. It never reaches zero — a warm floor still throws enough
+     * to go with it. It never reaches zero, a warm floor still throws enough
      * light to catch its own polish.
      */
     mat.envMapIntensity = damp(mat.envMapIntensity, lerp(0.22, 1.5, room), 6, dt);
@@ -386,7 +386,7 @@ function SceneRig({ idle, onGridChange }) {
     /**
      * damp toward the target rather than snapping.
      *
-     * The flicker function returns hard steps on purpose — but a real filament
+     * The flicker function returns hard steps on purpose, but a real filament
      * or LED driver has fall and rise time, so stepping the light instantly
      * looks digital. Damping the steps gives them a physical edge while
      * keeping the authored rhythm intact.
@@ -404,7 +404,7 @@ function SceneRig({ idle, onGridChange }) {
       heatLightRef.current.intensity = 3.1 + Math.sin(t * 0.55) * 0.35;
     }
 
-    // Two state updates per 13s cycle — cheap enough to drive the panel's
+    // Two state updates per 13s cycle, cheap enough to drive the panel's
     // instrument readout from the same clock the visuals run on, so the label
     // can never disagree with what's on screen.
     if (idle && onGridChange) {
@@ -425,12 +425,12 @@ function SceneRig({ idle, onGridChange }) {
 
   return (
     <group>
-      {/* Cool room light — this is what the outage takes away. */}
+      {/* Cool room light, this is what the outage takes away. */}
       <directionalLight ref={coolKeyRef} position={[-3.5, 5, 2.5]} intensity={1.5} color="#cfe0ff" />
       <directionalLight ref={coolFillRef} position={[4, 3, -3]} intensity={0.55} color="#9fc0ff" />
       <ambientLight ref={ambientRef} intensity={0.31} />
 
-      {/* Warm light in the floor — constant, whatever the grid is doing. */}
+      {/* Warm light in the floor, constant, whatever the grid is doing. */}
       <pointLight
         ref={heatLightRef}
         position={[0, 0.35, 0.2]}

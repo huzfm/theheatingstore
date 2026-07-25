@@ -15,7 +15,7 @@ const common = {
   style: { maxWidth: 320 },
 };
 
-/* 01 — Rapid Warmth: heating cable with heat flowing through it + rising wisps */
+/* 01, Rapid Warmth: heating cable with heat flowing through it + rising wisps */
 function Rapid({ color }) {
   const cable =
     'M28 150 H150 a22 22 0 0 0 0-44 H50 a22 22 0 0 1 0-44 H172';
@@ -43,8 +43,8 @@ function Rapid({ color }) {
   );
 }
 
-/* 02 — Even Heat Distribution: a grid of floor tiles warming in an even,
-   diagonal wave so the whole surface glows edge to edge — no cold spots. */
+/* 02, Even Heat Distribution: a grid of floor tiles warming in an even,
+   diagonal wave so the whole surface glows edge to edge, no cold spots. */
 function Distribution({ color }) {
   const pos = [40, 72, 104, 136];
   const t = 24;
@@ -66,7 +66,7 @@ function Distribution({ color }) {
   );
 }
 
-/* 04 — Energy Efficient: a gauge sweeping to ~70% with a flame core */
+/* 04, Energy Efficient: a gauge sweeping to ~70% with a flame core */
 function Efficiency({ color }) {
   // 240° arc, value ~70%
   const track = 'M46 158 A70 70 0 1 1 154 158';
@@ -87,7 +87,7 @@ function Efficiency({ color }) {
   );
 }
 
-/* 05 — Lifetime Reliability: shield with a cable glyph + a year ring */
+/* 05, Lifetime Reliability: shield with a cable glyph + a year ring */
 function Warranty({ color }) {
   return (
     <svg {...common}>
@@ -108,7 +108,7 @@ function Warranty({ color }) {
   );
 }
 
-/* 06 — Healthier Comfort: gentle radiant warmth rising, clean air (no smoke) */
+/* 06, Healthier Comfort: gentle radiant warmth rising, clean air (no smoke) */
 function Healthier({ color }) {
   return (
     <svg {...common}>
@@ -132,7 +132,7 @@ function Healthier({ color }) {
   );
 }
 
-/* 07 — Fast Installation: heating mat + sweeping clock + check */
+/* 07, Fast Installation: heating mat + sweeping clock + check */
 function Fast({ color }) {
   const serp = 'M56 96 H128 a12 12 0 0 1 0 24 H68 a12 12 0 0 0 0 24 H140';
   return (

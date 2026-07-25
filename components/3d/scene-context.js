@@ -5,7 +5,7 @@ import { createContext, useContext } from 'react';
 /**
  * Reduced-motion flag published INSIDE the R3F tree.
  *
- * Lives in its own module — with no `three` / `@react-three/*` imports — so a
+ * Lives in its own module, with no `three` / `@react-three/*` imports, so a
  * scene child can read the flag without dragging the whole Three.js bundle
  * into whatever module imports it. Putting this in SceneCanvas.jsx would make
  * every consumer pull in the renderer transitively.

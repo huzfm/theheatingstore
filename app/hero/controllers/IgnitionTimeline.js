@@ -5,7 +5,7 @@ import { heroState } from '../lib/signals';
 import { EASE, TIME } from '../lib/ease';
 
 /**
- * FIRST HEAT — the load sequence.
+ * FIRST HEAT, the load sequence.
  *
  * The room opens cold: desaturated, blue-shifted, coils dark. Then the system
  * energises. Current runs the coil bed, the grade warms, and the heat reaches
@@ -16,7 +16,7 @@ import { EASE, TIME } from '../lib/ease';
  * here inherits its direction from that.
  *
  * Note what the rule does *not* govern. The order elements arrive in is reading
- * order, not distance-from-heat-source — sequencing the value proposition last
+ * order, not distance-from-heat-source, sequencing the value proposition last
  * because it sits furthest from the coils would serve the metaphor and lose the
  * customer. Physics decides how things move; editorial hierarchy decides what
  * moves first.
@@ -27,17 +27,17 @@ import { EASE, TIME } from '../lib/ease';
  */
 
 /**
- * When each group begins, in seconds. This map is the load sequence — retiming
+ * When each group begins, in seconds. This map is the load sequence, retiming
  * the hero means editing these numbers and nothing else.
  *
  * Every duration overlaps its neighbours. Sequential reveals read as a list
  * being checked off; overlapping ones read as a single event with depth.
  *
- * On `cinematic` (tier 2), only Act 1 — badge and headline — arrives here.
+ * On `cinematic` (tier 2), only Act 1, badge and headline, arrives here.
  * Everything else is a *later act* in a four-act scroll story (see
  * `lib/sceneTimeline.js`'s `ACT` windows and `ScrollController`), and
  * showing it now would mean the visitor has already read the paragraph, the
- * climate line and the CTA before they have scrolled a pixel — there would
+ * climate line and the CTA before they have scrolled a pixel, there would
  * be nothing left for the story to reveal. On every other tier there is no
  * scroll narrative to hand these off to, so the full set still arrives here,
  * exactly as it always has.
@@ -68,7 +68,7 @@ export function createIgnitionTimeline(root, { reduced = false, cinematic = fals
   const ctas = q('[data-cta]');
 
   /**
-   * Tier 0. Everything is placed at its final state in one synchronous set —
+   * Tier 0. Everything is placed at its final state in one synchronous set 
    * no tweens, no ticker work. A visitor who asked for reduced motion gets a
    * finished photograph, which is a legitimate way to see this hero rather
    * than a broken version of it.
@@ -95,12 +95,12 @@ export function createIgnitionTimeline(root, { reduced = false, cinematic = fals
   heroState.ignite = 0;
   heroState.bloom = 0;
 
-  // On cinematic, only Act 1 (badge + headline) uses the travelling mask —
+  // On cinematic, only Act 1 (badge + headline) uses the travelling mask 
   // its scroll-driven siblings are hidden by their wrapper's `--scene-t`
   // instead (see `ScrollController`), so their own mask is just set straight
   // to its finished, fully-open state and never touched again. Two things
-  // animating "arriving" at once — the wrapper fading in and the mask
-  // travelling across the text inside it — would be reading as one arrival
+  // animating "arriving" at once, the wrapper fading in and the mask
+  // travelling across the text inside it, would be reading as one arrival
   // fighting itself.
   if (cinematic) {
     const act1 = reveals.filter((el) => el.dataset.reveal === 'badge' || el.dataset.reveal === 'headline');
@@ -125,7 +125,7 @@ export function createIgnitionTimeline(root, { reduced = false, cinematic = fals
   );
 
   // The grade warming behind it. Outlasts the sweep so the room keeps gaining
-  // temperature after the current has finished its pass — heat has thermal
+  // temperature after the current has finished its pass, heat has thermal
   // mass, and the lag is what sells that.
   tl.to(
     heroState,
@@ -136,7 +136,7 @@ export function createIgnitionTimeline(root, { reduced = false, cinematic = fals
   /* ── camera ──────────────────────────────────────────────────────────── */
 
   // A long exponential settle, overlapping ignition. `CameraRig` reads this
-  // to resolve its own establishing shot in from a wider, higher overscan —
+  // to resolve its own establishing shot in from a wider, higher overscan 
   // this is a camera coming to rest, not a zoom: by the time the eye notices
   // it is moving, it has almost stopped. `heroState.boot` rather than a DOM
   // tween because there is no DOM element for a 3D camera to own a transform
@@ -182,7 +182,7 @@ export function createIgnitionTimeline(root, { reduced = false, cinematic = fals
     );
   });
 
-  // On cinematic, the CTA is Act 4 — it hasn't arrived yet, so the charge
+  // On cinematic, the CTA is Act 4, it hasn't arrived yet, so the charge
   // that fills the buttons belongs to `ScrollController` instead, cued to
   // the same moment the CTA reveals rather than to the load sequence.
   if (!cinematic) {

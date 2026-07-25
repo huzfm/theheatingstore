@@ -1,5 +1,5 @@
 /**
- * All copy below is verbatim from the original WhyElectricHamam.jsx —
+ * All copy below is verbatim from the original WhyElectricHamam.jsx 
  * headings, paragraphs, stat values/labels, CTA label, and the doctor quote
  * are unchanged. Only presentation metadata (image, accent) is new.
  */
@@ -85,7 +85,7 @@ export const SCENES = [
 ];
 
 export const QUOTE = {
-  text: 'The underfloor heating system has no generation of gases, is completely insulated which makes it safe. There is no production of smoke — it is as good as a traditional hamam in every way.',
+  text: 'The underfloor heating system has no generation of gases, is completely insulated which makes it safe. There is no production of smoke, it is as good as a traditional hamam in every way.',
   name: 'Dr. Naveed Nazir',
   role: 'Pulmonologist, Kashmir',
   source: 'Kashmir Observer, Dec 2023',

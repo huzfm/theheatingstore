@@ -10,7 +10,7 @@ import { ArrowIcon } from './icons';
  * Arrival is a charge, not a fade: `--charge` scales the fill from the leading
  * edge while the border clips open in step with it, so the button reads as
  * current filling a bar. Nothing scales up, nothing bounces, and the old skewed
- * shine sweep is gone — it was the single most template-looking gesture on the
+ * shine sweep is gone, it was the single most template-looking gesture on the
  * page.
  *
  * The layers are separate elements rather than pseudo-elements because the

@@ -34,7 +34,7 @@ const THERMOSTATS = {
 		sublabel: '+ ₹5,500',
 		price: 5500,
 		image: 'https://images.unsplash.com/photo-1545259742-f4f55c610ee1?w=600&q=80',
-		description: 'A fully connected smart thermostat controllable via smartphone from anywhere. Compatible with Alexa and Google Home. Features energy usage reports, geo-fencing, and adaptive scheduling — ideal for modern smart homes.',
+		description: 'A fully connected smart thermostat controllable via smartphone from anywhere. Compatible with Alexa and Google Home. Features energy usage reports, geo-fencing, and adaptive scheduling, ideal for modern smart homes.',
 	},
 };
 
@@ -151,12 +151,12 @@ export default function ProjectCostCalculator() {
 	const thermo = THERMOSTATS[thermostat].price;
 	const total = matCost + thermo;
 
-	const bajriBags = effectiveArea > 0 ? Math.ceil(effectiveArea / 10) : '—';
-	const sandBags = effectiveArea > 0 ? Math.ceil(effectiveArea / 10) : '—';
-	const cementBags = effectiveArea > 0 ? Math.ceil(bajriBags / 4) : '—';
+	const bajriBags = effectiveArea > 0 ? Math.ceil(effectiveArea / 10) : ' ';
+	const sandBags = effectiveArea > 0 ? Math.ceil(effectiveArea / 10) : ' ';
+	const cementBags = effectiveArea > 0 ? Math.ceil(bajriBags / 4) : ' ';
 
 	const formatCombo = (combo) => {
-		if (!combo || combo.length === 0) return '—';
+		if (!combo || combo.length === 0) return ' ';
 		const counts = {};
 		combo.forEach((m) => { counts[m.sqft] = (counts[m.sqft] || 0) + 1; });
 		return Object.entries(counts)
@@ -173,12 +173,12 @@ export default function ProjectCostCalculator() {
 		},
 		{
 			label: 'Total Coverage',
-			value: totalCoverage > 0 ? `${totalCoverage} sq ft` : '—',
+			value: totalCoverage > 0 ? `${totalCoverage} sq ft` : ' ',
 			sub: rawArea > 0 ? `Room area: ${Math.round(rawArea)} sq ft` : 'Enter room dimensions',
 		},
 		{
 			label: 'Mat Cost',
-			value: matCost > 0 ? `₹ ${matCost.toLocaleString()}` : '—',
+			value: matCost > 0 ? `₹ ${matCost.toLocaleString()}` : ' ',
 			sub: '',
 		},
 		{
@@ -304,7 +304,7 @@ export default function ProjectCostCalculator() {
 									animate={{ scale: 1, opacity: 1 }}
 									transition={{ duration: 0.3 }}
 									className='text-3xl font-serif font-semibold text-[#B86B45]'>
-									{effectiveArea || '—'}
+									{effectiveArea || ' '}
 								</motion.span>
 								<span className='text-xs text-[#3C2B27]/50 font-medium'>
 									sq ft

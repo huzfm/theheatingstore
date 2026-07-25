@@ -18,11 +18,11 @@ const FAQS = [
   },
   {
     q: 'How far is The Heating Store from Pantha Chowk?',
-    a: 'Our Rajbagh showroom is conveniently accessible from Pantha Chowk — a short drive via Dalgate and Lal Chowk.',
+    a: 'Our Rajbagh showroom is conveniently accessible from Pantha Chowk, a short drive via Dalgate and Lal Chowk.',
   },
   {
     q: 'Are your Electric Hamams imported?',
-    a: 'Yes. We specialize in premium Electric Hamams imported from the United Kingdom — engineered for safety, efficiency, and longevity.',
+    a: 'Yes. We specialize in premium Electric Hamams imported from the United Kingdom, engineered for safety, efficiency, and longevity.',
   },
   {
     q: 'Are Electric Hamams suitable for Kashmir winters?',
@@ -71,7 +71,7 @@ export default function PanthaChowkClient() {
     <AreaPageTemplate
       areaName="Pantha Chowk"
       areaSlug="panthachowk"
-      heroTagline="Premium UK-imported heating solutions for Pantha Chowk — engineered for Kashmir winters, installed by The Heating Store from our Rajbagh showroom."
+      heroTagline="Premium UK-imported heating solutions for Pantha Chowk, engineered for Kashmir winters, installed by The Heating Store from our Rajbagh showroom."
       bodyText="Pantha Chowk is one of Srinagar's most important gateway areas, connecting the city to Jammu and serving as a major residential, commercial, and transportation hub. Located near the Srinagar-Jammu National Highway, Pantha Chowk is home to residential communities, educational institutions, government offices, businesses, and growing commercial developments. Like the rest of Kashmir, Pantha Chowk experiences cold winters where dependable indoor heating becomes essential. At The Heating Store, we help homeowners, builders, architects, commercial property owners, hotel operators, and institutions find premium Electric Hamams specifically selected for Kashmir's climate. Located in Rajbagh, Srinagar, we proudly offer premium UK-imported Electric Hamams known for exceptional quality, reliability, and long-term performance."
       directionsText="From Pantha Chowk, head towards Dalgate and continue on to Rajbagh. The Heating Store is located in Rajbagh, Srinagar 190008. Nearby landmarks: Srinagar-Jammu National Highway, Pantha Chowk Market, Dalgate, Sonwar, Rajbagh Commercial District."
       nearbyAreas={NEARBY}

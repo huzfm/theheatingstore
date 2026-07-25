@@ -33,7 +33,7 @@ import {
 import BrandImage from '../../../components/BrandImage';
 
 /* ══════════════════════════════════════════════════════════════════════════
-   BRAND DETAIL — dark cinematic (matches /product)
+   BRAND DETAIL, dark cinematic (matches /product)
    Near-black stage, per-brand accent glow, oversized Bebas Neue display type,
    scroll-linked 3D logo turn + cursor tilt. Global footer hidden on /brands.
    ══════════════════════════════════════════════════════════════════════════ */
@@ -85,7 +85,7 @@ function SectionTitle({ eyebrow, title, accent, brandAccent }) {
 	);
 }
 
-/* ─── Section 1 — Cinematic Hero ─────────────────────────── */
+/* ─── Section 1, Cinematic Hero ─────────────────────────── */
 function HeroSection({ brand }) {
 	const heroRef = useRef(null);
 	const reduce = useReducedMotion();
@@ -208,7 +208,7 @@ function HeroSection({ brand }) {
 	);
 }
 
-/* ─── Section 2 — Brand Story ────────────────────────────── */
+/* ─── Section 2, Brand Story ────────────────────────────── */
 function BrandStory({ brand }) {
 	const ref = useRef(null);
 	const inView = useInView(ref, { once: true, amount: 0.2 });
@@ -256,7 +256,7 @@ function BrandStory({ brand }) {
 	);
 }
 
-/* ─── Section 3 — USP Cards ──────────────────────────────── */
+/* ─── Section 3, USP Cards ──────────────────────────────── */
 function USPCards({ brand }) {
 	const ref = useRef(null);
 	const inView = useInView(ref, { once: true, amount: 0.2 });
@@ -297,7 +297,7 @@ function USPCards({ brand }) {
 	);
 }
 
-/* ─── Section 4 — Products Grid ──────────────────────────── */
+/* ─── Section 4, Products Grid ──────────────────────────── */
 function ProductsGrid({ brand }) {
 	const ref = useRef(null);
 	const inView = useInView(ref, { once: true, amount: 0.1 });
@@ -393,10 +393,10 @@ function ProductsGrid({ brand }) {
 								<p style={{ fontFamily: 'var(--font-body)', fontSize: 13, color: BONE_FAINT, margin: '0 0 14px', lineHeight: 1.4 }}>{p.subtitle}</p>
 
 								<div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
-									{p.wattage !== '—' && (
+									{p.wattage !== ' ' && (
 										<span style={{ fontFamily: 'var(--font-body)', fontSize: 11, fontWeight: 500, color: accent, padding: '4px 10px', borderRadius: 999, border: `1px solid ${accent}55`, background: `${accent}14` }}>{p.wattage}</span>
 									)}
-									{p.coverage !== '—' && (
+									{p.coverage !== ' ' && (
 										<span style={{ fontFamily: 'var(--font-body)', fontSize: 11, fontWeight: 500, color: accent, padding: '4px 10px', borderRadius: 999, border: `1px solid ${accent}55`, background: `${accent}14` }}>{p.coverage}</span>
 									)}
 								</div>
@@ -425,7 +425,7 @@ function ProductsGrid({ brand }) {
 	);
 }
 
-/* ─── Section 5 — Trust Strip ────────────────────────────── */
+/* ─── Section 5, Trust Strip ────────────────────────────── */
 function TrustStrip() {
 	const items = [
 		{ icon: Shield, label: 'Certified Installation' },
@@ -438,7 +438,7 @@ function TrustStrip() {
 			<div style={{ position: 'relative', maxWidth: 1240, margin: '0 auto', display: 'grid', gridTemplateColumns: 'minmax(0,1.4fr) minmax(0,1fr)', gap: 40, alignItems: 'center' }} className='bd-trust-grid'>
 				<div>
 					<h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(2rem, 4.5vw, 3.5rem)', lineHeight: 0.95, color: BONE, margin: '0 0 14px' }}>
-						Installed by The Heating Store — <span style={{ color: HEAT }}>Certified Experts Since 2011</span>
+						Installed by The Heating Store, <span style={{ color: HEAT }}>Certified Experts Since 2011</span>
 					</h2>
 					<p style={{ fontFamily: 'var(--font-body)', fontSize: 15, color: BONE_MUTE, margin: 0, lineHeight: 1.7 }}>Every system we sell is installed by factory-trained engineers with direct manufacturer support.</p>
 				</div>
@@ -462,7 +462,7 @@ function TrustStrip() {
 	);
 }
 
-/* ─── Section 6 — Related Brands ─────────────────────────── */
+/* ─── Section 6, Related Brands ─────────────────────────── */
 function RelatedBrands({ related }) {
 	const ref = useRef(null);
 	const inView = useInView(ref, { once: true, amount: 0.2 });
@@ -507,7 +507,7 @@ function MobileBottomCTA({ brand }) {
 	const accent = brand.accentColor || HEAT;
 	return (
 		<div className='bd-mobile-cta' style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 50, padding: '12px 16px', background: 'rgba(10,10,10,0.9)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderTop: '1px solid rgba(255,255,255,0.12)', display: 'flex', gap: 8, alignItems: 'center' }}>
-			<Link href='/contact' style={{ flex: 1, textAlign: 'center', padding: '12px 16px', borderRadius: 12, background: accent, color: INK, fontFamily: 'var(--font-body)', fontSize: 13, fontWeight: 700, letterSpacing: '0.04em', textDecoration: 'none' }}>Get {brand.name} Quote — Free</Link>
+			<Link href='/contact' style={{ flex: 1, textAlign: 'center', padding: '12px 16px', borderRadius: 12, background: accent, color: INK, fontFamily: 'var(--font-body)', fontSize: 13, fontWeight: 700, letterSpacing: '0.04em', textDecoration: 'none' }}>Get {brand.name} Quote, Free</Link>
 			<Link href='/contact' aria-label='Call' style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(255,255,255,0.08)', color: accent, display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>
 				<Phone size={18} strokeWidth={2} />
 			</Link>

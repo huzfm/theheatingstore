@@ -3,7 +3,7 @@
 import { memo } from 'react';
 
 /**
- * A large editorial photograph panel — never full-bleed, always framed by
+ * A large editorial photograph panel, never full-bleed, always framed by
  * whitespace so it reads as a placed photograph rather than a background.
  * Three independent motions land on this one element, all written
  * imperatively by usePinnedTimeline (never React state):

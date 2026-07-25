@@ -8,7 +8,7 @@ import SiteHeader from './components/SiteHeader';
 import SiteChrome from './components/SiteChrome';
 import SmoothScroll from './components/SmoothScroll';
 
-// Display / headline font — Bebas Neue (Google Fonts, self-hosted at build).
+// Display / headline font, Bebas Neue (Google Fonts, self-hosted at build).
 // Tall condensed all-caps gothic; ships a single 400 weight (never faux-bold it).
 const bebasNeue = Bebas_Neue({
   subsets: ['latin'],
@@ -17,7 +17,7 @@ const bebasNeue = Bebas_Neue({
   display: 'swap',
 });
 
-// Body / UI font — Hanken Grotesk (Google Fonts, self-hosted at build).
+// Body / UI font, Hanken Grotesk (Google Fonts, self-hosted at build).
 // Clean, readable grotesque that pairs with the condensed gothic headlines.
 // 800 is loaded only for the hero's closing-shot heading, which needs a real
 // extra-bold rather than the browser synthesising one from 700.
@@ -34,7 +34,7 @@ export const metadata = {
     template: "%s | The Heating Store",
   },
   description:
-    "Expert electric hammam and underfloor heating installation across India. Professional installation, imported systems, and Kashmir installation warranty — terms apply.",
+    "Expert electric hammam and underfloor heating installation across India. Professional installation, imported systems, and Kashmir installation warranty, terms apply.",
   keywords: [
     "electric hammam installation",
     "underfloor heating India",

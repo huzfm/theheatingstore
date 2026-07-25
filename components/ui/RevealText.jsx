@@ -8,7 +8,7 @@ const EASE = [0.16, 1, 0.3, 1];
  * Headline that reveals word by word on scroll-into-view.
  *
  * Each word sits in an overflow-hidden line box and slides up from below it,
- * so words appear to rise out of the page rather than fade in place — the
+ * so words appear to rise out of the page rather than fade in place, the
  * mask edge is what makes it feel typeset rather than animated.
  *
  * Under reduced motion the whole thing renders as plain static text.
@@ -81,7 +81,7 @@ export function RevealText({
 
 /**
  * Generic "fade + rise on scroll into view" wrapper for body copy, buttons,
- * cards — anything that isn't a headline. Keeps the entrance easing identical
+ * cards, anything that isn't a headline. Keeps the entrance easing identical
  * everywhere so the site feels like one system.
  */
 export function Reveal({

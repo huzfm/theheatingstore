@@ -6,7 +6,7 @@ import CounterNumber from '@/components/ui/CounterNumber';
 import { STATS } from './data';
 
 /**
- * Impact band — count-up figures that tick from zero when they scroll into
+ * Impact band, count-up figures that tick from zero when they scroll into
  * view. Reuses CounterNumber (the same count-up used by the configurator) and
  * GlowCard, so it reads as the same system as the rest of the site.
  */

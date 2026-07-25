@@ -19,17 +19,17 @@ const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffec
 /**
  * Drives the whole presentation from a single ScrollTrigger on the pinned
  * wrapper. Per-frame writes go straight to the DOM via gsap.set on the refs
- * each chapter registers — deliberately kept out of React state (see
+ * each chapter registers, deliberately kept out of React state (see
  * useScrollProgress's own rationale) so a scrub tick never triggers a
  * re-render. React state is only touched on the (much rarer) active-chapter
  * crossing, for mount gating and pointer-events.
  *
  * Deliberately NOT present here: any per-child stagger. Every element inside
- * a chapter — heading, body, stats, glass panel — is nested plain DOM under
+ * a chapter, heading, body, stats, glass panel, is nested plain DOM under
  * `root` and inherits root's single opacity/blur/transform. Only the image
  * card gets its own motion (`image`/`frame`/`sweep`), and only because the
  * brief asks for it to read as its own physical object with weight, not
- * because it should arrive on a delay — its curve resolves within the same
+ * because it should arrive on a delay, its curve resolves within the same
  * ENTRY window as everything else.
  *
  * @param {import('react').RefObject<HTMLElement>} wrapperRef the pinned section
@@ -43,7 +43,7 @@ const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffec
  *   optional background depth layers, parallaxed off the RAW global scroll
  *   progress (not per-chapter) so they drift continuously through the whole
  *   sequence rather than resetting every chapter.
- * @param {boolean} reduced prefers-reduced-motion — skips scrub math entirely
+ * @param {boolean} reduced prefers-reduced-motion, skips scrub math entirely
  */
 export function usePinnedTimeline(wrapperRef, beatsRef, ambientRef, reduced = false) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -93,7 +93,7 @@ export function usePinnedTimeline(wrapperRef, beatsRef, ambientRef, reduced = fa
         const reveal = getImageReveal(localT);
         if (entry.frame?.current) {
           entry.frame.current.style.clipPath = `inset(${reveal.inset}% round var(--weh-frame-radius, 26px))`;
-          // Shadow expansion — the card's drop shadow deepens in lockstep
+          // Shadow expansion, the card's drop shadow deepens in lockstep
           // with the mask opening, so the lift into place reads as one
           // physical gesture instead of a shadow bolted on separately.
           entry.frame.current.style.setProperty('--weh-shadow-t', reveal.shadowT.toFixed(3));
@@ -102,7 +102,7 @@ export function usePinnedTimeline(wrapperRef, beatsRef, ambientRef, reduced = fa
           gsap.set(entry.sweep.current, { xPercent: reveal.sweepX, opacity: reveal.sweepOpacity });
         }
         if (entry.image?.current) {
-          // Light bloom — the frame opens on a slightly blown-out highlight
+          // Light bloom, the frame opens on a slightly blown-out highlight
           // that settles to true brightness as the reveal finishes.
           entry.image.current.style.filter = `brightness(${reveal.brightness.toFixed(3)})`;
         }

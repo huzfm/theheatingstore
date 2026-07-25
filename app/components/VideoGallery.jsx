@@ -6,7 +6,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5050';
 
-// ── Framer variants — same easing as About section ───────────────────────────
+// ── Framer variants, same easing as About section ───────────────────────────
 const container = {
 	hidden: {},
 	show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
@@ -151,7 +151,7 @@ export default function VideoGallery() {
 	const prevIdsRef = useRef(null);
 	const reduce = useReducedMotion();
 
-	// ── Real-time fetch — every 2 seconds ────────────────────────────────────
+	// ── Real-time fetch, every 2 seconds ────────────────────────────────────
 	const fetchVideos = useCallback(async () => {
 		try {
 			const res = await fetch(`${API_URL}/api/videos/public`, { cache: 'no-store' });
@@ -220,7 +220,7 @@ export default function VideoGallery() {
 
 			<div className='relative z-10 mx-auto max-w-7xl px-6 py-24 sm:py-32'>
 
-				{/* ── Section Header — same style as About ── */}
+				{/* ── Section Header, same style as About ── */}
 				<motion.div
 					variants={container}
 					initial='hidden'
@@ -228,7 +228,7 @@ export default function VideoGallery() {
 					viewport={{ once: true }}
 					className='text-center mb-16'>
 
-					{/* Pill badge — same as About */}
+					{/* Pill badge, same as About */}
 					<motion.div variants={fadeUp} className='inline-flex justify-center mb-6'>
 						<p className='
 							relative inline-flex items-center

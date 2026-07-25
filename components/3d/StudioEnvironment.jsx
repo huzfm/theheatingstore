@@ -10,7 +10,7 @@ import { PALETTE } from '@/lib/three-utils';
  *
  * Why this and not `<Environment preset="studio" />`: the presets stream an
  * HDRI from a CDN at runtime. That's a multi-megabyte third-party request on
- * a marketing page — a slow load, a privacy surface, and a hard failure if
+ * a marketing page, a slow load, a privacy surface, and a hard failure if
  * the CDN is unreachable. Lightformers cost one 256px cubemap render and
  * ship with the bundle.
  *
@@ -33,7 +33,7 @@ function StudioEnvironment() {
         scale={[9, 6, 1]}
       />
 
-      {/* Fill: cooler, opposite side, half the strength — keeps the shadow
+      {/* Fill: cooler, opposite side, half the strength, keeps the shadow
           side from going dead black without flattening the form. */}
       <Lightformer
         form="rect"
@@ -56,7 +56,7 @@ function StudioEnvironment() {
         scale={[10, 4, 1]}
       />
 
-      {/* Two narrow strips overhead — these show up as elongated speculars
+      {/* Two narrow strips overhead, these show up as elongated speculars
           travelling across the polished stone as it rotates. Pure product
           photography trick, and the thing the eye reads as "expensive". */}
       <Lightformer

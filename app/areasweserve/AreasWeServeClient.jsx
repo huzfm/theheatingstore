@@ -234,7 +234,7 @@ export default function AreasWeServeClient() {
                   color: 'rgba(255,255,255,0.75)', marginTop: '10px',
                 }}
               >
-                Rajbagh, Srinagar, J&amp;K 190008 — call our team and we'll arrange a free site survey at your home.
+                Rajbagh, Srinagar, J&amp;K 190008, call our team and we'll arrange a free site survey at your home.
               </p>
             </div>
 

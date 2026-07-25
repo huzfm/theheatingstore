@@ -16,21 +16,21 @@ const APPLICATIONS = [
   { title: 'Hotels & Resorts', desc: 'Whole-property underfloor heating and electric hamams for guest rooms, lobbies, spas, and staff quarters.', Icon: Hotel, color: '#B86B45' },
   { title: 'Guest Houses', desc: 'Reliable, silent heating for boutique guest houses and heritage properties across Kashmir.', Icon: BedDouble, color: '#4FA3D1' },
   { title: 'Offices', desc: 'Zoned electric underfloor heating for productive, comfortable workspaces all winter long.', Icon: Briefcase, color: '#6BAE7F' },
-  { title: 'Retail', desc: 'Even, silent warmth for showrooms and retail floors — without bulky radiators taking up space.', Icon: ShoppingBag, color: '#E8933A' },
+  { title: 'Retail', desc: 'Even, silent warmth for showrooms and retail floors, without bulky radiators taking up space.', Icon: ShoppingBag, color: '#E8933A' },
   { title: 'Healthcare', desc: 'Clean, dust-free radiant heating for clinics, diagnostic centres, and small hospitals.', Icon: Stethoscope, color: '#8B6FAE' },
-  { title: 'Education', desc: 'Comfortable classrooms, hostels, and dormitories — silent and low maintenance for decades.', Icon: GraduationCap, color: '#4FA3D1' },
+  { title: 'Education', desc: 'Comfortable classrooms, hostels, and dormitories, silent and low maintenance for decades.', Icon: GraduationCap, color: '#4FA3D1' },
 ];
 
 const BENEFITS = [
   {
     title: 'Scalable',
-    desc: 'From a single guest house to a 100-room hotel — we design and install heating systems at any scale.',
+    desc: 'From a single guest house to a 100-room hotel, we design and install heating systems at any scale.',
     Icon: Layers,
     color: '#B86B45',
   },
   {
     title: 'Reliable',
-    desc: 'UK-imported systems with 0.01% global fault rate — built for the harshest European winters, ideal for Kashmir.',
+    desc: 'UK-imported systems with 0.01% global fault rate, built for the harshest European winters, ideal for Kashmir.',
     Icon: ShieldCheck,
     color: '#4FA3D1',
   },
@@ -42,13 +42,13 @@ const BENEFITS = [
   },
   {
     title: 'Guest Comfort',
-    desc: 'Silent, draft-free radiant warmth — the premium comfort today\'s guests expect from a top property.',
+    desc: 'Silent, draft-free radiant warmth, the premium comfort today\'s guests expect from a top property.',
     Icon: Sparkles,
     color: '#E8933A',
   },
   {
     title: 'Long-Term Value',
-    desc: 'Lower operating costs, fewer breakdowns, and a 25-year warranty — the strongest ROI of any heating system.',
+    desc: 'Lower operating costs, fewer breakdowns, and a 25-year warranty, the strongest ROI of any heating system.',
     Icon: TrendingUp,
     color: '#8B6FAE',
   },
@@ -56,15 +56,15 @@ const BENEFITS = [
 
 const HIGHLIGHTS = [
   { title: 'Commercial Experience', desc: 'Hotels, guest houses, offices, schools, and healthcare facilities across Kashmir since 2011.', Icon: Award },
-  { title: 'In-House Kashmir Team', desc: 'Our own trained installers handle every project — no subcontractors, no hand-offs.', Icon: ShieldCheck },
-  { title: 'Project Management', desc: 'Site survey, system design, installation timeline, and post-installation support — all written.', Icon: Clock },
-  { title: 'Srinagar Based', desc: 'Our Rajbagh office and warehouse keep your project moving — parts in stock, no waiting.', Icon: MapPinned },
+  { title: 'In-House Kashmir Team', desc: 'Our own trained installers handle every project, no subcontractors, no hand-offs.', Icon: ShieldCheck },
+  { title: 'Project Management', desc: 'Site survey, system design, installation timeline, and post-installation support, all written.', Icon: Clock },
+  { title: 'Srinagar Based', desc: 'Our Rajbagh office and warehouse keep your project moving, parts in stock, no waiting.', Icon: MapPinned },
 ];
 
 const FAQS = [
   {
     q: 'Do you supply heating for hotels in Kashmir?',
-    a: 'Yes. We supply and install commercial heating systems for hotels, resorts, and houseboats across Kashmir — from single guest rooms to 100+ room properties. Every system is designed around the property layout, occupancy, and peak winter demand, with zoned thermostats for room-by-room control.',
+    a: 'Yes. We supply and install commercial heating systems for hotels, resorts, and houseboats across Kashmir, from single guest rooms to 100+ room properties. Every system is designed around the property layout, occupancy, and peak winter demand, with zoned thermostats for room-by-room control.',
   },
   {
     q: 'What heating systems work best for commercial spaces?',
@@ -72,11 +72,11 @@ const FAQS = [
   },
   {
     q: 'Can you handle large-scale installations?',
-    a: 'Yes. We have the in-house team and project management experience to handle large-scale commercial installations — multi-floor hotels, schools, and office buildings. Every project comes with a written timeline, a single point of contact, and our Kashmir installation guarantee.',
+    a: 'Yes. We have the in-house team and project management experience to handle large-scale commercial installations, multi-floor hotels, schools, and office buildings. Every project comes with a written timeline, a single point of contact, and our Kashmir installation guarantee.',
   },
   {
     q: 'Do you provide after-installation support?',
-    a: 'Yes. Every commercial installation includes a free post-installation thermal check, a 10–25 year manufacturer warranty, and our Kashmir installation guarantee. We are available on call for any after-service needs — typically same-day across Srinagar.',
+    a: 'Yes. Every commercial installation includes a free post-installation thermal check, a 10–25 year manufacturer warranty, and our Kashmir installation guarantee. We are available on call for any after-service needs, typically same-day across Srinagar.',
   },
   {
     q: 'How do I get a quote for a commercial project?',
@@ -272,7 +272,7 @@ export default function CommercialHeatingSystemsClient() {
             fontFamily: "var(--font-body)", fontSize: 14, color: '#6B4A2D',
             lineHeight: 1.7, marginTop: 10, maxWidth: 580, margin: '10px auto 0',
           }}>
-            Scalable, silent, low-maintenance — designed for guest comfort, productivity, and long-term ROI.
+            Scalable, silent, low-maintenance, designed for guest comfort, productivity, and long-term ROI.
           </p>
           <div className="flex flex-row justify-center gap-3 mt-7">
             <a
@@ -322,7 +322,7 @@ export default function CommercialHeatingSystemsClient() {
               lineHeight: 1.8, marginTop: 16,
             }}>
               <p style={{ margin: 0 }}>
-                Commercial properties in Kashmir face unique heating challenges — long sub-zero winters, frequent power cuts, and high guest or staff expectations. The Heating Store supplies and installs <strong>UK-imported commercial heating systems</strong> designed for hotels, guest houses, offices, retail, healthcare, and education. Our systems are silent, scalable, and built to deliver consistent comfort and productivity through the toughest Chilla Kalan — with the lowest operating cost and zero annual servicing.
+                Commercial properties in Kashmir face unique heating challenges, long sub-zero winters, frequent power cuts, and high guest or staff expectations. The Heating Store supplies and installs <strong>UK-imported commercial heating systems</strong> designed for hotels, guest houses, offices, retail, healthcare, and education. Our systems are silent, scalable, and built to deliver consistent comfort and productivity through the toughest Chilla Kalan, with the lowest operating cost and zero annual servicing.
               </p>
             </div>
           </GlassCard>
@@ -342,7 +342,7 @@ export default function CommercialHeatingSystemsClient() {
               title="Commercial"
               accent=" applications"
               center
-              sub="From boutique hotels to multi-floor offices — we design, supply, and install heating systems for every commercial property type."
+              sub="From boutique hotels to multi-floor offices, we design, supply, and install heating systems for every commercial property type."
             />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -427,7 +427,7 @@ export default function CommercialHeatingSystemsClient() {
                   fontFamily: "var(--font-body)", fontSize: 14,
                   color: '#6B4A2D', lineHeight: 1.7, margin: 0,
                 }}>
-                  Perfect for hotel bathrooms, spas, and guest-room floors. Premium warmth for guests, certified safe for wet areas, and silent operation — exactly what a top-tier property needs.
+                  Perfect for hotel bathrooms, spas, and guest-room floors. Premium warmth for guests, certified safe for wet areas, and silent operation, exactly what a top-tier property needs.
                 </p>
               </div>
               <div style={{
@@ -455,7 +455,7 @@ export default function CommercialHeatingSystemsClient() {
                   fontFamily: "var(--font-body)", fontSize: 14,
                   color: '#6B4A2D', lineHeight: 1.7, margin: 0,
                 }}>
-                  Ideal for offices, lobbies, retail floors, schools, and healthcare facilities. Zoned thermostats, silent operation, no visible equipment — premium comfort with the lowest total cost of ownership.
+                  Ideal for offices, lobbies, retail floors, schools, and healthcare facilities. Zoned thermostats, silent operation, no visible equipment, premium comfort with the lowest total cost of ownership.
                 </p>
               </div>
             </div>
@@ -605,7 +605,7 @@ export default function CommercialHeatingSystemsClient() {
               fontFamily: "var(--font-body)", fontSize: 15, color: 'rgba(255,255,255,0.85)',
               lineHeight: 1.8, margin: '16px 0 0', maxWidth: 760,
             }}>
-              We have been designing, supplying, and installing commercial heating systems across Kashmir since 2011. Every project — from boutique guest houses to large multi-floor hotels — is handled by our own in-house team, with a single point of contact, a written timeline, and a 25-year warranty.
+              We have been designing, supplying, and installing commercial heating systems across Kashmir since 2011. Every project, from boutique guest houses to large multi-floor hotels, is handled by our own in-house team, with a single point of contact, a written timeline, and a 25-year warranty.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
               {HIGHLIGHTS.map((h) => (
@@ -757,7 +757,7 @@ export default function CommercialHeatingSystemsClient() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="The Heating Store — Commercial Heating Systems"
+                  title="The Heating Store, Commercial Heating Systems"
                 />
               </div>
             </a>
@@ -776,7 +776,7 @@ export default function CommercialHeatingSystemsClient() {
             <SectionHeading
               badge="FAQ"
               title="Commercial Heating"
-              accent=" — Frequently Asked Questions"
+              accent=", Frequently Asked Questions"
               center
               sub="Answers to the most common questions we hear from hotels, offices, and commercial property owners in Kashmir."
             />

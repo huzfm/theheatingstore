@@ -15,7 +15,7 @@ import { retainTextures, releaseTextures, groundShadow } from '@/lib/textures';
  * shot, reacting to which paragraph of the left column is currently being
  * read.
  *
- * Deliberately NOT the layered cross-section from FloorCutawayScene — that
+ * Deliberately NOT the layered cross-section from FloorCutawayScene, that
  * sequence is the home page's set piece (components/sections/FloorRevealSection),
  * and rebuilding it here would make the two pages compete. This scene reuses
  * the same mat, studio rig and performance posture, but the subject is the
@@ -28,7 +28,7 @@ import { retainTextures, releaseTextures, groundShadow } from '@/lib/textures';
  * under a flat object.
  *
  * It tightens as the camera drops toward the mat, which is the direction a
- * contact shadow actually goes — wide and soft from above, compact and darker
+ * contact shadow actually goes, wide and soft from above, compact and darker
  * from a low raking angle.
  */
 function GroundShadow({ railState }) {
@@ -59,7 +59,7 @@ function GroundShadow({ railState }) {
  * One anchored callout.
  *
  * Opacity is written straight to the DOM in useFrame rather than held in
- * state — these sit inside an Html portal over a live canvas, and re-rendering
+ * state, these sit inside an Html portal over a live canvas, and re-rendering
  * them every frame would be the most expensive thing on the page. Same
  * approach as FeatureLabel in HeatingSheetModel, minus the spec footer and the
  * azimuth facing test (these two are anchored to fixed points and gated purely
@@ -141,7 +141,7 @@ function RailCallout({ callout, progressRef }) {
 }
 
 /**
- * Reused across frames — sampleRail writes into this rather than allocating a
+ * Reused across frames, sampleRail writes into this rather than allocating a
  * fresh object 60 times a second. SceneRig fills it and GroundShadow reads it;
  * a frame of lag between the two is not perceivable in a soft blur.
  */
@@ -149,8 +149,8 @@ const RAIL_STATE = { y: 1.15, z: 7.1, yaw: -0.34, tilt: 0, level: 0 };
 
 /**
  * Fixed pose for the hero panel: a raised 3/4 product angle with the cable at
- * full output. `yaw` is unused in turntable mode — the mat turns continuously
- * instead — but is kept so the object matches the shape sampleRail writes.
+ * full output. `yaw` is unused in turntable mode, the mat turns continuously
+ * instead, but is kept so the object matches the shape sampleRail writes.
  *
  * Chosen to be visibly different from where the story rail comes to rest
  * (flat-on, y 2.9 / z 6.9). The two panels are on the same page a few screens
@@ -196,7 +196,7 @@ function SceneRig({ progressRef, idle, showCallouts, turntable }) {
     // Cable brightness. Read by CableModel in its own useFrame.
     levelRef.current = damp(levelRef.current, target.level, 3, dt);
 
-    // Warm spill under the mat, tracking the cable — this is what sells the
+    // Warm spill under the mat, tracking the cable, this is what sells the
     // ignition beat, because the light lands on the shadow plane too.
     if (heatLightRef.current) {
       heatLightRef.current.intensity = levelRef.current * 2.4;
@@ -221,7 +221,7 @@ function SceneRig({ progressRef, idle, showCallouts, turntable }) {
        scroll state so the panel is never completely still between beats.
        Both are off under reduced motion. */
     if (driftRef.current && idle) {
-      // The yaw drift is skipped in turntable mode — a sine wobble layered on
+      // The yaw drift is skipped in turntable mode, a sine wobble layered on
       // a constant rotation just makes the turn look like it's stuttering.
       if (!turntable) driftRef.current.rotation.y = Math.sin(t * 0.18) * 0.045;
       driftRef.current.position.y = Math.sin(t * 0.5) * 0.014;
@@ -230,7 +230,7 @@ function SceneRig({ progressRef, idle, showCallouts, turntable }) {
 
   return (
     <group ref={driftRef}>
-      {/* No shadow-casting lights — the environment map does the shaping and
+      {/* No shadow-casting lights, the environment map does the shaping and
           the baked plane below approximates the contact shadow. */}
       <directionalLight position={[-4.5, 7, 4]} intensity={1.3} color="#fff3e4" />
       <directionalLight position={[5, 3, -6]} intensity={0.5} color="#9fc0ff" />

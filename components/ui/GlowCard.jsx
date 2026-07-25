@@ -64,7 +64,7 @@ export default function GlowCard({
       style={{ '--glow': 0 }}
       {...rest}
     >
-      {/* Border glow — gradient clipped to a 1px ring via mask compositing */}
+      {/* Border glow, gradient clipped to a 1px ring via mask compositing */}
       <span
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-[var(--glow)] transition-opacity duration-500"

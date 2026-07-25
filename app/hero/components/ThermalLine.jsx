@@ -16,7 +16,7 @@
  */
 export default function ThermalLine({
   as: Tag = 'span',
-  /** Cue group — must match a key in IgnitionTimeline's CUE map. */
+  /** Cue group, must match a key in IgnitionTimeline's CUE map. */
   group,
   /** Adds the blur pass. Reserved for large type; it is the expensive part. */
   soft = false,
@@ -27,7 +27,7 @@ export default function ThermalLine({
   color,
   /**
    * Renders an aria-hidden duplicate that a bright band sweeps across once the
-   * line has landed — the firelight crossing the copper headline lines.
+   * line has landed, the firelight crossing the copper headline lines.
    */
   sweep = false,
   className = '',

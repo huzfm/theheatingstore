@@ -3,7 +3,7 @@ import * as THREE from 'three';
 /**
  * Procedural textures for the hero's pipe network.
  *
- * Same rationale as `lib/textures.js` (canvas maps over image files — no
+ * Same rationale as `lib/textures.js` (canvas maps over image files, no
  * network request, nothing that can 404, ~2ms to build) but kept in its own
  * module because these are hero-specific rather than shared with the
  * WhyElectricHamam floor scene: a heating *pipe* reads completely differently
@@ -39,7 +39,7 @@ function finish(canvas, { repeat = 1, srgb = true } = {}) {
 /**
  * PEX pipe sheath. Real underfloor pipe is an extruded plastic with a faint
  * co-extruded stripe running its length (the oxygen-barrier layer shows as a
- * subtle tonal seam) rather than a woven braid — the cable's texture would
+ * subtle tonal seam) rather than a woven braid, the cable's texture would
  * read as electrical flex, which is the wrong product entirely.
  */
 export function pipeSheath() {
@@ -51,7 +51,7 @@ export function pipeSheath() {
     ctx.fillRect(0, 0, size, size);
 
     // Round-surface shading: dark at the silhouette edges (v=0, v=1), bright
-    // along the centreline — this is what makes a flat UV read as a cylinder.
+    // along the centreline, this is what makes a flat UV read as a cylinder.
     const shade = ctx.createLinearGradient(0, 0, 0, size);
     shade.addColorStop(0, 'rgba(0,0,0,0.5)');
     shade.addColorStop(0.5, 'rgba(255,255,255,0.22)');

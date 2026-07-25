@@ -18,11 +18,11 @@ const FAQS = [
   },
   {
     q: 'Do you install in Dalgate houseboats and boutique hotels?',
-    a: 'Yes. We have installed heating in Dalgate-area houseboats and boutique hotels — each system is custom-designed for the specific layout and load requirements.',
+    a: 'Yes. We have installed heating in Dalgate-area houseboats and boutique hotels, each system is custom-designed for the specific layout and load requirements.',
   },
   {
     q: 'How does your system perform in Dalgate\'s cold lake wind?',
-    a: 'Our UK-imported systems use high-output heating elements and full thermal mass layering, retaining warmth for 8–10 hours after a power cut — exactly what Dalgate homes need.',
+    a: 'Our UK-imported systems use high-output heating elements and full thermal mass layering, retaining warmth for 8–10 hours after a power cut, exactly what Dalgate homes need.',
   },
   {
     q: 'Do you offer site surveys in Dalgate?',
@@ -51,8 +51,8 @@ export default function DalgateClient() {
     <AreaPageTemplate
       areaName="Dalgate"
       areaSlug="dalgate"
-      heroTagline="Premium UK-imported electric hamams for Dalgate — Srinagar's famous Boulevard neighbourhood, where lake humidity meets freezing winter air."
-      bodyText="Dalgate sits at the foot of the Boulevard, where the lake meets the city. The humidity here is high, the winter wind cuts straight off the water, and the floors stay cold long after sunrise. Homes and boutique hotels in Dalgate need heating systems that handle moisture as well as cold — and that's exactly what our UK-imported electric hamams and underfloor heating systems are engineered for. Every system we install is certified safe for wet areas, retains heat for 8–10 hours after a power cut, and comes with a written warranty plus our Kashmir installation guarantee."
+      heroTagline="Premium UK-imported electric hamams for Dalgate, Srinagar's famous Boulevard neighbourhood, where lake humidity meets freezing winter air."
+      bodyText="Dalgate sits at the foot of the Boulevard, where the lake meets the city. The humidity here is high, the winter wind cuts straight off the water, and the floors stay cold long after sunrise. Homes and boutique hotels in Dalgate need heating systems that handle moisture as well as cold, and that's exactly what our UK-imported electric hamams and underfloor heating systems are engineered for. Every system we install is certified safe for wet areas, retains heat for 8–10 hours after a power cut, and comes with a written warranty plus our Kashmir installation guarantee."
       directionsText="From Dalgate, head up the Boulevard towards Lal Chowk, then on to Rajbagh. The Heating Store is located in Rajbagh, Srinagar 190008."
       nearbyAreas={NEARBY}
       allAreas={ALL_AREAS}

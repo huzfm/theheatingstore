@@ -11,11 +11,11 @@ import { warmthAt, calmAt } from '../../lib/sceneTimeline';
 import { FLOOR_W, FLOOR_D, FLOOR_LIFT } from './dimensions';
 
 /**
- * The underfloor heating pipe network — the whole reason the floor opens.
+ * The underfloor heating pipe network, the whole reason the floor opens.
  *
  * A wider, sparser serpentine than the WhyElectricHamam heating mat's cable
  * (real PEX runs 150–300 mm spacing against a cable's 50 mm), at pipe rather
- * than cable proportions. No manifold header this time — the previous pass
+ * than cable proportions. No manifold header this time, the previous pass
  * added one for verisimilitude and it read as plumbing-diagram clutter
  * competing with the one thing this shot needs to say clearly: heat is
  * flowing through this floor. Colour and flow speed both answer `warmthAt`
@@ -29,7 +29,7 @@ const PIPE_Y = 0.075 + FLOOR_LIFT;
 
 const COLD_COLOR = new THREE.Color('#4c5a68');
 // A muted copper/amber rather than the brand's promotional orange (PALETTE.heat500)
-// — this scene is meant to feel luxurious, not like a marketing accent colour.
+//, this scene is meant to feel luxurious, not like a marketing accent colour.
 const WARM_COLOR = new THREE.Color('#d99a5c').multiplyScalar(1.5);
 
 function PipeNetwork() {
@@ -81,7 +81,7 @@ function PipeNetwork() {
     const dt = Math.min(delta, 0.05);
     const progress = heroState.sceneProgress;
     const warmth = warmthAt(progress);
-    // The closing shot's stillness — the water keeps circulating (a real
+    // The closing shot's stillness, the water keeps circulating (a real
     // system never fully stops), but the rate it visibly travels at eases
     // toward a slow idle rather than holding its full ignition pace into the
     // last frame the visitor sees.

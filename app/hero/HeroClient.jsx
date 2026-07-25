@@ -19,7 +19,7 @@ import { createGradeController } from './controllers/GradeController';
 import { createScrollController } from './controllers/ScrollController';
 
 /**
- * FIRST HEAT — composition root.
+ * FIRST HEAT, composition root.
  *
  * This file wires controllers to a DOM subtree and does nothing else. No
  * animation values, no easing, no timing, no scene geometry. Everything that
@@ -29,11 +29,11 @@ import { createScrollController } from './controllers/ScrollController';
  *
  * The 3D architectural cutaway (`webgl/HeroScene.jsx`) is the hero's primary
  * visual on capable desktop hardware; `HeroPoster` is not a loading state for
- * it but a complete, independently art-directed hero for everyone else —
+ * it but a complete, independently art-directed hero for everyone else 
  * reduced motion, mobile, low-power devices. Which one a visitor gets is a
  * single `data-tier` attribute that `hero.css` reads to decide even the
  * *document height* (a tall sticky-pinned scroll runway for the cinematic
- * narrative on tier 2, an ordinary single-viewport section otherwise) — see
+ * narrative on tier 2, an ordinary single-viewport section otherwise), see
  * `ScrollController`'s `cinematic` mode for the other half of that split.
  *
  * The hero renders about three times over its entire lifetime. Pointer,
@@ -54,7 +54,7 @@ const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : us
  *
  * Hydration is far too late to begin a load sequence. The browser paints the
  * server-rendered HTML long before React runs, so a hero that only went cold in
- * a layout effect would paint finished, snap back to cold, and re-ignite — the
+ * a layout effect would paint finished, snap back to cold, and re-ignite, the
  * exact flash the sequence exists to avoid.
  *
  * Running this inline instead means the very first paint is already the cold
@@ -91,7 +91,7 @@ export default function HeroClient() {
   useIsomorphicLayoutEffect(() => {
     const root = rootRef.current;
     // `useCapabilityTier` resolves in its own layout effect and re-renders
-    // synchronously, so this runs on the following pass — still before paint.
+    // synchronously, so this runs on the following pass, still before paint.
     // Waiting avoids building the timeline against a default tier and then
     // rebuilding it a frame later.
     if (!root || !caps.resolved) return undefined;
@@ -104,7 +104,7 @@ export default function HeroClient() {
 
     // The timeline sets the cold-open state synchronously on construction.
     // Because that happens inside a layout effect, the browser's first paint is
-    // already the cold room — there is no frame where the finished hero flashes.
+    // already the cold room, there is no frame where the finished hero flashes.
     const timeline = createIgnitionTimeline(root, { reduced: caps.reduced, cinematic });
     timeline.play();
 
@@ -166,7 +166,7 @@ export default function HeroClient() {
         ref={rootRef}
         className="hero"
         data-hero
-        aria-label="The Heating Store — underfloor heating and electric hamam systems"
+        aria-label="The Heating Store, underfloor heating and electric hamam systems"
       >
         {/* Must stay the first child: it runs during parse, before the plate
             and the copy below it have even been created. */}
@@ -196,7 +196,7 @@ export default function HeroClient() {
       {/*
         Hoisted out of the section on purpose. `LeadPopup` positions itself
         `fixed`, and an ancestor carrying a `transform` or `filter` becomes the
-        containing block for fixed descendants — which would silently reposition
+        containing block for fixed descendants, which would silently reposition
         the modal relative to the sticky stage instead of the viewport.
       */}
       <LeadPopup />

@@ -1,4 +1,4 @@
-// Shared site constants — used by area and product pages for internal linking.
+// Shared site constants, used by area and product pages for internal linking.
 
 export const ALL_AREAS = [
   { name: 'Rajbagh', slug: 'rajbagh', href: '/areasweserve/rajbagh' },

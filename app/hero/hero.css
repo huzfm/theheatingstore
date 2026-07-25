@@ -1,5 +1,5 @@
 /**
- * FIRST HEAT — hero styles.
+ * FIRST HEAT, hero styles.
  *
  * Structure of this file:
  *   1. tokens          the hero's colour and geometry constants
@@ -17,7 +17,7 @@
  * `--h-*` properties are written once per frame by `lib/signals.js` from the
  * animation controllers. Nothing in JS touches a style here directly; the
  * controllers move numbers, and this file decides what those numbers look
- * like. `heroState.sceneProgress` and `.boot` are the two exceptions — the 3D
+ * like. `heroState.sceneProgress` and `.boot` are the two exceptions, the 3D
  * scene reads those directly in `useFrame` rather than through CSS, since
  * they drive geometry and lighting rather than anything the DOM renders.
  *
@@ -29,7 +29,7 @@
  *
  * A tiny inline script in `HeroClient` sets `data-armed` while the document is
  * still parsing, so the first paint is already the cold room. Anyone whose JS
- * never runs simply never gets the attribute and sees the complete hero — the
+ * never runs simply never gets the attribute and sees the complete hero, the
  * animation is opt-in, and its absence is a finished page rather than an empty
  * one. That script also disarms itself on a timer, so a bundle that fails to
  * load can never leave the copy hidden.
@@ -40,7 +40,7 @@
 
   --ink: #0a0705;
   /* A quieter, more desaturated copper/amber than the site's promotional
-     orange — luxurious rather than promotional, per the brief. Same family,
+     orange, luxurious rather than promotional, per the brief. Same family,
      lower chroma, so it still reads as "the same brand" without shouting. */
   --copper: #a86b3f;
   --copper-light: #c99669;
@@ -80,13 +80,13 @@
 /* ── 2. stage ────────────────────────────────────────────────────────── */
 
 /*
- * Tier 2 gets a tall scroll runway with a sticky stage — the 3D narrative
+ * Tier 2 gets a tall scroll runway with a sticky stage, the 3D narrative
  * (floor opens, pipes ignite, floor closes) needs real scroll distance to
  * scrub across. Everyone else gets an ordinary single-viewport section: there
  * is no 3D scene to scrub, and forcing 150vh of extra scroll past a static
  * poster would be dead weight on a lead-gen page's most important section.
  *
- * `position: sticky` rather than a GSAP `pin: true` — a sticky element needs
+ * `position: sticky` rather than a GSAP `pin: true`, a sticky element needs
  * no pin-spacer, so nothing about it has to be recalculated on resize, which
  * is exactly where pinned sections tend to break. `ScrollController`'s
  * `cinematic` mode is the JS half of this same split.
@@ -125,7 +125,7 @@
   opacity: 1;
 }
 
-/* Once the 3D scene is live, the CSS poster underneath it is retired — kept
+/* Once the 3D scene is live, the CSS poster underneath it is retired, kept
    mounted (not unmounted) so a context-loss recovery has something to fall
    straight back onto without a re-mount flash. */
 .hero[data-webgl='on'] .hero__poster {
@@ -136,7 +136,7 @@
 /* ── 4. poster ───────────────────────────────────────────────────────── */
 
 /*
- * The tier 0/1 fallback. Not a loading state — a complete, independently
+ * The tier 0/1 fallback. Not a loading state, a complete, independently
  * art-directed hero for reduced-motion, mobile and low-power visitors who
  * will never receive the WebGL scene at all.
  */
@@ -220,7 +220,7 @@
  * overlay: the 3D scene needs to be free to be bright and alive on its own
  * side of the frame, which only works if the copy column sits on a patch of
  * frame that stays reliably dark regardless of what the scene is doing at
- * that moment. This darkens the *background*, never the content — the text
+ * that moment. This darkens the *background*, never the content, the text
  * itself carries no blur, no shadow-as-a-crutch, just a floor of contrast it
  * can always count on.
  */
@@ -253,7 +253,7 @@
  * The closing shot is centred rather than left-set, so it sits over the
  * brightest part of the frame the left-weighted scrim above was never
  * designed to cover. A plain full-bleed darken standing in for "dim the
- * environment slightly so the typography becomes the focus" — cheap,
+ * environment slightly so the typography becomes the focus", cheap,
  * content-agnostic, and independent of whatever the 3D scene happens to be
  * doing under it.
  */
@@ -265,7 +265,7 @@
 /*
  * The seam. The section below the hero starts on near-black, so without this
  * the handoff ends on a hard horizontal cut no matter how bright the pipe
- * network's bloom has become — `overflow: hidden` on `.hero__stage` stops
+ * network's bloom has become, `overflow: hidden` on `.hero__stage` stops
  * that bloom reaching past the hero's own bottom edge. Ramping a warm wash up
  * from that edge as the handoff peaks means the last strip of hero is pure
  * light at the moment the cut happens.
@@ -283,7 +283,7 @@
   opacity: var(--h-exit-bloom);
 }
 
-/* Film grain. Stepped at 24fps, not 60 — grain that updates every frame reads
+/* Film grain. Stepped at 24fps, not 60, grain that updates every frame reads
    as video noise, grain at a film rate reads as film. */
 .hero__grain {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
@@ -308,7 +308,7 @@
 
 /*
  * The thermal reveal. Every text block in this hero uses this one primitive,
- * and the scroll handoff runs it backwards — sharing the primitive between
+ * and the scroll handoff runs it backwards, sharing the primitive between
  * entrance and exit is most of what makes the hero feel like a single system
  * rather than a load animation plus an unrelated scroll effect.
  *
@@ -401,19 +401,19 @@
 
 /*
  * The four-act stage. On tier 2 the column becomes a stack: every act
- * occupies the exact same grid cell, so switching acts reads as a cut —
- * one scene ends, the next begins — rather than the page growing a new
+ * occupies the exact same grid cell, so switching acts reads as a cut 
+ * one scene ends, the next begins, rather than the page growing a new
  * paragraph underneath the old one.
  *
  * `--scene-t` is each act's own arrival value, driven by `ScrollController`
- * (Act 1's is set once, synchronously, by these defaults rather than by JS —
+ * (Act 1's is set once, synchronously, by these defaults rather than by JS 
  * it's already the active scene at first paint). Opacity, blur and a small
  * lift all read from it, which is what makes an act *arrive* rather than
  * switch on. `visibility` is the hard guarantee `pointer-events` alone can't
  * give: an `opacity: 0` element is still hit-testable and still reachable by
  * Tab, so a purely opacity-driven system cannot promise that only one act is
  * ever on screen. `ScrollController` flips `visibility` at the exact instant
- * each scene starts and ends — never mid-transition — so there is no frame
+ * each scene starts and ends, never mid-transition, so there is no frame
  * in which two acts are simultaneously present to the pointer, to a screen
  * reader, or to the eye.
  */
@@ -448,11 +448,11 @@
 .hero[data-tier='2'] .hero__act--4 { z-index: 4; }
 
 /*
- * Every scene reads differently on purpose — Scene 1 (Product Introduction)
+ * Every scene reads differently on purpose, Scene 1 (Product Introduction)
  * is the only one that's ever this size again; Scene 2 (Engineering Story)
  * pulls left against a hairline rule like an editorial pull-quote; Scene 3
- * (Thermal Technology) mirrors it — set against a rule on the right instead
- * of the left — so the frame's centre of gravity visibly swaps sides between
+ * (Thermal Technology) mirrors it, set against a rule on the right instead
+ * of the left, so the frame's centre of gravity visibly swaps sides between
  * the two; Scene 4, the closing shot, abandons the column altogether and
  * centres at full width, the way a title card centres after the credits
  * stop rolling rather than sitting wherever the last paragraph happened to
@@ -471,14 +471,14 @@
 }
 
 /*
- * The closing shot. Centred on the full content area — `.hero__content`,
- * not `.hero__col` — because `.hero__col` is a left-set 820px column and
+ * The closing shot. Centred on the full content area, `.hero__content`,
+ * not `.hero__col`, because `.hero__col` is a left-set 820px column and
  * `justify-self: center` inside a grid only centres *within that column's
  * own box*, which reads as "still on the left" rather than centred in the
  * frame. `position: absolute; inset: 0` breaks it out to size against
  * `.hero__content` itself, which spans the full padded width.
  *
- * No independent `opacity`/`filter`/`transform` here — this act's own
+ * No independent `opacity`/`filter`/`transform` here, this act's own
  * `--scene-t` motion is switched off (`opacity: 1; filter: none;
  * transform: none;` below overrides the base rule above it). `visibility`
  * is still driven by `--scene-t` via `ScrollController`'s `revealScene`, so
@@ -500,12 +500,12 @@
 }
 
 /*
- * The closing line — the one new piece of copy in this hero, by explicit
- * direction. Full white (not the ivory the rest of the hero uses — this
+ * The closing line, the one new piece of copy in this hero, by explicit
+ * direction. Full white (not the ivory the rest of the hero uses, this
  * scene needs to read as unmistakably legible over a dimmed, unpredictable
  * backdrop, not tonally matched to it), a real 800 weight on the body
- * typeface rather than the display face (Bebas Neue ships only 400 — see
- * `app/layout.js` — and synthetic bold on the hero's largest remaining type
+ * typeface rather than the display face (Bebas Neue ships only 400, see
+ * `app/layout.js`, and synthetic bold on the hero's largest remaining type
  * would be the exact "smeared letterforms" problem already solved for the
  * main headline). A soft drop shadow does the separation work instead of a
  * heavier glow, which would compete with the pipes' own warm light.
@@ -522,7 +522,7 @@
   margin: 0 auto clamp(40px, 5vh, 48px);
 }
 
-/* Two lines, each its own element — `ScrollController`'s `splitTl` slides
+/* Two lines, each its own element, `ScrollController`'s `splitTl` slides
    them in from opposite edges via `xPercent`, which needs them block-level
    and independently transformable. */
 .hero__finale-line {
@@ -530,7 +530,7 @@
 }
 
 /*
- * The CTAs follow the heading rather than arriving with it — GSAP's
+ * The CTAs follow the heading rather than arriving with it, GSAP's
  * `autoAlpha` (opacity + a `visibility` companion) plus a lift and a scale,
  * timed in `splitTl` to start after both title lines have locked into
  * place. No CSS motion here: the values above are the only state this
@@ -543,8 +543,8 @@
 
 /*
  * Tier < 2 has no scroll story, so the acts fall back to an ordinary column
- * — reordered (`order` only affects direct flex children, which the acts
- * now are) to keep the mandated hierarchy — headline, then CTA, then
+ *, reordered (`order` only affects direct flex children, which the acts
+ * now are) to keep the mandated hierarchy, headline, then CTA, then
  * supporting copy. `order` on a grid item with an explicit `grid-area` is a
  * no-op, so this never has to be undone for tier 2.
  */
@@ -553,7 +553,7 @@
 .hero__act--2 { order: 3; }
 .hero__act--3 { order: 4; }
 
-/* The closing-shot heading is a cinematic (tier 2) beat — a compact,
+/* The closing-shot heading is a cinematic (tier 2) beat, a compact,
    single-viewport hero has no room for a second massive headline on top of
    the one it opens with, and no scroll journey for it to be the ending of. */
 .hero__finale-heading { display: none; }
@@ -561,7 +561,7 @@
 
 /*
  * The closing shot's own CTAs, larger than the ones any other act would use
- * — this is the film's last frame, the one moment the buttons are allowed
+ *, this is the film's last frame, the one moment the buttons are allowed
  * to be the biggest thing on screen besides the heading above them.
  */
 .hero[data-tier='2'] .hero__act--4 .hero__cta-row {
@@ -592,7 +592,7 @@
 }
 
 /*
- * The thermostat's live indicator. Opacity and transform only — the previous
+ * The thermostat's live indicator. Opacity and transform only, the previous
  * version animated `box-shadow`, which repaints every frame, forever, for a
  * 6px dot.
  */
@@ -626,7 +626,7 @@
   font-family: var(--font-heading);
   /*
    * Bebas Neue ships a single 400 weight. The previous rule asked for 700,
-   * which browsers answer by synthesising a fake bold — algorithmically
+   * which browsers answer by synthesising a fake bold, algorithmically
    * smeared letterforms on the largest type on the site. 400 is the only
    * honest value here, and the face is already heavy enough to carry a hero.
    */
@@ -634,7 +634,7 @@
   /*
    * Massive and unmistakably the first thing read. Sized against viewport
    * *height* as well as width so a short laptop screen scales the type down
-   * rather than pushing the CTA — now the very next element — below the fold.
+   * rather than pushing the CTA, now the very next element, below the fold.
    * Nothing else in the column is allowed to approach this size; that
    * asymmetry is the whole hierarchy.
    */
@@ -652,7 +652,7 @@
   /*
    * globals.css sets `line-height: 1.75` on every `span`, which beats the
    * inherited value from the h1 and silently reinstated 1.75 on lines that had
-   * been carefully set to 0.92 — nearly doubling the headline's height. The
+   * been carefully set to 0.92, nearly doubling the headline's height. The
    * same trap is already documented further up that file.
    */
   line-height: inherit;
@@ -691,13 +691,13 @@
 }
 
 /* Act 2 has nothing else on screen, so the paragraph gets the same premium
-   spacing beneath it a headline would — room to breathe rather than butting
+   spacing beneath it a headline would, room to breathe rather than butting
    straight into whatever comes next. */
 .hero[data-tier='2'] .hero__act--2 .hero__paragraph {
   margin-top: clamp(8px, 1.4vh, 18px);
 }
 
-/* The tier < 2 fine-print voice — quiet, supplementary, unchanged from
+/* The tier < 2 fine-print voice, quiet, supplementary, unchanged from
    before. Act 3 overrides this below: on cinematic it briefly carries a
    whole act alone and has to read as a statement, not a footnote. */
 .hero__climate {
@@ -744,7 +744,7 @@
   overflow: hidden;
   isolation: isolate;
   color: var(--ivory);
-  /* Magnetism is driven from JS as a damped offset. No transition here —
+  /* Magnetism is driven from JS as a damped offset. No transition here 
      the damping happens on the ticker, and a CSS transition on top of it
      would add a second, conflicting lag. */
   transform: translate3d(var(--mx), var(--my), 0);
@@ -811,7 +811,7 @@
 }
 
 .hero__cta--primary {
-  /* A resting glow, not just a hover reward — the primary action should read
+  /* A resting glow, not just a hover reward, the primary action should read
      as important standing still, before the pointer ever gets near it. */
   box-shadow: 0 16px 40px -14px rgba(201, 98, 47, calc(0.55 + var(--prox) * 0.35)),
     0 2px 10px -2px rgba(0, 0, 0, 0.5);
@@ -821,7 +821,7 @@
   box-shadow: 0 10px 26px -16px rgba(0, 0, 0, 0.6);
 }
 
-/* Label parallax inside the button. Half the body's offset — this is the
+/* Label parallax inside the button. Half the body's offset, this is the
    detail that makes magnetism feel like mass rather than like stickiness. */
 .hero__cta-label {
   display: inline-flex;
@@ -830,7 +830,7 @@
   transform: translate3d(calc(var(--mx) * 0.45), calc(var(--my) * 0.45), 0);
 }
 
-/* The arrow steps forward on approach, not just on hover — `--prox` is the
+/* The arrow steps forward on approach, not just on hover, `--prox` is the
    same continuous proximity signal the thermal field reads, so the two cues
    arrive together rather than one snapping on ahead of the other. */
 .hero__cta-arrow {

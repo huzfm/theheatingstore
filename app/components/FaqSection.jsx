@@ -29,7 +29,7 @@ const FAQ_SECTIONS = [
 	{
 		section: 'Comparison',
 		faqs: [
-			{ q: 'Electric hamam vs traditional wood-fired hamam — which is better?', a: 'Electric hammam systems offer cleaner operation, easier control, lower maintenance, and more even heating compared to traditional wood-fired hamams. There is no wood storage, smoke, ash, kerosene, or chimney cleaning required.' },
+			{ q: 'Electric hamam vs traditional wood-fired hamam, which is better?', a: 'Electric hammam systems offer cleaner operation, easier control, lower maintenance, and more even heating compared to traditional wood-fired hamams. There is no wood storage, smoke, ash, kerosene, or chimney cleaning required.' },
 			{ q: 'Why are families switching to electric hamam?', a: 'Many families now prefer electric hammam systems because they are cleaner, easier to use, and more comfortable. Heating can be controlled with a thermostat instead of manually burning wood every day.' },
 			{ q: 'Does electric hamam produce smoke or dry air?', a: 'No. Electric radiant floor heating produces no smoke, fumes, or dry forced air. Unlike hot-and-cold AC systems, it heats the room gently and evenly without creating uncomfortable airflow.' },
 			{ q: 'Is electric hamam healthier than forced-air heating?', a: 'Yes. Radiant floor heating does not circulate dust, allergens, or dry air around the room. Many customers prefer underfloor heating because it creates a more comfortable indoor environment during winter.' },
@@ -270,7 +270,7 @@ export default function FaqSection() {
 	const [openIndex, setOpenIndex] = useState(null);
 
 	// Phones (and any coarse-pointer device) get the low-cost render: no
-	// continuous blob animation, no per-card 3D tilt, no live backdrop-blur —
+	// continuous blob animation, no per-card 3D tilt, no live backdrop-blur 
 	// all of which jitter on mobile GPUs. Desktop keeps the full treatment.
 	const [isMobile, setIsMobile] = useState(false);
 	useEffect(() => {

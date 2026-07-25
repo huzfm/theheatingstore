@@ -10,7 +10,7 @@ const EASE = [0.16, 1, 0.3, 1];
    HOW TO ADD YOUR VIDEOS (Cloudinary)
    ─────────────────────────────────────────────────────────────────
    1. cloudinary.com par free account banao. Dashboard ke top pe
-      "Cloud Name" milega (e.g. "theheatingstore") — wahi CLOUD_NAME
+      "Cloud Name" milega (e.g. "theheatingstore"), wahi CLOUD_NAME
       neeche daalna hai.
    2. Media Library kholo → "Upload" button → apni 4-5 videos
       drag-drop karo. Organize rakhne ke liye ek folder bana lo,
@@ -19,15 +19,15 @@ const EASE = [0.16, 1, 0.3, 1];
       (secure_url) le lo. Kuch aisa dikhega:
       https://res.cloudinary.com/theheatingstore/video/upload/v1721234567/trust-videos/customer1.mp4
    4. Performance ke liye URL mein /upload/ ke baad transformation
-      params daal do — f_auto (best format browser ke hisaab se,
+      params daal do, f_auto (best format browser ke hisaab se,
       webm/mp4) aur q_auto (auto compression). Isse site smooth
       chalegi, heavy raw video load nahi hogi:
       .../upload/f_auto,q_auto/v1721234567/trust-videos/customer1.mp4
-   5. Thumbnail/poster ke liye same public id se ek frame nikaal lo —
+   5. Thumbnail/poster ke liye same public id se ek frame nikaal lo 
       extension .mp4 se .jpg kardo aur so_1 (second 1 ka frame) daalo:
       .../upload/so_1,f_auto,q_auto/v1721234567/trust-videos/customer1.jpg
    6. Dono URLs (video + poster) neeche VIDEOS array mein paste karo.
-   Bas itna hi — ye component khud video ko lazy-load karta hai,
+   Bas itna hi, ye component khud video ko lazy-load karta hai,
    sirf thumbnail dikhta hai jab tak user play na kare, isliye page
    load pe koi video download nahi hoti.
    ───────────────────────────────────────────────────────────────── */

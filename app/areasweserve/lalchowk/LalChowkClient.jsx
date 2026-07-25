@@ -18,7 +18,7 @@ const FAQS = [
   },
   {
     q: 'Is electric hamam suitable for Lal Chowk offices and shops?',
-    a: 'Absolutely. We install zoned underfloor heating for Lal Chowk commercial spaces — boutiques, offices, and showrooms — with thermostat-controlled zones for each room.',
+    a: 'Absolutely. We install zoned underfloor heating for Lal Chowk commercial spaces, boutiques, offices, and showrooms, with thermostat-controlled zones for each room.',
   },
   {
     q: 'How long does installation take in a Lal Chowk property?',
@@ -26,7 +26,7 @@ const FAQS = [
   },
   {
     q: 'Do you handle Lal Chowk power cut conditions?',
-    a: 'Yes. Our UK-imported systems are engineered to retain heat for 8–10 hours after a power cut — a feature Lal Chowk residents particularly value during Chilla Kalan.',
+    a: 'Yes. Our UK-imported systems are engineered to retain heat for 8–10 hours after a power cut, a feature Lal Chowk residents particularly value during Chilla Kalan.',
   },
 ];
 
@@ -51,8 +51,8 @@ export default function LalChowkClient() {
     <AreaPageTemplate
       areaName="Lal Chowk"
       areaSlug="lalchowk"
-      heroTagline="Premium UK-imported electric hamams for Lal Chowk — Srinagar's commercial heart and one of the most demanding climates in the valley."
-      bodyText="Lal Chowk is the bustling heart of Srinagar, surrounded by offices, heritage homes, and the city's most recognised landmarks. We've installed electric hamam and underfloor heating systems in homes and boutique hotels across the Lal Chowk area, and we know exactly what it takes to keep these spaces warm through the harshest Kashmir winters. Our UK-imported systems are designed for daily use, certified safe for wet areas, and engineered to retain heat for 8–10 hours after a power cut — a feature Lal Chowk residents particularly value."
+      heroTagline="Premium UK-imported electric hamams for Lal Chowk, Srinagar's commercial heart and one of the most demanding climates in the valley."
+      bodyText="Lal Chowk is the bustling heart of Srinagar, surrounded by offices, heritage homes, and the city's most recognised landmarks. We've installed electric hamam and underfloor heating systems in homes and boutique hotels across the Lal Chowk area, and we know exactly what it takes to keep these spaces warm through the harshest Kashmir winters. Our UK-imported systems are designed for daily use, certified safe for wet areas, and engineered to retain heat for 8–10 hours after a power cut, a feature Lal Chowk residents particularly value."
       directionsText="From Lal Chowk, head towards Rajbagh via Residency Road. The Heating Store is located in Rajbagh, Srinagar 190008."
       nearbyAreas={NEARBY}
       allAreas={ALL_AREAS}

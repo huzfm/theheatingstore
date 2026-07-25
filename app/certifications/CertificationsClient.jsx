@@ -41,7 +41,7 @@ export default function CertificationsClient() {
 					</h1>
 
 					<p className='text-lg text-[#3C2B27]/80 max-w-3xl mx-auto leading-relaxed'>
-						We partner with the world's most trusted underfloor heating manufacturers and supply certified electric hamam systems across Kashmir, India, and international markets. Our Kashmir-installed systems combine advanced heating technology with <a href='/product' className='text-[#B86B45] underline underline-offset-2 hover:text-[#E8933A] transition-colors'>internationally recognized safety standards</a> — engineered for -15C winters, power cut resilience, and humidity.
+						We partner with the world's most trusted underfloor heating manufacturers and supply certified electric hamam systems across Kashmir, India, and international markets. Our Kashmir-installed systems combine advanced heating technology with <a href='/product' className='text-[#B86B45] underline underline-offset-2 hover:text-[#E8933A] transition-colors'>internationally recognized safety standards</a>, engineered for -15C winters, power cut resilience, and humidity.
 					</p>
 				</motion.div>
 
@@ -73,7 +73,7 @@ export default function CertificationsClient() {
 							<a href='#prowarm-pdf' className='text-[#B86B45] font-semibold underline underline-offset-2 hover:text-[#E8933A] transition-colors'>ProWarm</a>,{' '}
 							<a href='#warmup-pdf' className='text-[#B86B45] font-semibold underline underline-offset-2 hover:text-[#E8933A] transition-colors'>Warmup</a>,{' '}
 							<a href='#thermosphere-pdf' className='text-[#B86B45] font-semibold underline underline-offset-2 hover:text-[#E8933A] transition-colors'>ThermoSphere</a>, and{' '}
-							<a href='#fastwarm-pdf' className='text-[#B86B45] font-semibold underline underline-offset-2 hover:text-[#E8933A] transition-colors'>FastWarm</a> — all backed by our Kashmir-based warranty and support.
+							<a href='#fastwarm-pdf' className='text-[#B86B45] font-semibold underline underline-offset-2 hover:text-[#E8933A] transition-colors'>FastWarm</a>, all backed by our Kashmir-based warranty and support.
 						</p>
 						<p className='text-[#3C2B27]/80'>
 							Together, these systems have powered hundreds of
@@ -220,7 +220,7 @@ export default function CertificationsClient() {
 								</div>
 							</div>
 							<p className='text-[#3C2B27]/80'>
-								Quality management certified manufacturing processes ensuring consistent product testing and reliability — installed across Kashmir since 2011.
+								Quality management certified manufacturing processes ensuring consistent product testing and reliability, installed across Kashmir since 2011.
 							</p>
 						</motion.div>
 
@@ -648,7 +648,7 @@ export default function CertificationsClient() {
 							</h3>
 							<p className='text-[#3C2B27]/80 text-sm'>
 								Real on-site visuals showcasing workforce, floor preparation,
-								wirings layers — focused on execution, not marketing renders.
+								wirings layers, focused on execution, not marketing renders.
 							</p>
 						</motion.div>
 
@@ -688,7 +688,7 @@ export default function CertificationsClient() {
 							</h3>
 							<p className='text-[#3C2B27]/80 text-sm'>
 								Clear explanation of workflow, safety standards, energy efficiency
-								and long-term reliability — helping clients understand their investment.
+								and long-term reliability, helping clients understand their investment.
 							</p>
 						</motion.div>
 					</div>

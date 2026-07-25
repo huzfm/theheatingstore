@@ -11,11 +11,11 @@ if (typeof window !== 'undefined') {
 }
 
 /**
- * The scroll driver — two modes sharing one exit vocabulary.
+ * The scroll driver, two modes sharing one exit vocabulary.
  *
  * `cinematic` (tier 2, desktop-class + WebGL): `root` is a tall wrapper
  * (`.hero` at `height: 250vh` in `hero.css`) with a `position: sticky` inner
- * stage. No `pin: true` — a sticky element needs no pin-spacer, so nothing
+ * stage. No `pin: true`, a sticky element needs no pin-spacer, so nothing
  * about it has to be recalculated on resize, which is exactly where GSAP-
  * pinned sections tend to break (the same trade `FloorRevealSection` already
  * makes for the WhyElectricHamam scene). Scrolling the wrapper's extra height
@@ -28,31 +28,31 @@ if (typeof window !== 'undefined') {
  * scenes, cut like film rather than crossfaded like a website. Each
  * `.hero__act` wrapper carries its own `--scene-t` (see `hero.css`, section
  * 7): opacity, blur and a lift all answer that one value, and `visibility`
- * is toggled — not just opacity — at the start of a reveal and the end of a
+ * is toggled, not just opacity, at the start of a reveal and the end of a
  * retire. Visibility is the guarantee: an element at `opacity: 0` is still
  * hit-testable and still in the tab order, so a purely opacity-driven fade
  * cannot promise "never two content groups on screen" the way this does.
  * Only one act is ever `visibility: visible` at a time.
  *
  * Act 1 (badge + headline) has already arrived by the time this controller
- * runs — its line-by-line ignition is the load sequence's job, not the
- * scroll's — so this file only retires its wrapper, then reveals and retires
+ * runs, its line-by-line ignition is the load sequence's job, not the
+ * scroll's, so this file only retires its wrapper, then reveals and retires
  * Acts 2 and 3 in turn, leaving a quiet beat with no text while the pipes
- * ignite, then reveals Act 4 — the closing shot, once the scene has settled —
+ * ignite, then reveals Act 4, the closing shot, once the scene has settled 
  * and leaves it for the handoff dissolve below to take down. Act 4's own
  * entrance (a split title, the CTAs on a delay) is a separate, real-time
- * timeline — `splitTl`, further down — rather than another scrub-driven
+ * timeline, `splitTl`, further down, rather than another scrub-driven
  * `--scene-t`; see the comment where it's built for why.
  *
  * `simple` (everyone else): `root` is the ordinary compact hero. There is no
- * 3D scene to scrub, so this is the old photographic hero's plain exit — the
+ * 3D scene to scrub, so this is the old photographic hero's plain exit, the
  * text dissolves as the hero scrolls out of view, once, over the hero's own
  * natural height. Forcing 140vh of extra scroll on a visitor who is only
  * going to see a static poster background would be dead weight on a lead-gen
  * page's most important section.
  *
  * Both modes converge on the same `heroState.exit`: the fraction of the
- * *handoff* — the final dissolve into the next section — regardless of how
+ * *handoff*, the final dissolve into the next section, regardless of how
  * long a scroll produced it. Every CSS rule that reads `--h-exit` (the
  * vignette closing down, the scroll cue retiring) therefore needs no branch
  * of its own for which mode is active.
@@ -99,7 +99,7 @@ export function createScrollController(root, { reduced = false, cinematic = fals
   if (cinematic) {
     // `data-act` on the root: the acts' own `visibility` is what actually
     // gates which one is shown (hero.css §7), so this isn't load-bearing for
-    // that — but the closing shot's scrim boost reads it (§5), and it's
+    // that, but the closing shot's scrim boost reads it (§5), and it's
     // useful for QA regardless: "which scene is live" as one attribute.
     root.dataset.act = '1';
 
@@ -113,15 +113,15 @@ export function createScrollController(root, { reduced = false, cinematic = fals
     const [handoffStart, handoffEnd] = STAGE.handoff;
     const toHandoff = (v) => mapRange(v, 0, 1, handoffStart, handoffEnd);
 
-    // The closing shot's own arrival — a split title sliding in from both
-    // edges to meet at centre, then the CTAs on a short delay — plays as a
+    // The closing shot's own arrival, a split title sliding in from both
+    // edges to meet at centre, then the CTAs on a short delay, plays as a
     // real, time-based animation rather than being tied to scroll position
     // directly. A scrub can't honour a literal "0.9s, power4.out": scrubbed
     // tweens are deliberately eased `none` (see `EASE.scrub`) so they never
     // fight the visitor's own scroll velocity, which is exactly wrong for a
     // considered, cinematic entrance. Firing a real timeline once when the
-    // scrub crosses into the scene — and reversing it if the visitor scrolls
-    // back out — gets the specified motion while the scrub still owns
+    // scrub crosses into the scene, and reversing it if the visitor scrolls
+    // back out, gets the specified motion while the scrub still owns
     // visibility (the non-negotiable "only one scene" guarantee).
     const finaleLeft = q('.hero__finale-line--left')[0];
     const finaleRight = q('.hero__finale-line--right')[0];
@@ -146,7 +146,7 @@ export function createScrollController(root, { reduced = false, cinematic = fals
       );
     }
     if (finaleCtaGroup) {
-      // No bounce, no overshoot — a plain decelerate, same family as the
+      // No bounce, no overshoot, a plain decelerate, same family as the
       // titles' but without their more dramatic power4 curve.
       splitTl.fromTo(
         finaleCtaGroup,
@@ -182,7 +182,7 @@ export function createScrollController(root, { reduced = false, cinematic = fals
             root.setAttribute('data-scrolled', '');
           }
 
-          // The active act, as a stepwise function of the same progress —
+          // The active act, as a stepwise function of the same progress 
           // written only through GSAP's own onUpdate (once per tick, not
           // per render), and only touches the DOM when it actually changes.
           const p = self.progress;
@@ -194,7 +194,7 @@ export function createScrollController(root, { reduced = false, cinematic = fals
             root.dataset.act = String(next);
           }
 
-          // Fires once on the way in, reverses once on the way back out —
+          // Fires once on the way in, reverses once on the way back out 
           // `finaleEntered` is the debounce that keeps a `.play()`/`.reverse()`
           // pair from being re-issued on every tick while progress sits past
           // the threshold.
@@ -214,13 +214,13 @@ export function createScrollController(root, { reduced = false, cinematic = fals
      * `visibility` flipped at the hard edges so there is never a frame where
      * two acts are simultaneously hit-testable, let alone simultaneously
      * legible. The text inside snaps straight to its finished state
-     * (`--t: 1`, no travelling mask) the instant its scene becomes visible —
+     * (`--t: 1`, no travelling mask) the instant its scene becomes visible 
      * the wrapper's own motion is what "arriving" looks like for Acts 2 and
      * 3, so animating the mask underneath it at the same time would be two
      * effects fighting for the same read. Act 1 keeps its mask-driven
      * line-by-line ignition; only its *retirement* goes through this system.
-     * Act 4's wrapper motion is switched off in CSS — `splitTl` above owns
-     * its entrance instead — but it still uses `revealScene` for the
+     * Act 4's wrapper motion is switched off in CSS, `splitTl` above owns
+     * its entrance instead, but it still uses `revealScene` for the
      * `visibility` gate, which is the part that actually matters.
      */
     const revealScene = (n, [from, to]) => {
@@ -253,21 +253,21 @@ export function createScrollController(root, { reduced = false, cinematic = fals
     revealScene(3, ACT.engineering.reveal);
     retireScene(3, ACT.engineering.retire);
 
-    // Between here and Act 4 the frame is deliberately quiet — no text — so
+    // Between here and Act 4 the frame is deliberately quiet, no text, so
     // the pipes igniting can hold the whole of the visitor's attention
-    // rather than sharing it with a caption. (A former Act 4 — the trust
-    // line, alone — lived in this gap and was removed by explicit direction;
+    // rather than sharing it with a caption. (A former Act 4, the trust
+    // line, alone, lived in this gap and was removed by explicit direction;
     // the quiet stretch simply absorbed the space it left behind.)
 
     /*
      * ── Act 4: the closing shot ──────────────────────────────────────────
-     * Everything has settled (see `warmthAt`/`calmAt` in sceneTimeline.js —
+     * Everything has settled (see `warmthAt`/`calmAt` in sceneTimeline.js 
      * the camera has nearly stopped and the thermal flow has slowed by the
      * time this reveals). `revealScene` here only sets up the *visibility*
-     * gate — the wrapper's own fade/blur/lift is switched off for this act
+     * gate, the wrapper's own fade/blur/lift is switched off for this act
      * in CSS (hero.css §7), because `splitTl` above owns 100% of this
      * scene's visible motion. Holds through the handoff below rather than
-     * retiring on its own — it's the last thing on screen before the page
+     * retiring on its own, it's the last thing on screen before the page
      * continues, not something that gets replaced by anything else.
      */
     snapOpen('finale', ACT.finale.reveal[0]);

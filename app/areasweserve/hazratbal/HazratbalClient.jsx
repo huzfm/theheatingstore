@@ -51,8 +51,8 @@ export default function HazratbalClient() {
     <AreaPageTemplate
       areaName="Hazratbal"
       areaSlug="hazratbal"
-      heroTagline="Premium UK-imported electric hamams for Hazratbal homeowners — installed by The Heating Store from our Rajbagh showroom."
-      bodyText="Hazratbal is one of Srinagar's most revered neighbourhoods, home to the famous Hazratbal shrine and a mix of established family homes and lake-adjacent properties. The Heating Store in nearby Rajbagh supplies and installs UK-imported electric hamam and underfloor heating systems engineered for the long Kashmir winter — with full thermal mass layering, 8–10 hour heat retention, certified wet-area safety, and a written warranty. Our Kashmir team handles every project from site survey to final handover."
+      heroTagline="Premium UK-imported electric hamams for Hazratbal homeowners, installed by The Heating Store from our Rajbagh showroom."
+      bodyText="Hazratbal is one of Srinagar's most revered neighbourhoods, home to the famous Hazratbal shrine and a mix of established family homes and lake-adjacent properties. The Heating Store in nearby Rajbagh supplies and installs UK-imported electric hamam and underfloor heating systems engineered for the long Kashmir winter, with full thermal mass layering, 8–10 hour heat retention, certified wet-area safety, and a written warranty. Our Kashmir team handles every project from site survey to final handover."
       directionsText="From Hazratbal, head down the Boulevard towards Dalgate and continue to Rajbagh via Lal Chowk. The Heating Store is located in Rajbagh, Srinagar 190008."
       nearbyAreas={NEARBY}
       allAreas={ALL_AREAS}

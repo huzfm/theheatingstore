@@ -33,7 +33,7 @@ const SIZES = {
  *  - the inner label translates further than the shell, which reads as depth
  *
  * Every value runs through a spring, so releasing the pointer settles rather
- * than snaps. Fully disabled under prefers-reduced-motion — the button keeps
+ * than snaps. Fully disabled under prefers-reduced-motion, the button keeps
  * its colour-only hover states.
  */
 export default function MagneticButton({
@@ -129,7 +129,7 @@ export default function MagneticButton({
         {...rest}
       >
         {/* Label sits on its own Z plane and travels slightly further than
-            the shell — the parallax between the two is what sells the depth. */}
+            the shell, the parallax between the two is what sells the depth. */}
         <motion.span
           className="relative z-10 inline-flex items-center gap-2.5"
           style={{ transform: 'translateZ(22px)' }}

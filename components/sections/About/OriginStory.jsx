@@ -6,7 +6,7 @@ import { RevealText, Reveal } from '@/components/ui/RevealText';
 import { ORIGIN } from './data';
 
 /**
- * Origin narrative — side-by-side scroll reveal (pinning would be overkill for
+ * Origin narrative, side-by-side scroll reveal (pinning would be overkill for
  * two paragraphs). The image parallax-drifts against the copy to give the pair
  * a little depth as it enters.
  */

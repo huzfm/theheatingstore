@@ -12,11 +12,11 @@
  * implies nothing is being rushed or concealed.
  */
 
-/** GSAP ease strings — all built-ins, no plugin dependency. */
+/** GSAP ease strings, all built-ins, no plugin dependency. */
 export const EASE = {
   /** Camera coming to rest. Long tail, no perceptible arrival. */
   settle: 'expo.out',
-  /** Heat arriving in a surface — type reveals, grade ramps. */
+  /** Heat arriving in a surface, type reveals, grade ramps. */
   thermal: 'power3.out',
   /** Current filling a bar. Slight front-load, then confident. */
   charge: 'power2.out',
@@ -78,7 +78,7 @@ export function smoothstep(edge0, edge1, x) {
  * long. Converting the coefficient through `1 - e^(-lambda·dt)` makes the
  * settle time a property of wall-clock time instead of refresh rate.
  *
- * `lambda` is roughly "how many e-foldings per second" — higher is snappier.
+ * `lambda` is roughly "how many e-foldings per second", higher is snappier.
  */
 export function damp(current, target, lambda, dt) {
   return lerp(current, target, 1 - Math.exp(-lambda * dt));

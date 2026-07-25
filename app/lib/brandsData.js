@@ -20,9 +20,9 @@ export const BRANDS = [
 		img: '/brandimages/prowarm.webp',
 		heroImage: '/brandimages/prowarm.webp',
 		accentColor: '#B86B45',
-		desc: "UK's #1 best-selling electric underfloor heating brand with over 300,000 systems sold worldwide. CE certified by SGS to IEC 60335 standards. Every system ships with a Lifetime Warranty and the CableSafe™ Guarantee — if the heating cable is accidentally cut during installation, ProWarm replaces it free of charge.",
+		desc: "UK's #1 best-selling electric underfloor heating brand with over 300,000 systems sold worldwide. CE certified by SGS to IEC 60335 standards. Every system ships with a Lifetime Warranty and the CableSafe™ Guarantee, if the heating cable is accidentally cut during installation, ProWarm replaces it free of charge.",
 		longDesc:
-			"ProWarm has been at the forefront of electric underfloor heating innovation in the United Kingdom for nearly two decades, supplying over 300,000 systems to homes, hotels and commercial projects across the world. The brand is built around three uncompromising promises — cable longevity, installer confidence, and end-user comfort.\n\nEvery ProWarm system is CE certified by SGS to the international IEC 60335 standard for fixed heating appliances, and the multi-strand fluoropolymer-insulated cable is engineered to survive the harshest screed environments. The signature CableSafe™ Guarantee covers you if the heating cable is accidentally cut during installation — ProWarm will replace the mat, free of charge, no questions asked.\n\nBacked by a Lifetime Warranty, ProWarm remains the heating system of choice for installers who refuse to compromise. The Heating Store is an authorised ProWarm distributor across India, with full factory training and direct WhatsApp technical support for every installation in Kashmir, Ladakh, Delhi, Mumbai, Bengaluru and beyond.",
+			"ProWarm has been at the forefront of electric underfloor heating innovation in the United Kingdom for nearly two decades, supplying over 300,000 systems to homes, hotels and commercial projects across the world. The brand is built around three uncompromising promises, cable longevity, installer confidence, and end-user comfort.\n\nEvery ProWarm system is CE certified by SGS to the international IEC 60335 standard for fixed heating appliances, and the multi-strand fluoropolymer-insulated cable is engineered to survive the harshest screed environments. The signature CableSafe™ Guarantee covers you if the heating cable is accidentally cut during installation, ProWarm will replace the mat, free of charge, no questions asked.\n\nBacked by a Lifetime Warranty, ProWarm remains the heating system of choice for installers who refuse to compromise. The Heating Store is an authorised ProWarm distributor across India, with full factory training and direct WhatsApp technical support for every installation in Kashmir, Ladakh, Delhi, Mumbai, Bengaluru and beyond.",
 		established: '2008',
 		origin: 'United Kingdom',
 		certifications: ['CE', 'IEC 60335', 'RoHS', 'SGS Tested'],
@@ -102,7 +102,7 @@ export const BRANDS = [
 		accentColor: '#E8933A',
 		desc: "The world's best-selling floor heating brand since 1994, with over 2.5 million systems installed across 72 countries. ISO 9001:2015 certified and accredited by BEAB, UL, CSA, FIMKO and SEMKO. Winner of the Queen's Award for Enterprise 2020. Every system backed by a Limited Lifetime Warranty and the SafetyNet™ Installation Guarantee.",
 		longDesc:
-			"Warmup invented the modern electric underfloor heating industry in 1994 and has remained its global leader ever since. With more than 2.5 million systems installed across 72 countries, Warmup is the brand that architects, builders and homeowners specify when only the best will do.\n\nEvery Warmup system is engineered in the United Kingdom and certified to the world's most demanding safety standards — ISO 9001:2015 for quality management, BEAB for European product safety, UL for North America, and CSA, FIMKO and SEMKO across the rest of the world. In 2020 the company was awarded the prestigious Queen's Award for Enterprise in the Innovation category.\n\nThe ultra-thin 1.8mm StickyMat is the thinnest dual-fluoropolymer heating wire on the market, and the SafetyNet™ Installation Guarantee means that if a Warmup mat is damaged during installation, the company will replace it — and even contribute towards the cost of the floor covering. Backed by a Limited Lifetime Warranty, no other heating brand comes close.",
+			"Warmup invented the modern electric underfloor heating industry in 1994 and has remained its global leader ever since. With more than 2.5 million systems installed across 72 countries, Warmup is the brand that architects, builders and homeowners specify when only the best will do.\n\nEvery Warmup system is engineered in the United Kingdom and certified to the world's most demanding safety standards, ISO 9001:2015 for quality management, BEAB for European product safety, UL for North America, and CSA, FIMKO and SEMKO across the rest of the world. In 2020 the company was awarded the prestigious Queen's Award for Enterprise in the Innovation category.\n\nThe ultra-thin 1.8mm StickyMat is the thinnest dual-fluoropolymer heating wire on the market, and the SafetyNet™ Installation Guarantee means that if a Warmup mat is damaged during installation, the company will replace it, and even contribute towards the cost of the floor covering. Backed by a Limited Lifetime Warranty, no other heating brand comes close.",
 		established: '1994',
 		origin: 'United Kingdom',
 		certifications: ['BEAB', 'UL', 'CSA', 'FIMKO', 'SEMKO', 'ISO 9001'],
@@ -159,8 +159,8 @@ export const BRANDS = [
 				id: 'wu-04',
 				name: 'Warmup 4iE Smart Thermostat',
 				subtitle: 'WiFi touchscreen controller',
-				coverage: '—',
-				wattage: '—',
+				coverage: ' ',
+				wattage: ' ',
 				priceRange: '₹18,000 – ₹24,000',
 				badge: 'SMART',
 				features: ['Smartphone control', 'Energy monitor', 'Learning algorithm', 'BEAB approved'],
@@ -180,16 +180,16 @@ export const BRANDS = [
 		img: '/brandimages/thermosphere.webp',
 		heroImage: '/brandimages/thermosphere.webp',
 		accentColor: '#6B4A2D',
-		desc: "Designed and manufactured in Great Britain with over 25 years of heating innovation. Features the exclusive TwistedTwin™ cable technology — a twisted dual-conductor construction that eliminates electromagnetic fields, minimises cable stress, and delivers industry-leading longevity. IP68 rated, fully earthed, and backed by a Lifetime Guarantee on every system.",
+		desc: "Designed and manufactured in Great Britain with over 25 years of heating innovation. Features the exclusive TwistedTwin™ cable technology, a twisted dual-conductor construction that eliminates electromagnetic fields, minimises cable stress, and delivers industry-leading longevity. IP68 rated, fully earthed, and backed by a Lifetime Guarantee on every system.",
 		longDesc:
-			"ThermoSphere is the British heating brand that refuses to follow convention. Designed and manufactured in Great Britain, every ThermoSphere system benefits from more than 25 years of heating engineering expertise and a relentless focus on cable reliability.\n\nThe signature TwistedTwin™ cable is a twisted dual-conductor construction — a deliberate departure from the parallel-conductor designs used by most competitors. Twisting the conductors cancels electromagnetic fields to undetectable levels, eliminates cable stress at the point of manufacture, and dramatically reduces the risk of fatigue failure after years of thermal cycling. The result is a system rated IP68 (submersible), fully earthed, and trusted in 30+ countries.\n\nFrom the heat-ready membrane to the dual-conductor foil, every ThermoSphere product is built to outlast the floor covering it sits beneath. Backed by a Lifetime Guarantee and installed exclusively by trained professionals, ThermoSphere is the choice for premium residences, heritage renovations and architect-led commercial projects across India and beyond.",
+			"ThermoSphere is the British heating brand that refuses to follow convention. Designed and manufactured in Great Britain, every ThermoSphere system benefits from more than 25 years of heating engineering expertise and a relentless focus on cable reliability.\n\nThe signature TwistedTwin™ cable is a twisted dual-conductor construction, a deliberate departure from the parallel-conductor designs used by most competitors. Twisting the conductors cancels electromagnetic fields to undetectable levels, eliminates cable stress at the point of manufacture, and dramatically reduces the risk of fatigue failure after years of thermal cycling. The result is a system rated IP68 (submersible), fully earthed, and trusted in 30+ countries.\n\nFrom the heat-ready membrane to the dual-conductor foil, every ThermoSphere product is built to outlast the floor covering it sits beneath. Backed by a Lifetime Guarantee and installed exclusively by trained professionals, ThermoSphere is the choice for premium residences, heritage renovations and architect-led commercial projects across India and beyond.",
 		established: '1998',
 		origin: 'United Kingdom',
 		certifications: ['IP68', 'CE', 'RoHS', 'BEAB'],
 		warranty: 'Lifetime Guarantee',
 		usps: [
 			{ icon: 'zap', title: 'TwistedTwin™ Cable', desc: 'Eliminates EMF + cable stress for life-long reliability' },
-			{ icon: 'droplet', title: 'IP68 Rated', desc: 'Fully submersible — wet-room & shower safe' },
+			{ icon: 'droplet', title: 'IP68 Rated', desc: 'Fully submersible, wet-room & shower safe' },
 			{ icon: 'shield', title: 'Lifetime Guarantee', desc: 'On every registered system, no questions' },
 			{ icon: 'leaf', title: 'Low EMF', desc: 'Twisted conductors cancel electromagnetic field' },
 		],
@@ -239,8 +239,8 @@ export const BRANDS = [
 				id: 'ts-04',
 				name: 'ThermoSphere Smart Control',
 				subtitle: 'WiFi touchscreen thermostat',
-				coverage: '—',
-				wattage: '—',
+				coverage: ' ',
+				wattage: ' ',
 				priceRange: '₹16,000 – ₹21,000',
 				badge: 'SMART',
 				features: ['App control', 'Geofencing', '7-day schedule', 'BEAB approved'],
@@ -251,7 +251,7 @@ export const BRANDS = [
 	},
 
 	// ─────────────────────────────────────────────────────────────
-	// 4. AmberHeat — KASHMIR-SPECIFIC
+	// 4. AmberHeat, KASHMIR-SPECIFIC
 	// ─────────────────────────────────────────────────────────────
 	{
 		name: 'AmberHeat',
@@ -260,9 +260,9 @@ export const BRANDS = [
 		img: '/brandimages/amberheat.webp',
 		heroImage: '/brandimages/amberheat.webp',
 		accentColor: '#FF7E5F',
-		desc: 'Premium CE certified radiant heating systems engineered for extreme cold climates. AmberHeat systems are specified for Kashmir and high-altitude installations where sustained heat retention during power interruptions is critical. Enhanced thermal mass design delivers 4 to 6 hours of residual warmth after power cut — built for Kashmir winters.',
+		desc: 'Premium CE certified radiant heating systems engineered for extreme cold climates. AmberHeat systems are specified for Kashmir and high-altitude installations where sustained heat retention during power interruptions is critical. Enhanced thermal mass design delivers 4 to 6 hours of residual warmth after power cut, built for Kashmir winters.',
 		longDesc:
-			"AmberHeat is the only underfloor heating brand engineered specifically for the extreme winter conditions of Kashmir, Ladakh and the greater Himalayan region. Designed in consultation with heating engineers in Srinagar, Gulmarg, Sonamarg, Pahalgam, Leh, Kargil and Dras, every AmberHeat system is tested to perform continuously in ambient temperatures as low as -25°C.\n\nThe signature Thermal Mass technology uses a high-density composite screed layer that absorbs heat during on-cycles and slowly releases it for 4 to 6 hours after a power cut — a critical lifeline during the load-shedding and snowstorm blackouts that Kashmir valley residents know all too well. Even when the grid is down, your floor stays warm.\n\nFrom the KashmirShield frost-protected entry mat to the Mountain Series 800W system rated for Dras — the world's coldest inhabited place — AmberHeat is the heating brand that understands what 'cold' really means. Installed across 800+ homes in the valley and trusted by leading architects of the Kashmir housing board, AmberHeat is the radiant heating standard for high-altitude India.",
+			"AmberHeat is the only underfloor heating brand engineered specifically for the extreme winter conditions of Kashmir, Ladakh and the greater Himalayan region. Designed in consultation with heating engineers in Srinagar, Gulmarg, Sonamarg, Pahalgam, Leh, Kargil and Dras, every AmberHeat system is tested to perform continuously in ambient temperatures as low as -25°C.\n\nThe signature Thermal Mass technology uses a high-density composite screed layer that absorbs heat during on-cycles and slowly releases it for 4 to 6 hours after a power cut, a critical lifeline during the load-shedding and snowstorm blackouts that Kashmir valley residents know all too well. Even when the grid is down, your floor stays warm.\n\nFrom the KashmirShield frost-protected entry mat to the Mountain Series 800W system rated for Dras, the world's coldest inhabited place, AmberHeat is the heating brand that understands what 'cold' really means. Installed across 800+ homes in the valley and trusted by leading architects of the Kashmir housing board, AmberHeat is the radiant heating standard for high-altitude India.",
 		established: '2014',
 		origin: 'India (Kashmir)',
 		certifications: ['CE', 'RoHS', 'IPX7', 'BIS'],
@@ -342,7 +342,7 @@ export const BRANDS = [
 		accentColor: '#E8933A',
 		desc: 'Complete all-in-one heating kits approved to IEC and CE standards, designed for rapid residential and commercial installation. Every kit is supplied in a single box with full-colour instructions and backed by a 25 to 50-year pipe guarantee. Rapid WhatsApp technical support ensures on-site queries are resolved without installation delays.',
 		longDesc:
-			"FastWarm was created with one simple goal — to make professional-grade underfloor heating as easy to install as it is to specify. Every FastWarm kit is a complete, ready-to-lay heating system supplied in a single box: heating mat or cable, factory-fitted thermostat, floor sensor, fixing strips, conduit, full-colour installation manual, and a unique WhatsApp QR code for instant technical support.\n\nApproved to IEC 60335 and CE standards, FastWarm systems are designed for rapid deployment in both residential and light-commercial environments. The pipe guarantee runs from 25 years on standard kits up to a class-leading 50 years on the Pro Kit series — the longest manufacturer warranty in the Indian market.\n\nWhat really sets FastWarm apart is the human support behind the box. Our in-house engineers are available on WhatsApp during every install, walking you through the layout, the resistance checks, and the thermostat pairing. If something isn't right on site, we resolve it before it becomes a problem. That's why builders across India choose FastWarm.",
+			"FastWarm was created with one simple goal, to make professional-grade underfloor heating as easy to install as it is to specify. Every FastWarm kit is a complete, ready-to-lay heating system supplied in a single box: heating mat or cable, factory-fitted thermostat, floor sensor, fixing strips, conduit, full-colour installation manual, and a unique WhatsApp QR code for instant technical support.\n\nApproved to IEC 60335 and CE standards, FastWarm systems are designed for rapid deployment in both residential and light-commercial environments. The pipe guarantee runs from 25 years on standard kits up to a class-leading 50 years on the Pro Kit series, the longest manufacturer warranty in the Indian market.\n\nWhat really sets FastWarm apart is the human support behind the box. Our in-house engineers are available on WhatsApp during every install, walking you through the layout, the resistance checks, and the thermostat pairing. If something isn't right on site, we resolve it before it becomes a problem. That's why builders across India choose FastWarm.",
 		established: '2011',
 		origin: 'United Kingdom',
 		certifications: ['CE', 'IEC 60335', 'RoHS'],
@@ -422,14 +422,14 @@ export const BRANDS = [
 		accentColor: '#3C2A25',
 		desc: "The global leader in electric heat tracing and radiant floor heating, operating across 60+ countries for over 50 years. nVent RAYCHEM pioneered self-regulating heating cable technology and remains the benchmark for industrial-grade residential heating. Systems are IEC certified and backed by a 20-year Total Care Warranty when installed by a Certified PRO installer.",
 		longDesc:
-			"nVent is the global leader in electric heat tracing and radiant floor heating, with more than 50 years of experience operating across 60+ countries. The nVent RAYCHEM brand pioneered self-regulating heating cable technology in 1973 and remains the benchmark against which all others are measured.\n\nThe T2Red self-regulating floor heating cable automatically adjusts its power output to the floor temperature — drawing more power when the slab is cold and tapering down as it warms. The result is up to 25% energy savings compared with constant-wattage systems, without any compromise in comfort. nVent's programmable WiFi thermostats add learning algorithms and smartphone control, so your floor is always exactly as warm as you want it, exactly when you want it.\n\nEvery nVent residential system is IEC certified and backed by a 20-Year Total Care Warranty when installed by a Certified PRO installer. The Heating Store's nVent PRO installers complete factory training directly with the manufacturer, and our project engineers provide full design support on every commercial quote.",
+			"nVent is the global leader in electric heat tracing and radiant floor heating, with more than 50 years of experience operating across 60+ countries. The nVent RAYCHEM brand pioneered self-regulating heating cable technology in 1973 and remains the benchmark against which all others are measured.\n\nThe T2Red self-regulating floor heating cable automatically adjusts its power output to the floor temperature, drawing more power when the slab is cold and tapering down as it warms. The result is up to 25% energy savings compared with constant-wattage systems, without any compromise in comfort. nVent's programmable WiFi thermostats add learning algorithms and smartphone control, so your floor is always exactly as warm as you want it, exactly when you want it.\n\nEvery nVent residential system is IEC certified and backed by a 20-Year Total Care Warranty when installed by a Certified PRO installer. The Heating Store's nVent PRO installers complete factory training directly with the manufacturer, and our project engineers provide full design support on every commercial quote.",
 		established: '1973',
 		origin: 'United States',
 		certifications: ['IEC', 'CE', 'UL', 'CSA', 'VDE'],
 		warranty: '20-Year Total Care Warranty (PRO install)',
 		usps: [
 			{ icon: 'cpu', title: 'Self-Regulating', desc: 'T2Red cable adjusts output to floor temperature' },
-			{ icon: 'trending-down', title: '25% Energy Saved', desc: 'Vs constant-wattage systems — verified' },
+			{ icon: 'trending-down', title: '25% Energy Saved', desc: 'Vs constant-wattage systems, verified' },
 			{ icon: 'shield', title: '20yr Total Care', desc: 'Full system warranty with PRO installer' },
 			{ icon: 'globe', title: '60+ Countries', desc: 'Trusted on industrial sites worldwide' },
 		],
@@ -467,8 +467,8 @@ export const BRANDS = [
 				id: 'nv-03',
 				name: 'nVent RAYCHEM SENZ WiFi Thermostat',
 				subtitle: 'Premium touchscreen controller',
-				coverage: '—',
-				wattage: '—',
+				coverage: ' ',
+				wattage: ' ',
 				priceRange: '₹22,000 – ₹28,000',
 				badge: 'SMART',
 				features: ['Touchscreen UI', 'Energy monitor', 'Adaptive learning', '7-day schedule'],

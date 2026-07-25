@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * HomeHero — the home page's static, premium hero.
+ * HomeHero, the home page's static, premium hero.
  *
  * Replaces the scroll-driven WebGL cutaway (`app/hero/*`) with a single
  * art-directed plate and a left-set copy column. No Three.js, no scroll
@@ -64,7 +64,7 @@ export default function HomeHero() {
         <div className="hhero__plate">
           <Image
             src="/images/hero/home-hero-lounge.webp"
-            alt="Luxury indoor–outdoor living space at dusk with a warm timber floor, fireplace and designer furniture — the kind of home kept comfortable by underfloor heating"
+            alt="Luxury indoor–outdoor living space at dusk with a warm timber floor, fireplace and designer furniture, the kind of home kept comfortable by underfloor heating"
             fill
             priority
             sizes="100vw"
@@ -96,7 +96,7 @@ export default function HomeHero() {
             </motion.h1>
 
             <motion.p className="hhero__lede" variants={item}>
-              From custom design and consultation to certified installation —
+              From custom design and consultation to certified installation 
               advanced electric heating trusted by homeowners, architects, and
               builders across the country.
             </motion.p>

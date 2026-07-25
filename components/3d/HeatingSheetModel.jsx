@@ -13,7 +13,7 @@ import { meshAlpha } from '@/lib/textures';
  * the direction that corner faces in the mat's local space.
  *
  * Visibility uses that azimuth rather than per-face normals and camera dot
- * products. The mat is flat, so every face normal points straight up — a
+ * products. The mat is flat, so every face normal points straight up, a
  * dot-product test returns the same answer for all four labels and cannot
  * distinguish them. Azimuth has no failure mode and gives the intended
  * effect: a callout is legible only while its edge faces the viewer.
@@ -36,7 +36,7 @@ const FEATURES = [
     index: '02',
     kicker: 'The cable',
     title: 'Self-regulating output',
-    body: 'Adapts section by section — cold spots draw more, warm spots less.',
+    body: 'Adapts section by section, cold spots draw more, warm spots less.',
     spec: 'Auto',
     specLabel: 'per-zone',
     anchor: [MAT_W / 2 - 0.3, 0.07, -MAT_L / 2 + 0.34],
@@ -48,7 +48,7 @@ const FEATURES = [
     index: '03',
     kicker: 'Coverage',
     title: 'Even heat distribution',
-    body: 'Fixed cable spacing across the mat — no hot stripes, no cold patches.',
+    body: 'Fixed cable spacing across the mat, no hot stripes, no cold patches.',
     spec: '50 mm',
     specLabel: 'spacing',
     anchor: [MAT_W / 2 - 0.3, 0.07, MAT_L / 2 - 0.34],
@@ -74,7 +74,7 @@ const FEATURES = [
  * sits on the mat, a thin leader rising to a floating card, a large ghosted
  * index numeral behind the copy, and a spec footer.
  *
- * Opacity is written straight to the DOM each frame — routing it through
+ * Opacity is written straight to the DOM each frame, routing it through
  * state would re-render four Html portals every frame. No backdrop-blur: a
  * blurred backdrop over a moving WebGL canvas forces the compositor to
  * re-sample the canvas behind every card each frame, which is expensive. The
@@ -116,7 +116,7 @@ function FeatureLabel({ feature, rotationRef, progressRef, activeIdRef }) {
             Integral to the card (not separately anchored), so it reads as
             "pinned to the mat" and tracks the card cleanly as it fades.
             drei's <Html center> centers the whole wrapper, so a separately
-            positioned node can't reliably land on the 3D corner — this keeps
+            positioned node can't reliably land on the 3D corner, this keeps
             the whole readout self-contained. */}
         <div className="pointer-events-none absolute left-5 top-full flex flex-col items-center sm:left-8">
           <span
@@ -136,7 +136,7 @@ function FeatureLabel({ feature, rotationRef, progressRef, activeIdRef }) {
           ref={cardRef}
           className="relative overflow-hidden rounded-xl p-[1px] sm:rounded-2xl"
           style={{
-            // Gradient border: bright warm at top-left, fading to hairline —
+            // Gradient border: bright warm at top-left, fading to hairline 
             // one of the cheapest ways to make a card read as lit.
             background:
               'linear-gradient(150deg, rgba(255,176,97,0.55), rgba(255,255,255,0.08) 32%, rgba(255,255,255,0.04) 70%)',
@@ -186,7 +186,7 @@ function FeatureLabel({ feature, rotationRef, progressRef, activeIdRef }) {
               {feature.body}
             </p>
 
-            {/* Spec footer — the one hard number, treated like an instrument
+            {/* Spec footer, the one hard number, treated like an instrument
                 value, which is what makes the whole card read as technical
                 rather than marketing. */}
             {feature.spec ? (
@@ -209,7 +209,7 @@ function FeatureLabel({ feature, rotationRef, progressRef, activeIdRef }) {
 /**
  * The cold tail: the unheated supply lead that runs from the mat back to the
  * thermostat, joined by a moulded factory splice. Every real mat has one,
- * and its absence is a detail the eye notices without being able to name —
+ * and its absence is a detail the eye notices without being able to name 
  * a heating mat with no way of connecting to anything reads as a prop.
  */
 function ColdTail() {
@@ -224,7 +224,7 @@ function ColdTail() {
     []
   );
 
-  // A cold tail is thicker than the heating cable but not by much — at the
+  // A cold tail is thicker than the heating cable but not by much, at the
   // previous 0.026 it read as a garden hose bolted to the mat.
   const geometry = useMemo(
     () => new THREE.TubeGeometry(curve, 40, 0.009, 6, false),
@@ -256,7 +256,7 @@ function HeatingSheetModel({ rotationRef, progressRef, showLabels = true, levelR
    * Which callout owns the screen right now. Each frame we pick the single
    * unlocked label whose corner most directly faces the camera; every other
    * label reads this and stays hidden. This is what makes the reveal strictly
-   * sequential — as the mat turns and a new corner comes forward it takes over,
+   * sequential, as the mat turns and a new corner comes forward it takes over,
    * and the previous callouts drop away rather than lingering two-at-a-time.
    */
   const activeIdRef = useRef(null);
@@ -278,7 +278,7 @@ function HeatingSheetModel({ rotationRef, progressRef, showLabels = true, levelR
   return (
     <group>
       {/* Fibreglass scrim. Real mats are an open weave you can see through,
-          so this is an alpha cut-out rather than a solid backing slab —
+          so this is an alpha cut-out rather than a solid backing slab 
           light passes between the strands and the layer below shows through,
           which is what makes it read as mesh and not as card. */}
       <mesh rotation={[-Math.PI / 2, 0, 0]}>

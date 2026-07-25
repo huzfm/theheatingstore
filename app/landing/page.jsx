@@ -111,7 +111,7 @@ function HeroCarousel() {
   );
 }
 
-/* ── Backend base URL — swap to your production URL when deploying ── */
+/* ── Backend base URL, swap to your production URL when deploying ── */
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5050';
 
 /* Reads ad-tracking params from the current page URL (works for Meta/Google
@@ -460,7 +460,7 @@ export default function LandingClient() {
                 animate={heroIn ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, ease: EASE, delay: 0.2 }}
               >
-                Kashmir has warmed its floors for generations. We just moved it under the tile — free site visit, professional install, 5-year warranty.
+                Kashmir has warmed its floors for generations. We just moved it under the tile, free site visit, professional install, 5-year warranty.
               </motion.p>
               <motion.div
                 className="lp-cta-row"
@@ -508,7 +508,7 @@ export default function LandingClient() {
         <div className="lp-final-cta-wrap">
           <div className="lp-final-cta">
             <h2 className="lp-final-cta-title">Ready for warm floors this winter?</h2>
-            <p className="lp-final-cta-sub">Book a free site visit — no obligation, no pressure.</p>
+            <p className="lp-final-cta-sub">Book a free site visit, no obligation, no pressure.</p>
             <div className="lp-cta-row">
               <Link href="/contact" className="lp-cta-primary">Get a Free Quote <ArrowRight size={16} /></Link>
               <a href={`https://wa.me/${CONTACT.whatsapp}`} target="_blank" rel="noopener noreferrer" className="lp-cta-secondary">

@@ -22,7 +22,7 @@ const FAQS = [
   },
   {
     q: 'Are your systems safe for use in Jawahar Nagar bathrooms?',
-    a: 'Yes. Every system we install is certified safe for wet areas — including bathrooms and kitchens — and engineered for sub-zero Kashmir floors.',
+    a: 'Yes. Every system we install is certified safe for wet areas, including bathrooms and kitchens, and engineered for sub-zero Kashmir floors.',
   },
   {
     q: 'How long is the warranty on systems installed in Jawahar Nagar?',
@@ -51,8 +51,8 @@ export default function JawaharNagarClient() {
     <AreaPageTemplate
       areaName="Jawahar Nagar"
       areaSlug="jawaharnagar"
-      heroTagline="Premium UK-imported electric hamams for Jawahar Nagar homeowners — designed for Kashmir winters, installed by The Heating Store."
-      bodyText="Jawahar Nagar is one of Srinagar's most prestigious residential areas, and homeowners here have trusted The Heating Store for over a decade to install premium electric hamam and underfloor heating systems. We're just a short drive away in Rajbagh — close enough for same-day site visits and after-installation service. Our systems are engineered for sub-zero Kashmir floors, designed to retain heat for hours even during power cuts, and certified safe for wet areas like bathrooms and kitchens."
+      heroTagline="Premium UK-imported electric hamams for Jawahar Nagar homeowners, designed for Kashmir winters, installed by The Heating Store."
+      bodyText="Jawahar Nagar is one of Srinagar's most prestigious residential areas, and homeowners here have trusted The Heating Store for over a decade to install premium electric hamam and underfloor heating systems. We're just a short drive away in Rajbagh, close enough for same-day site visits and after-installation service. Our systems are engineered for sub-zero Kashmir floors, designed to retain heat for hours even during power cuts, and certified safe for wet areas like bathrooms and kitchens."
       directionsText="From Jawahar Nagar, head towards Rajbagh via the Jawahar Nagar–Rajbagh link road. The Heating Store is located in Rajbagh, Srinagar 190008."
       nearbyAreas={NEARBY}
       allAreas={ALL_AREAS}

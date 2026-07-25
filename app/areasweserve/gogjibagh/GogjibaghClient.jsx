@@ -18,11 +18,11 @@ const FAQS = [
   },
   {
     q: 'How close is your showroom to Gogji Bagh?',
-    a: 'Very close — our Rajbagh showroom is just a 5-minute drive from Gogji Bagh via the Gogji Bagh–Rajbagh link lane.',
+    a: 'Very close, our Rajbagh showroom is just a 5-minute drive from Gogji Bagh via the Gogji Bagh–Rajbagh link lane.',
   },
   {
     q: 'Do you handle bathroom-only hamam installations in Gogji Bagh?',
-    a: 'Yes. We install compact bathroom hamam units in Gogji Bagh homes — typically completed in 1 day with no disruption to the rest of the house.',
+    a: 'Yes. We install compact bathroom hamam units in Gogji Bagh homes, typically completed in 1 day with no disruption to the rest of the house.',
   },
   {
     q: 'Are your systems energy efficient enough for daily Gogji Bagh winter use?',
@@ -51,8 +51,8 @@ export default function GogjibaghClient() {
     <AreaPageTemplate
       areaName="Gogji Bagh"
       areaSlug="gogjibagh"
-      heroTagline="Premium UK-imported electric hamams for Gogji Bagh — one of Srinagar's most established residential pockets, just minutes from our Rajbagh showroom."
-      bodyText="Gogji Bagh is one of Srinagar's quietest, most well-kept neighbourhoods — tree-lined lanes, large family homes, and a strong sense of community. We've installed electric hamam and underfloor heating systems in many of these homes over the years, and we're known in the area for our clean workmanship and reliable after-service. Our UK-imported systems are designed for sub-zero Kashmir floors, certified safe for wet areas, and engineered to retain heat for hours after a power cut."
+      heroTagline="Premium UK-imported electric hamams for Gogji Bagh, one of Srinagar's most established residential pockets, just minutes from our Rajbagh showroom."
+      bodyText="Gogji Bagh is one of Srinagar's quietest, most well-kept neighbourhoods, tree-lined lanes, large family homes, and a strong sense of community. We've installed electric hamam and underfloor heating systems in many of these homes over the years, and we're known in the area for our clean workmanship and reliable after-service. Our UK-imported systems are designed for sub-zero Kashmir floors, certified safe for wet areas, and engineered to retain heat for hours after a power cut."
       directionsText="From Gogji Bagh, head towards Rajbagh via the Gogji Bagh–Rajbagh link lane. The Heating Store is located in Rajbagh, Srinagar 190008."
       nearbyAreas={NEARBY}
       allAreas={ALL_AREAS}

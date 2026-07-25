@@ -21,7 +21,7 @@ const item = {
 const features = [
 	{
 		title: 'Kashmir First Installation Expertise',
-		desc: 'Real on-site visuals from Kashmir installations — workforce, floor preparation, layered concrete method, and heat retention testing. Focused on execution, not marketing renders.',
+		desc: 'Real on-site visuals from Kashmir installations, workforce, floor preparation, layered concrete method, and heat retention testing. Focused on execution, not marketing renders.',
 	},
 	{
 		title: 'Intelligent Project Cost Calculator',
@@ -29,7 +29,7 @@ const features = [
 	},
 	{
 		title: 'End to End Project Guidance',
-		desc: 'Clear explanation of workflow, safety standards, energy efficiency and long-term reliability — helping clients understand what they are investing in.',
+		desc: 'Clear explanation of workflow, safety standards, energy efficiency and long-term reliability, helping clients understand what they are investing in.',
 	},
 ];
 
@@ -141,7 +141,7 @@ export default function ProjectFeatures() {
 					<motion.p
 						variants={item}
 						className="mt-6 max-w-xl text-lg leading-relaxed text-[#3C2B27]">
-						We don't just sell systems — we deliver Kashmir installation expertise, technically transparent project experience, and systems built for -15C winters and power cuts.
+						We don't just sell systems, we deliver Kashmir installation expertise, technically transparent project experience, and systems built for -15C winters and power cuts.
 						<a href='/installation' className="text-[#B86B45] underline underline-offset-2 hover:text-[#E8933A] transition-colors">See our Kashmir installation process</a> or
 						<a href='/about' className="text-[#B86B45] underline underline-offset-2 hover:text-[#E8933A] transition-colors"> learn about our Kashmir expertise</a>.
 					</motion.p>

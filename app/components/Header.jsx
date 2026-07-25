@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Header.jsx — flat, full-width bar (ProWarm-style layout), restyled from
+ * Header.jsx, flat, full-width bar (ProWarm-style layout), restyled from
  * the earlier floating-pill version. All functionality is unchanged:
  * primary nav, "More pages" dropdown, ⌘K search modal, mobile drawer.
  */
@@ -69,10 +69,10 @@ function BrandMark({ compact = false }) {
   return (
     <Link
       href="/"
-      aria-label="TheHeatingStore — Home"
+      aria-label="TheHeatingStore, Home"
       style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }}
     >
-      {/* width/height are the image's real intrinsic dimensions — Next/Image
+      {/* width/height are the image's real intrinsic dimensions, Next/Image
           needs these to reserve layout space. If your file's actual aspect
           ratio differs, adjust these two numbers to match it; the CSS below
           just scales proportionally from whatever you set here. */}
@@ -484,7 +484,7 @@ function MobileMenu({ open, onClose, pathname, onSearchOpen }) {
   );
 }
 
-/* ---------- NavLinks — ProWarm style: centered, dot-indicator, "More" dropdown ---------- */
+/* ---------- NavLinks, ProWarm style: centered, dot-indicator, "More" dropdown ---------- */
 
 function NavLinks({ pathname }) {
   const [moreOpen, setMoreOpen] = useState(false);
@@ -639,7 +639,7 @@ function NavLinks({ pathname }) {
   );
 }
 
-/* ---------- Main Header — flat, full-width bar ---------- */
+/* ---------- Main Header, flat, full-width bar ---------- */
 
 export default function Header() {
   const pathname = usePathname();

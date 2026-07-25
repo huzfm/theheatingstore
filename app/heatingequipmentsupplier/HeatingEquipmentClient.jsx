@@ -61,7 +61,7 @@ const SERVICES = [
 const HIGHLIGHTS = [
   {
     title: 'UK Imported Quality',
-    desc: 'Every system we supply is sourced from leading UK manufacturers and certified to CE / IEC 60335 safety standards — the same systems used in European homes for decades.',
+    desc: 'Every system we supply is sourced from leading UK manufacturers and certified to CE / IEC 60335 safety standards, the same systems used in European homes for decades.',
     Icon: Award,
     color: '#B86B45',
   },
@@ -73,7 +73,7 @@ const HIGHLIGHTS = [
   },
   {
     title: 'Based in Rajbagh',
-    desc: 'Our Srinagar store and installation team are based in Rajbagh — minutes from anywhere in the city, with a free site survey as standard.',
+    desc: 'Our Srinagar store and installation team are based in Rajbagh, minutes from anywhere in the city, with a free site survey as standard.',
     Icon: MapPinned,
     color: '#6BAE7F',
   },
@@ -224,7 +224,7 @@ export default function HeatingEquipmentClient() {
             fontFamily: "var(--font-body)", fontSize: 14, color: '#6B4A2D',
             lineHeight: 1.7, marginTop: 10, maxWidth: 580, margin: '10px auto 0',
           }}>
-            Electric hamams, underfloor heating, radiant floor heating, and complete home & commercial heating solutions — engineered for sub-zero Kashmir winters.
+            Electric hamams, underfloor heating, radiant floor heating, and complete home & commercial heating solutions, engineered for sub-zero Kashmir winters.
           </p>
           <div className="flex flex-row justify-center gap-3 mt-7">
             <a
@@ -266,7 +266,7 @@ export default function HeatingEquipmentClient() {
               title="Complete Heating"
               accent=" Solutions"
               center
-              sub="From single-room electric hamams to full-house underfloor heating and large-scale commercial installations — we supply, install, and warranty every system."
+              sub="From single-room electric hamams to full-house underfloor heating and large-scale commercial installations, we supply, install, and warranty every system."
             />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -508,7 +508,7 @@ export default function HeatingEquipmentClient() {
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="The Heating Store — Heating Equipment Supplier"
+                    title="The Heating Store, Heating Equipment Supplier"
                   />
                 </div>
               </a>

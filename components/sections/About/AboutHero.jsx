@@ -11,7 +11,7 @@ import { HERO } from './data';
 /**
  * Dark cinematic opener over a relevant, heavily-darkened backdrop. Left:
  * word-stagger headline + CTAs. Right: the thermostat dial, auto-cycling
- * through the states an installed system actually goes through — including
+ * through the states an installed system actually goes through, including
  * the power cut, where the dial goes dark but the stored-warmth arc keeps
  * depleting slowly. That last state is the headline beside it, restated as an
  * instrument reading.
@@ -44,7 +44,7 @@ export default function AboutHero() {
             'linear-gradient(90deg, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.82) 42%, rgba(10,10,10,0.55) 100%), linear-gradient(180deg, rgba(10,10,10,0.4), rgba(10,10,10,0.85))',
         }}
       />
-      {/* Ambient heat wash — slow breathing pulse, stilled under reduced motion */}
+      {/* Ambient heat wash, slow breathing pulse, stilled under reduced motion */}
       <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -146,7 +146,7 @@ export default function AboutHero() {
                 />
                 {dialState === 'outage' ? 'Grid · Out' : 'Grid · Live'}
               </span>
-              {/* Device identity, not state — the dial's own readout already
+              {/* Device identity, not state, the dial's own readout already
                   carries the status line, and repeating it here would just be
                   the same sentence twice in one panel. */}
               <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-bone-500/70">

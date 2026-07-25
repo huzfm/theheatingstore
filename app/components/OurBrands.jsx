@@ -111,7 +111,7 @@ export default function OurBrands() {
 
 				<div ref={brandsRef} className='ob-brands-pad ob-brands-content'>
 					<div className='ob-brands-grid'>
-						{/* LEFT — Heading + Capability */}
+						{/* LEFT, Heading + Capability */}
 						<motion.div
 							initial={{ opacity: 0, x: -24 }}
 							animate={brandsIn ? { opacity: 1, x: 0 } : {}}
@@ -150,7 +150,7 @@ export default function OurBrands() {
 							</div>
 						</motion.div>
 
-						{/* RIGHT — Brand Portfolio */}
+						{/* RIGHT, Brand Portfolio */}
 						<motion.div
 							initial={{ opacity: 0, x: 24 }}
 							animate={brandsIn ? { opacity: 1, x: 0 } : {}}

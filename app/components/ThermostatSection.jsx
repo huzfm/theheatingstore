@@ -105,7 +105,7 @@ const features = [
 			</svg>
 		),
 		title: 'IP54 Water Resistant',
-		desc: 'Splash-proof design rated for wetroom installation — engineered for electric hammam environments.',
+		desc: 'Splash-proof design rated for wetroom installation, engineered for electric hammam environments.',
 	},
 	{
 		icon: (
@@ -222,7 +222,7 @@ export default function ThermostatSection() {
 						variants={fadeUp}
 						className='mt-6 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed text-[#3C2B27]'>
 						Every electric hammam installation comes with a premium
-						digital thermostat — designed for intuitive control,
+						digital thermostat, designed for intuitive control,
 						energy efficiency, and reliable performance in wetroom
 						conditions.
 					</motion.p>
@@ -230,7 +230,7 @@ export default function ThermostatSection() {
 
 				{/* THERMOSTAT DEVICE + FEATURES GRID */}
 				<div className='grid lg:grid-cols-[0.9fr_1.1fr] gap-10 sm:gap-16 items-center'>
-					{/* LEFT — THERMOSTAT DEVICE */}
+					{/* LEFT, THERMOSTAT DEVICE */}
 					<motion.div
 						initial={{ opacity: 0, y: 40 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -420,7 +420,7 @@ export default function ThermostatSection() {
 						</motion.div>
 					</motion.div>
 
-					{/* RIGHT — FEATURES */}
+					{/* RIGHT, FEATURES */}
 					<motion.div
 						variants={container}
 						initial='hidden'

@@ -12,7 +12,7 @@ const CITY_DATA = {
   Kashmir: {
     badge: 'Kashmir Valley',
     headline: 'Serving the Entire Kashmir Valley',
-    tagline: 'Srinagar to Sopore, Anantnag to Baramulla — fully covered.',
+    tagline: 'Srinagar to Sopore, Anantnag to Baramulla, fully covered.',
     coverageAreas: ['Srinagar', 'Baramulla', 'Anantnag', 'Sopore', 'Kupwara', 'Pulwama', 'Shopian', 'Ganderbal'],
     stats: [
       { value: '200+', label: 'Installations in Valley' },
@@ -22,7 +22,7 @@ const CITY_DATA = {
     highlight: {
       icon: '🏔️',
       title: 'Kashmir Valley\'s Most Trusted Electric Hamam Installer',
-      body: 'With over 200 completed installations across the Kashmir Valley — from Srinagar city homes to remote district residences — our certified engineers understand Kashmiri construction methods, sub-zero subfloor conditions, and the load-shedding reality that demands genuine thermal mass, not just a heated wire.',
+      body: 'With over 200 completed installations across the Kashmir Valley, from Srinagar city homes to remote district residences, our certified engineers understand Kashmiri construction methods, sub-zero subfloor conditions, and the load-shedding reality that demands genuine thermal mass, not just a heated wire.',
     },
     process: [
       { step: '01', title: 'Site Survey', desc: 'Our Kashmir-based engineer visits your location to assess flooring substrate, room dimensions, and insulation requirements.' },
@@ -31,7 +31,7 @@ const CITY_DATA = {
       { step: '04', title: 'Testing & Handover', desc: 'Full thermal test, thermostat calibration, user walkthrough, and warranty documentation handed over on-site.' },
     ],
     testimonial: {
-      quote: 'I was skeptical at first — we have 10-hour cuts every night in Chilla Kalan. But the floor stayed warm till morning. Best decision we made for our home.',
+      quote: 'I was skeptical at first, we have 10-hour cuts every night in Chilla Kalan. But the floor stayed warm till morning. Best decision we made for our home.',
       author: 'Bashir Ahmad Mir',
       location: 'Jawahar Nagar, Srinagar',
     },
@@ -41,7 +41,7 @@ const CITY_DATA = {
   Jammu: {
     badge: 'Jammu Region',
     headline: 'Bringing Electric Hamam to Jammu & Surrounding Districts',
-    tagline: 'Jammu city, Kathua, Udhampur — now covered.',
+    tagline: 'Jammu city, Kathua, Udhampur, now covered.',
     coverageAreas: ['Jammu City', 'Kathua', 'Udhampur', 'Samba', 'Reasi', 'Ramban', 'Rajouri', 'Poonch'],
     stats: [
       { value: '80+', label: 'Installations Completed' },
@@ -51,7 +51,7 @@ const CITY_DATA = {
     highlight: {
       icon: '🏙️',
       title: 'Jammu\'s Growing Electric Hamam Network',
-      body: 'Jammu winters are colder than most people expect — dropping to −4°C in the hills and cutting power for hours across districts. Our Jammu installations are configured for the region\'s mixed climate: efficient enough for mild city winters, robust enough for Udhampur and Ramban elevations.',
+      body: 'Jammu winters are colder than most people expect, dropping to −4°C in the hills and cutting power for hours across districts. Our Jammu installations are configured for the region\'s mixed climate: efficient enough for mild city winters, robust enough for Udhampur and Ramban elevations.',
     },
     process: [
       { step: '01', title: 'Remote Consultation', desc: 'Initial consultation via phone or WhatsApp to understand your space and heating requirements.' },
@@ -60,7 +60,7 @@ const CITY_DATA = {
       { step: '04', title: 'Quality Check', desc: 'Final thermal test, system demo, and warranty registration before handover.' },
     ],
     testimonial: {
-      quote: 'We had tried room heaters for years. The electric hamam changed everything — silent, even heat, and it actually stays warm when the power goes. Worth every rupee.',
+      quote: 'We had tried room heaters for years. The electric hamam changed everything, silent, even heat, and it actually stays warm when the power goes. Worth every rupee.',
       author: 'Rakesh Kumar Sharma',
       location: 'Udhampur, Jammu',
     },
@@ -70,7 +70,7 @@ const CITY_DATA = {
   Ladakh: {
     badge: 'Ladakh Region',
     headline: 'High-Altitude Electric Hamam for Ladakh\'s Extreme Winters',
-    tagline: 'Leh, Kargil, and surrounding villages — purpose-built for your climate.',
+    tagline: 'Leh, Kargil, and surrounding villages, purpose-built for your climate.',
     coverageAreas: ['Leh Town', 'Kargil', 'Nubra Valley', 'Zanskar', 'Drass', 'Diskit', 'Padum', 'Khaltsi'],
     stats: [
       { value: '35+', label: 'Installations Completed' },
@@ -80,7 +80,7 @@ const CITY_DATA = {
     highlight: {
       icon: '❄️',
       title: 'Engineered for Ladakh\'s −25°C Winters',
-      body: 'Standard underfloor heating systems are not designed for Ladakh. Ours are. We use high-output heating elements, double-layer insulation boards, and thicker concrete pours specifically configured for altitudes above 3,000m. Every Ladakh installation is individually spec\'d — not adapted from a European catalogue.',
+      body: 'Standard underfloor heating systems are not designed for Ladakh. Ours are. We use high-output heating elements, double-layer insulation boards, and thicker concrete pours specifically configured for altitudes above 3,000m. Every Ladakh installation is individually spec\'d, not adapted from a European catalogue.',
     },
     process: [
       { step: '01', title: 'Phone / Video Survey', desc: 'Detailed remote assessment including altitude, flooring type, and room insulation to spec the right system.' },
@@ -89,7 +89,7 @@ const CITY_DATA = {
       { step: '04', title: 'Commissioning', desc: 'Full cold-weather startup test, performance verification, and complete warranty handover.' },
     ],
     testimonial: {
-      quote: 'In Leh, every heating product we tried before either failed in winter or cost too much to run. This system runs for hours after the power cuts — exactly what we needed.',
+      quote: 'In Leh, every heating product we tried before either failed in winter or cost too much to run. This system runs for hours after the power cuts, exactly what we needed.',
       author: 'Stanzin Dorje',
       location: 'Leh Town, Ladakh',
     },
@@ -234,7 +234,7 @@ export default function ContactPage() {
               <a href="tel:+919070907035" className="ctc-link">+91 90709 07035</a>
             </p>
             <p className="ctc-method-p ctc-muted">Our team is available Monday to Saturday, 9am to 7pm IST.</p>
-            <p className="ctc-method-p ctc-muted">For WhatsApp enquiries, message us any time — we respond within 2 hours during business hours.</p>
+            <p className="ctc-method-p ctc-muted">For WhatsApp enquiries, message us any time, we respond within 2 hours during business hours.</p>
           </div>
 
           {/* Card 2: Email Us */}
@@ -301,7 +301,7 @@ export default function ContactPage() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Electric Hamam Kashmir — Srinagar Showroom"
+                title="Electric Hamam Kashmir, Srinagar Showroom"
               />
             </div>
           </a>
@@ -336,7 +336,7 @@ export default function ContactPage() {
                 <label className="ctc-label">Project Location</label>
                 <div className="ctc-select-wrap">
                   <select name="location" value={form.location} onChange={handleChange} required className="ctc-input ctc-select">
-                    <option value="">— Select your city —</option>
+                    <option value=""> Select your city </option>
                     {LOCATIONS.map(loc => <option key={loc} value={loc}>{loc}</option>)}
                   </select>
                   <div className="ctc-select-caret">
@@ -346,7 +346,7 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* City pill — appears on select */}
+                {/* City pill, appears on select */}
                 <AnimatePresence>
                   {cityInfo && (
                     <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
@@ -416,7 +416,7 @@ export default function ContactPage() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// STYLES  (dark cinematic — matches /why-choose-us)
+// STYLES  (dark cinematic, matches /why-choose-us)
 // ─────────────────────────────────────────────────────────────────────────────
 
 const CSS = `

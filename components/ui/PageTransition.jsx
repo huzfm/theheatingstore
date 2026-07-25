@@ -7,7 +7,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
  * Route-change wrapper for the experience pages (/experience, /experience/*).
  *
  * Honest limitation: the App Router unmounts the outgoing route before
- * AnimatePresence can play an exit animation on it — there's no router-level
+ * AnimatePresence can play an exit animation on it, there's no router-level
  * "hold the old tree" hook the way there was in the pages router. Chasing a
  * true cross-fade requires intercepting every navigation and deferring it,
  * which is fragile and breaks the back button.
@@ -30,7 +30,7 @@ export default function PageTransition({ children }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{
           duration: 0.7,
-          // Slow start, fast finish — feels like the page settling into place.
+          // Slow start, fast finish, feels like the page settling into place.
           ease: [0.16, 1, 0.3, 1],
         }}
       >

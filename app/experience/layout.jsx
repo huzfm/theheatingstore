@@ -19,7 +19,7 @@ const sora = Sora({
 export const metadata = {
   title: 'The Experience | Underfloor Heating, Engineered',
   description:
-    'Explore the engineering beneath the floor — an interactive look at our underfloor heating systems, installation process and warranty coverage.',
+    'Explore the engineering beneath the floor, an interactive look at our underfloor heating systems, installation process and warranty coverage.',
   openGraph: {
     title: 'The Experience | Underfloor Heating, Engineered',
     description:

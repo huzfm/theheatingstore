@@ -51,8 +51,8 @@ export default function SanatNagarClient() {
     <AreaPageTemplate
       areaName="Sanat Nagar"
       areaSlug="sanatnagar"
-      heroTagline="Premium UK-imported electric hamams for Sanat Nagar homeowners — installed by The Heating Store from our Rajbagh showroom."
-      bodyText="Sanat Nagar is a growing residential pocket on the airport side of Srinagar, and homeowners here are increasingly turning to electric hamam and underfloor heating for reliable, sub-zero Kashmir comfort. The Heating Store in nearby Rajbagh supplies and installs UK-imported systems engineered for the long Chilla Kalan cold — with full thermal mass layering, 8–10 hour heat retention, and a written warranty. From compact bathroom hamams to full-house installations, our Kashmir team handles every project from site survey to handover."
+      heroTagline="Premium UK-imported electric hamams for Sanat Nagar homeowners, installed by The Heating Store from our Rajbagh showroom."
+      bodyText="Sanat Nagar is a growing residential pocket on the airport side of Srinagar, and homeowners here are increasingly turning to electric hamam and underfloor heating for reliable, sub-zero Kashmir comfort. The Heating Store in nearby Rajbagh supplies and installs UK-imported systems engineered for the long Chilla Kalan cold, with full thermal mass layering, 8–10 hour heat retention, and a written warranty. From compact bathroom hamams to full-house installations, our Kashmir team handles every project from site survey to handover."
       directionsText="From Sanat Nagar, head towards Hyderpora and continue to Rajbagh via the airport-road link. The Heating Store is located in Rajbagh, Srinagar 190008."
       nearbyAreas={NEARBY}
       allAreas={ALL_AREAS}

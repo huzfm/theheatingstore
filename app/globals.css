@@ -3,7 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  /* Fallbacks only — the real families are injected on <body> by next/font
+  /* Fallbacks only, the real families are injected on <body> by next/font
      (--font-heading = Bebas Neue, --font-body = Hanken Grotesk). */
   --font-heading: 'Bebas Neue', 'Arial Narrow', sans-serif;
   --font-body: 'Hanken Grotesk', system-ui, sans-serif;
@@ -76,7 +76,7 @@ strong, b, .bold-text {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   EXPERIENCE THEME — scoped to the /experience 3D route only.
+   EXPERIENCE THEME, scoped to the /experience 3D route only.
    Everything below is additive: it defines new tokens/utilities and
    only applies inside `.exp` or when <html> carries `.experience-active`.
    The 40+ legacy pages are untouched by any rule in this block.
@@ -112,7 +112,7 @@ html.experience-active body {
   color: var(--color-bone-100);
 }
 
-/* Custom cursor replaces the native one — only on the experience route,
+/* Custom cursor replaces the native one, only on the experience route,
    and only for devices that actually have a fine pointer. */
 @media (pointer: fine) {
   html.experience-active,
@@ -160,7 +160,7 @@ html.lenis body {
   font-family: var(--font-body);
   background-color: var(--color-ink-950);
   color: var(--color-bone-100);
-  /* Fluid display scale — generous, nothing cramped. */
+  /* Fluid display scale, generous, nothing cramped. */
   --step-display: clamp(2.75rem, 8.5vw, 8.5rem);
   --step-h2: clamp(2rem, 5vw, 4.5rem);
 }

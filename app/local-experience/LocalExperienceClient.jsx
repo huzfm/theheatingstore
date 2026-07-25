@@ -13,7 +13,7 @@ const fadeUp = {
 const brands = [
 	{
 		name: 'ProWarm',
-		desc: "UK's #1 best-selling electric underfloor heating brand with over 300,000 systems sold worldwide. CE certified by SGS to IEC 60335 standards. Every system ships with a Lifetime Warranty and the CableSafe™ Guarantee — if the heating cable is accidentally cut during installation, ProWarm replaces it free of charge.",
+		desc: "UK's #1 best-selling electric underfloor heating brand with over 300,000 systems sold worldwide. CE certified by SGS to IEC 60335 standards. Every system ships with a Lifetime Warranty and the CableSafe™ Guarantee, if the heating cable is accidentally cut during installation, ProWarm replaces it free of charge.",
 	},
 	{
 		name: 'Warmup',
@@ -21,11 +21,11 @@ const brands = [
 	},
 	{
 		name: 'ThermoSphere',
-		desc: "Designed and manufactured in Great Britain with over 25 years of heating innovation. Features the exclusive TwistedTwin™ cable technology — a twisted dual-conductor construction that eliminates electromagnetic fields, minimises cable stress, and delivers industry-leading longevity. IP68 rated, fully earthed, and backed by a Lifetime Guarantee on every system.",
+		desc: "Designed and manufactured in Great Britain with over 25 years of heating innovation. Features the exclusive TwistedTwin™ cable technology, a twisted dual-conductor construction that eliminates electromagnetic fields, minimises cable stress, and delivers industry-leading longevity. IP68 rated, fully earthed, and backed by a Lifetime Guarantee on every system.",
 	},
 	{
 		name: 'AmberHeat',
-		desc: 'Premium CE certified radiant heating systems engineered for extreme cold climates. AmberHeat systems are specified for Kashmir and high-altitude installations where sustained heat retention during power interruptions is critical. Enhanced thermal mass design delivers 4 to 6 hours of residual warmth after power cut — built for Kashmir winters.',
+		desc: 'Premium CE certified radiant heating systems engineered for extreme cold climates. AmberHeat systems are specified for Kashmir and high-altitude installations where sustained heat retention during power interruptions is critical. Enhanced thermal mass design delivers 4 to 6 hours of residual warmth after power cut, built for Kashmir winters.',
 	},
 	{
 		name: 'FastWarm',
@@ -71,7 +71,7 @@ const faqs = [
   {
     category: 'Performance',
     q: 'Does electric hamam work in Kashmir winters (-15°C)?',
-    a: 'Absolutely. Our systems are rated to operate in sub-zero conditions down to -20°C. The layered concrete thermal mass method stores heat for 4–6 hours post power cut — critical for Kashmir\'s load-shedding schedule. Every installation is cold-climate certified.',
+    a: 'Absolutely. Our systems are rated to operate in sub-zero conditions down to -20°C. The layered concrete thermal mass method stores heat for 4–6 hours post power cut, critical for Kashmir\'s load-shedding schedule. Every installation is cold-climate certified.',
   },
   {
     category: 'Performance',
@@ -81,12 +81,12 @@ const faqs = [
   {
     category: 'Installation',
     q: 'Can it be installed in an existing home without major renovation?',
-    a: 'Yes. Our ultra-thin heating mats add only 3–4mm to floor height — no screed pour required in most retrofit cases. We handle everything from survey to commissioning. Zero structural disruption.',
+    a: 'Yes. Our ultra-thin heating mats add only 3–4mm to floor height, no screed pour required in most retrofit cases. We handle everything from survey to commissioning. Zero structural disruption.',
   },
   {
     category: 'Installation',
     q: 'Which floor types are compatible?',
-    a: 'All of them — marble, granite, ceramic tile, natural stone, and engineered wood. We have installed across every floor type common to Kashmiri residential and commercial construction.',
+    a: 'All of them, marble, granite, ceramic tile, natural stone, and engineered wood. We have installed across every floor type common to Kashmiri residential and commercial construction.',
   },
   {
     category: 'Cost & Running',
@@ -97,12 +97,12 @@ const faqs = [
   {
     category: 'Warranty & Support',
     q: 'What warranty do I get?',
-    a: 'Every system carries a 10 to 25+ year product warranty — the longest in the industry. Parts and labour are fully covered. No excess, no exclusions for normal use. Fully transferable if you sell the property.',
+    a: 'Every system carries a 10 to 25+ year product warranty, the longest in the industry. Parts and labour are fully covered. No excess, no exclusions for normal use. Fully transferable if you sell the property.',
   },
   {
     category: 'Warranty & Support',
     q: 'What happens if something goes wrong?',
-    a: 'We guarantee replacement within 24 hours anywhere in India. Our 0.01% fault rate across 2 million+ global installations means this almost never happens — but when it does, we respond the same day.',
+    a: 'We guarantee replacement within 24 hours anywhere in India. Our 0.01% fault rate across 2 million+ global installations means this almost never happens, but when it does, we respond the same day.',
   },
   {
     category: 'Warranty & Support',

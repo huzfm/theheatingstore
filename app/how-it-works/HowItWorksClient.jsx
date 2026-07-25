@@ -9,7 +9,7 @@ import {
 import { useEffect, useState, useRef, useCallback } from 'react';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// DATA — 5 professional steps, no app content
+// DATA, 5 professional steps, no app content
 // ─────────────────────────────────────────────────────────────────────────────
 
 const steps = [
@@ -37,7 +37,7 @@ const steps = [
 				detail: 'Load calculations per circuit and thermostat zone',
 			},
 		],
-		stat: { value: 'Free', label: 'Full survey and design — zero obligation' },
+		stat: { value: 'Free', label: 'Full survey and design, zero obligation' },
 		proof: '14,000+ bespoke CAD designs delivered across the UK',
 		bgScene: 'survey',
 	},
@@ -67,7 +67,7 @@ const steps = [
 		],
 		stat: {
 			value: '4mm',
-			label: 'Total profile — thinner than a pound coin',
+			label: 'Total profile, thinner than a pound coin',
 		},
 		proof: '0.01% fault rate across 2 million+ installations',
 		bgScene: 'install',
@@ -111,7 +111,7 @@ const steps = [
 			{
 				icon: '🎯',
 				label: 'Dual Sensor Precision',
-				detail: '±0.5°C accuracy — floor and air both monitored',
+				detail: '±0.5°C accuracy, floor and air both monitored',
 			},
 			{
 				icon: '📅',
@@ -154,7 +154,7 @@ const steps = [
 		],
 		stat: {
 			value: '25yr',
-			label: 'Warranty — longer than any competitor offers',
+			label: 'Warranty, longer than any competitor offers',
 		},
 		proof: '300,000+ customers served. Zero unresolved warranty claims.',
 		bgScene: 'warranty',
@@ -1615,12 +1615,12 @@ function SceneWarranty({ active }) {
 				{
 					y: 216,
 					icon: '🔥',
-					text: 'Heating cable & mat — full replacement',
+					text: 'Heating cable & mat, full replacement',
 				},
 				{
 					y: 231,
 					icon: '🌡️',
-					text: 'Thermostat & controls — all parts',
+					text: 'Thermostat & controls, all parts',
 				},
 				{
 					y: 246,
@@ -1991,7 +1991,7 @@ export default function HowItWorksClient() {
 						margin: '0 auto',
 						padding: '56px 20px 64px',
 					}}>
-					{/* ── HEADER — identical badge + heading pattern as WhyChooseUs ── */}
+					{/* ── HEADER, identical badge + heading pattern as WhyChooseUs ── */}
 					<motion.div
 						initial={{ opacity: 0, y: 26 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -2054,7 +2054,7 @@ export default function HowItWorksClient() {
 							</p>
 						</div>
 
-						{/* H2 — same Playfair, semibold, #3C2A25, accent #B86B45 */}
+						{/* H2, same Playfair, semibold, #3C2A25, accent #B86B45 */}
 						<h2
 							style={{
 								fontFamily: "var(--font-heading)",
@@ -2315,7 +2315,7 @@ export default function HowItWorksClient() {
 								</div>
 							</div>
 
-							{/* Floating stat — GlassCard style same as WhyChooseUs */}
+							{/* Floating stat, GlassCard style same as WhyChooseUs */}
 							<AnimatePresence mode='wait'>
 								<motion.div
 									key={current.stat.value}
@@ -2440,7 +2440,7 @@ export default function HowItWorksClient() {
 										</p>
 									</div>
 
-									{/* Title — Playfair semibold + light italic accent, same as WhyChooseUs h3 */}
+									{/* Title, Playfair semibold + light italic accent, same as WhyChooseUs h3 */}
 									<h3
 										style={{
 											fontFamily: "var(--font-heading)",
@@ -2463,7 +2463,7 @@ export default function HowItWorksClient() {
 										</span>
 									</h3>
 
-									{/* Copper divider — same as WhyChooseUs */}
+									{/* Copper divider, same as WhyChooseUs */}
 									<motion.div
 										style={{
 											height: 2,
@@ -2478,7 +2478,7 @@ export default function HowItWorksClient() {
 										transition={{ duration: 0.6, delay: 0.1 }}
 									/>
 
-									{/* Description — Hanken Grotesk, #3C2B27, lineHeight 1.75 */}
+									{/* Description, Hanken Grotesk, #3C2B27, lineHeight 1.75 */}
 									<p
 										style={{
 											fontFamily: "var(--font-body)",
@@ -2491,7 +2491,7 @@ export default function HowItWorksClient() {
 										{current.desc}
 									</p>
 
-									{/* Feature cards — same glass surface as WhyChooseUs features */}
+									{/* Feature cards, same glass surface as WhyChooseUs features */}
 									<div
 										style={{
 											display: 'flex',
@@ -2565,7 +2565,7 @@ export default function HowItWorksClient() {
 										))}
 									</div>
 
-									{/* CTA buttons — exact style as WhyChooseUs §6 */}
+									{/* CTA buttons, exact style as WhyChooseUs §6 */}
 									<motion.div
 										initial={{ opacity: 0, y: 10 }}
 										animate={{ opacity: 1, y: 0 }}
@@ -2636,7 +2636,7 @@ export default function HowItWorksClient() {
 						</div>
 					</div>
 
-					{/* ── BOTTOM STEP OVERVIEW — WhyChooseUs process card style ── */}
+					{/* ── BOTTOM STEP OVERVIEW, WhyChooseUs process card style ── */}
 					<motion.div
 						className='hiw-bots'
 						initial={{ opacity: 0, y: 28 }}

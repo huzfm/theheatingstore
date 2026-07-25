@@ -11,14 +11,14 @@ const SOLUTIONS = [
   {
     name: 'Electric Hamam',
     href: '/heatingequipmentsupplier/electrichamam',
-    desc: 'Traditional Kashmiri warmth, modernised — UK-imported electric underfloor heating.',
+    desc: 'Traditional Kashmiri warmth, modernised, UK-imported electric underfloor heating.',
     Icon: Flame,
     color: '#B86B45',
   },
   {
     name: 'Underfloor Heating',
     href: '/heatingequipmentsupplier/underfloorheating',
-    desc: 'Even, silent heat from the ground up — for full-home Kashmir comfort.',
+    desc: 'Even, silent heat from the ground up, for full-home Kashmir comfort.',
     Icon: Thermometer,
     color: '#4FA3D1',
   },
@@ -32,14 +32,14 @@ const SOLUTIONS = [
   {
     name: 'Electric Floor Heating',
     href: '/heatingequipmentsupplier/electricfloorheating',
-    desc: 'Modern electric underfloor systems — fast warm-up, certified safe for wet areas.',
+    desc: 'Modern electric underfloor systems, fast warm-up, certified safe for wet areas.',
     Icon: Zap,
     color: '#6BAE7F',
   },
   {
     name: 'Heating Systems',
     href: '/heatingequipmentsupplier/heatingsystems',
-    desc: 'Complete heating system solutions — design, supply, and installation.',
+    desc: 'Complete heating system solutions, design, supply, and installation.',
     Icon: Settings,
     color: '#8B6FAE',
   },
@@ -48,25 +48,25 @@ const SOLUTIONS = [
 const GUIDE = [
   {
     title: 'New build house',
-    desc: 'Underfloor heating is installed before the screed is poured — easiest and most cost-effective time to do it.',
+    desc: 'Underfloor heating is installed before the screed is poured, easiest and most cost-effective time to do it.',
     Icon: Layers,
     color: '#4FA3D1',
   },
   {
     title: 'Renovation / retrofit',
-    desc: 'Low-profile electric mats designed for retrofit — we lift the existing floor and re-screed in 1–2 days per room.',
+    desc: 'Low-profile electric mats designed for retrofit, we lift the existing floor and re-screed in 1–2 days per room.',
     Icon: Sparkles,
     color: '#B86B45',
   },
   {
     title: 'Apartment / flat',
-    desc: 'Single-room or whole-flat electric hamam — perfect for apartments, with no boiler or plumbing required.',
+    desc: 'Single-room or whole-flat electric hamam, perfect for apartments, with no boiler or plumbing required.',
     Icon: HomeIcon,
     color: '#6BAE7F',
   },
   {
     title: 'Villa / large home',
-    desc: 'Whole-home underfloor heating with zoned thermostats — full control, room by room.',
+    desc: 'Whole-home underfloor heating with zoned thermostats, full control, room by room.',
     Icon: Building2,
     color: '#E8933A',
   },
@@ -87,7 +87,7 @@ const HIGHLIGHTS = [
   },
   {
     title: 'Free Site Survey',
-    desc: 'Free, no-obligation site visit across Srinagar — written quotation within 24 hours.',
+    desc: 'Free, no-obligation site visit across Srinagar, written quotation within 24 hours.',
     Icon: Clock,
     color: '#6BAE7F',
   },
@@ -102,15 +102,15 @@ const HIGHLIGHTS = [
 const FAQS = [
   {
     q: 'Which heating system is best for a Kashmir home?',
-    a: 'For most Kashmir homes, electric underfloor heating is the most reliable, efficient, and easy-to-install option. It requires no boiler, no plumbing, and retains heat for 8–10 hours after a power cut — perfect for the long Chilla Kalan winters. We design the system around your home, layout, and usage.',
+    a: 'For most Kashmir homes, electric underfloor heating is the most reliable, efficient, and easy-to-install option. It requires no boiler, no plumbing, and retains heat for 8–10 hours after a power cut, perfect for the long Chilla Kalan winters. We design the system around your home, layout, and usage.',
   },
   {
     q: 'Can I install underfloor heating in an existing home?',
-    a: 'Yes. We routinely retrofit underfloor heating in existing Kashmir homes during renovation. The process involves lifting the existing floor, installing insulation and heating mats, and re-screeding — typically completed in 1–2 days for a single room. We provide a free site survey to confirm feasibility.',
+    a: 'Yes. We routinely retrofit underfloor heating in existing Kashmir homes during renovation. The process involves lifting the existing floor, installing insulation and heating mats, and re-screeding, typically completed in 1–2 days for a single room. We provide a free site survey to confirm feasibility.',
   },
   {
     q: 'What is the difference between electric hamam and underfloor heating?',
-    a: 'Electric hamam is the Kashmiri term for electric underfloor heating — the systems are essentially the same: UK-imported heating cables installed under the floor, encapsulated in a screed that radiates gentle warmth. "Hamam" reflects the local heritage; the technology is the same world-class UK system.',
+    a: 'Electric hamam is the Kashmiri term for electric underfloor heating, the systems are essentially the same: UK-imported heating cables installed under the floor, encapsulated in a screed that radiates gentle warmth. "Hamam" reflects the local heritage; the technology is the same world-class UK system.',
   },
   {
     q: 'How long do installations take?',
@@ -118,7 +118,7 @@ const FAQS = [
   },
   {
     q: 'Do you serve all of Srinagar?',
-    a: 'Yes. We supply and install home heating solutions across all of Srinagar — Rajbagh, Jawahar Nagar, Lal Chowk, Sonwar, Gogji Bagh, Dalgate, Bemina, Hyderpora, Sanat Nagar, Chanapora, Rawalpora, Nowgam, Nishat, Hazratbal, and Pantha Chowk.',
+    a: 'Yes. We supply and install home heating solutions across all of Srinagar, Rajbagh, Jawahar Nagar, Lal Chowk, Sonwar, Gogji Bagh, Dalgate, Bemina, Hyderpora, Sanat Nagar, Chanapora, Rawalpora, Nowgam, Nishat, Hazratbal, and Pantha Chowk.',
   },
 ];
 
@@ -310,7 +310,7 @@ export default function HomeHeatingSolutionsClient() {
             fontFamily: "var(--font-body)", fontSize: 14, color: '#6B4A2D',
             lineHeight: 1.7, marginTop: 10, maxWidth: 580, margin: '10px auto 0',
           }}>
-            From single-room electric hamams to whole-home underfloor heating — designed for Kashmir's sub-zero winters.
+            From single-room electric hamams to whole-home underfloor heating, designed for Kashmir's sub-zero winters.
           </p>
           <div className="flex flex-row justify-center gap-3 mt-7">
             <a
@@ -360,7 +360,7 @@ export default function HomeHeatingSolutionsClient() {
               lineHeight: 1.8, marginTop: 16,
             }}>
               <p style={{ margin: 0 }}>
-                Kashmir's winters are long, cold, and unforgiving — temperatures drop well below zero during Chilla Kalan, and power cuts are a regular occurrence. For homeowners, that means the heating system you choose isn't a luxury — it's a necessity. The Heating Store supplies and installs <strong>UK-imported home heating solutions</strong> that are designed for sub-zero floors, retain heat for hours after a power cut, and run silently for decades. Whether you live in a heritage houseboat, a Srinagar apartment, or a new-build villa, we design, supply, and install the right system for your home.
+                Kashmir's winters are long, cold, and unforgiving, temperatures drop well below zero during Chilla Kalan, and power cuts are a regular occurrence. For homeowners, that means the heating system you choose isn't a luxury, it's a necessity. The Heating Store supplies and installs <strong>UK-imported home heating solutions</strong> that are designed for sub-zero floors, retain heat for hours after a power cut, and run silently for decades. Whether you live in a heritage houseboat, a Srinagar apartment, or a new-build villa, we design, supply, and install the right system for your home.
               </p>
             </div>
           </GlassCard>
@@ -535,7 +535,7 @@ export default function HomeHeatingSolutionsClient() {
               fontFamily: "var(--font-body)", fontSize: 15, color: 'rgba(255,255,255,0.85)',
               lineHeight: 1.8, margin: '16px 0 0', maxWidth: 760,
             }}>
-              We've been supplying and installing premium UK-imported heating systems for Kashmir homes since 2011. Every project is handled by our own Srinagar-based team — from the free site survey to the final thermal check — and backed by a 10–25 year manufacturer warranty plus our own Kashmir installation guarantee.
+              We've been supplying and installing premium UK-imported heating systems for Kashmir homes since 2011. Every project is handled by our own Srinagar-based team, from the free site survey to the final thermal check, and backed by a 10–25 year manufacturer warranty plus our own Kashmir installation guarantee.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
               {HIGHLIGHTS.map((h) => (
@@ -680,7 +680,7 @@ export default function HomeHeatingSolutionsClient() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="The Heating Store — Home Heating Solutions"
+                  title="The Heating Store, Home Heating Solutions"
                 />
               </div>
             </a>
@@ -699,7 +699,7 @@ export default function HomeHeatingSolutionsClient() {
             <SectionHeading
               badge="FAQ"
               title="Home Heating Solutions"
-              accent=" — Frequently Asked Questions"
+              accent=", Frequently Asked Questions"
               center
               sub="Answers to the most common questions we hear from homeowners across Kashmir."
             />

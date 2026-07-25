@@ -79,7 +79,7 @@ const projects = [
 		label: 'Mosques & Religious Buildings',
 		image:
 			'https://images.unsplash.com/photo-1564769662533-4f00a87b4056?w=600&q=80',
-		desc: 'Gentle radiant warmth across Kashmiri mosque prayer halls and sacred spaces — designed for winter prayers and power cut resilience.',
+		desc: 'Gentle radiant warmth across Kashmiri mosque prayer halls and sacred spaces, designed for winter prayers and power cut resilience.',
 	},
 	{
 		label: 'Commercial Offices',
@@ -568,7 +568,7 @@ export default function GlobalExperienceClient() {
 						whileInView={{ opacity: 1 }}
 						viewport={{ once: true }}
 						transition={{ delay: 0.2 }}>
-						From intimate homes to grand commercial spaces — we heat
+						From intimate homes to grand commercial spaces, we heat
 						them all.
 					</motion.p>
 					<div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>

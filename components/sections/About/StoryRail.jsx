@@ -12,7 +12,7 @@ import { ORIGIN } from './data';
  * three.js is ~150kB gzipped before any scene code of ours. Loading it eagerly
  * would put it in the About route's initial bundle, above a section the
  * visitor has to scroll past the hero to reach. ssr:false is mandatory as
- * well — WebGL has no server-side equivalent.
+ * well, WebGL has no server-side equivalent.
  */
 const StoryMatScene = dynamic(() => import('@/components/3d/StoryMatScene'), {
   ssr: false,
@@ -22,7 +22,7 @@ const StoryMatScene = dynamic(() => import('@/components/3d/StoryMatScene'), {
 /**
  * Resolves to true/false only after mount, so it is never consulted during
  * render on the server. Every layout decision that must match between server
- * and client is done in CSS below; this gates one thing only — which of the
+ * and client is done in CSS below; this gates one thing only, which of the
  * two panels actually gets a WebGL canvas, so we never mount two.
  */
 function useIsDesktop() {
@@ -59,12 +59,12 @@ function Panel({ className = '', children }) {
  *
  * Left column scrolls the origin narrative and the three principles; the right
  * column holds a sticky 3D heating mat that changes state as each block lands.
- * The copy is unchanged — every string comes from data.js via lib/story-rail.
+ * The copy is unchanged, every string comes from data.js via lib/story-rail.
  *
  * Pinning is CSS `position: sticky`, not ScrollTrigger's `pin`. ScrollTrigger
  * still drives everything reactive (it owns the 0→1 scrub the scene reads),
  * but pinning through it inserts a pin-spacer whose height is measured once
- * and has to be recomputed on every resize — which is precisely where pinned
+ * and has to be recomputed on every resize, which is precisely where pinned
  * sections break. Sticky has nothing to recompute. This follows the same call
  * already made in components/sections/FloorRevealSection.
  */
@@ -78,7 +78,7 @@ export default function StoryRail() {
   const [mounted, setMounted] = useState(false);
 
   /**
-   * The mobile panel never scrubs — it holds the resting pose from the end of
+   * The mobile panel never scrubs, it holds the resting pose from the end of
    * the timeline (mat lit, calm hero framing) and relies on the scene's idle
    * drift for life.
    */
@@ -203,7 +203,7 @@ export default function StoryRail() {
                 active={active}
                 idle
                 /* Anchored <Html> cards are unreadable at this scale, and each
-                   one is a DOM portal composited over a live canvas — the most
+                   one is a DOM portal composited over a live canvas, the most
                    expensive thing here on the devices least able to afford it. */
                 showCallouts={false}
               />
@@ -267,7 +267,7 @@ export default function StoryRail() {
               );
             })}
 
-            {/* Tail — gives the final block room to sit at rest before the
+            {/* Tail, gives the final block room to sit at rest before the
                 section releases, instead of the pin ending on top of it. */}
             <div className="rail-tail hidden lg:block" aria-hidden />
           </div>
@@ -280,7 +280,7 @@ export default function StoryRail() {
                   <StoryMatScene progressRef={progressRef} active={active} idle showCallouts />
                 ) : null}
 
-                {/* Instrument caption — same treatment as the About hero panel */}
+                {/* Instrument caption, same treatment as the About hero panel */}
                 <div className="pointer-events-none absolute bottom-5 left-5 right-5 flex items-end justify-between">
                   <span className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-heat-400">
                     <span className="h-1.5 w-1.5 rounded-full bg-heat-400 shadow-[0_0_10px_2px_rgba(255,138,61,0.8)]" />

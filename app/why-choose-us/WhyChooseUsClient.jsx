@@ -243,7 +243,7 @@ const STATS = [
 		IconComp: Icon.Globe,
 		color: '#8FD4A6',
 		pct: 56,
-		bullets: ['UK · Sweden · UAE · France', 'Finland · Netherlands · Turkey', 'Bhutan · India — and growing'],
+		bullets: ['UK · Sweden · UAE · France', 'Finland · Netherlands · Turkey', 'Bhutan · India, and growing'],
 		tag: 'Global Reach',
 	},
 ];
@@ -302,14 +302,14 @@ const PROCESS = [
 		num: '03',
 		IconComp: Icon.Package,
 		title: 'Excellent Service Support',
-		desc: 'From your first enquiry to post-installation aftercare, our qualified team is available at every stage. Technical questions, system troubleshooting, or warranty claims — we respond fast and resolve faster.',
+		desc: 'From your first enquiry to post-installation aftercare, our qualified team is available at every stage. Technical questions, system troubleshooting, or warranty claims, we respond fast and resolve faster.',
 		img: 'https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&q=80',
 	},
 	{
 		num: '04',
 		IconComp: Icon.Tool,
 		title: 'Price Match Promise',
-		desc: 'Found the same system cheaper elsewhere? We will match any like-for-like price from an authorised supplier. Same product, same warranty, same certified installation — guaranteed at the best price.',
+		desc: 'Found the same system cheaper elsewhere? We will match any like-for-like price from an authorised supplier. Same product, same warranty, same certified installation, guaranteed at the best price.',
 		img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
 	},
 	{
@@ -334,21 +334,21 @@ const TESTIMONIALS = [
 		name: 'Asif Ali',
 		role: 'Principal Architect, Ali Associates, Srinagar',
 		tag: 'Verified Purchase',
-		text: 'We have specified The Heating Store across six luxury residential and commercial projects. The installation quality is immaculate — zero callbacks, zero defects. The 0.01% fault rate they advertise is absolutely real. Nothing else comes close.',
+		text: 'We have specified The Heating Store across six luxury residential and commercial projects. The installation quality is immaculate, zero callbacks, zero defects. The 0.01% fault rate they advertise is absolutely real. Nothing else comes close.',
 	},
 	{
 		initials: 'KS',
 		name: 'Kamran Siddiq',
 		role: 'Senior Project Manager, Siddiq Builders, Jammu',
 		tag: 'Trade Account',
-		text: 'The design consultation was outstanding. Custom heating zones mapped across a 5,000 sq ft penthouse — flawless installation from start to finish. Our clients were absolutely delighted with the result.',
+		text: 'The design consultation was outstanding. Custom heating zones mapped across a 5,000 sq ft penthouse, flawless installation from start to finish. Our clients were absolutely delighted with the result.',
 	},
 	{
 		initials: 'SF',
 		name: 'Syed Faizan',
 		role: 'Head of Development, Faizan Developments, Kashmir',
 		tag: 'Commercial Project',
-		text: 'Deployed across a 60-unit luxury residential complex. Every system performed perfectly from day one. The 25-year warranty gives our homebuyers genuine confidence — it is a real differentiator in the market.',
+		text: 'Deployed across a 60-unit luxury residential complex. Every system performed perfectly from day one. The 25-year warranty gives our homebuyers genuine confidence, it is a real differentiator in the market.',
 	},
 ];
 
@@ -426,7 +426,7 @@ function SectionHeading({ badge, title, accent, sub, center = false, as = 'h2' }
 function Counter({ display }) {
 	const ref = useRef(null);
 	const seen = useInView(ref, { once: true, amount: 0.5 });
-	const [val, setVal] = useState('—');
+	const [val, setVal] = useState(' ');
 	useEffect(() => {
 		if (!seen) return;
 		const t = setTimeout(() => setVal(display), 160);

@@ -5,7 +5,7 @@
  * scroll progress (`heroState.sceneProgress`). CameraRig, FloorCutaway,
  * PipeNetwork and ScrollController all read from this one map, which is what
  * keeps the camera's framing, the floor's motion and the text's exit honest
- * about the same moment in the scroll — the failure mode when each owns its
+ * about the same moment in the scroll, the failure mode when each owns its
  * own hard-coded numbers is a camera move that answers a floor reveal that
  * hasn't happened yet.
  *
@@ -33,7 +33,7 @@ export const STAGE = {
 
 /**
  * The four acts, as [reveal-start, reveal-end, retire-start, retire-end]
- * windows on the same 0→1 scroll progress. Strictly sequential — every
+ * windows on the same 0→1 scroll progress. Strictly sequential, every
  * window ends with the previous act already fully hidden (`--t: 0`, not
  * mid-crossfade) before the next one starts revealing, with a small gap
  * between them. An earlier pass here overlapped retire and reveal windows
@@ -41,15 +41,15 @@ export const STAGE = {
  * at once, which is exactly what this hero is trying not to be. One scene
  * ends, the frame goes quiet, the next scene begins.
  *
- *   1 — typography only        badge + headline
- *   2 — the physical product    the paragraph, as the camera settles on the exhibit
- *   3 — the hidden engineering  the climate line, as the floor opens
- *   (quiet — the pipes ignite with no text competing for the frame; a former
+ *   1, typography only        badge + headline
+ *   2, the physical product    the paragraph, as the camera settles on the exhibit
+ *   3, the hidden engineering  the climate line, as the floor opens
+ *   (quiet, the pipes ignite with no text competing for the frame; a former
  *    Act 4, the trust line, lived here and was removed by explicit direction)
- *   4 — the closing shot        a new line + the CTAs, once everything has settled
+ *   4, the closing shot        a new line + the CTAs, once everything has settled
  *
  * Act 1 reveals at load (see `IgnitionTimeline`), not on scroll, so it has no
- * reveal window here — only a retire one, at the moment Act 2 needs the frame.
+ * reveal window here, only a retire one, at the moment Act 2 needs the frame.
  * Act 4 has no retire window of its own: it holds until the handoff dissolve
  * (`ScrollController`'s `EXIT` map) takes it down along with everything else.
  */
@@ -62,8 +62,8 @@ export const ACT = {
 
 /**
  * Warmth as a function of scroll progress, independent of the load-time
- * ignition. The room re-cools slightly is deliberately *not* modelled here —
- * once the system has fired it stays fired, the way a real slab holds heat —
+ * ignition. The room re-cools slightly is deliberately *not* modelled here 
+ * once the system has fired it stays fired, the way a real slab holds heat 
  * so warmth only ever rises across the scrub and then holds through the
  * handoff.
  */
@@ -76,7 +76,7 @@ export function warmthAt(progress) {
 }
 
 /**
- * 0 through most of the scroll, ramping to 1 across `STAGE.settle` — the
+ * 0 through most of the scroll, ramping to 1 across `STAGE.settle`, the
  * closing shot's "everything is calming down" factor. `CameraRig` scales its
  * idle sway by `1 - calmAt`, `PipeNetwork` scales its flow speed the same
  * way, and `HeroScene`'s lighting rig dims by it, so the three read as one

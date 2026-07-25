@@ -51,7 +51,7 @@ export default function RawalporaClient() {
     <AreaPageTemplate
       areaName="Rawalpora"
       areaSlug="rawalpora"
-      heroTagline="Premium UK-imported electric hamams for Rawalpora homeowners — installed by The Heating Store from our Rajbagh showroom."
+      heroTagline="Premium UK-imported electric hamams for Rawalpora homeowners, installed by The Heating Store from our Rajbagh showroom."
       bodyText="Rawalpora is a growing residential colony on the airport side of Srinagar, and families here face the same long, harsh Kashmir winters as the rest of the valley. The Heating Store in nearby Rajbagh supplies and installs UK-imported electric hamam and underfloor heating systems engineered specifically for sub-zero floors, with full thermal mass layering, 8–10 hour heat retention, and a written warranty. From compact bathroom hamams to full-house underfloor heating installations, our team handles every project from site survey to handover."
       directionsText="From Rawalpora, head towards Hyderpora and continue to Rajbagh via the airport-road link. The Heating Store is located in Rajbagh, Srinagar 190008."
       nearbyAreas={NEARBY}

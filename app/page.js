@@ -19,19 +19,19 @@
 //   },
 // };
 
-// app/page.jsx — top of file, before the component
+// app/page.jsx, top of file, before the component
 export const metadata = {
   title: "Underfloor Heating Installation in Kashmir | TheHeatingStore",
   description: "Kashmir's trusted underfloor heating specialists. Free site visits, expert installation, 5-year warranty. Electric & water underfloor heating, insulation, and smart thermostats.",
   openGraph: {
-    title: "TheHeatingStore — Underfloor Heating Installation in Kashmir",
+    title: "TheHeatingStore, Underfloor Heating Installation in Kashmir",
     description: "Kashmir's trusted underfloor heating specialists. Free site visits, expert installation, 5-year warranty.",
     images: ["https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=80&auto=format&fit=crop"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "TheHeatingStore — Underfloor Heating Installation in Kashmir",
+    title: "TheHeatingStore, Underfloor Heating Installation in Kashmir",
     description: "Kashmir's trusted underfloor heating specialists. Free site visits, expert installation, 5-year warranty.",
   },
   alternates: {
@@ -119,7 +119,7 @@ const faqSchema = {
       name: "Do you offer a warranty on installations?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Electric Hammam provides a warranty valid for Kashmir installation — terms apply. The warranty covers Kashmir-specific installation conditions, heating elements, thermostat controllers, and installation workmanship. You can verify your warranty status using our online warranty check tool.",
+        text: "Yes. Electric Hammam provides a warranty valid for Kashmir installation, terms apply. The warranty covers Kashmir-specific installation conditions, heating elements, thermostat controllers, and installation workmanship. You can verify your warranty status using our online warranty check tool.",
       },
     },
     {

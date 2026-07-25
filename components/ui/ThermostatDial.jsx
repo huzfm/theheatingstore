@@ -20,7 +20,7 @@ import gsap from 'gsap';
  *
  * Performance posture: the ring, the tick mask, the glow and the temperature
  * digits are all written straight to the DOM from a single GSAP tween. React
- * renders once per *state*, not once per frame — five renders per 28-second
+ * renders once per *state*, not once per frame, five renders per 28-second
  * loop rather than seventeen hundred.
  */
 
@@ -29,7 +29,7 @@ const EASE = [0.16, 1, 0.3, 1];
 
 /* ── Dial geometry ──────────────────────────────────────────────────
    A 270° arc with the gap at the bottom, which is what every physical
-   thermostat does — a closed ring reads as a progress spinner instead. */
+   thermostat does, a closed ring reads as a progress spinner instead. */
 const SIZE = 240;
 const CX = SIZE / 2;
 const CY = SIZE / 2;
@@ -41,7 +41,7 @@ const SWEEP_DEG = 270;
 const TICKS = 48;
 
 /* The stored-warmth arc sits at its own radius, so it needs its own arc
-   length — reusing the outer ring's would make it deplete at the wrong rate. */
+   length, reusing the outer ring's would make it deplete at the wrong rate. */
 const STORED_R = 62;
 const STORED_CIRC = 2 * Math.PI * STORED_R;
 const STORED_ARC = STORED_CIRC * 0.75;
@@ -50,7 +50,7 @@ const STORED_ARC = STORED_CIRC * 0.75;
 const AMBIENT = 18;
 const TARGET = 24;
 
-/* Where the ring rests when the system is off — not zero. A dial pinned at
+/* Where the ring rests when the system is off, not zero. A dial pinned at
    empty reads as broken; a floor at room temperature is simply resting. */
 const OFF_FILL = (AMBIENT - 10) / (TARGET + 4 - 10);
 
@@ -81,7 +81,7 @@ export const DIAL_STATES = {
     detail: `Warming to ${TARGET}°`,
     ring: 'url(#dialHeat)',
     glow: 1,
-    // Short period — this is the urgent one.
+    // Short period, this is the urgent one.
     breath: 1.7,
   },
   holding: {
@@ -127,7 +127,7 @@ const TEMP = {
 };
 
 function polar(radius, deg) {
-  // SVG's y axis points down, so a positive angle sweeps clockwise — which is
+  // SVG's y axis points down, so a positive angle sweeps clockwise, which is
   // the same direction stroke-dasharray runs. Keeping both in one convention
   // is what lets the tick mask line up with the ring without a fudge factor.
   const rad = (deg * Math.PI) / 180;
@@ -141,7 +141,7 @@ export default function ThermostatDial({ className = '', onStateChange }) {
   const config = DIAL_STATES[state];
   const bump = useAnimationControls();
 
-  /* Elements written to imperatively — never through React state. */
+  /* Elements written to imperatively, never through React state. */
   const ringRef = useRef(null);
   const glowRingRef = useRef(null);
   const maskRef = useRef(null);
@@ -219,7 +219,7 @@ export default function ThermostatDial({ className = '', onStateChange }) {
     const targetTemp = TEMP[state];
 
     // Reduced motion: land on the new state's values with a short crossfade.
-    // The states still change — what goes away is the travel between them and
+    // The states still change, what goes away is the travel between them and
     // the continuous pulsing, which is what the preference is actually about.
     if (reduce) {
       values.fill = targetFill;
@@ -244,7 +244,7 @@ export default function ThermostatDial({ className = '', onStateChange }) {
       });
     } else if (state === 'outage') {
       /* Stored warmth: the ring drops to resting, but a second inner arc
-         depletes slowly from full. The floor is offline, not cold — which is
+         depletes slowly from full. The floor is offline, not cold, which is
          the product claim this state exists to make. */
       values.stored = 1;
       tl.to(values, {
@@ -288,7 +288,7 @@ export default function ThermostatDial({ className = '', onStateChange }) {
         animate={bump}
         className="relative aspect-square w-[min(78%,340px)]"
       >
-        {/* Ambient bloom behind the dial — intensity per state. */}
+        {/* Ambient bloom behind the dial, intensity per state. */}
         <motion.div
           aria-hidden
           className="pointer-events-none absolute -inset-6 rounded-full"
@@ -358,7 +358,7 @@ export default function ThermostatDial({ className = '', onStateChange }) {
           <circle cx={CX} cy={CY} r={112} fill="url(#dialBezel)" />
           <circle cx={CX} cy={CY} r={112} fill="none" stroke="#ffffff" strokeOpacity="0.08" />
 
-          {/* Inner glow — opacity written every frame from the fill value */}
+          {/* Inner glow, opacity written every frame from the fill value */}
           <circle ref={innerGlowRef} cx={CX} cy={CY} r={76} fill="url(#dialInner)" opacity="0.1" />
 
           {/* Tick marks: a dim layer always present, a warm layer revealed by
@@ -397,7 +397,7 @@ export default function ThermostatDial({ className = '', onStateChange }) {
             transform={`rotate(${START_DEG} ${CX} ${CY})`}
           />
 
-          {/* Scheduled state draws the track as a dotted outline instead —
+          {/* Scheduled state draws the track as a dotted outline instead 
               present, waiting, clearly not running. */}
           <circle
             cx={CX}
@@ -415,7 +415,7 @@ export default function ThermostatDial({ className = '', onStateChange }) {
             }}
           />
 
-          {/* Soft wide pass under the ring, standing in for a blur filter —
+          {/* Soft wide pass under the ring, standing in for a blur filter 
               an feGaussianBlur would re-run on every animated frame. */}
           <circle
             ref={glowRingRef}
@@ -449,7 +449,7 @@ export default function ThermostatDial({ className = '', onStateChange }) {
             style={{ transition: 'stroke 900ms cubic-bezier(0.16,1,0.3,1)' }}
           />
 
-          {/* Stored-warmth arc — only meaningful during an outage. */}
+          {/* Stored-warmth arc, only meaningful during an outage. */}
           <circle
             ref={storedRef}
             cx={CX}

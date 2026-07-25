@@ -11,21 +11,21 @@ import {
 } from 'framer-motion';
 
 /**
- * "Warmth that rises through the floor" — the beat right after the 3D floor
+ * "Warmth that rises through the floor", the beat right after the 3D floor
  * reveal.
  *
  * Left  : a statement that reads muted grey and fills to orange, word by
- *         word, as it scrolls up through the viewport — scrubbed 1:1 to
+ *         word, as it scrolls up through the viewport, scrubbed 1:1 to
  *         scroll. This is the Olivier-Larose / premium-agency technique:
  *         each word is a muted ghost with an orange copy stacked on top whose
- *         OPACITY (GPU-composited) fades 0→1. No tall pinned section — the
+ *         OPACITY (GPU-composited) fades 0→1. No tall pinned section, the
  *         reveal is tied to the paragraph's natural travel, which is what
  *         makes it read as "flowing" instead of stuck.
- * Right : the heating sheet — serpentine cable with heat pulses, a breathing
- *         glow and warmth rising off the mat — on a pointer-tilt panel.
+ * Right : the heating sheet, serpentine cable with heat pulses, a breathing
+ *         glow and warmth rising off the mat, on a pointer-tilt panel.
  *
  * Speed is controlled entirely by the useScroll `offset`: the wider the
- * window, the more scroll distance the reveal takes — i.e. the slower it
+ * window, the more scroll distance the reveal takes, i.e. the slower it
  * feels. It's set deliberately wide here.
  */
 

@@ -15,12 +15,12 @@ import CameraRig from './scene/CameraRig';
 import Atmosphere from './scene/Atmosphere';
 
 /**
- * FIRST HEAT — the floating exhibit.
+ * FIRST HEAT, the floating exhibit.
  *
  * Cool morning light to start; warm amber as the system fires. Both the key
  * light and the fog answer the same `warmthAt(sceneProgress)` the floor and
  * the pipes do, so the room's light and the system's state can never
- * disagree. Softer and lower-contrast than a literal room rig would need —
+ * disagree. Softer and lower-contrast than a literal room rig would need 
  * there are no walls here to bounce light off, so the lighting itself has to
  * do the work of feeling like a large, gentle skylight rather than a hard
  * directional source. No real-time shadow maps: the ground shadow is a
@@ -60,11 +60,11 @@ function LightingRig() {
     }
 
     // The closing shot's "reduce exposure ~20%, keep only the warm glow
-    // from the pipes" — a real exposure drop on the renderer rather than
+    // from the pipes", a real exposure drop on the renderer rather than
     // dimming individual lights, so it uniformly darkens everything tone-
     // mapped (the key/rim/ambient/hemisphere, the backdrop) in one motion.
     // The pipe network and its glow sprites are `toneMapped={false}` (see
-    // PipeNetwork.jsx) specifically so exposure has no effect on them —
+    // PipeNetwork.jsx) specifically so exposure has no effect on them 
     // they're the one light source meant to hold its brightness while
     // everything else recedes.
     const targetExposure = BASE_EXPOSURE * (1 - calmAt(progress) * 0.2);
@@ -74,7 +74,7 @@ function LightingRig() {
   return (
     <>
       {/* A generous ambient + hemisphere base stands in for the bounce a
-          real room's walls would give — the void has none, so the fill has
+          real room's walls would give, the void has none, so the fill has
           to be authored rather than borrowed from the environment. */}
       <ambientLight intensity={0.58} />
       <hemisphereLight args={['#eef2fa', '#1c1712', 0.5]} />
@@ -110,7 +110,7 @@ export default function HeroScene({
       style={{ position: 'absolute', inset: 0 }}
       onCreated={(state) => {
         onCanvasCreated?.(state);
-        // First committed frame — safe to cross-fade the DOM poster out.
+        // First committed frame, safe to cross-fade the DOM poster out.
         requestAnimationFrame(() => onReady?.());
       }}
       aria-hidden="true"

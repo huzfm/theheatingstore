@@ -8,7 +8,7 @@
  *
  * Built entirely from gradients rather than an image: it costs nothing to
  * request, cannot fail to load, and matches the 3D scene's own palette
- * exactly because both are authored against the same copper/amber tokens —
+ * exactly because both are authored against the same copper/amber tokens 
  * a visitor moving from a phone to a desktop session sees the same room,
  * just rendered at a different fidelity.
  */

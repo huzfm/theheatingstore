@@ -13,7 +13,7 @@ import gsap from 'gsap';
  * flushed to the DOM exactly once per frame as CSS custom properties.
  *
  * The payoff is that CSS then does the actual work on the compositor, and the
- * WebGL layer reads these same numbers in its render loop — so the DOM and the
+ * WebGL layer reads these same numbers in its render loop, so the DOM and the
  * GPU can never disagree about how warm the room currently is.
  *
  * The hero re-renders roughly three times over its whole lifetime.
@@ -43,7 +43,7 @@ export const heroState = {
   /** Set once the visitor has scrolled; retires the scroll cue for good. */
   scrolled: false,
   /**
-   * 0..1 progress through the whole pinned scroll narrative — the floor
+   * 0..1 progress through the whole pinned scroll narrative, the floor
    * separating, the pipes igniting, the floor closing again. The single
    * source every 3D scene component reads instead of each owning its own
    * scroll listener. See `lib/sceneTimeline.js` for the stage windows this
@@ -102,7 +102,7 @@ const PIXEL = [
  * Runs on GSAP's ticker rather than its own `requestAnimationFrame` loop. The
  * app already drives Lenis from that same ticker (see `hooks/useLenis.js`), and
  * adding a second rAF loop would mean scroll position and hero state were being
- * sampled on two different clocks — the exact drift that makes pinned sections
+ * sampled on two different clocks, the exact drift that makes pinned sections
  * lag their content by a frame.
  *
  * @param {HTMLElement} el element the custom properties are written to

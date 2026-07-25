@@ -6,7 +6,7 @@ import { ALL_AREAS } from '../../lib/constants';
 const FAQS = [
   {
     q: 'What is electric floor heating and how does it work?',
-    a: 'Electric floor heating uses UK-imported heating cables or mats installed beneath the floor surface. The system warms the screed, which then radiates gentle, even heat upward through the floor — delivering silent, room-wide comfort without radiators or fans.',
+    a: 'Electric floor heating uses UK-imported heating cables or mats installed beneath the floor surface. The system warms the screed, which then radiates gentle, even heat upward through the floor, delivering silent, room-wide comfort without radiators or fans.',
   },
   {
     q: 'Is electric floor heating suitable for every floor type?',
@@ -14,7 +14,7 @@ const FAQS = [
   },
   {
     q: 'How much does electric floor heating cost in Kashmir?',
-    a: 'Cost depends on the heated area and the system you choose. We provide a written quotation after a free site survey — call 9070907035 to book one.',
+    a: 'Cost depends on the heated area and the system you choose. We provide a written quotation after a free site survey, call 9070907035 to book one.',
   },
   {
     q: 'How long does installation take?',
@@ -47,13 +47,13 @@ export default function ElectricFloorHeatingClient() {
     <ProductPageTemplate
       productName="Electric Floor Heating"
       heroTagline="Premium UK-imported electric floor heating systems, supplied and installed across Kashmir by The Heating Store."
-      heroSubtitle="Fast warm-up, even heat, certified safe for wet areas — engineered for sub-zero Kashmir floors."
+      heroSubtitle="Fast warm-up, even heat, certified safe for wet areas, engineered for sub-zero Kashmir floors."
       whatIsText={
         <p>
           <strong>Electric floor heating</strong> is a UK-imported underfloor heating system that warms the entire floor surface of a room or entire home. Heating cables or mats are installed on an insulated subfloor, then encapsulated in a concrete screed. The screed acts as thermal mass, absorbing heat from the cables and releasing it slowly and evenly across the floor. The result is silent, draft-free warmth with no radiators, no fans, and 8–10 hour heat retention after a power cut.
         </p>
       }
-      whyUkImportedText="Our electric floor heating systems are sourced from leading UK manufacturers and certified to CE / IEC 60335 safety standards. UK heating systems are engineered for some of the harshest European winters, making them ideally suited to Kashmir's sub-zero floors. We don't sell local imitations — we sell the same systems used in European homes for decades, installed by our Kashmir team. Every system ships with a 10–25 year manufacturer warranty, a 0.01% fault rate across millions of global installations, and our Kashmir installation guarantee."
+      whyUkImportedText="Our electric floor heating systems are sourced from leading UK manufacturers and certified to CE / IEC 60335 safety standards. UK heating systems are engineered for some of the harshest European winters, making them ideally suited to Kashmir's sub-zero floors. We don't sell local imitations, we sell the same systems used in European homes for decades, installed by our Kashmir team. Every system ships with a 10–25 year manufacturer warranty, a 0.01% fault rate across millions of global installations, and our Kashmir installation guarantee."
       areasServed={ALL_AREAS}
       faqs={FAQS}
       jsonLd={JSON_LD}

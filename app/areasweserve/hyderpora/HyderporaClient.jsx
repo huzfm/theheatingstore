@@ -26,7 +26,7 @@ const FAQS = [
   },
   {
     q: 'Are your systems safe for Hyderpora bathrooms and kitchens?',
-    a: 'Yes. Every system we install is certified safe for wet areas, including bathrooms, kitchens, and laundry rooms — engineered for sub-zero Kashmir floors.',
+    a: 'Yes. Every system we install is certified safe for wet areas, including bathrooms, kitchens, and laundry rooms, engineered for sub-zero Kashmir floors.',
   },
 ];
 
@@ -51,7 +51,7 @@ export default function HyderporaClient() {
     <AreaPageTemplate
       areaName="Hyderpora"
       areaSlug="hyderpora"
-      heroTagline="Premium UK-imported electric hamams for Hyderpora — visit The Heating Store in nearby Rajbagh, Srinagar."
+      heroTagline="Premium UK-imported electric hamams for Hyderpora, visit The Heating Store in nearby Rajbagh, Srinagar."
       bodyText="Hyderpora is one of Srinagar's most rapidly growing residential hubs, with a mix of modern apartments, independent homes, and commercial spaces. The Heating Store in Rajbagh is the trusted destination for Hyderpora homeowners looking for premium UK-imported electric hamams and underfloor heating systems engineered for Kashmir winters. Our systems are designed for sub-zero temperatures, certified safe for wet areas, and built to retain heat for 8–10 hours after a power cut."
       directionsText="From Hyderpora, head towards Bemina and continue on to Rajbagh via the airport-road link. The Heating Store is located in Rajbagh, Srinagar 190008."
       nearbyAreas={NEARBY}

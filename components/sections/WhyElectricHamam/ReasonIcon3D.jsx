@@ -7,10 +7,10 @@ import * as THREE from 'three';
 /**
  * The section's two genuinely-3D visuals, sharing ONE persistent canvas:
  *
- *  - 'cable' — a serpentine underfloor heating cable, built as a TubeGeometry
+ *  - 'cable', a serpentine underfloor heating cable, built as a TubeGeometry
  *    that follows the real boustrophedon path, with a bright heat bead running
  *    through it. This *is* the product, not an abstract stand-in.
- *  - 'floor' — the floor cross-section: finish → screed → cable → insulation →
+ *  - 'floor', the floor cross-section: finish → screed → cable → insulation →
  *    slab, as stacked thin slabs viewed at an angle.
  *
  * Performance:
@@ -19,7 +19,7 @@ import * as THREE from 'three';
  *    the React tree;
  *  - the parent MOUNTS this only while the section is near the viewport and
  *    unmounts it when far away, so there's no GPU burn behind the rest of the
- *    page. (We deliberately don't toggle `frameloop` for that — R3F doesn't
+ *    page. (We deliberately don't toggle `frameloop` for that, R3F doesn't
  *    reliably restart the loop after it's been set to 'never', which leaves the
  *    entrance stuck at scale 0.)
  */

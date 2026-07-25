@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Content for the "Why Electric Hamam — 7 Reasons" showcase.
+ * Content for the "Why Electric Hamam, 7 Reasons" showcase.
  *
  * Copy is reused verbatim from the previous FiveReasonsSection. The only
  * additions are presentation metadata:
@@ -82,7 +82,7 @@ export const REASONS = [
   {
     num: '01',
     title: 'Rapid Warmth',
-    desc: 'Our electric hamam systems reach operating temperature in 45–60 minutes — far faster than wood-fired hamams.',
+    desc: 'Our electric hamam systems reach operating temperature in 45–60 minutes, far faster than wood-fired hamams.',
     stat: '45–60 min',
     statLabel: 'to full warmth',
     accent: '#ff8a3d',
@@ -102,7 +102,7 @@ export const REASONS = [
   {
     num: '03',
     title: 'Low Floor Build-Up',
-    desc: 'Engineered for efficient installation with minimal floor height increase — only 2.5–3 inches including insulation, heating and finish.',
+    desc: 'Engineered for efficient installation with minimal floor height increase, only 2.5–3 inches including insulation, heating and finish.',
     stat: '2.5–3 in',
     statLabel: 'total build-up',
     accent: '#f2681c',
@@ -132,7 +132,7 @@ export const REASONS = [
   {
     num: '06',
     title: 'Healthier Indoor Comfort',
-    desc: 'Gentle radiant warmth without smoke, dry air or dust circulation — unlike wood fires, harsh ACs or gas heaters.',
+    desc: 'Gentle radiant warmth without smoke, dry air or dust circulation, unlike wood fires, harsh ACs or gas heaters.',
     stat: 'Zero',
     statLabel: 'smoke & dust',
     accent: '#ff9e4f',
@@ -142,7 +142,7 @@ export const REASONS = [
   {
     num: '07',
     title: 'Fast Installation',
-    desc: 'From civil prep and heating install to final floor finishing and guarantee registration — typically completed within 5–6 hours.',
+    desc: 'From civil prep and heating install to final floor finishing and guarantee registration, typically completed within 5–6 hours.',
     stat: '5–6 hrs',
     statLabel: 'start to finish',
     accent: '#f2861c',

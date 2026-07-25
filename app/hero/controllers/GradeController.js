@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { heroState } from '../lib/signals';
 
 /**
- * The room's idle life — everything that keeps happening once the system has
+ * The room's idle life, everything that keeps happening once the system has
  * come on and the visitor is just sitting there reading.
  *
  * There are three signals, and the reason this is one controller rather than
@@ -12,8 +12,8 @@ import { heroState } from '../lib/signals';
  * live plate when the firelight and the reflection it throws across the stone
  * move together, and reads as a broken loop the moment they drift apart.
  *
- * All of it is scaled by `warmth`, so nothing flickers during the cold open —
- * an unlit fire has nothing to flicker with — and all of it stops dead when the
+ * All of it is scaled by `warmth`, so nothing flickers during the cold open 
+ * an unlit fire has nothing to flicker with, and all of it stops dead when the
  * hero leaves the viewport.
  */
 
@@ -67,7 +67,7 @@ export function createGradeController({ enabled = true } = {}) {
 
     const { warmth, exit } = heroState;
 
-    // Idle life fades out as the hero exits — during the push into the floor
+    // Idle life fades out as the hero exits, during the push into the floor
     // the coil bloom is being driven by the scroll instead, and leaving the
     // shimmer running underneath it would fight that ramp.
     const life = warmth * (1 - exit);
@@ -89,7 +89,7 @@ export function createGradeController({ enabled = true } = {}) {
   return {
     /**
      * Driven by an IntersectionObserver on the hero. Once the visitor has
-     * scrolled past, these sines are running for nobody — and on a laptop that
+     * scrolled past, these sines are running for nobody, and on a laptop that
      * is real battery.
      */
     setActive(next) {

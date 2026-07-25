@@ -10,7 +10,7 @@ const EASE = [0.16, 1, 0.3, 1];
 const BENEFITS = [
   {
     title: 'Even Heat Distribution',
-    desc: 'Heat radiates uniformly across the entire floor surface — no cold spots, no drafts, just consistent comfort in every corner of the room.',
+    desc: 'Heat radiates uniformly across the entire floor surface, no cold spots, no drafts, just consistent comfort in every corner of the room.',
     Icon: Flame,
     color: '#B86B45',
   },
@@ -22,7 +22,7 @@ const BENEFITS = [
   },
   {
     title: 'Energy Efficient',
-    desc: 'Operates at lower temperatures than radiators while delivering the same warmth — using less power and reducing your monthly bills.',
+    desc: 'Operates at lower temperatures than radiators while delivering the same warmth, using less power and reducing your monthly bills.',
     Icon: Zap,
     color: '#6BAE7F',
   },
@@ -37,13 +37,13 @@ const BENEFITS = [
 const WHY_KASHMIR = [
   {
     title: 'Built for Sub-Zero Climates',
-    desc: 'UK-imported underfloor heating is engineered for some of the harshest European winters — making it ideally suited to Kashmir\'s Chilla Kalan.',
+    desc: 'UK-imported underfloor heating is engineered for some of the harshest European winters, making it ideally suited to Kashmir\'s Chilla Kalan.',
     Icon: Snowflake,
     color: '#4FA3D1',
   },
   {
     title: '8–10 Hour Heat Retention',
-    desc: 'The concrete screed acts as thermal mass — absorbing heat and releasing it slowly, so rooms stay warm for hours even after a power cut.',
+    desc: 'The concrete screed acts as thermal mass, absorbing heat and releasing it slowly, so rooms stay warm for hours even after a power cut.',
     Icon: Flame,
     color: '#B86B45',
   },
@@ -64,7 +64,7 @@ const AUDIENCES = [
 const FAQS = [
   {
     q: 'What is underfloor heating?',
-    a: 'Underfloor heating is a system of heating cables or mats installed beneath your floor surface, encapsulated in a concrete screed. The screed absorbs heat and radiates it slowly and evenly upward, providing silent, draft-free warmth across the entire floor — with 8–10 hour heat retention after a power cut.',
+    a: 'Underfloor heating is a system of heating cables or mats installed beneath your floor surface, encapsulated in a concrete screed. The screed absorbs heat and radiates it slowly and evenly upward, providing silent, draft-free warmth across the entire floor, with 8–10 hour heat retention after a power cut.',
   },
   {
     q: 'Is underfloor heating suitable for Kashmir winters?',
@@ -72,7 +72,7 @@ const FAQS = [
   },
   {
     q: 'Can it be installed in existing homes?',
-    a: 'Yes. While new builds are simplest, we routinely retrofit underfloor heating in existing Kashmir homes — typically by lifting the existing floor, installing insulation and heating mats, and re-screeding. We provide a free site survey to confirm feasibility.',
+    a: 'Yes. While new builds are simplest, we routinely retrofit underfloor heating in existing Kashmir homes, typically by lifting the existing floor, installing insulation and heating mats, and re-screeding. We provide a free site survey to confirm feasibility.',
   },
   {
     q: 'How long does installation take?',
@@ -322,7 +322,7 @@ export default function UnderfloorHeatingClient() {
               lineHeight: 1.8, marginTop: 16,
             }}>
               <p style={{ margin: 0 }}>
-                <strong>Underfloor heating</strong> is a UK-imported heating system installed beneath your floor surface. Heating cables or mats are laid on an insulated subfloor and encapsulated in a concrete screed, which acts as thermal mass — absorbing heat and releasing it slowly for hours, even after the power goes off. The result is silent, even warmth across the entire floor, with no radiators, no fans, and no noise.
+                <strong>Underfloor heating</strong> is a UK-imported heating system installed beneath your floor surface. Heating cables or mats are laid on an insulated subfloor and encapsulated in a concrete screed, which acts as thermal mass, absorbing heat and releasing it slowly for hours, even after the power goes off. The result is silent, even warmth across the entire floor, with no radiators, no fans, and no noise.
               </p>
             </div>
           </GlassCard>
@@ -535,7 +535,7 @@ export default function UnderfloorHeatingClient() {
               fontFamily: "var(--font-body)", fontSize: 15, color: 'rgba(255,255,255,0.85)',
               lineHeight: 1.8, margin: '16px 0 0', maxWidth: 760,
             }}>
-              Every underfloor heating system we install is sourced from leading UK manufacturers and certified to CE / IEC 60335 safety standards. UK heating systems are designed for some of the harshest European winters — making them ideally suited to Kashmir's Chilla Kalan. We don't sell local imitations; we sell the same systems used in European homes for decades, now installed by our Kashmir team.
+              Every underfloor heating system we install is sourced from leading UK manufacturers and certified to CE / IEC 60335 safety standards. UK heating systems are designed for some of the harshest European winters, making them ideally suited to Kashmir's Chilla Kalan. We don't sell local imitations; we sell the same systems used in European homes for decades, now installed by our Kashmir team.
             </p>
             <div className="flex flex-wrap gap-3 mt-6">
               {['CE Certified', '25+ Year Warranty', '0.01% Fault Rate', 'Since 2011'].map((t) => (
@@ -656,7 +656,7 @@ export default function UnderfloorHeatingClient() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="The Heating Store — Underfloor Heating"
+                  title="The Heating Store, Underfloor Heating"
                 />
               </div>
             </a>
@@ -675,7 +675,7 @@ export default function UnderfloorHeatingClient() {
             <SectionHeading
               badge="FAQ"
               title="Underfloor Heating"
-              accent=" — Frequently Asked Questions"
+              accent=", Frequently Asked Questions"
               center
               sub="Answers to the most common questions we hear from customers across Kashmir."
             />

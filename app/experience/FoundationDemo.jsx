@@ -20,7 +20,7 @@ const CHECKS = [
   {
     n: '02',
     title: 'Scoped dark theme',
-    body: 'Near-black ground, one warm accent. Applied via a flag on <html> that is removed on unmount — the other 40 pages stay exactly as they were.',
+    body: 'Near-black ground, one warm accent. Applied via a flag on <html> that is removed on unmount, the other 40 pages stay exactly as they were.',
   },
   {
     n: '03',
@@ -58,7 +58,7 @@ export default function FoundationDemo() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
         >
-          Phase 1 — Foundation
+          Phase 1, Foundation
         </motion.p>
 
         {/* Load-in stagger: each word rises out of its own mask line. */}
@@ -84,7 +84,7 @@ export default function FoundationDemo() {
                   visible: { y: '0%', transition: { duration: 1, ease: EASE } },
                 }}
               >
-                {/* Final word carries the accent — the one warm note up here. */}
+                {/* Final word carries the accent, the one warm note up here. */}
                 <span className={i === 4 ? 'text-heat-500' : undefined}>{word}</span>
                 {i < 4 ? ' ' : ''}
               </motion.span>
@@ -99,7 +99,7 @@ export default function FoundationDemo() {
           transition={{ duration: 0.9, delay: 0.85, ease: EASE }}
         >
           The foundation layer is live. Move your cursor, scroll the page, hover
-          the cards below — every primitive the next seven phases build on is
+          the cards below, every primitive the next seven phases build on is
           already running here.
         </motion.p>
 
@@ -121,7 +121,7 @@ export default function FoundationDemo() {
           </MagneticButton>
         </motion.div>
 
-        {/* Scroll cue — a line that draws downward on a loop */}
+        {/* Scroll cue, a line that draws downward on a loop */}
         <motion.div
           className="absolute bottom-10 left-6 flex items-center gap-4 md:left-16 lg:left-24"
           initial={{ opacity: 0 }}
@@ -182,7 +182,7 @@ export default function FoundationDemo() {
         </div>
 
         <Reveal>
-          <p className="exp-eyebrow">Counters — every stat animates from zero</p>
+          <p className="exp-eyebrow">Counters, every stat animates from zero</p>
         </Reveal>
 
         <RevealGroup className="mt-16 grid gap-12 sm:grid-cols-3">
@@ -209,7 +209,7 @@ export default function FoundationDemo() {
         <GlowCard interactive={false} className="p-10 md:p-14">
           <p className="exp-eyebrow">Next up</p>
           <h3 className="mt-5 max-w-[22ch] text-3xl md:text-4xl">
-            Phase 2 — the hero, with its 3D floor scene.
+            Phase 2, the hero, with its 3D floor scene.
           </h3>
           <p className="mt-5 max-w-[52ch] text-bone-500">
             React Three Fiber gets lazy-loaded behind a dynamic import so it

@@ -7,7 +7,7 @@ import { clamp, damp, smoothstep } from '../lib/ease';
 /**
  * Magnetic attraction for the hero's CTAs.
  *
- * The site deliberately has no custom cursor — it is the most worn Awwwards
+ * The site deliberately has no custom cursor, it is the most worn Awwwards
  * cliché and on a lead-generation page it costs conversions. Magnetism gets the
  * same "the interface is paying attention" read while leaving the visitor's
  * actual pointer alone, and it puts the response on the thing they are about to

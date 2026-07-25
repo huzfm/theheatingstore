@@ -13,17 +13,17 @@ import { FLOOR_W, FLOOR_D, FLOOR_LIFT } from './dimensions';
 /**
  * The floor, in section: a finish slab split into two halves that lift open
  * like a pair of hatch doors to expose the pipe network, hold for the
- * ignition, then close again — insulation and subfloor sit static beneath,
+ * ignition, then close again, insulation and subfloor sit static beneath,
  * visible only once the slabs have physically rotated clear of them.
  *
  * The whole assembly hovers at `FLOOR_LIFT` above its own contact shadow
- * rather than sitting on a modelled floor — staged like an object on
+ * rather than sitting on a modelled floor, staged like an object on
  * display, not a room built around one. Real occlusion rather than a
  * dissolve for the reveal itself: the WhyElectricHamam floor section a few
  * scrolls below this one reveals its build-up by fading tiles out, and doing
  * the same thing here would make two consecutive sections perform an
  * identical trick. A hinged reveal is different choreography that happens to
- * serve the same idea — literally "the floor separates" rather than "the
+ * serve the same idea, literally "the floor separates" rather than "the
  * floor dissolves".
  */
 
@@ -81,7 +81,7 @@ function SlabHalf({ side, albedo, roughness }) {
         />
       </RoundedBox>
 
-      {/* The cut edge — a thin additive strip standing in for pipe-glow
+      {/* The cut edge, a thin additive strip standing in for pipe-glow
           bouncing up onto the slab's exposed cross-section. */}
       <mesh ref={edgeGlowRef} position={[-sign * HALF_W * 0.02, -FINISH_H / 2 + 0.002, 0]}>
         <boxGeometry args={[0.03, 0.004, FLOOR_D * 0.98]} />

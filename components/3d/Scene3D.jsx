@@ -3,11 +3,11 @@
 import dynamic from 'next/dynamic';
 
 /**
- * Lazy entry point for every 3D scene — import THIS, not SceneCanvas.
+ * Lazy entry point for every 3D scene, import THIS, not SceneCanvas.
  *
  * Two reasons the dynamic import lives here rather than at each call site:
  *  1. Three.js touches `window`/`document` at module scope, so it cannot be
- *     evaluated during SSR — hence `ssr: false`.
+ *     evaluated during SSR, hence `ssr: false`.
  *  2. three + fiber + drei is a large dependency. Behind a dynamic import it
  *     lands in its own chunk and never blocks first paint on pages that don't
  *     render a scene.

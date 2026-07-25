@@ -36,7 +36,7 @@ export default function CounterNumber({
 
   const motionValue = useMotionValue(from);
   // Stiffness/damping tuned to land in roughly `duration` seconds with a
-  // fast start and a long settle — reads as "counting", not "sliding".
+  // fast start and a long settle, reads as "counting", not "sliding".
   const spring = useSpring(motionValue, {
     duration: duration * 1000,
     bounce: 0,
