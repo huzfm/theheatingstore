@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useInView, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -106,7 +106,7 @@ function RevealText({ text, active }) {
 	);
 }
 
-function FaqCard({ faq, index, isOpen, onToggle }) {
+function FaqCard({ faq, index, isOpen, onToggle, interactive = true }) {
 	const cardRef = useRef(null);
 
 	const mx = useMotionValue(0.5);
@@ -134,18 +134,22 @@ function FaqCard({ faq, index, isOpen, onToggle }) {
 	return (
 		<motion.div
 			ref={cardRef}
-			onMouseMove={handleMouseMove}
-			onMouseLeave={handleMouseLeave}
-			style={{
-				position: 'relative',
-				borderRadius: 30,
-				perspective: 1400,
-				rotateX: isOpen ? 0 : rotateX,
-				rotateY: isOpen ? 0 : rotateY,
-				transformStyle: 'preserve-3d',
-				willChange: 'transform',
-			}}
-			whileHover={{ scale: isOpen ? 1 : 1.008 }}
+			onMouseMove={interactive ? handleMouseMove : undefined}
+			onMouseLeave={interactive ? handleMouseLeave : undefined}
+			style={
+				interactive
+					? {
+							position: 'relative',
+							borderRadius: 30,
+							perspective: 1400,
+							rotateX: isOpen ? 0 : rotateX,
+							rotateY: isOpen ? 0 : rotateY,
+							transformStyle: 'preserve-3d',
+							willChange: 'transform',
+					  }
+					: { position: 'relative', borderRadius: 30 }
+			}
+			whileHover={interactive ? { scale: isOpen ? 1 : 1.008 } : undefined}
 			transition={{ duration: 0.5, ease: EASE }}
 			className="faq-card-shell">
 			{/* spotlight */}
@@ -223,7 +227,21 @@ function FaqCard({ faq, index, isOpen, onToggle }) {
 	);
 }
 
-function FloatingBlobs() {
+function FloatingBlobs({ animate = true }) {
+	// On mobile the blobs are rendered static: continuously animating three
+	// large blur(90px) layers forces a full re-rasterisation every frame,
+	// which is the main cause of the jitter on phones. Static blobs keep the
+	// warm ambient wash at zero per-frame cost.
+	if (!animate) {
+		return (
+			<div className="faq-blobs" aria-hidden>
+				<div className="faq-blob faq-blob--1" />
+				<div className="faq-blob faq-blob--2" />
+				<div className="faq-blob faq-blob--3" />
+			</div>
+		);
+	}
+
 	return (
 		<div className="faq-blobs" aria-hidden>
 			<motion.div
@@ -250,6 +268,18 @@ export default function FaqSection() {
 	const inView = useInView(ref, { once: true, amount: 0.08 });
 	const [activeSection, setActiveSection] = useState('Basics');
 	const [openIndex, setOpenIndex] = useState(null);
+
+	// Phones (and any coarse-pointer device) get the low-cost render: no
+	// continuous blob animation, no per-card 3D tilt, no live backdrop-blur —
+	// all of which jitter on mobile GPUs. Desktop keeps the full treatment.
+	const [isMobile, setIsMobile] = useState(false);
+	useEffect(() => {
+		const mq = window.matchMedia('(max-width: 640px), (hover: none)');
+		const update = () => setIsMobile(mq.matches);
+		update();
+		mq.addEventListener('change', update);
+		return () => mq.removeEventListener('change', update);
+	}, []);
 
 	const currentFaqs = FAQ_SECTIONS.find((s) => s.section === activeSection)?.faqs || [];
 
@@ -471,9 +501,25 @@ export default function FaqSection() {
 					.faq-card-answer { padding: 0 20px 26px 20px; }
 					.faq-card-index { display: none; }
 				}
+
+				/* Coarse-pointer / small-screen devices: kill the effects that jitter
+				   on mobile GPUs. Live backdrop-blur recomputed against moving/blurred
+				   layers is the worst offender, so cards fall back to a solid warm
+				   surface; the 3D compositing layer is flattened and the static blobs
+				   drop their will-change hint. */
+				@media (max-width: 640px), (hover: none) {
+					.faq-card {
+						backdrop-filter: none;
+						-webkit-backdrop-filter: none;
+						background: #FFFCF7;
+					}
+					.faq-card--open { background: #FFFDFA; }
+					.faq-card-shell { transform-style: flat; will-change: auto; }
+					.faq-blob { will-change: auto; }
+				}
 			`}</style>
 
-			<FloatingBlobs />
+			<FloatingBlobs animate={!isMobile} />
 			<div className="faq-noise" />
 			<div className="faq-vignette" />
 
@@ -553,6 +599,7 @@ export default function FaqSection() {
 										index={i}
 										isOpen={openIndex === i}
 										onToggle={() => handleToggle(i)}
+										interactive={!isMobile}
 									/>
 								</motion.div>
 							))}

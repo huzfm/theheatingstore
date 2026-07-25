@@ -292,9 +292,11 @@
 .hhero__stat {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.35rem;
 }
 .hhero__stat-num {
+  display: flex;
+  align-items: baseline;
   font-family: var(--font-heading);
   font-weight: 400;
   font-size: clamp(1.9rem, 3vw, 2.6rem);
@@ -302,7 +304,15 @@
   letter-spacing: 0.01em;
   color: var(--ivory);
 }
-.hhero__stat-num span { color: var(--copper-bright); }
+/* The unit suffix (e.g. the "yr" in "5yr"). Reset the inherited global
+   span line-height (1.75) that was making this cell taller than the plain
+   numbers and knocking the row out of alignment. */
+.hhero__stat-num span {
+  line-height: 1;
+  font-size: 0.5em;
+  margin-left: 0.12em;
+  color: var(--copper-bright);
+}
 .hhero__stat-label {
   font-size: 0.74rem;
   font-weight: 500;
