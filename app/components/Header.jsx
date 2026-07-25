@@ -677,9 +677,7 @@ export default function Header() {
         @media (min-width: 768px) {
           .eh-mobile-only { display: none !important; }
         }
-      `}</style>
 
-      <style jsx>{`
         .cta-btn { position: relative; overflow: hidden; }
         .cta-shine {
           position: absolute;
