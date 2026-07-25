@@ -1,0 +1,433 @@
+/**
+ * HomeHero.css — the static, art-directed home hero that replaces the
+ * scroll-driven WebGL cutaway. One cinematic plate, a warm scrim, and a
+ * single left-set copy column. Everything is authored against the same
+ * copper / ivory tokens the rest of the site uses, so it reads as the same
+ * brand at a calmer fidelity.
+ *
+ * All rules are scoped under `.hhero`, and body/heading globals that would
+ * otherwise leak in (1.75 line-height on every element, all-caps h1 scale)
+ * are re-asserted here on purpose.
+ */
+
+.hhero {
+  --ink: #0a0705;
+  --copper: #a86b3f;
+  --copper-light: #c99669;
+  --copper-bright: #e7c39b;
+  --ivory: #f6f2ec;
+  --muted: rgba(246, 242, 236, 0.62);
+  --hairline: rgba(246, 242, 236, 0.14);
+
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ink);
+  color: var(--ivory);
+  font-family: var(--font-body);
+}
+
+/* ── plate ──────────────────────────────────────────────────────────── */
+
+.hhero__plate {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hhero__plate img {
+  object-fit: cover;
+  /* Keep the fireplace, timber wall and lounge in frame under the copy on the
+     left, with the dining space and glass wall opening up to the right. */
+  object-position: 46% 52%;
+  transform: scale(1.04);
+  animation: hhero-drift 32s ease-in-out infinite alternate;
+}
+@keyframes hhero-drift {
+  from { transform: scale(1.04) translate3d(0, 0, 0); }
+  to   { transform: scale(1.1) translate3d(-1.4%, -1%, 0); }
+}
+
+/* Warm scrim: darkens the left third for legibility, lets the right breathe,
+   and grounds the whole frame so the plate never washes out. */
+.hhero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      100deg,
+      rgba(10, 7, 5, 0.94) 0%,
+      rgba(10, 7, 5, 0.82) 26%,
+      rgba(10, 7, 5, 0.5) 52%,
+      rgba(10, 7, 5, 0.28) 74%,
+      rgba(10, 7, 5, 0.55) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba(10, 7, 5, 0.95) 0%,
+      rgba(10, 7, 5, 0.1) 34%,
+      rgba(10, 7, 5, 0) 60%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(10, 7, 5, 0.7) 0%,
+      rgba(10, 7, 5, 0) 22%
+    );
+}
+
+/* A single soft copper bloom anchored to the glowing floor, so the accent
+   colour feels like it comes from the room rather than a CSS overlay. */
+.hhero__glow {
+  position: absolute;
+  right: -10%;
+  bottom: -22%;
+  width: 62vw;
+  height: 62vw;
+  max-width: 900px;
+  max-height: 900px;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(224, 150, 74, 0.32) 0%,
+    rgba(168, 107, 63, 0.14) 38%,
+    transparent 68%
+  );
+  filter: blur(8px);
+  animation: hhero-breathe 7s ease-in-out infinite alternate;
+}
+@keyframes hhero-breathe {
+  from { opacity: 0.7; }
+  to   { opacity: 1; }
+}
+
+/* Fine film grain — kills gradient banding and adds a photographic tooth. */
+.hhero__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.28;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── content ────────────────────────────────────────────────────────── */
+
+.hhero__inner {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 8.5rem clamp(1.25rem, 5vw, 5rem) 4.5rem;
+}
+
+.hhero__copy {
+  max-width: 46rem;
+}
+
+/* eyebrow */
+.hhero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.95rem 0.5rem 0.7rem;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: rgba(246, 242, 236, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(246, 242, 236, 0.82);
+  line-height: 1.2;
+}
+.hhero__eyebrow-dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--copper-bright);
+  box-shadow: 0 0 0 0 rgba(224, 150, 74, 0.6);
+  animation: hhero-pulse 2.4s ease-out infinite;
+  flex-shrink: 0;
+}
+@keyframes hhero-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(224, 150, 74, 0.55); }
+  70%  { box-shadow: 0 0 0 8px rgba(224, 150, 74, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(224, 150, 74, 0); }
+}
+
+/* headline */
+.hhero__title {
+  margin: 1.6rem 0 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(2.9rem, 6.4vw, 6rem);
+  line-height: 0.98;
+  letter-spacing: 0.006em;
+  text-transform: uppercase;
+  color: var(--ivory);
+}
+.hhero__title .accent {
+  background: linear-gradient(
+    100deg,
+    var(--copper-light) 0%,
+    var(--copper-bright) 45%,
+    var(--copper) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* lede */
+.hhero__lede {
+  margin: 1.5rem 0 0;
+  max-width: 34rem;
+  font-size: clamp(1rem, 1.35vw, 1.18rem);
+  line-height: 1.65;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* climate line — small, refined, with a hairline rule */
+.hhero__climate {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 1.5rem 0 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  color: rgba(246, 242, 236, 0.7);
+  line-height: 1.5;
+}
+.hhero__climate::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 34px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--copper-light), transparent);
+}
+.hhero__climate strong {
+  color: var(--copper-bright);
+  font-weight: 600;
+}
+
+/* CTAs */
+.hhero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin: 2.4rem 0 0;
+}
+.hhero__btn {
+  --btn-py: 0.95rem;
+  --btn-px: 1.7rem;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: var(--btn-py) var(--btn-px);
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s ease, background 0.35s ease, border-color 0.35s ease;
+  will-change: transform;
+}
+.hhero__btn svg {
+  width: 17px;
+  height: 17px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hhero__btn:hover svg { transform: translateX(4px); }
+
+.hhero__btn--primary {
+  color: #1a0f07;
+  background: linear-gradient(135deg, var(--copper-bright), var(--copper-light) 55%, var(--copper));
+  box-shadow: 0 10px 30px -8px rgba(200, 120, 55, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.hhero__btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px -8px rgba(210, 130, 60, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.hhero__btn--ghost {
+  color: var(--ivory);
+  background: rgba(246, 242, 236, 0.05);
+  border: 1px solid rgba(246, 242, 236, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.hhero__btn--ghost:hover {
+  transform: translateY(-2px);
+  background: rgba(246, 242, 236, 0.1);
+  border-color: rgba(246, 242, 236, 0.4);
+}
+
+/* stat rail */
+.hhero__stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: clamp(1.25rem, 4vw, 3rem);
+  margin: 3.2rem 0 0;
+  padding: 1.6rem 0 0;
+  border-top: 1px solid var(--hairline);
+}
+.hhero__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.hhero__stat-num {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--ivory);
+}
+.hhero__stat-num span { color: var(--copper-bright); }
+.hhero__stat-label {
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(246, 242, 236, 0.55);
+  line-height: 1.3;
+}
+
+/* floating trust chip, lower-right of the plate */
+.hhero__chip {
+  position: absolute;
+  right: clamp(1.25rem, 5vw, 4rem);
+  bottom: clamp(2rem, 6vw, 4rem);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1.2rem 0.85rem 0.95rem;
+  border-radius: 16px;
+  border: 1px solid rgba(246, 242, 236, 0.16);
+  background: rgba(18, 12, 8, 0.55);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.8);
+}
+.hhero__chip-ring {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 30% 25%, rgba(224, 150, 74, 0.3), rgba(168, 107, 63, 0.12));
+  border: 1px solid rgba(224, 150, 74, 0.4);
+  color: var(--copper-bright);
+}
+.hhero__chip-ring svg { width: 20px; height: 20px; }
+.hhero__chip-text { display: flex; flex-direction: column; gap: 1px; }
+.hhero__chip-top {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ivory);
+  line-height: 1.2;
+}
+.hhero__chip-sub {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: rgba(246, 242, 236, 0.6);
+  line-height: 1.2;
+}
+.hhero__chip-stars {
+  display: inline-flex;
+  gap: 1px;
+  color: var(--copper-bright);
+  margin-bottom: 1px;
+}
+.hhero__chip-stars svg { width: 11px; height: 11px; }
+
+/* scroll cue */
+.hhero__cue {
+  position: absolute;
+  left: 50%;
+  bottom: 1.6rem;
+  z-index: 3;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.64rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(246, 242, 236, 0.5);
+}
+.hhero__cue-track {
+  width: 1px;
+  height: 42px;
+  background: linear-gradient(to bottom, rgba(246, 242, 236, 0.4), transparent);
+  position: relative;
+  overflow: hidden;
+}
+.hhero__cue-track::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: var(--copper-bright);
+  animation: hhero-cue 2.2s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+}
+@keyframes hhero-cue {
+  0%   { transform: translateY(0); opacity: 0; }
+  30%  { opacity: 1; }
+  100% { transform: translateY(340%); opacity: 0; }
+}
+
+/* ── responsive ─────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .hhero__plate img { object-position: 62% 55%; }
+  .hhero__scrim {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(10, 7, 5, 0.9) 0%,
+        rgba(10, 7, 5, 0.55) 40%,
+        rgba(10, 7, 5, 0.75) 100%
+      );
+  }
+  .hhero__inner { padding-top: 7rem; padding-bottom: 6rem; }
+  .hhero__chip { display: none; }
+}
+
+@media (max-width: 560px) {
+  .hhero__stats { gap: 1.4rem 2rem; }
+  .hhero__ctas .hhero__btn { flex: 1 1 auto; justify-content: center; }
+  .hhero__cue { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hhero__plate img,
+  .hhero__glow,
+  .hhero__eyebrow-dot,
+  .hhero__cue-track::after { animation: none; }
+}
