@@ -1,518 +1,499 @@
 'use client';
 
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { useRef, useState, useEffect, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import SceneManager from './why-electric-hamam/SceneManager';
+import { BEAT_COUNT, BEAT_VH } from './why-electric-hamam/timeline';
 
-const EASE = [0.16, 1, 0.3, 1];
-
-const CARDS = [
-  {
-    accentColor: '#DC2626',
-    stat: '4M+ deaths/yr WHO',
-    title: 'Clean & Smoke-Free Heating',
-    body: 'No wood smoke, ash, soot, kerosene odours, or chimney cleaning inside the home.',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2C8 6 4 9.5 4 14a8 8 0 1 0 16 0c0-4.5-4-8-8-12z"/>
-        <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-      </svg>
-    ),
-  },
-  {
-    accentColor: '#D97706',
-    stat: 'Forests disappearing',
-    title: 'Even Whole-Room Warmth',
-    body: 'Radiant floor heating distributes warmth evenly across the floor and throughout the room.',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22V12"/>
-        <path d="M12 12L8 8"/>
-        <path d="M12 12L16 8"/>
-        <path d="M8 6L6 4"/>
-        <path d="M16 6L18 4"/>
-        <circle cx="12" cy="3" r="2"/>
-      </svg>
-    ),
-  },
-  {
-    accentColor: '#EA580C',
-    stat: '2-3 hrs daily labour',
-    title: 'Simple Everyday Comfort',
-    body: 'No wood storage, fire preparation, or daily maintenance required during winter.',
-
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 12c2-2.96 0-7-1-8 0 3.038-1.773 4.741-3 6-1.226 1.26-2 3.24-2 5a6 6 0 1 0 12 0c0-1.532-1.056-3.94-2-5-1.786 3-2.791 3-4 2z"/>
-      </svg>
-    ),
-  },
-  {
-    accentColor: '#7C3AED',
-    stat: 'No control at all',
-     title: 'Precise Temperature Control',
-    body: 'Easily control room temperature using manual, programmable, or WiFi thermostats.',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/>
-      </svg>
-    ),
-  },
-  {
-    accentColor: '#B91C1C',
-    stat: 'Children at real risk',
-   title: 'Heat Retention During Power Cuts',
-    body: 'The heated screed layer stores warmth for long-lasting comfort even after shutdown.',
-
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
-      </svg>
-    ),
-  },
-  {
-    accentColor: '#475569',
-    stat: 'Hidden costs always',
-     title: 'Compatible With Modern Interiors',
-    body: 'Suitable beneath carpet, marble, tile, stone, and engineered flooring systems.',
-
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-      </svg>
-    ),
-  },
-];
-
-const STATS = [
-  { value: '6-10 hrs', label: 'Heat retained after power off' },
-  { value: '2-4 inches', label: 'Floor height added only' },
-  { value: '10-25+ yrs', label: 'System lifespan warranty' },
-  { value: 'Zero', label: 'Smoke, fumes & emissions' },
-];
-
-export default function WhyElectricHamam() {
-  const headerRef = useRef(null);
-  const statsRef = useRef(null);
-  const cardsRef = useRef(null);
-  const quoteRef = useRef(null);
-
-  const headerIn = useInView(headerRef, { once: true, amount: 0.2 });
-  const statsIn = useInView(statsRef, { once: true, amount: 0.2 });
-  const quoteIn = useInView(quoteRef, { once: true, amount: 0.3 });
-
-  const [active, setActive] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const dragStartX = useRef(null);
-  const dragStartActive = useRef(null);
-  const total = CARDS.length;
-
-  const goTo = useCallback((index) => {
-    let i = index;
-    if (i < 0) i = total - 1;
-    if (i >= total) i = 0;
-    setActive(i);
-  }, [total]);
+/**
+ * Why Electric Hamam — a pinned sequence of complete premium presentation
+ * cards (title card → 6 benefit scenes → doctor-quote finale → CTA ending),
+ * each one a finished editorial composition rather than a stop along a
+ * continuously morphing animation. See app/components/why-electric-hamam/
+ * for the modular pieces: content.js (verbatim copy), timeline.js (pure
+ * scroll-progress math — ENTRY/HOLD/EXIT per chapter), hooks/usePinnedTimeline.js
+ * (the scrub driver), and one component per chapter.
+ *
+ * Every chapter owns a disjoint BEAT_VH-tall slice of scroll, so only one is
+ * ever visible: it enters as a single composition, holds dead still long
+ * enough to read in full, then leaves — the next chapter never begins until
+ * the current one has fully exited.
+ *
+ * Visual language: warm architectural-material palette (ivory/travertine
+ * surfaces, copper/amber accents) rather than a dark "portfolio" look —
+ * closer to a product film for a premium interiors brand than a UI demo.
+ * Premium glass surfaces (frosted copy panels, the image's glass-edge
+ * frame) sit over an independently alive background — soft mesh-gradient
+ * glow and procedural grain that keep breathing even while a card holds
+ * still. That breathing is deliberately asymmetric (slow rise, much
+ * slower decay) and stretched past a minute per layer, so no cycle
+ * completes within a normal viewing window — movement stays rare,
+ * stillness stays the default.
+ *
+ * Presence layer (owned entirely by this file, independent of
+ * SceneManager's own scroll-driven motion): a single fixed, heavily
+ * blurred warmth field drifts toward wherever the cursor is, on ~2.4s of
+ * inertia — gsap.quickTo easing a transform, never a snap-to-pointer
+ * spotlight — and fades in/out with an IntersectionObserver on the
+ * section, so it's only ever present while the room is actually in view.
+ * It reads as the space registering that someone is standing in it, not
+ * as UI reacting to a mouse. The CTA link gets the same physics at close
+ * range: proximity pulls it a capped few pixels before contact and it
+ * settles back on its own rather than toggling on hover, so it reads as
+ * an object with mass. Both effects write only transform/opacity, never
+ * React state, so they run alongside the GSAP scrub timeline without
+ * competing with it.
+ *
+ * The wrapper is sticky rather than GSAP-pinned, matching the convention
+ * already established by components/sections/FloorRevealSection.jsx on
+ * this site — no pin-spacer means nothing to recalculate on resize.
+ */
+const TOTAL_VH = BEAT_VH * BEAT_COUNT;
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === 'ArrowLeft') goTo(active - 1);
-      if (e.key === 'ArrowRight') goTo(active + 1);
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setReduced(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
+
+  return reduced;
+}
+
+export default function WhyElectricHamam({ ctaHref = '#contact' }) {
+  const sectionRef = useRef(null);
+  const presenceRef = useRef(null);
+  const reduced = usePrefersReducedMotion();
+
+  // Presence + magnetic-CTA system — see the file header for the rationale.
+  // Deliberately independent of SceneManager: reads the CTA link out of the
+  // DOM rather than threading a new ref through it, so the scroll-scrub
+  // timeline in usePinnedTimeline.js stays untouched.
+  useEffect(() => {
+    if (reduced) return undefined;
+    const glow = presenceRef.current;
+    const section = sectionRef.current;
+    if (!glow || !section) return undefined;
+
+    const link = section.querySelector('.weh-cta-ending-link');
+
+    const setGlowX = gsap.quickTo(glow, 'x', { duration: 2.4, ease: 'power2.out' });
+    const setGlowY = gsap.quickTo(glow, 'y', { duration: 2.4, ease: 'power2.out' });
+    const setGlowO = gsap.quickTo(glow, 'opacity', { duration: 1.6, ease: 'power1.out' });
+    const setLinkX = link ? gsap.quickTo(link, 'x', { duration: 0.6, ease: 'power3.out' }) : null;
+    const setLinkY = link ? gsap.quickTo(link, 'y', { duration: 0.6, ease: 'power3.out' }) : null;
+
+    let sectionActive = false;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        sectionActive = entry.isIntersecting;
+        setGlowO(sectionActive ? 1 : 0);
+        if (!sectionActive) {
+          setLinkX?.(0);
+          setLinkY?.(0);
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(section);
+
+    const MAGNET_RADIUS = 130;
+    const MAGNET_STRENGTH = 0.34;
+    const MAGNET_MAX = 18;
+
+    const handlePointerMove = (e) => {
+      setGlowX(e.clientX - window.innerWidth / 2);
+      setGlowY(e.clientY - window.innerHeight / 2);
+
+      if (!sectionActive || !link) return;
+      const rect = link.getBoundingClientRect();
+      const dx = e.clientX - (rect.left + rect.width / 2);
+      const dy = e.clientY - (rect.top + rect.height / 2);
+      const dist = Math.hypot(dx, dy);
+      if (dist < MAGNET_RADIUS) {
+        const pull = 1 - dist / MAGNET_RADIUS;
+        setLinkX(Math.max(-MAGNET_MAX, Math.min(MAGNET_MAX, dx * pull * MAGNET_STRENGTH)));
+        setLinkY(Math.max(-MAGNET_MAX, Math.min(MAGNET_MAX, dy * pull * MAGNET_STRENGTH)));
+      } else {
+        setLinkX(0);
+        setLinkY(0);
+      }
     };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [active, goTo]);
 
-  const onPointerDown = (e) => {
-    setIsDragging(false);
-    dragStartX.current = e.clientX ?? e.touches?.[0]?.clientX ?? 0;
-    dragStartActive.current = active;
-  };
-  const onPointerMove = (e) => {
-    if (dragStartX.current === null) return;
-    const x = e.clientX ?? e.touches?.[0]?.clientX ?? 0;
-    if (Math.abs(x - dragStartX.current) > 8) setIsDragging(true);
-  };
-  const onPointerUp = (e) => {
-    if (dragStartX.current === null) return;
-    const endX = e.clientX ?? e.changedTouches?.[0]?.clientX ?? 0;
-    const diff = dragStartX.current - endX;
-    if (Math.abs(diff) > 48) goTo(dragStartActive.current + (diff > 0 ? 1 : -1));
-    dragStartX.current = null;
-    setTimeout(() => setIsDragging(false), 50);
-  };
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
 
-  const getOffset = (i) => {
-    let off = i - active;
-    if (off > total / 2) off -= total;
-    if (off < -total / 2) off += total;
-    return off;
-  };
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove);
+      observer.disconnect();
+      gsap.killTweensOf(glow);
+      if (link) gsap.killTweensOf(link);
+    };
+  }, [reduced]);
 
   return (
     <>
       <style>{`
-        .weh-section { font-family: var(--font-body); }
-        @keyframes weh-blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-        @media (max-width: 640px) {
-          .weh-stats-grid { grid-template-columns: repeat(2,1fr) !important; }
-          .weh-quote { flex-direction: column !important; }
+        .weh-pin-wrapper {
+          --weh-primary: #F8F6F2;
+          --weh-secondary: #EFE8DD;
+          --weh-surface: #FBFAF8;
+          --weh-copper: #B86B45;
+          --weh-amber: #E5A94D;
+          --weh-text: #241A16;
+          --weh-text-2: rgba(36,26,22,0.68);
+          --weh-frame-radius: 26px;
+
+          position: relative;
+          height: ${TOTAL_VH}vh;
+          background:
+            radial-gradient(38% 30% at 18% 4%, rgba(255,255,255,0.55), transparent 70%),
+            radial-gradient(60% 45% at 12% -4%, rgba(229,169,77,0.15), transparent 62%),
+            radial-gradient(42% 38% at 78% 22%, rgba(184,107,69,0.07), transparent 68%),
+            radial-gradient(50% 42% at 88% 62%, rgba(229,169,77,0.1), transparent 65%),
+            radial-gradient(55% 50% at 96% 108%, rgba(184,107,69,0.16), transparent 62%),
+            linear-gradient(165deg, var(--weh-surface) 0%, var(--weh-primary) 46%, var(--weh-secondary) 100%);
         }
+        .weh-pin-wrapper.weh-static {
+          height: auto;
+        }
+        /* Barely-there stone/plaster grain — a soft-lit material surface
+           rather than a flat CSS gradient. Kept far too faint to read as
+           "texture" consciously; it just stops the surface looking printed. */
+        .weh-pin-wrapper::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          opacity: 0.035;
+          mix-blend-mode: multiply;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+          background-size: 220px 220px;
+          animation: weh-grain-drift 150s linear infinite;
+        }
+        .weh-pin-wrapper.weh-static::before { opacity: 0.02; animation: none; }
+        @keyframes weh-grain-drift {
+          0% { background-position: 0 0; }
+          100% { background-position: 660px 440px; }
+        }
+
+        /* ── Presence field — a fixed, blurred warmth that drifts toward
+           the cursor with heavy inertia (gsap.quickTo on transform only)
+           and fades with the section's own viewport intersection. Never
+           positioned via layout — translate + opacity only. ──────────── */
+        .weh-presence-glow {
+          position: fixed;
+          top: 50%; left: 50%;
+          width: 90vmax; height: 90vmax;
+          margin: -45vmax 0 0 -45vmax;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(255, 205, 148, 0.30) 0%, rgba(184, 107, 69, 0.10) 42%, transparent 68%);
+          filter: blur(90px);
+          mix-blend-mode: soft-light;
+          opacity: 0;
+          pointer-events: none;
+          z-index: 3;
+          will-change: transform, opacity;
+        }
+
+        .weh-stage {
+          position: sticky;
+          top: 0;
+          height: 100vh;
+          width: 100%;
+          overflow: hidden;
+          font-family: var(--font-body);
+          perspective: 1600px;
+        }
+        .weh-static .weh-stage {
+          position: static;
+          height: auto;
+          overflow: visible;
+        }
+
+        /* ── Ambient depth layers — soft blurred mesh-gradient glow. Two
+           independent motions stack on the same element without fighting:
+           GSAP writes a translateY transform every scroll tick (parallax
+           at three different speeds, foreground/midground/background
+           depth); a slow autonomous CSS keyframe breathes their opacity and
+           blur radius so the background stays visibly alive even while a
+           card is fully held and nothing is scrolling. Never sharp, never a
+           pattern — just light. ─────────────────────────────────────────── */
+        .weh-ambient-layer {
+          position: absolute;
+          border-radius: 50%;
+          pointer-events: none;
+          filter: blur(70px);
+          will-change: transform;
+          animation: weh-ambient-breathe 38s ease-in-out infinite;
+        }
+        .weh-static .weh-ambient-layer { display: none; }
+        .weh-ambient-layer--bg {
+          width: 62vw; height: 62vw; top: -18%; left: -18%;
+          background: radial-gradient(circle, var(--weh-ambient-accent, var(--weh-copper)) 0%, transparent 70%);
+          --weh-layer-base: 0.09;
+          animation-duration: 44s;
+        }
+        .weh-ambient-layer--mid {
+          width: 48vw; height: 48vw; bottom: -16%; right: -12%;
+          background: radial-gradient(circle, var(--weh-amber) 0%, transparent 70%);
+          --weh-layer-base: 0.1;
+          animation-duration: 33s;
+          animation-delay: -11s;
+        }
+        .weh-ambient-layer--fg {
+          width: 30vw; height: 30vw; top: 38%; left: 62%;
+          background: radial-gradient(circle, var(--weh-ambient-accent, var(--weh-copper)) 0%, transparent 70%);
+          --weh-layer-base: 0.07;
+          animation-duration: 52s;
+          animation-delay: -19s;
+        }
+        /* Asymmetric "long exhale" — peak arrives well before the
+           midpoint, so the rise is brisk and the decay is unhurried;
+           the two halves never read as a mirrored, mechanical loop. */
+        @keyframes weh-ambient-breathe {
+          0% { opacity: var(--weh-layer-base, 0.09); filter: blur(70px); }
+          32% { opacity: calc(var(--weh-layer-base, 0.09) * 1.55); filter: blur(96px); }
+          100% { opacity: var(--weh-layer-base, 0.09); filter: blur(70px); }
+        }
+
+        .weh-beat {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          will-change: opacity, transform, filter;
+          opacity: 0;
+        }
+        .weh-beat:first-child { opacity: 1; }
+        .weh-static .weh-beat {
+          position: relative;
+          inset: auto;
+          height: auto;
+          opacity: 1 !important;
+          filter: none !important;
+          transform: none !important;
+          padding: 72px 6vw;
+        }
+
+        /* ── Title scene ────────────────────────────────────────────── */
+        .weh-title-scene { flex-direction: column; text-align: center; padding: 0 6vw; z-index: 1; }
+        .weh-title-eyebrow {
+          display: inline-flex; align-items: center; gap: 8px;
+          background: rgba(184,107,69,0.08); border: 1px solid rgba(184,107,69,0.24);
+          border-radius: 999px; padding: 8px 20px; margin-bottom: 28px;
+          font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+          color: var(--weh-copper);
+        }
+        .weh-title-eyebrow-dot {
+          width: 6px; height: 6px; border-radius: 50%; background: var(--weh-amber);
+          animation: weh-blink 2s infinite;
+        }
+        .weh-title-heading {
+          font-family: var(--font-heading); font-weight: 400;
+          font-size: clamp(2.75rem, 7vw, 6rem); line-height: 1.02;
+          color: var(--weh-text); max-width: 16ch; margin: 0 auto;
+        }
+
+        /* ── Benefit scenes ─────────────────────────────────────────── */
+        .weh-scene-grid {
+          position: relative; z-index: 1;
+          display: flex; align-items: center; justify-content: center;
+          gap: 5vw; width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 6vw;
+        }
+        .weh-scene-grid--right { flex-direction: row; }
+        .weh-scene-grid--left { flex-direction: row-reverse; }
+
+        /* Premium glass surface for the copy side, mirroring the image
+           panel's own glass-edged frame — type reads as sitting on a placed
+           material object, not floating directly on the page background. */
+        .weh-scene-copy {
+          flex: 1 1 46%; max-width: 580px;
+          padding: clamp(32px, 4vw, 56px);
+          border-radius: 28px;
+          background: linear-gradient(155deg, rgba(255,255,255,0.5), rgba(255,255,255,0.16));
+          backdrop-filter: blur(22px) saturate(140%);
+          -webkit-backdrop-filter: blur(22px) saturate(140%);
+          border: 1px solid rgba(255,255,255,0.55);
+          box-shadow:
+            0 30px 60px -32px rgba(36,26,22,0.18),
+            inset 0 1px 0 rgba(255,255,255,0.6);
+        }
+        .weh-static .weh-scene-copy { backdrop-filter: none; -webkit-backdrop-filter: none; }
+        .weh-scene-index {
+          display: block; font-family: var(--font-heading); font-size: clamp(14px, 1.4vw, 18px);
+          letter-spacing: 0.24em; color: rgba(36,26,22,0.22); margin-bottom: 18px;
+        }
+        .weh-scene-counter {
+          display: flex; align-items: baseline; gap: 10px; margin: 0 0 20px;
+          font-family: var(--font-body); font-size: 15px; font-weight: 700; color: var(--weh-accent);
+        }
+        .weh-scene-counter-label {
+          font-size: 12px; font-weight: 500; letter-spacing: 0.02em; color: var(--weh-text-2);
+        }
+        .weh-scene-title {
+          font-family: var(--font-heading); font-weight: 400;
+          font-size: clamp(2rem, 3.6vw, 3.5rem); line-height: 1.05;
+          color: var(--weh-text); margin: 0 0 22px;
+        }
+        .weh-scene-body {
+          font-family: var(--font-body); font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+          line-height: 1.75; color: var(--weh-text-2); max-width: 42ch; margin: 0;
+        }
+
+        .weh-scene-rowstat {
+          display: flex; align-items: baseline; gap: 12px; margin-top: 34px;
+          padding-top: 22px; border-top: 1px solid rgba(36,26,22,0.12);
+        }
+        .weh-scene-rowstat-value {
+          font-family: var(--font-heading); font-size: clamp(2rem, 3vw, 2.75rem);
+          color: var(--weh-accent); line-height: 1;
+        }
+        .weh-scene-rowstat-label {
+          font-family: var(--font-body); font-size: 13px; color: var(--weh-text-2); max-width: 18ch;
+        }
+
+        /* ── Image panel ─────────────────────────────────────────────── */
+        .weh-image-panel { flex: 1 1 44%; display: flex; justify-content: center; perspective: 1200px; }
+        .weh-image-panel-frame {
+          position: relative; width: 100%; max-width: 480px; aspect-ratio: 4 / 5;
+          max-height: 74vh; border-radius: var(--weh-frame-radius); overflow: hidden;
+          background: var(--weh-surface);
+          /* Shadow expansion — --weh-shadow-t (0→1) is written every scroll
+             tick by usePinnedTimeline, in lockstep with the clip-path mask
+             reveal, so the drop shadow deepens as the card lifts into place
+             rather than appearing at full weight from frame one. */
+          --weh-shadow-t: 1;
+          box-shadow:
+            0 calc(50px * var(--weh-shadow-t)) calc(90px * var(--weh-shadow-t)) -24px rgba(36,26,22, calc(0.28 * var(--weh-shadow-t))),
+            0 calc(12px * var(--weh-shadow-t)) calc(28px * var(--weh-shadow-t)) -12px rgba(36,26,22, calc(0.16 * var(--weh-shadow-t))),
+            0 0 0 1px rgba(184,107,69,0.1);
+        }
+        .weh-image-panel-img {
+          position: absolute; inset: -4%; width: 108%; height: 108%; object-fit: cover;
+          will-change: transform;
+        }
+        .weh-image-panel-scrim {
+          position: absolute; inset: 0;
+          background: linear-gradient(180deg, rgba(36,26,22,0) 68%, rgba(36,26,22,0.16) 100%);
+        }
+        /* Diagonal light sweep — crosses the frame once as it opens. */
+        .weh-image-panel-sweep {
+          position: absolute; inset: -20% -55%;
+          background: linear-gradient(115deg, transparent 42%, rgba(255,255,255,0.6) 50%, transparent 58%);
+          opacity: 0;
+          pointer-events: none;
+        }
+        /* Soft inner highlight — a hint of physical reflection on the glass. */
+        .weh-image-panel-edge {
+          position: absolute; inset: 0; pointer-events: none;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), inset 0 0 0 1px rgba(255,255,255,0.12);
+          mix-blend-mode: overlay;
+        }
+        .weh-static .weh-image-panel-sweep { display: none; }
+
+        /* ── Quote scene ─────────────────────────────────────────────── */
+        .weh-quote-scene {
+          z-index: 1;
+          background:
+            radial-gradient(60% 60% at 50% 24%, rgba(229,169,77,0.2), transparent 62%),
+            linear-gradient(180deg, var(--weh-primary) 0%, var(--weh-secondary) 100%);
+        }
+        .weh-quote-inner {
+          max-width: 880px; margin: 0 auto; padding: clamp(48px, 6vw, 88px) clamp(32px, 7vw, 96px);
+          text-align: center; border-radius: 32px;
+          background: linear-gradient(155deg, rgba(255,255,255,0.5), rgba(255,255,255,0.14));
+          backdrop-filter: blur(22px) saturate(140%);
+          -webkit-backdrop-filter: blur(22px) saturate(140%);
+          border: 1px solid rgba(255,255,255,0.55);
+          box-shadow: 0 30px 70px -36px rgba(36,26,22,0.2), inset 0 1px 0 rgba(255,255,255,0.6);
+        }
+        .weh-static .weh-quote-inner { backdrop-filter: none; -webkit-backdrop-filter: none; }
+        .weh-quote-mark {
+          display: block; font-family: var(--font-heading); font-size: clamp(6rem, 12vw, 9rem);
+          color: rgba(184,107,69,0.28); line-height: 1; margin-bottom: -1.4rem;
+        }
+        .weh-quote-text {
+          font-family: var(--font-body); font-style: italic; font-weight: 500;
+          font-size: clamp(1.4rem, 3vw, 2.5rem); line-height: 1.5; letter-spacing: -0.01em;
+          color: var(--weh-text); max-width: 46ch; margin: 0 auto;
+        }
+        .weh-quote-attribution {
+          display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;
+          margin-top: 32px;
+        }
+        .weh-quote-name-row { display: inline-flex; align-items: center; gap: 10px; }
+        .weh-quote-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--weh-amber); flex-shrink: 0; }
+        .weh-quote-name {
+          font-family: var(--font-body); font-size: 14px; font-weight: 700; color: var(--weh-copper);
+        }
+        .weh-quote-role { font-weight: 500; color: var(--weh-text-2); }
+        .weh-quote-source {
+          background: rgba(184,107,69,0.08); border: 1px solid rgba(184,107,69,0.22);
+          color: var(--weh-copper); padding: 3px 10px; border-radius: 999px; font-size: 11px;
+        }
+
+        /* ── CTA ending ──────────────────────────────────────────────── */
+        .weh-cta-ending {
+          z-index: 1;
+          background:
+            radial-gradient(70% 60% at 50% 58%, rgba(229,169,77,0.24), transparent 65%),
+            linear-gradient(180deg, var(--weh-secondary) 0%, var(--weh-primary) 100%);
+        }
+        .weh-cta-ending-link {
+          position: relative; display: inline-flex; align-items: center; gap: 18px;
+          text-decoration: none; color: var(--weh-copper);
+          font-family: var(--font-heading); font-size: clamp(1.75rem, 4.4vw, 3.25rem);
+          letter-spacing: 0.01em; padding-bottom: 10px;
+          transition: color 0.4s ease;
+        }
+        .weh-cta-ending-link:hover { color: #8F4E30; }
+        .weh-cta-ending-word { display: inline-flex; overflow: hidden; }
+        .weh-cta-ending-letter { display: inline-block; white-space: pre; transition: transform 0.4s cubic-bezier(.16,1,.3,1); }
+        .weh-cta-ending-link:hover .weh-cta-ending-letter { transform: translateY(-6px); }
+        .weh-cta-ending-chrome { display: inline-flex; align-items: center; }
+        .weh-cta-ending-arrow { display: inline-flex; transition: transform 0.35s ease; }
+        .weh-cta-ending-link:hover .weh-cta-ending-arrow { transform: translateX(6px); }
+        .weh-cta-ending-underline { position: absolute; left: 0; right: 40px; bottom: 0; height: 2px; }
+        .weh-cta-ending-underline-r, .weh-cta-ending-underline-l { position: absolute; inset: 0; background: currentColor; }
+        .weh-cta-ending-underline-r { transform-origin: right center; transition: transform 0.36s cubic-bezier(.16,1,.3,1); }
+        .weh-cta-ending-underline-l { transform-origin: left center; transform: scaleX(0); transition: transform 0.52s cubic-bezier(.16,1,.3,1); }
+        .weh-cta-ending-link:hover .weh-cta-ending-underline-r { transform: scaleX(0); }
+        .weh-cta-ending-link:hover .weh-cta-ending-underline-l { transform: scaleX(1); }
+
+        @keyframes weh-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
         @media (max-width: 900px) {
-          .weh-cards-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .weh-scene-grid, .weh-scene-grid--left, .weh-scene-grid--right {
+            flex-direction: column; text-align: center; gap: 40px;
+          }
+          .weh-scene-copy { max-width: 520px; }
+          .weh-scene-rowstat { justify-content: center; }
+          .weh-image-panel-frame { max-width: 340px; aspect-ratio: 4 / 5; max-height: 46vh; }
+          .weh-quote-attribution { justify-content: center; }
+          .weh-ambient-layer { opacity: 0.05 !important; animation: none !important; }
         }
-        .weh-carousel { position: relative; width: 100%; height: 380px; display: flex; align-items: center; justify-content: center; overflow: hidden; user-select: none; }
-        .weh-carousel-track { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-        .weh-card-wrap { position: absolute; top: 0; left: 50%; height: 100%; display: flex; align-items: center; cursor: pointer; }
-        .weh-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(196,98,58,0.25); border: none; padding: 0; cursor: pointer; transition: all 0.25s ease; }
-        .weh-dot.active { background: #C4623A; width: 24px; border-radius: 4px; }
-        @media (max-width: 768px) {
-          .weh-carousel { height: 340px; }
-          .weh-card { width: 280px !important; height: 300px !important; }
-        }
-        @media (max-width: 480px) {
-          .weh-carousel { height: 310px; }
-          .weh-card { width: 260px !important; height: 280px !important; }
+
+        @media (prefers-reduced-motion: reduce) {
+          .weh-title-eyebrow-dot { animation: none; }
+          .weh-ambient-layer { animation: none !important; }
+          .weh-pin-wrapper::before { animation: none !important; }
+          .weh-presence-glow { display: none !important; }
         }
       `}</style>
 
-      <section className="weh-section" id="why-electric-hamam" style={{
-        background: 'linear-gradient(180deg, #FFFFFF 0%, #FFF4E8 35%, #FFE8D0 70%, #F8C084 100%)',
-        padding: '64px 40px',
-      }}>
-        <div style={{ maxWidth: 1160, margin: '0 auto' }}>
-
-          {/* 1. HEADER */}
-          <div ref={headerRef}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={headerIn ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, ease: EASE }}
-              style={{ textAlign: 'center', marginBottom: 40 }}
-            >
-              {/* Badge pill */}
-              <div style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                background: 'rgba(196,98,58,0.08)',
-                border: '1px solid rgba(184,107,69,0.18)',
-                borderRadius: 999,
-                padding: '6px 16px',
-                marginBottom: 20,
-              }}>
-                <span style={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: '50%',
-                  background: '#E88C2A',
-                  display: 'inline-block',
-                  animation: 'weh-blink 2s infinite',
-                }} />
-                <span style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 10,
-                  fontWeight: 600,
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  color: '#B86B45',
-                }}>
-                  The Modern Choice
-                </span>
-              </div>
-
-              <h2 style={{
-                fontFamily: "var(--font-heading)",
-                fontSize: 'clamp(28px, 4vw, 44px)',
-                fontWeight: 700,
-                color: '#2C1810',
-                lineHeight: 1.1,
-                margin: '0 auto',
-                maxWidth: 640,
-              }}>
-               The Modern Evolution of Traditional Warmth
-              </h2>
-
-              {/* Orange underline bar */}
-              <div style={{
-                width: 48,
-                height: 3,
-                background: 'linear-gradient(90deg,#C4623A,#E88C2A)',
-                borderRadius: 2,
-                margin: '16px auto',
-              }} />
-
-           
-            </motion.div>
-          </div>
-
-          {/* 2. STATS ROW */}
-          <div ref={statsRef} style={{
-            borderTop: '1px solid rgba(184,107,69,0.18)',
-            borderBottom: '1px solid rgba(184,107,69,0.18)',
-            padding: '20px 0',
-            margin: '32px 0',
-          }}>
-            <motion.div
-              className="weh-stats-grid"
-              initial={{ opacity: 0, y: 16 }}
-              animate={statsIn ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-              }}
-            >
-              {STATS.map((stat, i) => (
-                <div key={stat.value} style={{
-                  textAlign: 'center',
-                  padding: '0 16px',
-                  borderRight: i < STATS.length - 1 ? '1px solid rgba(184,107,69,0.18)' : 'none',
-                }}>
-                  <div style={{
-                    fontFamily: "var(--font-heading)",
-                    fontSize: 'clamp(28px, 3vw, 36px)',
-                    fontWeight: 700,
-                    color: '#C4623A',
-                    lineHeight: 1.1,
-                  }}>
-                    {stat.value}
-                  </div>
-                  <div style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 11.5,
-                    color: '#6B4A2D',
-                    lineHeight: 1.5,
-                    marginTop: 4,
-                  }}>
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* 3. SIX CARDS CAROUSEL */}
-          <div ref={cardsRef}>
-            <div
-              className="weh-carousel"
-              onMouseDown={onPointerDown}
-              onMouseMove={onPointerMove}
-              onMouseUp={onPointerUp}
-              onMouseLeave={onPointerUp}
-              onTouchStart={onPointerDown}
-              onTouchMove={onPointerMove}
-              onTouchEnd={onPointerUp}
-            >
-              <div className="weh-carousel-track">
-                {CARDS.map((card, i) => {
-                  const off = getOffset(i);
-                  const absOff = Math.abs(off);
-                  const isActive = off === 0;
-                  const isVisible = absOff <= 2;
-                  if (!isVisible) return null;
-
-                  const xPx = off * 240;
-                  const scale = isActive ? 1 : absOff === 1 ? 0.84 : 0.70;
-                  const opacity = isActive ? 1 : absOff === 1 ? 0.5 : 0.25;
-                  const zIndex = isActive ? 10 : absOff === 1 ? 5 : 2;
-                  const blur = isActive ? 0 : absOff === 1 ? 1.5 : 3;
-
-                  return (
-                    <motion.div
-                      key={card.title}
-                      className="weh-card-wrap"
-                      onClick={() => !isDragging && goTo(i)}
-                      animate={{
-                        x: `calc(-50% + ${xPx}px)`,
-                        scale,
-                        opacity,
-                        filter: `blur(${blur}px)`,
-                        zIndex,
-                      }}
-                      transition={{ duration: 0.48, ease: EASE }}
-                      style={{ zIndex }}
-                    >
-                      <div
-                        className="weh-card"
-                        style={{
-                          position: 'relative',
-                          width: 320,
-                          height: 340,
-                          background: 'rgba(255,255,255,0.92)',
-                          backdropFilter: 'blur(28px)',
-                          border: '1px solid rgba(184,107,69,0.22)',
-                          borderRadius: 24,
-                          boxShadow: isActive
-                            ? '0 24px 64px rgba(60,42,37,0.14), 0 0 0 2px rgba(196,98,58,0.15)'
-                            : '0 24px 64px rgba(60,42,37,0.14)',
-                          padding: '28px 26px',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: 14,
-                          overflow: 'hidden',
-                          flexShrink: 0,
-                        }}
-                      >
-                        {/* Top accent line */}
-                        <div style={{
-                          position: 'absolute', top: 0, left: 0, right: 0, height: 3,
-                          background: `linear-gradient(90deg, ${card.accentColor}, ${card.accentColor}60)`,
-                          borderRadius: '24px 24px 0 0',
-                        }} />
-
-                        {/* Watermark number */}
-                        <div style={{
-                          position: 'absolute', bottom: 16, right: 20,
-                          fontFamily: "var(--font-heading)",
-                          fontSize: 64, fontWeight: 700,
-                          color: card.accentColor + '08',
-                          lineHeight: 1, userSelect: 'none', pointerEvents: 'none',
-                        }}>
-                          {String(i + 1).padStart(2, '0')}
-                        </div>
-
-                        {/* Top row: icon + stat */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                          <div style={{
-                            width: 44, height: 44, borderRadius: 14,
-                            background: card.accentColor + '12',
-                            border: `1px solid ${card.accentColor}25`,
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            color: card.accentColor, flexShrink: 0,
-                          }}>
-                            {card.icon}
-                          </div>
-                         
-                        </div>
-
-                        {/* Title */}
-                        <h3 style={{
-                          fontFamily: "var(--font-heading)",
-                          fontSize: 'clamp(20px, 2vw, 24px)',
-                          fontWeight: 700, color: '#2C1810',
-                          lineHeight: 1.2, margin: 0,
-                        }}>
-                          {card.title}
-                        </h3>
-
-                        {/* Micro bar */}
-                        <div style={{
-                          width: 32, height: 2.5,
-                          background: `linear-gradient(90deg, ${card.accentColor}, ${card.accentColor}50)`,
-                          borderRadius: 2,
-                        }} />
-
-                        {/* Body */}
-                        <p style={{
-                          fontFamily: "var(--font-body)",
-                          fontSize: 13.5, color: '#3C2B27',
-                          opacity: 0.82, lineHeight: 1.72, margin: 0, flex: 1,
-                        }}>
-                          {card.body}
-                        </p>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Dots */}
-            <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginTop: 28 }}>
-              {CARDS.map((_, i) => (
-                <button
-                  key={i}
-                  className={`weh-dot${active === i ? ' active' : ''}`}
-                  onClick={() => goTo(i)}
-                  aria-label={`Go to card ${i + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* 4. DOCTOR QUOTE */}
-          <div ref={quoteRef} style={{
-            borderTop: '1px solid rgba(184,107,69,0.18)',
-            paddingTop: 24,
-            marginTop: 32,
-          }}>
-            <motion.div
-              className="weh-quote"
-              initial={{ opacity: 0, y: 20 }}
-              animate={quoteIn ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, ease: EASE }}
-              style={{
-                display: 'flex',
-                gap: 20,
-                alignItems: 'flex-start',
-              }}
-            >
-              {/* Quote mark */}
-              <div style={{
-                fontFamily: "var(--font-heading)",
-                fontSize: 72,
-                color: 'rgba(196,98,58,0.2)',
-                lineHeight: 1,
-                marginTop: -8,
-                flexShrink: 0,
-              }}>
-                "
-              </div>
-
-              {/* Content */}
-              <div>
-                <p style={{
-                  fontFamily: "var(--font-heading)",
-                  fontSize: 'clamp(15px, 1.5vw, 18px)',
-                  fontStyle: 'italic',
-                  color: '#2C1810',
-                  lineHeight: 1.7,
-                  opacity: 0.9,
-                  margin: 0,
-                }}>
-                  "The underfloor heating system has no generation of gases, is completely insulated which makes it safe. There is no production of smoke — it is as good as a traditional hamam in every way."
-                </p>
-
-                {/* Attribution */}
-                <div style={{
-                  display: 'flex',
-                  gap: 12,
-                  alignItems: 'center',
-                  marginTop: 12,
-                  flexWrap: 'wrap',
-                }}>
-                  <span style={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: '50%',
-                    background: '#E88C2A',
-                    display: 'inline-block',
-                  }} />
-                  <span style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 12,
-                    fontWeight: 700,
-                    color: '#B86B45',
-                  }}>
-                    Dr. Naveed Nazir — Pulmonologist, Kashmir
-                  </span>
-                  <span style={{
-                    background: 'rgba(196,98,58,0.08)',
-                    border: '1px solid rgba(184,107,69,0.18)',
-                    color: '#B86B45',
-                    padding: '2px 8px',
-                    borderRadius: 999,
-                    fontFamily: "var(--font-body)",
-                    fontSize: 10,
-                  }}>
-                    Kashmir Observer, Dec 2023
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-        </div>
+      <section
+        ref={sectionRef}
+        id="why-electric-hamam-story"
+        className={`weh-pin-wrapper${reduced ? ' weh-static' : ''}`}
+      >
+        <SceneManager wrapperRef={sectionRef} ctaHref={ctaHref} reduced={reduced} />
+        {!reduced && <div className="weh-presence-glow" ref={presenceRef} aria-hidden="true" />}
       </section>
     </>
   );

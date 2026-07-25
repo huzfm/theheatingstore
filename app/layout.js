@@ -19,9 +19,11 @@ const bebasNeue = Bebas_Neue({
 
 // Body / UI font — Hanken Grotesk (Google Fonts, self-hosted at build).
 // Clean, readable grotesque that pairs with the condensed gothic headlines.
+// 800 is loaded only for the hero's closing-shot heading, which needs a real
+// extra-bold rather than the browser synthesising one from 700.
 const hankenGrotesk = Hanken_Grotesk({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-body',
   display: 'swap',
 });
