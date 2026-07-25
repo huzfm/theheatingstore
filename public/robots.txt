@@ -9,7 +9,7 @@ Disallow: /SpaceVerification
 Disallow: /warranty-check
 
 # Sitemap
-Sitemap: https://electrichammam.com/sitemap.xml
+Sitemap: https://theheatingstore.in/sitemap.xml
 
 # Crawl delay (optional, be respectful)
 Crawl-delay: 1

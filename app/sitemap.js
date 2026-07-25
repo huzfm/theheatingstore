@@ -1,4 +1,4 @@
-const SITE_URL = "https://electrichammam.com";
+const SITE_URL = "https://theheatingstore.in";
 
 export default function sitemap() {
   const now = new Date();

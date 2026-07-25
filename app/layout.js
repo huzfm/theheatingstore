@@ -30,8 +30,8 @@ const hankenGrotesk = Hanken_Grotesk({
 
 export const metadata = {
   title: {
-    default: "Electric Hammam Installation | Premium Underfloor Heating Systems",
-    template: "%s | Electric Hammam",
+    default: "The Heating Store | Underfloor Heating & Electric Hammam Installation in Kashmir",
+    template: "%s | The Heating Store",
   },
   description:
     "Expert electric hammam and underfloor heating installation across India. Professional installation, imported systems, and Kashmir installation warranty — terms apply.",
@@ -44,9 +44,9 @@ export const metadata = {
     "hammam system",
     "warm floor installation",
   ],
-  authors: [{ name: "Electric Hammam" }],
-  creator: "Electric Hammam",
-  publisher: "Electric Hammam",
+  authors: [{ name: "The Heating Store" }],
+  creator: "The Heating Store",
+  publisher: "The Heating Store",
   robots: {
     index: true,
     follow: true,
@@ -61,9 +61,9 @@ export const metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://electrichammam.com",
-    siteName: "Electric Hammam",
-    title: "Electric Hammam Installation | Premium Underfloor Heating Systems",
+    url: "https://theheatingstore.in",
+    siteName: "The Heating Store",
+    title: "The Heating Store | Underfloor Heating & Electric Hammam Installation in Kashmir",
     description:
       "Expert electric hammam and underfloor heating installation across India. Professional installation, imported systems, and Kashmir installation warranty.",
     images: [
@@ -71,37 +71,34 @@ export const metadata = {
         url: "/images/og-default.jpg",
         width: 1200,
         height: 630,
-        alt: "Electric Hammam - Premium Underfloor Heating Installation",
+        alt: "The Heating Store - Premium Underfloor Heating Installation",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Electric Hammam Installation | Premium Underfloor Heating Systems",
+    title: "The Heating Store | Underfloor Heating & Electric Hammam Installation in Kashmir",
     description:
       "Expert electric hammam and underfloor heating installation across India. Professional installation, imported systems, and Kashmir installation warranty.",
     images: ["/images/og-default.jpg"],
-    creator: "@electrichammam",
+    creator: "@theheatingstore",
   },
-  metadataBase: new URL("https://electrichammam.com"),
-  alternates: {
-    canonical: "https://electrichammam.com",
-  },
+  metadataBase: new URL("https://theheatingstore.in"),
 };
 
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Electric Hammam",
-  url: "https://electrichammam.com",
+  name: "The Heating Store",
+  url: "https://theheatingstore.in",
   logo: {
     "@type": "ImageObject",
-    url: "https://electrichammam.com/images/logo.png",
+    url: "https://theheatingstore.in/images/logo.png",
   },
   sameAs: [
-    "https://www.facebook.com/electrichammam",
-    "https://www.instagram.com/electrichammam",
-    "https://www.linkedin.com/company/electrichammam",
+    "https://www.facebook.com/theheatingstore",
+    "https://www.instagram.com/theheatingstore",
+    "https://www.linkedin.com/company/theheatingstore",
   ],
   contactPoint: {
     "@type": "ContactPoint",
@@ -141,7 +138,7 @@ export default function RootLayout({ children }) {
           </SiteChrome>
         </main>
 
-        <SiteChrome hidePrefixes={['/experience', '/product', '/brands', '/installation', '/why-choose-us']}>
+        <SiteChrome hidePrefixes={['/experience', '/product', '/brands', '/installation', '/why-choose-us', '/contact']}>
           <Footer />
         </SiteChrome>
       </body>

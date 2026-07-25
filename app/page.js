@@ -34,27 +34,33 @@ export const metadata = {
     title: "TheHeatingStore — Underfloor Heating Installation in Kashmir",
     description: "Kashmir's trusted underfloor heating specialists. Free site visits, expert installation, 5-year warranty.",
   },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "@id": "https://electrichammam.com/#business",
-  name: "Electric Hammam",
+  "@id": "https://theheatingstore.in/#business",
+  name: "The Heating Store",
   description:
     "Expert electric hammam and underfloor heating installation across India. Professional installation, imported systems, and Kashmir installation warranty.",
-  url: "https://electrichammam.com",
-  telephone: "+91-XXXXXXXXXX",
-  email: "info@electrichammam.com",
+  url: "https://theheatingstore.in",
+  telephone: "+91-9070907035",
+  email: "info@theheatingstore.in",
   address: {
     "@type": "PostalAddress",
+    streetAddress: "Lal Chowk",
+    addressLocality: "Srinagar",
+    addressRegion: "Jammu and Kashmir",
+    postalCode: "190001",
     addressCountry: "IN",
-    addressRegion: "India",
   },
   geo: {
     "@type": "GeoCoordinates",
-    latitude: "28.6139",
-    longitude: "77.2090",
+    latitude: "34.0836",
+    longitude: "74.7973",
   },
   openingHoursSpecification: {
     "@type": "OpeningHoursSpecification",
@@ -74,9 +80,9 @@ const localBusinessSchema = {
     "Warranty Verification",
   ],
   sameAs: [
-    "https://www.facebook.com/electrichammam",
-    "https://www.instagram.com/electrichammam",
-    "https://www.linkedin.com/company/electrichammam",
+    "https://www.facebook.com/theheatingstore",
+    "https://www.instagram.com/theheatingstore",
+    "https://www.linkedin.com/company/theheatingstore",
   ],
 };
 
