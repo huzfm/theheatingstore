@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { motion, useInView, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
+import { useMemo, useRef, useState } from 'react';
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -69,137 +69,497 @@ const FAQ_SECTIONS = [
 	},
 ];
 
-function FaqItem({ faq, index, inView }) {
-	const [open, setOpen] = useState(false);
+function pad(n) {
+	return String(n).padStart(2, '0');
+}
+
+/* Splits an answer into words wrapped in spans for an upward reveal, staggered on open. */
+function RevealText({ text, active }) {
+	const words = useMemo(() => text.split(' '), [text]);
+	return (
+		<p
+			style={{
+				fontFamily: 'var(--font-body)',
+				fontSize: 'clamp(14px, 1.4vw, 16px)',
+				lineHeight: 1.85,
+				color: '#6B5642',
+				margin: 0,
+				fontWeight: 400,
+			}}>
+			{words.map((word, i) => (
+				<span key={i} style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'top' }}>
+					<motion.span
+						style={{ display: 'inline-block', willChange: 'transform' }}
+						initial={{ y: '110%', filter: 'blur(6px)' }}
+						animate={active ? { y: '0%', filter: 'blur(0px)' } : { y: '110%', filter: 'blur(6px)' }}
+						transition={{
+							duration: 0.65,
+							ease: EASE,
+							delay: active ? 0.1 + i * 0.012 : 0,
+						}}>
+						{word}
+						{i < words.length - 1 ? ' ' : ''}
+					</motion.span>
+				</span>
+			))}
+		</p>
+	);
+}
+
+function FaqCard({ faq, index, isOpen, onToggle }) {
+	const cardRef = useRef(null);
+
+	const mx = useMotionValue(0.5);
+	const my = useMotionValue(0.5);
+	const springMx = useSpring(mx, { stiffness: 150, damping: 20, mass: 0.4 });
+	const springMy = useSpring(my, { stiffness: 150, damping: 20, mass: 0.4 });
+
+	const rotateX = useTransform(springMy, [0, 1], [4, -4]);
+	const rotateY = useTransform(springMx, [0, 1], [-4, 4]);
+	const spotlightX = useTransform(springMx, [0, 1], ['10%', '90%']);
+	const spotlightY = useTransform(springMy, [0, 1], ['10%', '90%']);
+
+	function handleMouseMove(e) {
+		const rect = cardRef.current?.getBoundingClientRect();
+		if (!rect) return;
+		mx.set((e.clientX - rect.left) / rect.width);
+		my.set((e.clientY - rect.top) / rect.height);
+	}
+
+	function handleMouseLeave() {
+		mx.set(0.5);
+		my.set(0.5);
+	}
+
 	return (
 		<motion.div
-			initial={{ opacity: 0, y: 16 }}
-			animate={inView ? { opacity: 1, y: 0 } : {}}
-			transition={{ duration: 0.5, delay: 0.15 + index * 0.06, ease: EASE }}
-			style={{ borderBottom: '1px solid rgba(184,107,69,0.12)' }}>
-			<button
-				onClick={() => setOpen(!open)}
-				style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: '20px 0', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: 16 }}>
-				<span style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(0.95rem, 1.5vw, 1.1rem)', fontWeight: 600, color: open ? '#8B3A2A' : '#2C1810', lineHeight: 1.3, flex: 1 }}>
-					{faq.q}
-				</span>
-				<span style={{ width: 32, height: 32, borderRadius: '50%', background: open ? '#8B3A2A' : 'rgba(139,58,42,0.08)', border: '1px solid rgba(139,58,42,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.25s ease' }}>
-					<svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke={open ? 'white' : '#8B3A2A'} strokeWidth='2.5' strokeLinecap='round' strokeLinejoin='round'
-						style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.25s ease' }}>
-						<polyline points='6 9 12 15 18 9' />
-					</svg>
-				</span>
-			</button>
-			{open && (
-				<motion.div
-					initial={{ opacity: 0, height: 0 }}
-					animate={{ opacity: 1, height: 'auto' }}
-					transition={{ duration: 0.3, ease: EASE }}
-					style={{ paddingBottom: 20, overflow: 'hidden' }}>
-					<p style={{ fontFamily: "var(--font-body)", fontSize: 'clamp(13px, 1.5vw, 15px)', color: '#6B4A2D', lineHeight: 1.8, margin: 0 }}>
-						{faq.a}
-					</p>
-				</motion.div>
-			)}
+			ref={cardRef}
+			onMouseMove={handleMouseMove}
+			onMouseLeave={handleMouseLeave}
+			style={{
+				position: 'relative',
+				borderRadius: 30,
+				perspective: 1400,
+				rotateX: isOpen ? 0 : rotateX,
+				rotateY: isOpen ? 0 : rotateY,
+				transformStyle: 'preserve-3d',
+				willChange: 'transform',
+			}}
+			whileHover={{ scale: isOpen ? 1 : 1.008 }}
+			transition={{ duration: 0.5, ease: EASE }}
+			className="faq-card-shell">
+			{/* spotlight */}
+			<motion.div
+				aria-hidden
+				style={{
+					position: 'absolute',
+					inset: 0,
+					borderRadius: 30,
+					pointerEvents: 'none',
+					opacity: isOpen ? 1 : 0,
+					background: useTransform(
+						[spotlightX, spotlightY],
+						([x, y]) => `radial-gradient(420px circle at ${x} ${y}, rgba(232,140,42,0.16), transparent 60%)`
+					),
+					transition: 'opacity 0.4s ease',
+					zIndex: 0,
+				}}
+			/>
+
+			<motion.div
+				layout
+				transition={{ layout: { duration: 0.7, ease: EASE } }}
+				className={`faq-card ${isOpen ? 'faq-card--open' : ''}`}
+				style={{ position: 'relative', zIndex: 1 }}>
+				<button onClick={onToggle} className="faq-card-trigger" aria-expanded={isOpen}>
+					<span className="faq-card-index">{pad(index + 1)}</span>
+
+					<motion.span
+						layout="position"
+						transition={{ duration: 0.6, ease: EASE }}
+						className="faq-card-question"
+						style={{ color: isOpen ? '#8B3A2A' : '#2C1810' }}>
+						{faq.q}
+					</motion.span>
+
+					<motion.span
+						animate={{ rotate: isOpen ? 135 : 0, backgroundColor: isOpen ? '#8B3A2A' : 'rgba(139,58,42,0.06)' }}
+						transition={{ duration: 0.55, ease: EASE }}
+						className="faq-card-icon">
+						<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={isOpen ? '#FFF7EF' : '#8B3A2A'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+							<line x1="12" y1="5" x2="12" y2="19" />
+							<line x1="5" y1="12" x2="19" y2="12" />
+						</svg>
+					</motion.span>
+				</button>
+
+				<AnimatePresence initial={false}>
+					{isOpen && (
+						<motion.div
+							key="content"
+							initial={{ height: 0, opacity: 0 }}
+							animate={{ height: 'auto', opacity: 1 }}
+							exit={{ height: 0, opacity: 0 }}
+							transition={{
+								height: { duration: 0.65, ease: EASE },
+								opacity: { duration: 0.4, ease: EASE },
+							}}
+							style={{ overflow: 'hidden' }}>
+							<div className="faq-card-answer">
+								<motion.div
+									initial={{ scaleX: 0 }}
+									animate={{ scaleX: 1 }}
+									exit={{ scaleX: 0 }}
+									transition={{ duration: 0.7, ease: EASE, delay: 0.05 }}
+									className="faq-card-divider"
+								/>
+								<RevealText text={faq.a} active={isOpen} />
+							</div>
+						</motion.div>
+					)}
+				</AnimatePresence>
+			</motion.div>
 		</motion.div>
+	);
+}
+
+function FloatingBlobs() {
+	return (
+		<div className="faq-blobs" aria-hidden>
+			<motion.div
+				className="faq-blob faq-blob--1"
+				animate={{ x: [0, 40, -20, 0], y: [0, -30, 20, 0] }}
+				transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
+			/>
+			<motion.div
+				className="faq-blob faq-blob--2"
+				animate={{ x: [0, -50, 30, 0], y: [0, 40, -20, 0] }}
+				transition={{ duration: 32, repeat: Infinity, ease: 'easeInOut' }}
+			/>
+			<motion.div
+				className="faq-blob faq-blob--3"
+				animate={{ x: [0, 30, -40, 0], y: [0, -20, 30, 0] }}
+				transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
+			/>
+		</div>
 	);
 }
 
 export default function FaqSection() {
 	const ref = useRef(null);
-	const inView = useInView(ref, { once: true, amount: 0.05 });
+	const inView = useInView(ref, { once: true, amount: 0.08 });
 	const [activeSection, setActiveSection] = useState('Basics');
-	const currentFaqs = FAQ_SECTIONS.find(s => s.section === activeSection)?.faqs || [];
+	const [openIndex, setOpenIndex] = useState(null);
+
+	const currentFaqs = FAQ_SECTIONS.find((s) => s.section === activeSection)?.faqs || [];
+
+	function handleSectionChange(section) {
+		setActiveSection(section);
+		setOpenIndex(null);
+	}
+
+	function handleToggle(i) {
+		setOpenIndex((prev) => (prev === i ? null : i));
+	}
 
 	return (
-		<>
+		<section className="faq-wrap" ref={ref}>
 			<style>{`
-				.faq-wrap { position: relative; overflow: hidden; }
-				.faq-glow { position: absolute; inset: 0; pointer-events: none; }
-				.faq-content { max-width: 760px; margin: 0 auto; padding: 88px 40px 56px; position: relative; z-index: 1; }
-				.faq-card { background: rgba(255,255,255,0.80); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px); border: 1px solid rgba(255,255,255,0.5); border-radius: 24px; box-shadow: 0 12px 48px rgba(60,42,37,0.10); padding: 32px 36px; }
-				.faq-tabs { display: flex; flex-direction: row; gap: 8px; overflow-x: auto; padding: 4px 4px 0; scrollbar-width: none; -ms-overflow-style: none; }
-				.faq-tabs::-webkit-scrollbar { display: none; }
-				@media (max-width: 768px) { .faq-content { padding: 64px 20px 40px; } .faq-card { padding: 24px 20px; } }
+				.faq-wrap {
+					position: relative;
+					overflow: hidden;
+					background: linear-gradient(180deg, #FFF7EF 0%, #F8F4EE 45%, #F6F0E8 100%);
+					padding: 140px 0 160px;
+				}
+
+				.faq-noise {
+					position: absolute;
+					inset: -10%;
+					pointer-events: none;
+					opacity: 0.05;
+					mix-blend-mode: multiply;
+					background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+					z-index: 1;
+				}
+
+				.faq-vignette {
+					position: absolute;
+					inset: 0;
+					pointer-events: none;
+					background: radial-gradient(120% 90% at 50% 0%, transparent 55%, rgba(44,24,16,0.05) 100%);
+					z-index: 1;
+				}
+
+				.faq-blobs { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+				.faq-blob {
+					position: absolute;
+					border-radius: 50%;
+					filter: blur(90px);
+					will-change: transform;
+				}
+				.faq-blob--1 { width: 480px; height: 480px; top: -120px; left: -100px; background: radial-gradient(circle, rgba(232,140,42,0.22), transparent 70%); }
+				.faq-blob--2 { width: 560px; height: 560px; bottom: -180px; right: -140px; background: radial-gradient(circle, rgba(196,98,58,0.16), transparent 70%); }
+				.faq-blob--3 { width: 380px; height: 380px; top: 40%; left: 55%; background: radial-gradient(circle, rgba(255,224,178,0.35), transparent 70%); }
+
+				.faq-inner {
+					position: relative;
+					z-index: 2;
+					max-width: 1500px;
+					margin: 0 auto;
+					padding: 0 48px;
+					display: grid;
+					grid-template-columns: minmax(260px, 380px) 1fr;
+					gap: 80px;
+				}
+
+				.faq-left { position: sticky; top: 120px; align-self: start; }
+
+				.faq-eyebrow {
+					display: inline-flex;
+					align-items: center;
+					gap: 10px;
+					font-family: var(--font-body);
+					font-size: 11px;
+					font-weight: 600;
+					text-transform: uppercase;
+					letter-spacing: 0.35em;
+					color: #B86B45;
+					margin-bottom: 28px;
+				}
+				.faq-eyebrow-num { color: #C4623A; font-variant-numeric: tabular-nums; }
+
+				.faq-heading {
+					font-family: var(--font-heading);
+					font-size: clamp(40px, 5vw, 72px);
+					line-height: 0.98;
+					font-weight: 400;
+					letter-spacing: 0.005em;
+					color: #2C1810;
+					margin: 0 0 24px;
+				}
+
+				.faq-subtitle {
+					font-family: var(--font-body);
+					font-size: clamp(14px, 1.3vw, 16px);
+					line-height: 1.8;
+					color: #7A6650;
+					max-width: 340px;
+					margin: 0 0 40px;
+					font-weight: 400;
+				}
+
+				.faq-line {
+					width: 1px;
+					height: 64px;
+					background: linear-gradient(180deg, #C4623A, transparent);
+					transform-origin: top;
+					margin-bottom: 40px;
+				}
+
+				.faq-tabs { display: flex; flex-direction: column; gap: 4px; }
+				.faq-tab {
+					display: flex;
+					align-items: center;
+					gap: 12px;
+					background: none;
+					border: none;
+					cursor: pointer;
+					padding: 10px 0;
+					text-align: left;
+					font-family: var(--font-body);
+					font-size: 14px;
+					font-weight: 500;
+					color: #9C8266;
+					transition: color 0.4s ease;
+				}
+				.faq-tab:hover { color: #8B3A2A; }
+				.faq-tab--active { color: #8B3A2A; font-weight: 600; }
+				.faq-tab-dot {
+					width: 5px;
+					height: 5px;
+					border-radius: 50%;
+					background: currentColor;
+					opacity: 0.35;
+					flex-shrink: 0;
+					transition: opacity 0.4s ease, transform 0.4s ease;
+				}
+				.faq-tab--active .faq-tab-dot { opacity: 1; transform: scale(1.6); }
+
+				.faq-right { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+
+				.faq-card-shell { transform-style: preserve-3d; }
+
+				.faq-card {
+					border-radius: 30px;
+					background: rgba(255,255,255,0.55);
+					backdrop-filter: blur(26px);
+					-webkit-backdrop-filter: blur(26px);
+					border: 1px solid rgba(255,255,255,0.6);
+					box-shadow: 0 8px 30px rgba(60,42,37,0.06), 0 1px 0 rgba(255,255,255,0.8) inset;
+					transition: box-shadow 0.6s ease, border-color 0.6s ease, background 0.6s ease;
+				}
+
+				.faq-card--open {
+					background: rgba(255,255,255,0.78);
+					border-color: rgba(232,140,42,0.35);
+					box-shadow: 0 30px 70px rgba(139,58,42,0.14), 0 0 0 1px rgba(232,140,42,0.12), 0 1px 0 rgba(255,255,255,0.9) inset;
+				}
+
+				.faq-card-trigger {
+					width: 100%;
+					display: flex;
+					align-items: center;
+					gap: 24px;
+					background: none;
+					border: none;
+					cursor: pointer;
+					text-align: left;
+					padding: 30px 34px;
+				}
+
+				.faq-card-index {
+					font-family: var(--font-body);
+					font-size: 12px;
+					font-weight: 600;
+					letter-spacing: 0.1em;
+					color: #C4623A;
+					opacity: 0.55;
+					flex-shrink: 0;
+					font-variant-numeric: tabular-nums;
+				}
+
+				.faq-card-question {
+					flex: 1;
+					font-family: var(--font-heading);
+					font-size: clamp(16px, 1.7vw, 21px);
+					font-weight: 400;
+					letter-spacing: 0.01em;
+					line-height: 1.35;
+				}
+
+				.faq-card-icon {
+					width: 40px;
+					height: 40px;
+					border-radius: 50%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					flex-shrink: 0;
+					border: 1px solid rgba(139,58,42,0.15);
+				}
+
+				.faq-card-answer { padding: 0 34px 34px 78px; }
+
+				.faq-card-divider {
+					height: 1px;
+					width: 100%;
+					transform-origin: left;
+					background: linear-gradient(90deg, rgba(196,98,58,0.4), transparent);
+					margin-bottom: 20px;
+				}
+
+				@media (max-width: 1080px) {
+					.faq-inner { grid-template-columns: 1fr; gap: 56px; padding: 0 28px; }
+					.faq-left { position: static; }
+					.faq-subtitle { max-width: 520px; }
+					.faq-tabs { flex-direction: row; flex-wrap: wrap; gap: 8px 20px; }
+				}
+
+				@media (max-width: 640px) {
+					.faq-wrap { padding: 96px 0 110px; }
+					.faq-card-trigger { padding: 22px 20px; gap: 14px; }
+					.faq-card-answer { padding: 0 20px 26px 20px; }
+					.faq-card-index { display: none; }
+				}
 			`}</style>
 
-			<div className='faq-wrap' style={{ backgroundImage: 'linear-gradient(180deg,#FFF4E8 0%,#FFFFFF 50%,#FFF4E8 100%)' }}>
-				<div className='faq-glow' style={{ background: 'radial-gradient(50% 40% at 50% 0%, rgba(245,185,122,0.28), transparent 70%)' }} />
+			<FloatingBlobs />
+			<div className="faq-noise" />
+			<div className="faq-vignette" />
 
-				<div ref={ref} className='faq-content'>
+			<div className="faq-inner">
+				<div className="faq-left">
 					<motion.div
-						initial={{ opacity: 0, y: 20 }}
+						initial={{ opacity: 0, y: 16 }}
 						animate={inView ? { opacity: 1, y: 0 } : {}}
-						transition={{ duration: 0.7, ease: EASE }}
-						style={{ textAlign: 'center', marginBottom: 48 }}>
-						<div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 24px', fontFamily: "var(--font-body)", fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.35em', color: '#4FA3D1', borderRadius: 999, background: 'rgba(255,255,255,0.45)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.5)', boxShadow: '0 4px 16px rgba(60,42,37,0.08)', marginBottom: 20 }}>
-							<span style={{ width: 7, height: 7, borderRadius: '50%', background: '#E88C2A', flexShrink: 0 }} />
-							Common Questions
-						</div>
-						<h2 style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, lineHeight: 1.1, color: '#2C1810', margin: 0 }}>
-							Frequently Asked Questions
-						</h2>
-						<div style={{ width: 48, height: 3, borderRadius: 2, background: 'linear-gradient(90deg,#C4623A,#E88C2A)', margin: '16px auto 0' }} />
+						transition={{ duration: 0.8, ease: EASE }}
+						className="faq-eyebrow">
+						<span className="faq-eyebrow-num">04</span>
+						<span>&mdash;</span>
+						<span>Frequently Asked</span>
 					</motion.div>
 
-					<div className='faq-card'>
-						<div className='faq-tabs' style={{ marginBottom: 24, marginTop: 0 }}>
-							{FAQ_SECTIONS.map((s) => {
-								const isActive = activeSection === s.section;
-								return (
-									<button
-										key={s.section}
-										onClick={() => setActiveSection(s.section)}
-										style={{
-											display: 'inline-flex',
-											alignItems: 'center',
-											justifyContent: 'center',
-											padding: '10px 20px',
-											borderRadius: 999,
-											border: isActive ? 'none' : '1px solid rgba(139,58,42,0.15)',
-											background: isActive ? 'linear-gradient(135deg, #8B3A2A, #B86B45)' : 'rgba(139,58,42,0.06)',
-											color: isActive ? 'white' : '#8B3A2A',
-											fontFamily: "var(--font-body)",
-											fontSize: 13,
-											fontWeight: 600,
-											cursor: 'pointer',
-											whiteSpace: 'nowrap',
-											transition: 'all 0.2s ease',
-											boxShadow: isActive ? '0 4px 16px rgba(139,58,42,0.25)' : 'none',
-										}}
-										onMouseEnter={(e) => {
-											if (!isActive) {
-												e.currentTarget.style.background = 'rgba(139,58,42,0.12)';
-												e.currentTarget.style.borderColor = 'rgba(139,58,42,0.3)';
-											}
-										}}
-										onMouseLeave={(e) => {
-											if (!isActive) {
-												e.currentTarget.style.background = 'rgba(139,58,42,0.06)';
-												e.currentTarget.style.borderColor = 'rgba(139,58,42,0.15)';
-											}
-										}}>
-										{s.section}
-									</button>
-								);
-							})}
-						</div>
+					<motion.h2
+						initial={{ opacity: 0, y: 24 }}
+						animate={inView ? { opacity: 1, y: 0 } : {}}
+						transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
+						className="faq-heading">
+						Questions,
+						<br />
+						answered.
+					</motion.h2>
 
-						<AnimatePresence mode='wait'>
-							<motion.div
-								key={activeSection}
-								initial={{ opacity: 0, y: 12 }}
-								animate={{ opacity: 1, y: 0 }}
-								exit={{ opacity: 0, y: -12 }}
-								transition={{ duration: 0.25, ease: EASE }}>
-								{currentFaqs.map((faq, i) => (
-									<FaqItem key={faq.q} faq={faq} index={i} inView={inView} />
-								))}
-							</motion.div>
-						</AnimatePresence>
-					</div>
+					<motion.p
+						initial={{ opacity: 0, y: 16 }}
+						animate={inView ? { opacity: 1, y: 0 } : {}}
+						transition={{ duration: 0.8, ease: EASE, delay: 0.22 }}
+						className="faq-subtitle">
+						Everything you need to know about electric hamam and radiant underfloor
+						heating &mdash; from cost and installation to safety and performance in
+						Kashmir winters.
+					</motion.p>
+
+					<motion.div
+						initial={{ scaleY: 0 }}
+						animate={inView ? { scaleY: 1 } : {}}
+						transition={{ duration: 1, ease: EASE, delay: 0.3 }}
+						className="faq-line"
+					/>
+
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={inView ? { opacity: 1 } : {}}
+						transition={{ duration: 0.8, ease: EASE, delay: 0.4 }}
+						className="faq-tabs">
+						{FAQ_SECTIONS.map((s) => (
+							<button
+								key={s.section}
+								onClick={() => handleSectionChange(s.section)}
+								className={`faq-tab ${activeSection === s.section ? 'faq-tab--active' : ''}`}>
+								<span className="faq-tab-dot" />
+								{s.section}
+							</button>
+						))}
+					</motion.div>
+				</div>
+
+				<div className="faq-right">
+					<AnimatePresence mode="wait">
+						<motion.div
+							key={activeSection}
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							transition={{ duration: 0.35, ease: EASE }}
+							style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+							{currentFaqs.map((faq, i) => (
+								<motion.div
+									key={faq.q}
+									initial={{ opacity: 0, y: 32, filter: 'blur(8px)' }}
+									animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+									transition={{ duration: 0.75, ease: EASE, delay: 0.15 + i * 0.08 }}>
+									<FaqCard
+										faq={faq}
+										index={i}
+										isOpen={openIndex === i}
+										onToggle={() => handleToggle(i)}
+									/>
+								</motion.div>
+							))}
+						</motion.div>
+					</AnimatePresence>
 				</div>
 			</div>
-		</>
+		</section>
 	);
 }
