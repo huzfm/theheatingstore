@@ -12,10 +12,43 @@ import { STAGES, stageAt } from '@/lib/floor-timeline';
  * a page whose hero is above this section. ssr:false is required as well 
  * WebGL has no server-side equivalent.
  */
-const FloorCutawayScene = dynamic(() => import('@/components/3d/FloorCutawayScene'), {
+const importScene = () => import('@/components/3d/FloorCutawayScene');
+
+const FloorCutawayScene = dynamic(importScene, {
   ssr: false,
-  loading: () => null,
+  loading: () => <ScenePoster />,
 });
+
+/**
+ * Static stand-in shown while the Three.js chunk downloads and the canvas
+ * warms up. It echoes the studio rig, a warm key-light glow from upper-left,
+ * a cooler fill, and a soft floor pool, so the placeholder reads as the same
+ * scene mid-load rather than an empty black hole. The faint pulse signals
+ * that something is arriving.
+ */
+function ScenePoster() {
+  return (
+    <div className="absolute inset-0 bg-ink-950" aria-hidden>
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(55% 50% at 28% 22%, rgba(255,244,230,0.12), transparent 70%),' +
+            'radial-gradient(50% 45% at 75% 78%, rgba(234,88,12,0.09), transparent 72%)',
+        }}
+      />
+      <motion.div
+        className="absolute inset-x-0 bottom-[36%] mx-auto h-40 w-[72%] max-w-xl"
+        style={{
+          background:
+            'radial-gradient(ellipse at center, rgba(255,255,255,0.06), transparent 70%)',
+        }}
+        animate={{ opacity: [0.35, 0.65, 0.35] }}
+        transition={{ duration: 1.8, ease: 'easeInOut', repeat: Infinity }}
+      />
+    </div>
+  );
+}
 
 export default function FloorRevealSection() {
   const wrapperRef = useRef(null);
@@ -48,23 +81,59 @@ export default function FloorRevealSection() {
   });
 
   /**
-   * Only run the render loop while the section is on screen, and only mount
-   * the canvas once the visitor is actually approaching it.
+   * Warm the Three.js chunk during idle time, so the ~150kB download and its
+   * parse are already paid for by the time the visitor scrolls down here
+   * this is what removes the 2-3s wait that used to start only on arrival.
+   * Deferred to requestIdleCallback so it never competes with the hero's LCP;
+   * the setTimeout is the fallback for Safari, which lacks the API.
+   */
+  useEffect(() => {
+    if (reduceMotion) return undefined;
+
+    const ric = typeof window !== 'undefined' ? window.requestIdleCallback : null;
+    if (ric) {
+      const id = ric(() => importScene(), { timeout: 3000 });
+      return () => window.cancelIdleCallback?.(id);
+    }
+    const t = setTimeout(() => importScene(), 1800);
+    return () => clearTimeout(t);
+  }, [reduceMotion]);
+
+  /**
+   * Two thresholds, deliberately different:
+   *  - mount the canvas well before it enters the viewport (1200px), so WebGL
+   *    context creation, the environment cubemap bake and shader compilation
+   *    all happen off-screen while the loop is parked, not in the frame the
+   *    visitor first sees;
+   *  - run the render loop only when it's genuinely near/on screen (300px).
+   * Once mounted we stop observing for mount; `active` keeps tracking so the
+   * loop still parks when the section scrolls away.
    */
   useEffect(() => {
     const el = wrapperRef.current;
     if (!el) return undefined;
 
-    const observer = new IntersectionObserver(
+    const mountObserver = new IntersectionObserver(
       ([entry]) => {
-        setActive(entry.isIntersecting);
-        if (entry.isIntersecting) setMounted(true);
+        if (entry.isIntersecting) {
+          setMounted(true);
+          mountObserver.disconnect();
+        }
       },
-      { rootMargin: '400px 0px' }
+      { rootMargin: '1200px 0px' }
     );
 
-    observer.observe(el);
-    return () => observer.disconnect();
+    const activeObserver = new IntersectionObserver(
+      ([entry]) => setActive(entry.isIntersecting),
+      { rootMargin: '300px 0px' }
+    );
+
+    mountObserver.observe(el);
+    activeObserver.observe(el);
+    return () => {
+      mountObserver.disconnect();
+      activeObserver.disconnect();
+    };
   }, []);
 
   /* ── Reduced motion: no sticky, no rotation, no 340vh of scroll. ──
