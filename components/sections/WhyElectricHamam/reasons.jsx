@@ -13,7 +13,7 @@
  */
 
 // Which visuals are rendered in the shared WebGL canvas vs. as SVG.
-export const IS_3D = { cable: true, floor: true };
+export const IS_3D = { floor: true };
 
 const s = (paths) => ({ size = 22, color = 'currentColor' }) => (
   <svg
@@ -96,7 +96,7 @@ export const REASONS = [
     stat: 'Edge to edge',
     statLabel: 'no cold spots',
     accent: '#ffb061',
-    visual: 'cable',
+    visual: 'distribution',
     Icon: Icons.Grid,
   },
   {

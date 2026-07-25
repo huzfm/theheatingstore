@@ -43,6 +43,29 @@ function Rapid({ color }) {
   );
 }
 
+/* 02 — Even Heat Distribution: a grid of floor tiles warming in an even,
+   diagonal wave so the whole surface glows edge to edge — no cold spots. */
+function Distribution({ color }) {
+  const pos = [40, 72, 104, 136];
+  const t = 24;
+  return (
+    <svg {...common}>
+      {/* room / floor outline */}
+      <rect x="30" y="30" width="140" height="140" rx="18"
+        stroke={color} strokeOpacity="0.3" strokeWidth="3" fill="none" />
+      {pos.map((y, r) =>
+        pos.map((x, c) => (
+          <rect key={`${r}-${c}`} x={x} y={y} width={t} height={t} rx="5"
+            fill={color} fillOpacity="0.06" stroke={color} strokeOpacity="0.22" strokeWidth="1.5">
+            <animate attributeName="fill-opacity" values="0.06;0.62;0.06"
+              dur="2.8s" begin={`${(r + c) * 0.18}s`} repeatCount="indefinite" />
+          </rect>
+        ))
+      )}
+    </svg>
+  );
+}
+
 /* 04 — Energy Efficient: a gauge sweeping to ~70% with a flame core */
 function Efficiency({ color }) {
   // 240° arc, value ~70%
@@ -135,6 +158,7 @@ function Fast({ color }) {
 
 const MAP = {
   rapid: Rapid,
+  distribution: Distribution,
   efficiency: Efficiency,
   warranty: Warranty,
   healthier: Healthier,

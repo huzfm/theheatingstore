@@ -4,23 +4,40 @@ import { motion } from 'framer-motion';
 
 const EASE = [0.16, 1, 0.3, 1];
 
+/* The card slides in HORIZONTALLY from the side you're scrolling toward. The
+   `custom` value is the scroll direction (+1 down, -1 up), passed down from the
+   showcase; both the container and its items read it so the whole lockup and
+   its lines travel the same way. On the way down the card enters from the right
+   and the outgoing card leaves to the left; scrolling back up mirrors it. */
 const container = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
-  exit: { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
+  hidden: (dir) => ({ opacity: 0, x: dir >= 0 ? 68 : -68 }),
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.62,
+      ease: EASE,
+      staggerChildren: 0.07,
+      delayChildren: 0.1,
+    },
+  },
+  exit: (dir) => ({
+    opacity: 0,
+    x: dir >= 0 ? -52 : 52,
+    transition: { duration: 0.42, ease: EASE },
+  }),
 };
 
 const item = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: (dir) => ({ opacity: 0, x: dir >= 0 ? 22 : -22 }),
   visible: {
     opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: EASE },
+    x: 0,
+    transition: { duration: 0.5, ease: EASE },
   },
   exit: {
     opacity: 0,
-    y: -18,
-    transition: { duration: 0.32, ease: EASE },
+    transition: { duration: 0.22, ease: EASE },
   },
 };
 
@@ -29,7 +46,12 @@ const item = {
  * an accent icon badge, title, rule and body. Reused for all seven, and in a
  * static (`plain`) form for the reduced-motion fallback list.
  */
-export default function ReasonCard({ reason, plain = false, className = '' }) {
+export default function ReasonCard({
+  reason,
+  plain = false,
+  className = '',
+  direction = 1,
+}) {
   const { num, title, desc, stat, statLabel, accent, Icon } = reason;
 
   if (plain) {
@@ -56,6 +78,7 @@ export default function ReasonCard({ reason, plain = false, className = '' }) {
     <motion.div
       className={`relative ${className}`}
       variants={container}
+      custom={direction}
       initial="hidden"
       animate="visible"
       exit="exit"
