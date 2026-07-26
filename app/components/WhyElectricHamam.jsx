@@ -2,8 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import CustomEase from 'gsap/CustomEase';
 import SceneManager from './why-electric-hamam/SceneManager';
 import { BEAT_COUNT, BEAT_VH } from './why-electric-hamam/timeline';
+import { registerGsapEases } from './why-electric-hamam/easings';
 
 /**
  * Why Electric Hamam, a pinned sequence of complete premium presentation
@@ -42,7 +44,14 @@ import { BEAT_COUNT, BEAT_VH } from './why-electric-hamam/timeline';
  * settles back on its own rather than toggling on hover, so it reads as
  * an object with mass. Both effects write only transform/opacity, never
  * React state, so they run alongside the GSAP scrub timeline without
- * competing with it.
+ * competing with it. This logic is left untouched by the CTA "exhale"
+ * below — see that effect's own comment for what's actually new.
+ *
+ * CTA exhale: the SAME IntersectionObserver instance above also watches
+ * the CTA link itself (a second .observe() target, not a second
+ * observer), so the moment the CTA chapter scrolls into view the glow
+ * widens and its cursor-follow inertia measurably slows — calmer than
+ * every earlier chapter, like the room exhaling at the end of the story.
  *
  * The wrapper is sticky rather than GSAP-pinned, matching the convention
  * already established by components/sections/FloorRevealSection.jsx on
@@ -80,33 +89,77 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
 
     const link = section.querySelector('.weh-cta-ending-link');
 
-    const setGlowX = gsap.quickTo(glow, 'x', { duration: 2.4, ease: 'power2.out' });
-    const setGlowY = gsap.quickTo(glow, 'y', { duration: 2.4, ease: 'power2.out' });
-    const setGlowO = gsap.quickTo(glow, 'opacity', { duration: 1.6, ease: 'power1.out' });
-    const setLinkX = link ? gsap.quickTo(link, 'x', { duration: 0.6, ease: 'power3.out' }) : null;
-    const setLinkY = link ? gsap.quickTo(link, 'y', { duration: 0.6, ease: 'power3.out' }) : null;
+    registerGsapEases(gsap, CustomEase);
+
+    // Every tween below references a named ease from easings.js, never a
+    // stock GSAP preset (Phase 6 polish pass): the glow's cursor-follow
+    // rides emberSettle — a soft, heavily-blurred field has no legible edge
+    // for an overshoot to read against, so weightedDrag's "snap past and
+    // settle" would be wasted on it; the fade uses emberRise; the CTA
+    // link — a small, sharp-edged target where an overshoot IS visible, and
+    // the flagship physical/magnetic interaction the brief names — uses
+    // weightedDrag.
+    const setGlowX = gsap.quickTo(glow, 'x', { duration: 2.4, ease: 'emberSettle' });
+    const setGlowY = gsap.quickTo(glow, 'y', { duration: 2.4, ease: 'emberSettle' });
+    const setGlowO = gsap.quickTo(glow, 'opacity', { duration: 1.6, ease: 'emberRise' });
+    const setLinkX = link ? gsap.quickTo(link, 'x', { duration: 0.6, ease: 'weightedDrag' }) : null;
+    const setLinkY = link ? gsap.quickTo(link, 'y', { duration: 0.6, ease: 'weightedDrag' }) : null;
+
+    // CTA exhale — a second, calmer pair of quickTo tweens on the SAME
+    // glow.x/glow.y, used only once the CTA chapter is in view. Never run
+    // alongside the normal-speed pair (see the observer callback below,
+    // which kills whichever pair is stale at the exact moment of the
+    // handoff), so the two inertias never fight over the same property.
+    const setGlowXSlow = gsap.quickTo(glow, 'x', { duration: 4.4, ease: 'emberSettle' });
+    const setGlowYSlow = gsap.quickTo(glow, 'y', { duration: 4.4, ease: 'emberSettle' });
 
     let sectionActive = false;
+    let ctaActive = false;
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        sectionActive = entry.isIntersecting;
-        setGlowO(sectionActive ? 1 : 0);
-        if (!sectionActive) {
-          setLinkX?.(0);
-          setLinkY?.(0);
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.target === section) {
+            sectionActive = entry.isIntersecting;
+            setGlowO(sectionActive ? 1 : 0);
+            if (!sectionActive) {
+              setLinkX?.(0);
+              setLinkY?.(0);
+            }
+          } else if (entry.target === link) {
+            const nextCtaActive = entry.isIntersecting;
+            if (nextCtaActive === ctaActive) continue;
+            ctaActive = nextCtaActive;
+            // Clear any in-flight tween from the pair we're switching away
+            // from so the handoff between normal and exhale inertia never
+            // pops or fights — the next pointer move eases smoothly from
+            // wherever the glow actually is.
+            gsap.killTweensOf(glow, 'x,y');
+            gsap.to(glow, {
+              scale: ctaActive ? 1.32 : 1,
+              duration: 3.6,
+              ease: 'emberSettle',
+              overwrite: 'auto',
+            });
+          }
         }
       },
       { threshold: 0 }
     );
     observer.observe(section);
+    if (link) observer.observe(link);
 
     const MAGNET_RADIUS = 130;
     const MAGNET_STRENGTH = 0.34;
     const MAGNET_MAX = 18;
 
     const handlePointerMove = (e) => {
-      setGlowX(e.clientX - window.innerWidth / 2);
-      setGlowY(e.clientY - window.innerHeight / 2);
+      if (ctaActive) {
+        setGlowXSlow(e.clientX - window.innerWidth / 2);
+        setGlowYSlow(e.clientY - window.innerHeight / 2);
+      } else {
+        setGlowX(e.clientX - window.innerWidth / 2);
+        setGlowY(e.clientY - window.innerHeight / 2);
+      }
 
       if (!sectionActive || !link) return;
       const rect = link.getBoundingClientRect();
@@ -278,17 +331,22 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
           opacity: 1 !important;
           filter: none !important;
           transform: none !important;
+          clip-path: none !important;
           padding: 72px 6vw;
         }
 
         /* ── Title scene ────────────────────────────────────────────── */
-        .weh-title-scene { flex-direction: column; text-align: center; padding: 0 6vw; z-index: 1; }
+        /* Iris/unveil signature (see timeline.js getTitleMotion): clip-path
+           is written every scroll tick, so it gets its own will-change
+           rather than relying on the shared .weh-beat hint above. */
+        .weh-title-scene { flex-direction: column; text-align: center; padding: 0 6vw; z-index: 1; will-change: opacity, transform, filter, clip-path; }
         .weh-title-eyebrow {
           display: inline-flex; align-items: center; gap: 8px;
           background: rgba(184,107,69,0.08); border: 1px solid rgba(184,107,69,0.24);
           border-radius: 999px; padding: 8px 20px; margin-bottom: 28px;
           font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
           color: var(--weh-copper);
+          will-change: opacity, transform;
         }
         .weh-title-eyebrow-dot {
           width: 6px; height: 6px; border-radius: 50%; background: var(--weh-amber);
@@ -298,6 +356,7 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
           font-family: var(--font-heading); font-weight: 400;
           font-size: clamp(2.75rem, 7vw, 6rem); line-height: 1.02;
           color: var(--weh-text); max-width: 16ch; margin: 0 auto;
+          will-change: opacity, transform;
         }
 
         /* ── Benefit scenes ─────────────────────────────────────────── */
@@ -323,15 +382,18 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
           box-shadow:
             0 30px 60px -32px rgba(36,26,22,0.18),
             inset 0 1px 0 rgba(255,255,255,0.6);
+          will-change: transform;
         }
         .weh-static .weh-scene-copy { backdrop-filter: none; -webkit-backdrop-filter: none; }
         .weh-scene-index {
           display: block; font-family: var(--font-heading); font-size: clamp(14px, 1.4vw, 18px);
           letter-spacing: 0.24em; color: rgba(36,26,22,0.22); margin-bottom: 18px;
+          will-change: opacity, transform;
         }
         .weh-scene-counter {
           display: flex; align-items: baseline; gap: 10px; margin: 0 0 20px;
           font-family: var(--font-body); font-size: 15px; font-weight: 700; color: var(--weh-accent);
+          will-change: opacity, transform;
         }
         .weh-scene-counter-label {
           font-size: 12px; font-weight: 500; letter-spacing: 0.02em; color: var(--weh-text-2);
@@ -340,15 +402,18 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
           font-family: var(--font-heading); font-weight: 400;
           font-size: clamp(2rem, 3.6vw, 3.5rem); line-height: 1.05;
           color: var(--weh-text); margin: 0 0 22px;
+          will-change: opacity, transform;
         }
         .weh-scene-body {
           font-family: var(--font-body); font-size: clamp(1.05rem, 1.4vw, 1.3rem);
           line-height: 1.75; color: var(--weh-text-2); max-width: 42ch; margin: 0;
+          will-change: opacity, transform;
         }
 
         .weh-scene-rowstat {
           display: flex; align-items: baseline; gap: 12px; margin-top: 34px;
           padding-top: 22px; border-top: 1px solid rgba(36,26,22,0.12);
+          will-change: opacity, transform;
         }
         .weh-scene-rowstat-value {
           font-family: var(--font-heading); font-size: clamp(2rem, 3vw, 2.75rem);
@@ -417,11 +482,13 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
         .weh-quote-mark {
           display: block; font-family: var(--font-heading); font-size: clamp(6rem, 12vw, 9rem);
           color: rgba(184,107,69,0.28); line-height: 1; margin-bottom: -1.4rem;
+          will-change: opacity, transform;
         }
         .weh-quote-text {
           font-family: var(--font-body); font-style: italic; font-weight: 500;
           font-size: clamp(1.4rem, 3vw, 2.5rem); line-height: 1.5; letter-spacing: -0.01em;
           color: var(--weh-text); max-width: 46ch; margin: 0 auto;
+          will-change: opacity, transform;
         }
         .weh-quote-attribution {
           display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;

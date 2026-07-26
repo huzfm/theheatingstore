@@ -64,25 +64,62 @@ const C = {
 
 /* ---------- BrandMark (inline) ---------- */
 
+// function BrandMark({ compact = false }) {
+//   const logoHeight = compact ? 74 : 150;
+//   return (
+//     <Link
+//       href="/"
+//       aria-label="TheHeatingStore, Home"
+//       style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }}
+//     >
+//       {/* width/height are the image's real intrinsic dimensions, Next/Image
+//           needs these to reserve layout space. If your file's actual aspect
+//           ratio differs, adjust these two numbers to match it; the CSS below
+//           just scales proportionally from whatever you set here. */}
+//       <Image
+//         src="/images/ll.png"
+//         alt="TheHeatingStore"
+//         width={220}
+//         height={logoHeight}
+//         priority
+//         style={{ height: logoHeight, width: 'auto', maxWidth: 'none', objectFit: 'contain' }}
+//       />
+//     </Link>
+//   );
+// }
 function BrandMark({ compact = false }) {
-  const logoHeight = compact ? 74 : 70;
+  const navRowHeight = compact ? 74 : 60; // fixed — matches current nav content height, doesn't change
+  const logoHeight = compact ? 74 : 150;  // grow this freely, it will overflow the wrapper
+
   return (
     <Link
       href="/"
       aria-label="TheHeatingStore, Home"
-      style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }}
+      style={{
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        height: navRowHeight,   // fixed box — this is what the nav's flex height sees
+        flexShrink: 0,
+        textDecoration: 'none',
+      }}
     >
-      {/* width/height are the image's real intrinsic dimensions, Next/Image
-          needs these to reserve layout space. If your file's actual aspect
-          ratio differs, adjust these two numbers to match it; the CSS below
-          just scales proportionally from whatever you set here. */}
       <Image
-        src="/images/logos.png"
+        src="/images/ll.png"
         alt="TheHeatingStore"
-        width={820}
+        width={220}
         height={logoHeight}
         priority
-        style={{ height: logoHeight, width: 'auto', maxWidth: 'none', objectFit: 'contain' }}
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: '50%',
+          transform: 'translateY(-50%)', // vertically centered, overflows top/bottom freely
+          height: logoHeight,
+          width: 'auto',
+          maxWidth: 'none',
+          objectFit: 'contain',
+        }}
       />
     </Link>
   );
@@ -734,25 +771,7 @@ export default function Header() {
 
           {/* Right cluster */}
           <div style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', gap: 10 }}>
-            <button
-              onClick={() => setSearchOpen(true)}
-              aria-label="Open search"
-              className="icon-btn"
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 999,
-                background: 'rgba(255,255,255,0.04)',
-                border: `1px solid ${C.glassBorder}`,
-                color: C.textPrimary,
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Search size={16} />
-            </button>
+            
 
             <Link
               href="/contact"

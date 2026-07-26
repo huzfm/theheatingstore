@@ -126,13 +126,10 @@ export default function InstallationContent() {
 					style={{
 						position: 'absolute',
 						inset: 0,
-						backgroundImage: "url('https://images.unsplash.com/photo-1667491295131-c6ccecd35f65?w=1600&q=80')",
+						backgroundImage: "url('/images/el.png')",
 						backgroundSize: 'cover',
 						backgroundPosition: 'center',
-						opacity: 0.62,
-						filter: 'brightness(1.15) saturate(1.05)',
-						maskImage: 'linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 58%, transparent 100%)',
-						WebkitMaskImage: 'linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 58%, transparent 100%)',
+						filter: 'brightness(0.60) saturate(1.2) contrast(1.1)',
 						pointerEvents: 'none',
 					}}
 				/>
@@ -145,7 +142,7 @@ export default function InstallationContent() {
 						<span style={{ fontFamily: 'var(--font-body)', fontSize: 11, fontWeight: 600, letterSpacing: '0.32em', textTransform: 'uppercase', color: BONE_MUTE }}>Electric Hamam Installation</span>
 					</motion.div>
 
-					<motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: EASE, delay: 0.05 }} style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(3rem, 10vw, 8.5rem)', lineHeight: 0.9, color: BONE, margin: 0 }}>
+					<motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: EASE, delay: 0.05 }} style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(3rem, 5vw, 5rem)', lineHeight: 0.9, color: BONE, margin: 0 }}>
 						How We Install
 						<br />
 						<span style={{ background: `linear-gradient(100deg, ${HEAT}, ${HEAT_DEEP})`, WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Electric Hamam Systems.</span>
