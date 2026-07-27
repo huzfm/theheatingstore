@@ -63,7 +63,7 @@ export default function HomeHero() {
       <section className="hhero" aria-label="Underfloor heating and electric hamam systems">
         <div className="hhero__plate">
           <Image
-            src="/images/hero/home-hero-lounge.webp"
+            src="/images/hero/home-hero-lounge.png"
             alt="Luxury indoor–outdoor living space at dusk with a warm timber floor, fireplace and designer furniture, the kind of home kept comfortable by underfloor heating"
             fill
             priority

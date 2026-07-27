@@ -69,17 +69,14 @@ function Hero() {
 			<div
 				aria-hidden
 				style={{
-					position: 'absolute',
-					inset: 0,
-					backgroundImage: "url('https://images.unsplash.com/photo-1738315452605-f3ff2d162631?w=1600&q=80')",
-					backgroundSize: 'cover',
-					backgroundPosition: 'center',
-					opacity: 0.5,
-					filter: 'brightness(1.1) saturate(1.05)',
-					maskImage: 'linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 58%, transparent 100%)',
-					WebkitMaskImage: 'linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 58%, transparent 100%)',
-					pointerEvents: 'none',
-				}}
+  position: 'absolute',
+  inset: 0,
+  backgroundImage: "url('/images/p.png')",
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  filter: 'brightness(1.1) saturate(1.2) contrast(1.1)',
+  pointerEvents: 'none',
+}}
 			/>
 			{/* dark tint so the headline stays legible + fades into #0a0a0a */}
 			<div aria-hidden style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.35) 45%, #0a0a0a 100%)', pointerEvents: 'none' }} />
@@ -112,7 +109,7 @@ function Hero() {
 				<h1
 					style={{
 						fontFamily: 'var(--font-heading)',
-						fontSize: 'clamp(3.5rem, 12vw, 11rem)',
+						fontSize: 'clamp(3.5rem, 5vw, 5rem)',
 						lineHeight: 0.9,
 						letterSpacing: '0.01em',
 						color: BONE,
@@ -291,7 +288,7 @@ function BrandPanel({ brand, index }) {
 									alignItems: 'center',
 									justifyContent: 'center',
 									padding: 26,
-									boxShadow: '0 20px 60px rgba(0,0,0,0.45)',
+									boxShadow: '0 20px 60px rgba(169, 165, 165, 0.45)',
 								}}>
 								<img
 									src={brand.img}

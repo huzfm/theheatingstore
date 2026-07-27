@@ -248,6 +248,7 @@ export default function WarmthRevealSection() {
     <section
       data-section="warmth-reveal"
       className="whm relative overflow-hidden bg-ink-950 px-6 py-32 md:px-16 md:py-44 lg:px-24"
+      
     >
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap');

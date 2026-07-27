@@ -1,49 +1,31 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import Flag from 'react-world-flags';
 
-const fadeUp = {
-	hidden: { opacity: 0, y: 40 },
-	show: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+// ─────────────────────────────────────────────────────────────────────────────
+// PALETTE, identical to WhyChooseUsClient's `C` object so this page reads as
+// a continuation of the same dark design system.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const C = {
+	amber: '#E8933A',
+	amberLt: '#F5B97A',
+	coral: '#FF7E5F',
+	text: '#FBF3EA',
+	soft: 'rgba(251,243,234,0.60)',
+	mute: 'rgba(251,243,234,0.40)',
+	line: 'rgba(255,255,255,0.09)',
+	glass: 'rgba(255,255,255,0.045)',
+	glassBorder: 'rgba(255,255,255,0.10)',
 };
 
-const flagContainerVariants = {
-	hidden: {},
-	show: {
-		transition: {
-			staggerChildren: 0.1,
-			delayChildren: 0.15,
-		},
-	},
-};
+const EASE = [0.16, 1, 0.3, 1];
 
-const flagCardVariants = {
-	hidden: {
-		opacity: 0,
-		y: 40,
-	},
-	show: {
-		opacity: 1,
-		y: 0,
-		transition: {
-			type: 'spring',
-			stiffness: 100,
-			damping: 14,
-		},
-	},
-};
-
-const projectCardVariants = {
-	hidden: { opacity: 0, y: 50, scale: 0.95 },
-	show: {
-		opacity: 1,
-		y: 0,
-		scale: 1,
-		transition: { type: 'spring', stiffness: 100, damping: 14 },
-	},
-};
+// ─────────────────────────────────────────────────────────────────────────────
+// DATA (content preserved verbatim)
+// ─────────────────────────────────────────────────────────────────────────────
 
 const countries = [
 	{ name: 'United Kingdom', code: 'GB' },
@@ -200,34 +182,162 @@ const faqs = [
 	},
 ];
 
-function FaqItem({ q, a }) {
+// ─────────────────────────────────────────────────────────────────────────────
+// ANIMATION VARIANTS
+// ─────────────────────────────────────────────────────────────────────────────
+
+const staggerContainer = {
+	hidden: {},
+	show: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
+};
+const staggerItem = {
+	hidden: { opacity: 0, y: 22, filter: 'blur(6px)' },
+	show: {
+		opacity: 1,
+		y: 0,
+		filter: 'blur(0px)',
+		transition: { duration: 0.8, ease: EASE },
+	},
+};
+
+const flagContainerVariants = {
+	hidden: {},
+	show: {
+		transition: {
+			staggerChildren: 0.1,
+			delayChildren: 0.15,
+		},
+	},
+};
+
+const flagCardVariants = {
+	hidden: {
+		opacity: 0,
+		y: 40,
+		rotate: -6,
+	},
+	show: {
+		opacity: 1,
+		y: 0,
+		rotate: 0,
+		transition: {
+			type: 'spring',
+			stiffness: 100,
+			damping: 14,
+		},
+	},
+};
+
+// Layered reveal: alternating y-travel by column position, ease-based (not
+// spring) so the grid matches the standard reveal system elsewhere on the
+// site. Spring is reserved for the hover lift only.
+function projectCardVariants(colIndex) {
+	const y = [52, 34, 60][colIndex % 3];
+	return {
+		hidden: { opacity: 0, y, scale: 0.95 },
+		show: {
+			opacity: 1,
+			y: 0,
+			scale: 1,
+			transition: { duration: 0.8, ease: EASE },
+		},
+	};
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// REUSABLES
+// ─────────────────────────────────────────────────────────────────────────────
+
+function Badge({ children }) {
+	return (
+		<div className='gec-badge'>
+			<span className='gec-badge-dot' />
+			{children}
+		</div>
+	);
+}
+
+// Blur-in numeric reveal, identical pattern to WhyChooseUsClient's Counter.
+function Counter({ display }) {
+	const ref = useRef(null);
+	const seen = useInView(ref, { once: true, amount: 0.5 });
+	const [val, setVal] = useState(' ');
+	useEffect(() => {
+		if (!seen) return;
+		const t = setTimeout(() => setVal(display), 160);
+		return () => clearTimeout(t);
+	}, [seen, display]);
+	return (
+		<motion.span
+			ref={ref}
+			initial={{ opacity: 0, filter: 'blur(6px)' }}
+			animate={seen ? { opacity: 1, filter: 'blur(0px)' } : {}}
+			transition={{ duration: 0.7, ease: EASE }}>
+			{val}
+		</motion.span>
+	);
+}
+
+// Rebuilt to match UnderfloorHeatingIndiaClient's `PremiumFaqItem` exactly
+// (same markup, motion and class-naming convention, gec- prefixed) since
+// that component isn't exported as a shared module.
+function FaqItem({ q, a, index }) {
 	const [open, setOpen] = useState(false);
 	return (
-		<div className='border-b border-[#B86B45]/20 py-4'>
+		<motion.div
+			initial={{ opacity: 0, y: 24, scale: 0.97 }}
+			whileInView={{ opacity: 1, y: 0, scale: 1 }}
+			viewport={{ once: true, amount: 0.3 }}
+			transition={{ delay: index * 0.08, duration: 0.7, ease: EASE }}
+			className={`gec-card gec-faq group ${open ? 'is-open' : ''}`}>
 			<button
 				onClick={() => setOpen(!open)}
-				className='flex justify-between w-full text-left font-semibold text-[#3C2A25]'>
-				{q}
-				<svg
-					xmlns='http://www.w3.org/2000/svg'
-					className={`w-5 h-5 transition-transform ${open ? 'rotate-180' : ''}`}
-					fill='none'
-					viewBox='0 0 24 24'
-					stroke='currentColor'>
-					<path
+				className='flex justify-between w-full text-left items-center gap-4 px-7 py-5'>
+				<div className='flex items-center gap-4'>
+					<motion.span
+						initial={{ opacity: 0, rotate: -10, scale: 0.8 }}
+						whileInView={{ opacity: 1, rotate: 0, scale: 1 }}
+						viewport={{ once: true, amount: 0.3 }}
+						transition={{
+							delay: index * 0.08 + 0.1,
+							duration: 0.5,
+							ease: EASE,
+						}}
+						className='gec-faq-index'>
+						{index + 1}
+					</motion.span>
+					<span className='gec-faq-q'>{q}</span>
+				</div>
+				<span className={`gec-faq-toggle ${open ? 'is-open' : ''}`}>
+					<svg
+						width='12'
+						height='12'
+						viewBox='0 0 24 24'
+						fill='none'
+						stroke={open ? '#fff' : C.amberLt}
+						strokeWidth='2.5'
 						strokeLinecap='round'
-						strokeLinejoin='round'
-						strokeWidth='2'
-						d='M19 9l-7 7-7-7'
-					/>
-				</svg>
+						strokeLinejoin='round'>
+						<path d='M12 5v14M5 12h14' />
+					</svg>
+				</span>
 			</button>
-			{open && (
-				<p className='mt-3 text-sm text-[#6B4A2D] leading-relaxed'>
-					{a}
-				</p>
-			)}
-		</div>
+			<AnimatePresence>
+				{open && (
+					<motion.div
+						initial={{ height: 0, opacity: 0 }}
+						animate={{ height: 'auto', opacity: 1 }}
+						exit={{ height: 0, opacity: 0 }}
+						transition={{ duration: 0.3, ease: EASE }}
+						className='overflow-hidden'>
+						<div className='px-7 pb-6 pt-1 flex gap-4'>
+							<div className='w-7 flex-shrink-0' />
+							<p className='gec-faq-a'>{a}</p>
+						</div>
+					</motion.div>
+				)}
+			</AnimatePresence>
+		</motion.div>
 	);
 }
 
@@ -235,7 +345,7 @@ function FlagCard({ country }) {
 	return (
 		<motion.div
 			variants={flagCardVariants}
-			className='bg-white/70 backdrop-blur-lg rounded-2xl p-5 text-center shadow-md flex flex-col items-center gap-3'>
+			className='gec-card gec-flag-card p-5 text-center flex flex-col items-center gap-3'>
 			<div className='relative'>
 				<div className='absolute inset-0 rounded-full bg-[#B86B45]/10 blur-md scale-150' />
 				<Flag
@@ -244,12 +354,12 @@ function FlagCard({ country }) {
 						width: '68px',
 						height: '44px',
 						borderRadius: '6px',
-						boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+						boxShadow: '0 2px 10px rgba(0,0,0,0.4)',
 						position: 'relative',
 					}}
 				/>
 			</div>
-			<p className='font-semibold text-[#3C2A25] text-sm'>
+			<p className='font-semibold text-[#FBF3EA] text-sm'>
 				{country.name}
 			</p>
 		</motion.div>
@@ -257,18 +367,19 @@ function FlagCard({ country }) {
 }
 
 function ProjectCard({ project, index }) {
+	const col = index % 3;
 	return (
 		<motion.div
-			variants={projectCardVariants}
+			variants={projectCardVariants(col)}
 			initial='hidden'
 			whileInView='show'
 			viewport={{ once: true, margin: '-60px' }}
-			transition={{ delay: index * 0.08 }}
+			transition={{ delay: index * 0.07 }}
 			whileHover={{
-				y: -6,
-				transition: { type: 'spring', stiffness: 300 },
+				y: -8,
+				transition: { type: 'spring', stiffness: 300, damping: 20 },
 			}}
-			className='group relative rounded-2xl overflow-hidden shadow-md bg-white border border-[#f0e0d0] cursor-default'>
+			className='gec-card group relative overflow-hidden cursor-default'>
 			{/* Image */}
 			<div className='relative h-44 overflow-hidden'>
 				<img
@@ -277,7 +388,7 @@ function ProjectCard({ project, index }) {
 					className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110'
 				/>
 				{/* Gradient overlay */}
-				<div className='absolute inset-0 bg-gradient-to-t from-[#3C2A25]/60 via-transparent to-transparent' />
+				<div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent' />
 				{/* Label on image */}
 				<div className='absolute bottom-3 left-3 right-3'>
 					<p className='text-white font-bold text-sm leading-tight drop-shadow-md'>
@@ -287,7 +398,7 @@ function ProjectCard({ project, index }) {
 			</div>
 			{/* Description */}
 			<div className='px-4 py-3'>
-				<p className='text-[12px] text-[#7a5a42] leading-relaxed'>
+				<p className='text-[12px] text-[rgba(251,243,234,0.60)] leading-relaxed'>
 					{project.desc}
 				</p>
 			</div>
@@ -298,24 +409,29 @@ function ProjectCard({ project, index }) {
 function DocLines() {
 	return (
 		<div className='space-y-1.5 w-full px-1'>
-			<div className='h-1.5 bg-[#e8d5c4] rounded-full w-full' />
-			<div className='h-1.5 bg-[#e8d5c4] rounded-full w-4/5' />
+			<div className='h-1.5 bg-[rgba(255,255,255,0.12)] rounded-full w-full' />
+			<div className='h-1.5 bg-[rgba(255,255,255,0.12)] rounded-full w-4/5' />
 		</div>
 	);
 }
 
-function BrandCard({ brand }) {
+function BrandCard({ brand, index }) {
 	const [hovered, setHovered] = useState(false);
 	return (
 		<motion.div
-			variants={fadeUp}
-			initial='hidden'
-			whileInView='show'
-			viewport={{ once: true }}
+			initial={{ opacity: 0, y: 30, filter: 'blur(6px)' }}
+			whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+			viewport={{ once: true, amount: 0.25 }}
+			transition={{ delay: index * 0.06, duration: 0.7, ease: EASE }}
 			onMouseEnter={() => setHovered(true)}
 			onMouseLeave={() => setHovered(false)}
-			className='group relative flex flex-col rounded-2xl overflow-hidden shadow-md bg-white border border-[#f0e0d0] transition-all duration-300 hover:shadow-xl hover:-translate-y-1'>
-			<div className='relative bg-gradient-to-b from-[#fff8f3] to-[#fdecd9] px-4 pt-5 pb-4 flex flex-col items-center gap-3'>
+			className='gec-card group relative flex flex-col overflow-hidden'>
+			<div
+				className='relative px-4 pt-5 pb-4 flex flex-col items-center gap-3'
+				style={{
+					background:
+						'linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01))',
+				}}>
 				<div className='absolute top-2 right-2 bg-[#B86B45] text-white text-[9px] font-bold px-2 py-0.5 rounded-full tracking-wider uppercase'>
 					PDF
 				</div>
@@ -324,34 +440,52 @@ function BrandCard({ brand }) {
 					alt={`${brand.name} logo`}
 					className='w-24 h-20 object-contain'
 				/>
-				<div className='w-full bg-white rounded-xl border border-[#ead9c8] p-3 shadow-inner'>
-					<div className='flex items-center gap-2 mb-2.5 pb-2 border-b border-[#f0e0d0]'>
+				<div
+					className='w-full rounded-xl p-3'
+					style={{
+						background: 'rgba(255,255,255,0.04)',
+						border: `1px solid ${C.glassBorder}`,
+					}}>
+					<div
+						className='flex items-center gap-2 mb-2.5 pb-2'
+						style={{ borderBottom: `1px solid ${C.glassBorder}` }}>
 						<div className='w-6 h-7 bg-[#B86B45] rounded-sm flex items-center justify-center flex-shrink-0 relative'>
 							<span className='text-white text-[7px] font-bold'>
 								PDF
 							</span>
-							<div className='absolute -top-0.5 -right-0.5 w-2 h-2 bg-[#fdecd9] rounded-bl-sm' />
+							<div
+								className='absolute -top-0.5 -right-0.5 w-2 h-2 rounded-bl-sm'
+								style={{ background: 'rgba(20,13,8,0.9)' }}
+							/>
 						</div>
 						<div className='flex flex-col gap-0.5 overflow-hidden'>
-							<div className='h-1.5 bg-[#3C2A25]/30 rounded-full w-16' />
-							<div className='h-1 bg-[#3C2A25]/15 rounded-full w-10' />
+							<div
+								className='h-1.5 rounded-full w-16'
+								style={{ background: 'rgba(255,255,255,0.16)' }}
+							/>
+							<div
+								className='h-1 rounded-full w-10'
+								style={{ background: 'rgba(255,255,255,0.08)' }}
+							/>
 						</div>
 					</div>
 					<DocLines />
 				</div>
 			</div>
-			<div className='px-4 py-3 flex flex-col gap-1 bg-white'>
-				<p className='font-bold text-[#3C2A25] text-sm leading-tight'>
+			<div className='px-4 py-3 flex flex-col gap-1'>
+				<p className='font-bold text-[#FBF3EA] text-sm leading-tight'>
 					{brand.name}
 				</p>
-				<p className='text-[11px] text-[#7a5a42] leading-tight'>
+				<p className='text-[11px] text-[rgba(251,243,234,0.60)] leading-tight'>
 					{brand.docTitle}
 				</p>
 				<div className='flex items-center gap-2 mt-0.5'>
-					<span className='text-[10px] bg-[#fdecd9] text-[#B86B45] font-semibold px-2 py-0.5 rounded-full'>
+					<span
+						className='text-[10px] text-[#B86B45] font-semibold px-2 py-0.5 rounded-full'
+						style={{ background: 'rgba(232,147,58,0.14)' }}>
 						{brand.docType}
 					</span>
-					<span className='text-[10px] text-[#b0917a]'>
+					<span className='text-[10px] text-[rgba(251,243,234,0.40)]'>
 						{brand.docPages}
 					</span>
 				</div>
@@ -363,7 +497,8 @@ function BrandCard({ brand }) {
 				initial={{ opacity: 0 }}
 				animate={{ opacity: hovered ? 1 : 0 }}
 				transition={{ duration: 0.2 }}
-				className='absolute inset-0 flex flex-col items-center justify-center gap-2 bg-[#3C2A25]/80 backdrop-blur-sm rounded-2xl cursor-pointer'>
+				className='absolute inset-0 flex flex-col items-center justify-center gap-2 backdrop-blur-sm cursor-pointer'
+				style={{ background: 'rgba(10,6,3,0.88)' }}>
 				<motion.div
 					animate={hovered ? { y: [0, 4, 0] } : { y: 0 }}
 					transition={{
@@ -397,226 +532,465 @@ function BrandCard({ brand }) {
 
 export default function GlobalExperienceClient() {
 	return (
-		<main className='w-full bg-gradient-to-b from-white via-[#FFF4E8] to-[#F5B97A] overflow-hidden'>
-			<div className='max-w-7xl mx-auto px-6 py-28 space-y-32'>
-				{/* HERO */}
-				<section className='grid lg:grid-cols-2 gap-14 items-center'>
-					<div>
-						<p className='text-xs uppercase tracking-[0.3em] text-[#4FA3D1] mb-6'>
-							Global Experience
-						</p>
-						<h1 className='text-5xl font-serif text-[#3C2A25] leading-tight'>
-							Electric Hamam & Underfloor Heating
-							<span className='block text-[#B86B45] font-light'>
-								in Kashmir & Across India
-							</span>
-						</h1>
-						<p className='mt-6 text-lg text-[#3C2B27] max-w-lg'>
-							Our electric hamam systems are trusted in Kashmir homes, luxury villas, hotels, mosques, and commercial projects. With over 500,000 installations across Kashmir and India since 2011, our teams deliver underfloor heating expertise built for -15C winters and power cut resilience.
-						</p>
-						<div className='flex gap-10 mt-10'>
-							<div>
-								<p className='text-3xl font-serif text-[#B86B45]'>
-									500,000+
-								</p>
-								<p className='text-xs text-[#6B4A2D]'>
-									Installations in Kashmir & India
-								</p>
-							</div>
-							<div>
-								<p className='text-3xl font-serif text-[#B86B45]'>
-									2,000,000+
-								</p>
-								<p className='text-xs text-[#6B4A2D]'>
-									Installations Worldwide
-								</p>
-							</div>
-						</div>
-					</div>
-					<div className='relative h-[420px]'>
-						<img
-							src='/images/floor1.jpg'
-							className='object-cover w-full h-full rounded-3xl'
-							alt='Electric heating cable technology'
-						/>
-					</div>
-				</section>
+		<>
+			<style>{CSS}</style>
+			<main className='gec-root w-full overflow-hidden'>
+				<div aria-hidden className='gec-aura'>
+					<span className='gec-orb gec-orb-1' />
+					<span className='gec-orb gec-orb-2' />
+					<span className='gec-orb gec-orb-3' />
+				</div>
+				<div aria-hidden className='gec-vignette' />
 
-				{/* GLOBAL PROJECTS */}
-				<section>
-					<motion.h2
-						className='text-4xl font-serif text-center text-[#3C2A25] mb-12'
-						initial={{ opacity: 0, y: 30 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true }}
-						transition={{ duration: 0.6 }}>
-						Our Global Installations
-					</motion.h2>
-
-					<motion.div
-						className='grid md:grid-cols-4 gap-6'
-						variants={flagContainerVariants}
-						initial='hidden'
-						whileInView='show'
-						viewport={{ once: true, margin: '-80px' }}>
-						{countries.map((c) => (
-							<FlagCard key={c.name} country={c} />
-						))}
-					</motion.div>
-				</section>
-
-				{/* INSTALLATION PROCESS */}
-				<section>
-					<h2 className='text-4xl font-serif text-center text-[#3C2A25] mb-14'>
-						Our Installation Process
-					</h2>
-					<div className='grid md:grid-cols-5 gap-6'>
-						{process.map((step, i) => (
-							<motion.div
-								key={step.title}
-								variants={fadeUp}
-								initial='hidden'
-								whileInView='show'
-								viewport={{ once: true }}
-								transition={{ delay: i * 0.1 }}
-								className='bg-white/70 rounded-3xl p-6 shadow hover:-translate-y-1'>
-								<p className='text-xs text-[#4FA3D1] mb-2'>
-									STEP {i + 1}
-								</p>
-								<h3 className='font-semibold text-[#3C2A25]'>
-									{step.title}
-								</h3>
-								<p className='text-xs text-[#6B4A2D] mt-3 leading-relaxed'>
-									{step.desc}
-								</p>
+				<div className='relative z-[2] max-w-7xl mx-auto px-6 py-28 space-y-32'>
+					{/* HERO */}
+					<section className='grid lg:grid-cols-2 gap-14 items-center'>
+						<motion.div
+							variants={staggerContainer}
+							initial='hidden'
+							whileInView='show'
+							viewport={{ once: true, amount: 0.4 }}>
+							<motion.div variants={staggerItem}>
+								<Badge>Global Experience</Badge>
 							</motion.div>
-						))}
-					</div>
-				</section>
+							<motion.h1
+								variants={staggerItem}
+								className='gec-h text-5xl leading-tight'>
+								Electric Hamam & Underfloor Heating
+								<span className='gec-h-accent block font-light'>
+									in Kashmir & Across India
+								</span>
+							</motion.h1>
+							<motion.p
+								variants={staggerItem}
+								className='mt-6 text-lg text-[rgba(251,243,234,0.60)] max-w-lg'>
+								Our electric hamam systems are trusted in Kashmir homes, luxury villas, hotels, mosques, and commercial projects. With over 500,000 installations across Kashmir and India since 2011, our teams deliver underfloor heating expertise built for -15C winters and power cut resilience.
+							</motion.p>
+							<motion.div
+								variants={staggerItem}
+								className='flex gap-10 mt-10'>
+								<div>
+									<p className='text-3xl gec-stat-num text-[#B86B45]'>
+										<Counter display='500,000+' />
+									</p>
+									<p className='text-xs text-[rgba(251,243,234,0.60)]'>
+										Installations in Kashmir & India
+									</p>
+								</div>
+								<div>
+									<p className='text-3xl gec-stat-num text-[#B86B45]'>
+										<Counter display='2,000,000+' />
+									</p>
+									<p className='text-xs text-[rgba(251,243,234,0.60)]'>
+										Installations Worldwide
+									</p>
+								</div>
+							</motion.div>
+						</motion.div>
+						<motion.div
+							initial={{ opacity: 0, y: 40, scale: 0.96 }}
+							whileInView={{ opacity: 1, y: 0, scale: 1 }}
+							viewport={{ once: true, amount: 0.3 }}
+							transition={{ duration: 0.9, ease: EASE }}
+							className='relative h-[420px]'>
+							<img
+								src='/images/floor1.jpg'
+								className='object-cover w-full h-full rounded-3xl'
+								alt='Electric heating cable technology'
+							/>
+						</motion.div>
+					</section>
 
-				{/* TECHNOLOGY */}
-				<section className='grid lg:grid-cols-2 gap-14 items-center'>
-					<div className='relative h-[400px]'>
-						<img
-							src='/images/floor2.webp'
-							className='object-cover w-full h-full rounded-3xl'
-							alt='Heating cable technology'
-						/>
-					</div>
-					<div>
-						<h2 className='text-4xl font-serif text-[#3C2A25] mb-6'>
-							Technology Behind Our Kashmir Systems
+					{/* GLOBAL PROJECTS */}
+					<section>
+						<motion.h2
+							className='gec-h text-4xl text-center mb-12'
+							initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
+							whileInView={{
+								opacity: 1,
+								y: 0,
+								filter: 'blur(0px)',
+							}}
+							viewport={{ once: true, amount: 0.3 }}
+							transition={{ duration: 0.8, ease: EASE }}>
+							Our Global Installations
+						</motion.h2>
+
+						<motion.div
+							className='grid md:grid-cols-4 gap-6'
+							variants={flagContainerVariants}
+							initial='hidden'
+							whileInView='show'
+							viewport={{ once: true, margin: '-80px' }}>
+							{countries.map((c) => (
+								<FlagCard key={c.name} country={c} />
+							))}
+						</motion.div>
+					</section>
+
+					{/* INSTALLATION PROCESS */}
+					<section>
+						<motion.h2
+							className='gec-h text-4xl text-center mb-14'
+							initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
+							whileInView={{
+								opacity: 1,
+								y: 0,
+								filter: 'blur(0px)',
+							}}
+							viewport={{ once: true, amount: 0.3 }}
+							transition={{ duration: 0.8, ease: EASE }}>
+							Our Installation Process
+						</motion.h2>
+
+						{/* Step-progression rail: reinforces that the five cards below
+						    are sequential, not unrelated siblings. */}
+						<div className='hidden md:block relative mb-10 px-2'>
+							<div className='gec-process-rail-track'>
+								<motion.div
+									className='gec-process-rail'
+									initial={{ scaleX: 0 }}
+									whileInView={{ scaleX: 1 }}
+									viewport={{ once: true }}
+									transition={{ duration: 1.2, ease: EASE }}
+								/>
+							</div>
+							<div className='gec-process-dots'>
+								{process.map((step, i) => (
+									<motion.span
+										key={step.title}
+										className='gec-process-dot'
+										initial={{ opacity: 0, scale: 0 }}
+										whileInView={{ opacity: 1, scale: 1 }}
+										viewport={{ once: true }}
+										transition={{
+											delay: i * 0.12 + 0.15,
+											duration: 0.4,
+											ease: EASE,
+										}}
+									/>
+								))}
+							</div>
+						</div>
+
+						<div className='grid md:grid-cols-5 gap-6'>
+							{process.map((step, i) => (
+								<motion.div
+									key={step.title}
+									initial={{
+										opacity: 0,
+										y: 30,
+										filter: 'blur(5px)',
+									}}
+									whileInView={{
+										opacity: 1,
+										y: 0,
+										filter: 'blur(0px)',
+									}}
+									viewport={{ once: true }}
+									transition={{
+										delay: i * 0.12,
+										duration: 0.7,
+										ease: EASE,
+									}}
+									whileHover={{ y: -6 }}
+									className='gec-card p-6'>
+									<span className='gec-process-num'>
+										STEP {i + 1}
+									</span>
+									<h3 className='font-semibold text-[#FBF3EA] mt-3'>
+										{step.title}
+									</h3>
+									<p className='text-xs text-[rgba(251,243,234,0.60)] mt-3 leading-relaxed'>
+										{step.desc}
+									</p>
+								</motion.div>
+							))}
+						</div>
+					</section>
+
+					{/* TECHNOLOGY */}
+					<section className='grid lg:grid-cols-2 gap-14 items-center'>
+						<motion.div
+							initial={{ opacity: 0, y: 40, scale: 0.96 }}
+							whileInView={{ opacity: 1, y: 0, scale: 1 }}
+							viewport={{ once: true, amount: 0.3 }}
+							transition={{ duration: 0.9, ease: EASE }}
+							className='relative h-[400px]'>
+							<img
+								src='/images/floor2.webp'
+								className='object-cover w-full h-full rounded-3xl'
+								alt='Heating cable technology'
+							/>
+						</motion.div>
+						<motion.div
+							initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
+							whileInView={{
+								opacity: 1,
+								y: 0,
+								filter: 'blur(0px)',
+							}}
+							viewport={{ once: true, amount: 0.3 }}
+							transition={{ duration: 0.8, ease: EASE }}>
+							<h2 className='gec-h text-4xl mb-6'>
+								Technology Behind Our Kashmir Systems
+							</h2>
+							<p className='text-sm text-[rgba(251,243,234,0.60)] leading-relaxed mb-5'>
+								Our heating cables use advanced fluoropolymer insulation
+								and multi-layer conductive cores that provide consistent
+								radiant heat distribution. These systems are designed to
+								operate safely beneath flooring materials while
+								maintaining optimal energy efficiency.
+							</p>
+							<ul className='space-y-2 text-sm text-[rgba(251,243,234,0.60)]'>
+								<li>Fluoropolymer heating cable construction</li>
+								<li>Variable wattage heating technology</li>
+								<li>Waterproof insulation layers</li>
+								<li>
+									Compliance with international IEC electrical
+									standards
+								</li>
+							</ul>
+						</motion.div>
+					</section>
+
+					{/* BRANDS */}
+					<section>
+						<motion.h2
+							className='gec-h text-4xl text-center mb-4'
+							initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
+							whileInView={{
+								opacity: 1,
+								y: 0,
+								filter: 'blur(0px)',
+							}}
+							viewport={{ once: true, amount: 0.3 }}
+							transition={{ duration: 0.8, ease: EASE }}>
+							Brands We Work With
+						</motion.h2>
+						<motion.p
+							className='text-center text-sm text-[rgba(251,243,234,0.60)] mb-12'
+							initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+							whileInView={{
+								opacity: 1,
+								y: 0,
+								filter: 'blur(0px)',
+							}}
+							viewport={{ once: true, amount: 0.3 }}
+							transition={{
+								delay: 0.15,
+								duration: 0.6,
+								ease: EASE,
+							}}>
+							Hover over any brand card to access the official
+							installation documentation.
+						</motion.p>
+						<div className='grid md:grid-cols-3 lg:grid-cols-6 gap-5'>
+							{brands.map((b, i) => (
+								<BrandCard key={b.name} brand={b} index={i} />
+							))}
+						</div>
+					</section>
+
+					{/* PROJECTS WE SERVE */}
+					<section>
+						<motion.h2
+							className='gec-h text-4xl text-center mb-4'
+							initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
+							whileInView={{
+								opacity: 1,
+								y: 0,
+								filter: 'blur(0px)',
+							}}
+							viewport={{ once: true, amount: 0.3 }}
+							transition={{ duration: 0.8, ease: EASE }}>
+							Projects We Serve
+						</motion.h2>
+						<motion.p
+							className='text-center text-sm text-[rgba(251,243,234,0.60)] mb-12'
+							initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+							whileInView={{
+								opacity: 1,
+								y: 0,
+								filter: 'blur(0px)',
+							}}
+							viewport={{ once: true, amount: 0.3 }}
+							transition={{
+								delay: 0.15,
+								duration: 0.6,
+								ease: EASE,
+							}}>
+							From intimate homes to grand commercial spaces, we heat
+							them all.
+						</motion.p>
+						<div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
+							{projects.map((p, i) => (
+								<ProjectCard key={p.label} project={p} index={i} />
+							))}
+						</div>
+					</section>
+
+					{/* WARRANTY */}
+					<motion.section
+						initial={{ opacity: 0, y: 30, filter: 'blur(6px)' }}
+						whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+						viewport={{ once: true, amount: 0.3 }}
+						transition={{ duration: 0.8, ease: EASE }}
+						className='gec-card p-12 text-center'>
+						<h2 className='gec-h text-4xl mb-6'>
+							Reliability & Warranty
 						</h2>
-						<p className='text-sm text-[#3C2B27] leading-relaxed mb-5'>
-							Our heating cables use advanced fluoropolymer insulation
-							and multi-layer conductive cores that provide consistent
-							radiant heat distribution. These systems are designed to
-							operate safely beneath flooring materials while
-							maintaining optimal energy efficiency.
+						<p className='text-sm text-[rgba(251,243,234,0.60)] max-w-2xl mx-auto leading-relaxed'>
+							Our heating systems are built to last. Most installations
+							are backed by warranties of up to 25 years, with extremely
+							low repair rates thanks to advanced cable insulation and
+							strict installation standards.
 						</p>
-						<ul className='space-y-2 text-sm text-[#6B4A2D]'>
-							<li>Fluoropolymer heating cable construction</li>
-							<li>Variable wattage heating technology</li>
-							<li>Waterproof insulation layers</li>
-							<li>
-								Compliance with international IEC electrical
-								standards
-							</li>
-						</ul>
-					</div>
-				</section>
-
-				{/* BRANDS */}
-				<section>
-					<motion.h2
-						className='text-4xl font-serif text-center text-[#3C2A25] mb-4'
-						initial={{ opacity: 0, y: 30 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true }}
-						transition={{ duration: 0.6 }}>
-						Brands We Work With
-					</motion.h2>
-					<motion.p
-						className='text-center text-sm text-[#7a5a42] mb-12'
-						initial={{ opacity: 0 }}
-						whileInView={{ opacity: 1 }}
-						viewport={{ once: true }}
-						transition={{ delay: 0.2 }}>
-						Hover over any brand card to access the official
-						installation documentation.
-					</motion.p>
-					<div className='grid md:grid-cols-3 lg:grid-cols-6 gap-5'>
-						{brands.map((b) => (
-							<BrandCard key={b.name} brand={b} />
-						))}
-					</div>
-				</section>
-
-				{/* PROJECTS WE SERVE */}
-				<section>
-					<motion.h2
-						className='text-4xl font-serif text-center text-[#3C2A25] mb-4'
-						initial={{ opacity: 0, y: 30 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true }}
-						transition={{ duration: 0.6 }}>
-						Projects We Serve
-					</motion.h2>
-					<motion.p
-						className='text-center text-sm text-[#7a5a42] mb-12'
-						initial={{ opacity: 0 }}
-						whileInView={{ opacity: 1 }}
-						viewport={{ once: true }}
-						transition={{ delay: 0.2 }}>
-						From intimate homes to grand commercial spaces, we heat
-						them all.
-					</motion.p>
-					<div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
-						{projects.map((p, i) => (
-							<ProjectCard key={p.label} project={p} index={i} />
-						))}
-					</div>
-				</section>
-
-				{/* WARRANTY */}
-				<section className='bg-white/70 rounded-3xl p-12 shadow text-center'>
-					<h2 className='text-4xl font-serif text-[#3C2A25] mb-6'>
-						Reliability & Warranty
-					</h2>
-					<p className='text-sm text-[#3C2B27] max-w-2xl mx-auto leading-relaxed'>
-						Our heating systems are built to last. Most installations
-						are backed by warranties of up to 25 years, with extremely
-						low repair rates thanks to advanced cable insulation and
-						strict installation standards.
-					</p>
-					<div className='flex justify-center gap-12 mt-10'>
-						<div>
-							<p className='text-3xl font-serif text-[#B86B45]'>
-								25+
-							</p>
-							<p className='text-xs text-[#6B4A2D]'>Years Warranty</p>
+						<div className='flex justify-center gap-12 mt-10'>
+							<div>
+								<p className='text-3xl gec-stat-num text-[#B86B45]'>
+									<Counter display='25+' />
+								</p>
+								<p className='text-xs text-[rgba(251,243,234,0.60)]'>
+									Years Warranty
+								</p>
+							</div>
+							<div>
+								<p className='text-3xl gec-stat-num text-[#B86B45]'>
+									<Counter display='0.01%' />
+								</p>
+								<p className='text-xs text-[rgba(251,243,234,0.60)]'>
+									Repair Rate
+								</p>
+							</div>
 						</div>
-						<div>
-							<p className='text-3xl font-serif text-[#B86B45]'>
-								0.01%
-							</p>
-							<p className='text-xs text-[#6B4A2D]'>Repair Rate</p>
-						</div>
-					</div>
-				</section>
+					</motion.section>
 
-				{/* FAQ */}
-				<section>
-					<h2 className='text-4xl font-serif text-center text-[#3C2A25] mb-12'>
-						Frequently Asked Questions
-					</h2>
-					<div className='max-w-3xl mx-auto bg-white/70 rounded-3xl p-8 shadow'>
-						{faqs.map((f) => (
-							<FaqItem key={f.q} {...f} />
-						))}
-					</div>
-				</section>
-			</div>
-		</main>
+					{/* FAQ */}
+					<section>
+						<motion.h2
+							className='gec-h text-4xl text-center mb-12'
+							initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
+							whileInView={{
+								opacity: 1,
+								y: 0,
+								filter: 'blur(0px)',
+							}}
+							viewport={{ once: true, amount: 0.3 }}
+							transition={{ duration: 0.8, ease: EASE }}>
+							Frequently Asked Questions
+						</motion.h2>
+						<div className='max-w-3xl mx-auto space-y-3'>
+							{faqs.map((f, i) => (
+								<FaqItem key={f.q} q={f.q} a={f.a} index={i} />
+							))}
+						</div>
+					</section>
+				</div>
+			</main>
+		</>
 	);
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// STYLES
+// ─────────────────────────────────────────────────────────────────────────────
+
+const CSS = `
+.gec-root {
+	position: relative;
+	isolation: isolate;
+	color: ${C.text};
+	background:
+		radial-gradient(120% 80% at 50% -10%, rgba(232,147,58,0.14), transparent 55%),
+		linear-gradient(180deg,#0d0805 0%,#150d07 30%,#1a0f08 60%,#0f0906 100%);
+}
+.gec-root::before {
+	content:''; position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.04;
+	background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.gec-aura { position:absolute; inset:-10%; z-index:0; pointer-events:none; filter: blur(14px); }
+.gec-orb { position:absolute; border-radius:50%; }
+.gec-orb-1 { top:-8%; left:6%; width:46vw; height:46vw; max-width:720px; max-height:720px; background: radial-gradient(circle, rgba(232,147,58,0.28), transparent 62%); animation: gec-drift 24s ease-in-out infinite; }
+.gec-orb-2 { top:8%; right:0%; width:40vw; height:40vw; max-width:620px; max-height:620px; background: radial-gradient(circle, rgba(255,126,95,0.18), transparent 62%); animation: gec-drift2 30s ease-in-out infinite; }
+.gec-orb-3 { top:44%; left:36%; width:38vw; height:38vw; max-width:560px; max-height:560px; background: radial-gradient(circle, rgba(127,192,232,0.10), transparent 64%); animation: gec-drift 34s ease-in-out infinite reverse; }
+.gec-vignette { position:absolute; inset:0; z-index:0; pointer-events:none; background: radial-gradient(120% 120% at 50% 40%, transparent 55%, rgba(0,0,0,0.5) 100%); }
+
+@keyframes gec-drift { 0%{transform:translate3d(-5%,-3%,0) scale(1)} 33%{transform:translate3d(5%,4%,0) scale(1.08)} 66%{transform:translate3d(-3%,6%,0) scale(.95)} 100%{transform:translate3d(-5%,-3%,0) scale(1)} }
+@keyframes gec-drift2 { 0%{transform:translate3d(4%,2%,0) scale(1.05)} 50%{transform:translate3d(-5%,-4%,0) scale(.94)} 100%{transform:translate3d(4%,2%,0) scale(1.05)} }
+@keyframes gec-blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+@keyframes gec-shimmer { 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
+
+/* badge */
+.gec-badge {
+	display:inline-flex; align-items:center; gap:9px; margin-bottom:20px;
+	padding:8px 22px; border-radius:999px;
+	font-family:var(--font-body); font-size:10px; font-weight:600;
+	text-transform:uppercase; letter-spacing:0.4em; color:${C.amberLt};
+	background: rgba(232,147,58,0.08);
+	border:1px solid rgba(232,147,58,0.22);
+	box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 8px 30px rgba(0,0,0,0.4);
+	backdrop-filter: blur(12px);
+}
+.gec-badge-dot { width:6px; height:6px; border-radius:50%; background:${C.coral}; box-shadow:0 0 8px rgba(255,126,95,0.9); flex-shrink:0; animation: gec-blink 2s ease-in-out infinite; }
+
+/* headings */
+.gec-h {
+	font-family:var(--font-heading);
+	font-weight:600; line-height:1.06; letter-spacing:-0.01em;
+	color:${C.text}; margin:0;
+	text-shadow:0 2px 40px rgba(0,0,0,0.4);
+}
+.gec-h-accent {
+	font-weight:300;
+	background:linear-gradient(100deg,#E8933A,#F5B97A 30%,#FF7E5F 55%,#F5B97A 80%,#E8933A);
+	background-size:200% auto; -webkit-background-clip:text; background-clip:text;
+	-webkit-text-fill-color:transparent; color:transparent;
+	animation: gec-shimmer 6s linear infinite;
+}
+.gec-stat-num { font-family:var(--font-heading); font-weight:600; }
+
+/* glass card base, identical recipe to WhyChooseUsClient's .whc-card */
+.gec-card {
+	position:relative;
+	background:
+		linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
+		rgba(20,13,8,0.5);
+	backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+	border:1px solid ${C.glassBorder};
+	border-radius:24px;
+	box-shadow: 0 24px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+	transition: transform .5s cubic-bezier(0.16,1,0.3,1), box-shadow .5s ease;
+}
+.gec-card::after {
+	content:''; position:absolute; inset:0; border-radius:inherit; padding:1px; pointer-events:none;
+	opacity:0; transition:opacity .5s ease;
+	background:linear-gradient(135deg, rgba(255,255,255,0.5), rgba(232,147,58,0.5) 45%, rgba(255,126,95,0.3));
+	-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	-webkit-mask-composite:xor; mask-composite:exclude;
+}
+.gec-card:hover::after { opacity:1; }
+.gec-flag-card:hover { transform:translateY(-6px); box-shadow:0 30px 70px rgba(0,0,0,0.5), 0 0 30px -10px rgba(184,107,69,0.5); }
+
+/* process */
+.gec-process-rail-track { position:relative; height:2px; background:rgba(255,255,255,0.1); border-radius:999px; margin:0 4px; }
+.gec-process-rail { position:absolute; inset:0; border-radius:999px; transform-origin:left center; background:linear-gradient(90deg,${C.amber},${C.coral}); }
+.gec-process-dots { position:absolute; inset:0; top:-4px; display:flex; justify-content:space-between; }
+.gec-process-dot { width:10px; height:10px; border-radius:50%; background:linear-gradient(135deg,${C.amber},${C.coral}); box-shadow:0 0 10px rgba(232,147,58,0.6); }
+.gec-process-num { display:inline-flex; font-family:var(--font-body); font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:${C.amberLt}; padding:4px 12px; border-radius:999px; background:rgba(232,147,58,0.12); border:1px solid rgba(232,147,58,0.28); }
+
+/* faq, identical recipe to UnderfloorHeatingIndiaClient's .uhi-faq */
+.gec-faq { overflow:hidden; transition:box-shadow .3s ease, border-color .3s ease; }
+.gec-faq.is-open { border-color:rgba(232,147,58,0.35); box-shadow:0 24px 60px rgba(232,147,58,0.12), inset 0 1px 0 rgba(255,255,255,0.06); }
+.gec-faq-index { flex-shrink:0; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--font-body); font-size:12px; font-weight:700; background:rgba(232,147,58,0.12); color:${C.amberLt}; transition:background .3s ease, color .3s ease; }
+.gec-faq.is-open .gec-faq-index { background:linear-gradient(135deg,${C.amber},${C.coral}); color:#fff; }
+.gec-faq-q { font-family:var(--font-body); font-weight:600; color:${C.text}; font-size:15px; line-height:1.4; }
+.gec-faq-a { font-family:var(--font-body); color:${C.soft}; font-size:13.5px; line-height:1.7; }
+.gec-faq-toggle { flex-shrink:0; width:32px; height:32px; border-radius:50%; border:1px solid rgba(232,147,58,0.25); display:flex; align-items:center; justify-content:center; transition:all .3s ease; }
+.gec-faq-toggle.is-open { background:linear-gradient(135deg,${C.amber},${C.coral}); border-color:transparent; transform:rotate(45deg); }
+
+@media (prefers-reduced-motion: reduce) {
+	.gec-orb, .gec-h-accent, .gec-badge-dot { animation:none !important; }
+}
+`;

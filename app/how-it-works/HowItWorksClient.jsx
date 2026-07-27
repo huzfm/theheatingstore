@@ -5,8 +5,27 @@ import {
 	AnimatePresence,
 	useReducedMotion,
 	useInView,
+	useScroll,
+	useTransform,
 } from 'framer-motion';
 import { useEffect, useState, useRef, useCallback } from 'react';
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PALETTE, identical to WhyChooseUsClient's `C` object so both sections are
+// provably the same color system
+// ─────────────────────────────────────────────────────────────────────────────
+
+const C = {
+	amber: '#E8933A',
+	amberLt: '#F5B97A',
+	coral: '#FF7E5F',
+	text: '#FBF3EA',
+	soft: 'rgba(251,243,234,0.60)',
+	mute: 'rgba(251,243,234,0.40)',
+	line: 'rgba(255,255,255,0.09)',
+	glass: 'rgba(255,255,255,0.045)',
+	glassBorder: 'rgba(255,255,255,0.10)',
+};
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA, 5 professional steps, no app content
@@ -1794,9 +1813,9 @@ function ProgressBar({ active, duration, onComplete }) {
 		<div
 			style={{
 				height: 2,
-				background: 'rgba(255,255,255,0.18)',
+				background: 'rgba(255,255,255,0.14)',
 				borderRadius: 999,
-				overflow: 'hidden',
+				overflow: 'visible',
 				width: '100%',
 			}}>
 			{active && (
@@ -1804,11 +1823,28 @@ function ProgressBar({ active, duration, onComplete }) {
 					style={{
 						height: '100%',
 						borderRadius: 999,
-						background: 'linear-gradient(90deg,#C17A50,#E8A070)',
+						background: `linear-gradient(90deg,${C.amber},${C.coral})`,
 					}}
-					initial={{ width: '0%' }}
-					animate={{ width: '100%' }}
-					transition={{ duration: duration / 1000, ease: 'linear' }}
+					initial={{
+						width: '0%',
+						boxShadow: '0 0 0px rgba(255,126,95,0)',
+					}}
+					animate={{
+						width: '100%',
+						boxShadow: [
+							'0 0 0px rgba(255,126,95,0)',
+							'0 0 0px rgba(255,126,95,0)',
+							'0 0 12px rgba(255,126,95,0.9)',
+						],
+					}}
+					transition={{
+						width: { duration: duration / 1000, ease: 'linear' },
+						boxShadow: {
+							duration: duration / 1000,
+							times: [0, 0.85, 1],
+							ease: 'easeOut',
+						},
+					}}
 					onAnimationComplete={onComplete}
 				/>
 			)}
@@ -1823,6 +1859,82 @@ function ProgressBar({ active, duration, onComplete }) {
 const INTERVAL = 5500;
 const EASE = [0.16, 1, 0.3, 1];
 
+// Right-panel reveal choreography: increasing delay + settle distance per
+// element via nested staggerChildren, blur-to-focus where it reads text.
+const panelVariants = {
+	hidden: {},
+	visible: { transition: { staggerChildren: 0.1, delayChildren: 0.04 } },
+	exit: {
+		opacity: 0,
+		x: -16,
+		filter: 'blur(2px)',
+		transition: { duration: 0.4, ease: EASE },
+	},
+};
+const panelBadgeRowVariant = {
+	hidden: { opacity: 0, y: 10, filter: 'blur(3px)' },
+	visible: {
+		opacity: 1,
+		y: 0,
+		filter: 'blur(0px)',
+		transition: { duration: 0.5, ease: EASE },
+	},
+};
+const panelTitleVariant = {
+	hidden: { opacity: 0, y: 18, filter: 'blur(4px)' },
+	visible: {
+		opacity: 1,
+		y: 0,
+		filter: 'blur(0px)',
+		transition: { duration: 0.6, ease: EASE },
+	},
+};
+const panelDividerVariant = {
+	hidden: { scaleX: 0 },
+	visible: { scaleX: 1, transition: { duration: 0.6, ease: EASE } },
+};
+const panelDescVariant = {
+	hidden: { opacity: 0, y: 20, filter: 'blur(4px)' },
+	visible: {
+		opacity: 1,
+		y: 0,
+		filter: 'blur(0px)',
+		transition: { duration: 0.65, ease: EASE },
+	},
+};
+const panelFeaturesVariant = {
+	hidden: {},
+	visible: { transition: { staggerChildren: 0.09 } },
+};
+const panelFeatureRowVariant = {
+	hidden: { opacity: 0, x: 16 },
+	visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: EASE } },
+};
+const panelFeatureIconVariant = {
+	hidden: { rotate: -8, scale: 0.9 },
+	visible: { rotate: 0, scale: 1, transition: { duration: 0.5, ease: EASE } },
+};
+const panelCtaVariant = {
+	hidden: { opacity: 0, y: 24 },
+	visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+};
+
+// Bottom step-overview cards: staggered scroll reveal, alternating travel
+// distance by column so the row doesn't land flat all at once.
+const botsContainerVariant = {
+	hidden: {},
+	visible: { transition: { staggerChildren: 0.08 } },
+};
+const botsCardVariant = (i) => ({
+	hidden: { opacity: 0, y: i % 2 === 0 ? 32 : 48, scale: 0.96 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		scale: 1,
+		transition: { duration: 0.7, ease: EASE },
+	},
+});
+
 export default function HowItWorksClient() {
 	const [index, setIndex] = useState(0);
 	const [paused, setPaused] = useState(false);
@@ -1833,6 +1945,15 @@ export default function HowItWorksClient() {
 		once: false,
 		margin: '-80px',
 	});
+	const botsRef = useRef(null);
+	const botsInView = useInView(botsRef, { once: true, amount: 0.1 });
+	const { scrollYProgress } = useScroll({
+		target: sectionRef,
+		offset: ['start end', 'end start'],
+	});
+	const orbY1 = useTransform(scrollYProgress, [0, 1], [-70, 70]);
+	const orbY2 = useTransform(scrollYProgress, [0, 1], [-40, 100]);
+	const orbY3 = useTransform(scrollYProgress, [0, 1], [-90, 50]);
 
 	const goTo = useCallback((i) => {
 		setIndex(i);
@@ -1855,34 +1976,70 @@ export default function HowItWorksClient() {
 			<style>{`
         @keyframes hiw-blink { 0%,100%{opacity:1} 50%{opacity:.15} }
         @keyframes hiw-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+        @keyframes hiw-shimmer { 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
+        @keyframes hiw-drift { 0%{transform:translate3d(-5%,-3%,0) scale(1)} 33%{transform:translate3d(5%,4%,0) scale(1.08)} 66%{transform:translate3d(-3%,6%,0) scale(.95)} 100%{transform:translate3d(-5%,-3%,0) scale(1)} }
+        @keyframes hiw-drift2 { 0%{transform:translate3d(4%,2%,0) scale(1.05)} 50%{transform:translate3d(-5%,-4%,0) scale(.94)} 100%{transform:translate3d(4%,2%,0) scale(1.05)} }
 
         .hiw-noise::before {
-          content:''; position:absolute; inset:0; pointer-events:none; z-index:0; opacity:.018;
+          content:''; position:absolute; inset:0; pointer-events:none; z-index:0; opacity:.045;
           background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
         .hiw-grid-bg::after {
           content:''; position:absolute; inset:0; pointer-events:none; z-index:0;
           background-image:
-            repeating-linear-gradient(0deg,rgba(60,42,37,.028) 0,transparent 1px,transparent 80px,rgba(60,42,37,.028) 80px),
-            repeating-linear-gradient(90deg,rgba(60,42,37,.028) 0,transparent 1px,transparent 80px,rgba(60,42,37,.028) 80px);
+            repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0,transparent 1px,transparent 80px,rgba(255,255,255,.02) 80px),
+            repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0,transparent 1px,transparent 80px,rgba(255,255,255,.02) 80px);
+        }
+        .hiw-vignette {
+          position:absolute; inset:0; z-index:0; pointer-events:none;
+          background: radial-gradient(120% 120% at 50% 40%, transparent 55%, rgba(0,0,0,0.5) 100%);
+        }
+        .hiw-aura { position:absolute; inset:-10%; z-index:0; pointer-events:none; filter: blur(14px); }
+        .hiw-orb { position:absolute; border-radius:50%; }
+        .hiw-orb-1 { top:-14%; left:2%; width:34vw; height:34vw; max-width:480px; max-height:480px; background: radial-gradient(circle, rgba(232,147,58,0.28), transparent 62%); animation: hiw-drift 26s ease-in-out infinite; }
+        .hiw-orb-2 { top:6%; right:-4%; width:30vw; height:30vw; max-width:420px; max-height:420px; background: radial-gradient(circle, rgba(255,126,95,0.18), transparent 62%); animation: hiw-drift2 31s ease-in-out infinite; }
+        .hiw-orb-3 { bottom:-10%; left:38%; width:26vw; height:26vw; max-width:360px; max-height:360px; background: radial-gradient(circle, rgba(127,192,232,0.10), transparent 64%); animation: hiw-drift 33s ease-in-out infinite reverse; }
+
+        .hiw-h-accent {
+          font-weight:300;
+          background:linear-gradient(100deg,#E8933A,#F5B97A 30%,#FF7E5F 55%,#F5B97A 80%,#E8933A);
+          background-size:200% auto; -webkit-background-clip:text; background-clip:text;
+          -webkit-text-fill-color:transparent; color:transparent;
+          animation: hiw-shimmer 6s linear infinite;
         }
 
+        .hiw-glass {
+          background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)), rgba(20,13,8,0.5);
+          backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+          border: 1px solid rgba(255,255,255,0.10);
+          box-shadow: 0 24px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+        }
+        .hiw-glass-hover { position:relative; }
+        .hiw-glass-hover::after {
+          content:''; position:absolute; inset:0; border-radius:inherit; padding:1px; pointer-events:none;
+          opacity:0; transition:opacity .5s ease;
+          background:linear-gradient(135deg, rgba(255,255,255,0.5), rgba(232,147,58,0.5) 45%, rgba(255,126,95,0.3));
+          -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          -webkit-mask-composite:xor; mask-composite:exclude;
+        }
+        .hiw-glass-hover:hover::after { opacity:1; }
+
         .hiw-tab  { transition: all .25s ease; cursor:pointer; }
-        .hiw-tab:hover  { background: rgba(193,122,80,0.14) !important; transform: translateY(-1px); }
+        .hiw-tab:hover  { background: rgba(232,147,58,0.16) !important; transform: translateY(-1px); }
 
         .hiw-nav-btn { transition: background .2s ease, border-color .2s ease; cursor:pointer; }
-        .hiw-nav-btn:hover { background: rgba(255,255,255,0.82) !important; border-color: rgba(193,122,80,0.5) !important; }
+        .hiw-nav-btn:hover { background: rgba(232,147,58,0.22) !important; border-color: rgba(232,147,58,0.5) !important; }
 
         .hiw-feat-row { transition: background .2s ease, border-color .2s ease; }
-        .hiw-feat-row:hover { background: rgba(255,255,255,0.82) !important; border-color: rgba(245,185,122,0.45) !important; }
+        .hiw-feat-row:hover { background: rgba(232,147,58,0.08) !important; border-color: rgba(232,147,58,0.35) !important; }
 
         .hiw-cta-p { transition: transform .28s ease, box-shadow .28s ease; cursor:pointer; }
-        .hiw-cta-p:hover { transform: scale(1.05); box-shadow: 0 20px 60px rgba(184,107,69,0.45) !important; }
+        .hiw-cta-p:hover { transform: scale(1.05); box-shadow: 0 28px 80px rgba(255,126,95,0.5) !important; }
         .hiw-cta-s { transition: background .2s ease; cursor:pointer; }
-        .hiw-cta-s:hover { background: rgba(255,232,207,0.95) !important; }
+        .hiw-cta-s:hover { background: rgba(232,147,58,0.14) !important; }
 
         .hiw-bc { transition: transform .3s ease, box-shadow .3s ease, border-color .25s ease; cursor:pointer; }
-        .hiw-bc:hover { transform: translateY(-5px); box-shadow: 0 28px 72px rgba(60,42,37,0.13) !important; }
+        .hiw-bc:hover { transform: translateY(-5px); }
 
         /* Layout */
         .hiw-main  { display:grid; grid-template-columns:1fr 1.1fr; gap:52px; align-items:start; }
@@ -1904,6 +2061,9 @@ export default function HowItWorksClient() {
           .hiw-bots { grid-template-columns:1fr 1fr; }
           .hiw-sh { height:240px; }
         }
+        @media (prefers-reduced-motion: reduce) {
+          .hiw-orb-1, .hiw-orb-2, .hiw-orb-3, .hiw-float, .hiw-h-accent, .hiw-badge-dot { animation:none !important; }
+        }
       `}</style>
 
 			<section
@@ -1912,74 +2072,24 @@ export default function HowItWorksClient() {
 				style={{
 					position: 'relative',
 					overflow: 'hidden',
-					backgroundImage:
-						'linear-gradient(180deg,#FFFFFF 0%,#FFF4E8 35%,#FFE0C2 70%,#F5B97A 100%)',
+					background:
+						'radial-gradient(120% 80% at 50% -10%, rgba(232,147,58,0.14), transparent 55%),linear-gradient(180deg,#0d0805 0%,#150d07 30%,#1a0f08 60%,#0f0906 100%)',
 					fontFamily: "var(--font-body)",
+					color: C.text,
 				}}>
-				{/* Same heat glow as WhyChooseUs */}
-				<motion.div
-					aria-hidden
-					animate={{ opacity: [0.25, 0.4, 0.25] }}
-					transition={{
-						duration: 10,
-						repeat: Infinity,
-						ease: 'easeInOut',
-					}}
-					style={{
-						position: 'absolute',
-						inset: 0,
-						pointerEvents: 'none',
-						zIndex: 0,
-						background:
-							'radial-gradient(60% 35% at 50% 0%,rgba(245,185,122,0.35),transparent 70%)',
-					}}
-				/>
-				{/* Corner rings */}
-				<motion.div
-					aria-hidden
-					style={{
-						position: 'absolute',
-						top: -180,
-						right: -180,
-						width: 520,
-						height: 520,
-						borderRadius: '50%',
-						pointerEvents: 'none',
-						zIndex: 0,
-						background:
-							'radial-gradient(circle,rgba(193,122,80,0.09),transparent 70%)',
-					}}
-					animate={
-						reduce ? {} : { scale: [1, 1.07, 1], rotate: [0, 12, 0] }
-					}
-					transition={{
-						duration: 22,
-						repeat: Infinity,
-						ease: 'easeInOut',
-					}}
-				/>
-				<motion.div
-					aria-hidden
-					style={{
-						position: 'absolute',
-						bottom: -120,
-						left: -140,
-						width: 400,
-						height: 400,
-						borderRadius: '50%',
-						pointerEvents: 'none',
-						zIndex: 0,
-						background:
-							'radial-gradient(circle,rgba(193,122,80,0.07),transparent 70%)',
-					}}
-					animate={reduce ? {} : { scale: [1, 1.1, 1] }}
-					transition={{
-						duration: 16,
-						repeat: Infinity,
-						ease: 'easeInOut',
-						delay: 4,
-					}}
-				/>
+				{/* Three-orb drift system, same language as WhyChooseUs */}
+				<div aria-hidden className='hiw-aura'>
+					<motion.div style={{ y: reduce ? 0 : orbY1 }}>
+						<span className='hiw-orb hiw-orb-1' />
+					</motion.div>
+					<motion.div style={{ y: reduce ? 0 : orbY2 }}>
+						<span className='hiw-orb hiw-orb-2' />
+					</motion.div>
+					<motion.div style={{ y: reduce ? 0 : orbY3 }}>
+						<span className='hiw-orb hiw-orb-3' />
+					</motion.div>
+				</div>
+				<div aria-hidden className='hiw-vignette' />
 
 				{/* ──────────────────── INNER ──────────────────── */}
 				<div
@@ -1991,97 +2101,91 @@ export default function HowItWorksClient() {
 						margin: '0 auto',
 						padding: '56px 20px 64px',
 					}}>
-					{/* ── HEADER, identical badge + heading pattern as WhyChooseUs ── */}
-					<motion.div
-						initial={{ opacity: 0, y: 26 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true, amount: 0.2 }}
-						transition={{ duration: 1, ease: EASE }}
-						style={{ marginBottom: 52 }}>
-						{/* Glass badge pill */}
-						<div
+					{/* ── HEADER, layered scroll entrance matching WhyChooseUs depth language ── */}
+					<div style={{ marginBottom: 52 }}>
+						{/* Glass badge pill, exact whc-badge recipe */}
+						<motion.div
+							initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
+							whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+							viewport={{ once: true, amount: 0.2 }}
+							transition={{ duration: 0.8, ease: EASE }}
 							style={{
 								position: 'relative',
 								display: 'inline-flex',
 								marginBottom: 24,
 							}}>
-							<span
-								aria-hidden
-								style={{
-									position: 'absolute',
-									inset: 0,
-									borderRadius: 999,
-									pointerEvents: 'none',
-									background:
-										'linear-gradient(180deg,rgba(255,255,255,0.55),rgba(255,255,255,0.08))',
-									opacity: 0.7,
-								}}
-							/>
 							<p
 								style={{
 									position: 'relative',
 									display: 'inline-flex',
 									alignItems: 'center',
-									gap: 8,
+									gap: 9,
 									whiteSpace: 'nowrap',
-									padding: '8px 28px',
+									padding: '8px 22px',
 									fontFamily: "var(--font-body)",
 									fontSize: 10,
-									fontWeight: 500,
+									fontWeight: 600,
 									textTransform: 'uppercase',
-									letterSpacing: '0.45em',
-									color: '#4FA3D1',
+									letterSpacing: '0.4em',
+									color: C.amberLt,
 									borderRadius: 999,
-									background: 'rgba(255,255,255,0.22)',
-									backdropFilter: 'blur(16px)',
-									WebkitBackdropFilter: 'blur(16px)',
-									border: '1px solid rgba(255,255,255,0.3)',
+									background: 'rgba(232,147,58,0.08)',
+									backdropFilter: 'blur(12px)',
+									WebkitBackdropFilter: 'blur(12px)',
+									border: '1px solid rgba(232,147,58,0.22)',
 									boxShadow:
-										'inset 0 1px 0 rgba(255,255,255,0.45),0 14px 40px rgba(15,23,42,0.22)',
+										'inset 0 1px 0 rgba(255,255,255,0.06),0 8px 30px rgba(0,0,0,0.4)',
 									margin: 0,
 								}}>
 								<span
+									className='hiw-badge-dot'
 									style={{
 										width: 6,
 										height: 6,
 										borderRadius: '50%',
-										background: '#B86B45',
+										background: C.coral,
+										boxShadow: '0 0 8px rgba(255,126,95,0.9)',
 										flexShrink: 0,
 										animation: 'hiw-blink 2s ease-in-out infinite',
 									}}
 								/>
 								How It Works
 							</p>
-						</div>
+						</motion.div>
 
-						{/* H2, same Playfair, semibold, #3C2A25, accent #B86B45 */}
-						<h2
+						{/* H2, Playfair semibold, ivory on dark, shimmering accent line */}
+						<motion.h2
+							initial={{ opacity: 0, y: 30, filter: 'blur(6px)' }}
+							whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+							viewport={{ once: true, amount: 0.2 }}
+							transition={{ duration: 0.9, ease: EASE, delay: 0.15 }}
 							style={{
 								fontFamily: "var(--font-heading)",
-								fontSize: 'clamp(30px,4vw,54px)',
+								fontSize: 'clamp(30px,4.4vw,58px)',
 								fontWeight: 600,
-								lineHeight: 1.1,
+								lineHeight: 1.06,
 								letterSpacing: '-0.01em',
-								color: '#3C2A25',
+								color: C.text,
 								margin: 0,
 							}}>
 							From Site Survey to Perfect Warmth
 							<span
-								style={{
-									display: 'block',
-									fontWeight: 300,
-									color: '#B86B45',
-								}}>
+								className='hiw-h-accent'
+								style={{ display: 'block' }}>
 								A System Engineered for Efficiency
 							</span>
-						</h2>
-						<p
+						</motion.h2>
+						<motion.p
+							initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
+							whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+							viewport={{ once: true, amount: 0.2 }}
+							transition={{ duration: 0.9, ease: EASE, delay: 0.3 }}
 							style={{
 								marginTop: 20,
 								fontFamily: "var(--font-body)",
 								fontSize: 'clamp(14px,2vw,17px)',
-								lineHeight: 1.75,
-								color: '#3C2B27',
+								lineHeight: 1.8,
+								color: C.soft,
 								fontWeight: 400,
 								maxWidth: 580,
 							}}>
@@ -2091,8 +2195,8 @@ export default function HowItWorksClient() {
 							thermostat commissioning and final performance
 							testing, to our industry leading 25 year warranty.
 							No shortcuts. No guesswork.
-						</p>
-					</motion.div>
+						</motion.p>
+					</div>
 
 					{/* ── STEP TABS ── */}
 					<motion.div
@@ -2118,15 +2222,17 @@ export default function HowItWorksClient() {
 									fontWeight: 500,
 									letterSpacing: '0.04em',
 									background:
-										index === i ? '#C17A50' : 'rgba(193,122,80,0.08)',
+										index === i
+											? `linear-gradient(135deg,${C.amber},${C.coral})`
+											: 'rgba(232,147,58,0.08)',
 									border:
 										index === i
-											? '1px solid #C17A50'
-											: '1px solid rgba(193,122,80,0.22)',
-									color: index === i ? 'white' : '#8A6448',
+											? '1px solid transparent'
+											: '1px solid rgba(232,147,58,0.22)',
+									color: index === i ? 'white' : C.amberLt,
 									boxShadow:
 										index === i
-											? '0 8px 24px rgba(193,122,80,0.3)'
+											? '0 8px 24px rgba(232,147,58,0.35)'
 											: 'none',
 								}}>
 								<span style={{ opacity: 0.6, fontWeight: 300 }}>
@@ -2141,188 +2247,214 @@ export default function HowItWorksClient() {
 					<div className='hiw-main'>
 						{/* LEFT: scene card */}
 						<div style={{ position: 'relative' }}>
-							<div
-								className='hiw-sh'
-								style={{
-									position: 'relative',
-									borderRadius: 28,
-									overflow: 'hidden',
-									background:
-										'linear-gradient(145deg,#FFF5EE,#F5E4D0)',
-									boxShadow:
-										'0 50px 140px rgba(60,25,10,0.18),0 12px 40px rgba(60,25,10,0.1),inset 0 1px 0 rgba(255,255,255,0.6)',
-								}}
-								onMouseEnter={() => setPaused(true)}
-								onMouseLeave={() => setPaused(false)}>
-								{/* Watermark */}
-								<div
-									style={{
-										position: 'absolute',
-										top: 18,
-										left: 26,
-										fontFamily: "var(--font-heading)",
-										fontSize: 'clamp(60px, 10vw, 118px)',
-										lineHeight: 1,
-										color: 'rgba(193,122,80,0.07)',
-										letterSpacing: '-0.04em',
-										fontWeight: 600,
-										pointerEvents: 'none',
-										userSelect: 'none',
-									}}>
-									{current.step}
-								</div>
-
-								{/* Live badge */}
+							<div style={{ perspective: 1200 }}>
 								<motion.div
-									key={current.badge}
-									initial={{ opacity: 0, y: -8 }}
-									animate={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.5 }}
+									className='hiw-sh hiw-glass hiw-glass-hover'
+									initial={{
+										opacity: 0,
+										y: 60,
+										rotateX: 8,
+										scale: 0.94,
+									}}
+									whileInView={{
+										opacity: 1,
+										y: 0,
+										rotateX: 0,
+										scale: 1,
+									}}
+									viewport={{ once: true, amount: 0.2 }}
+									transition={{ duration: 1, ease: EASE }}
 									style={{
-										position: 'absolute',
-										top: 18,
-										right: 18,
-										zIndex: 3,
-									}}>
+										position: 'relative',
+										borderRadius: 28,
+										overflow: 'hidden',
+										transformStyle: 'preserve-3d',
+									}}
+									onMouseEnter={() => setPaused(true)}
+									onMouseLeave={() => setPaused(false)}>
+									{/* Watermark */}
 									<div
 										style={{
-											display: 'inline-flex',
-											alignItems: 'center',
-											gap: 6,
-											padding: '6px 14px',
-											borderRadius: 999,
-											background: 'rgba(255,255,255,0.84)',
-											backdropFilter: 'blur(14px)',
-											border: '1px solid rgba(193,122,80,0.25)',
-											boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+											position: 'absolute',
+											top: 18,
+											left: 26,
+											fontFamily: "var(--font-heading)",
+											fontSize: 'clamp(60px, 10vw, 118px)',
+											lineHeight: 1,
+											color: 'rgba(245,185,122,0.08)',
+											letterSpacing: '-0.04em',
+											fontWeight: 600,
+											pointerEvents: 'none',
+											userSelect: 'none',
 										}}>
-										<span
-											style={{
-												width: 5,
-												height: 5,
-												borderRadius: '50%',
-												background: '#C17A50',
-												animation: 'hiw-blink 2s infinite',
-											}}
-										/>
-										<span
-											style={{
-												fontFamily: "var(--font-body)",
-												fontSize: 9,
-												fontWeight: 600,
-												letterSpacing: '0.2em',
-												textTransform: 'uppercase',
-												color: '#C17A50',
-											}}>
-											{current.badge}
-										</span>
+										{current.step}
 									</div>
-								</motion.div>
 
-								{/* Scene */}
-								<div
-									style={{
-										position: 'absolute',
-										inset: 0,
-										padding: '14px 10px 82px',
-										display: 'flex',
-										alignItems: 'center',
-										justifyContent: 'center',
-									}}>
-									<AnimatePresence mode='wait'>
-										<motion.div
-											key={current.bgScene}
-											style={{ width: '100%', height: '100%' }}
-											initial={{ opacity: 0, scale: 0.96 }}
-											animate={{ opacity: 1, scale: 1 }}
-											exit={{ opacity: 0, scale: 1.03 }}
-											transition={{
-												duration: 0.6,
-												ease: 'easeInOut',
-											}}>
-											<SceneComponent active={inView} />
-										</motion.div>
-									</AnimatePresence>
-								</div>
-
-								{/* Bottom bar */}
-								<div
-									style={{
-										position: 'absolute',
-										bottom: 0,
-										left: 0,
-										right: 0,
-										padding: '0 22px 18px',
-									}}>
-									<div
+									{/* Live badge */}
+									<motion.div
+										key={current.badge}
+										initial={{ opacity: 0, y: -8 }}
+										animate={{ opacity: 1, y: 0 }}
+										transition={{ duration: 0.5 }}
 										style={{
-											display: 'grid',
-											gridTemplateColumns: `repeat(${steps.length},1fr)`,
-											gap: 6,
-											marginBottom: 14,
+											position: 'absolute',
+											top: 18,
+											right: 18,
+											zIndex: 3,
 										}}>
-										{steps.map((_, i) => (
-											<ProgressBar
-												key={`${i}-${progressKey}`}
-												active={i === index && !paused && inView}
-												duration={INTERVAL}
-												onComplete={i === index ? next : undefined}
+										<div
+											style={{
+												display: 'inline-flex',
+												alignItems: 'center',
+												gap: 6,
+												padding: '6px 14px',
+												borderRadius: 999,
+												background: 'rgba(10,6,3,0.55)',
+												backdropFilter: 'blur(14px)',
+												border: '1px solid rgba(245,185,122,0.35)',
+												boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+											}}>
+											<span
+												style={{
+													width: 5,
+													height: 5,
+													borderRadius: '50%',
+													background: C.coral,
+													animation: 'hiw-blink 2s infinite',
+												}}
 											/>
-										))}
-									</div>
+											<span
+												style={{
+													fontFamily: "var(--font-body)",
+													fontSize: 9,
+													fontWeight: 600,
+													letterSpacing: '0.2em',
+													textTransform: 'uppercase',
+													color: C.amberLt,
+												}}>
+												{current.badge}
+											</span>
+										</div>
+									</motion.div>
+
+									{/* Scene */}
 									<div
 										style={{
+											position: 'absolute',
+											inset: 0,
+											padding: '14px 10px 82px',
 											display: 'flex',
 											alignItems: 'center',
-											justifyContent: 'space-between',
+											justifyContent: 'center',
 										}}>
-										<div style={{ display: 'flex', gap: 8 }}>
-											{[
-												{ fn: prev, icon: '←' },
-												{ fn: next, icon: '→' },
-											].map(({ fn, icon }) => (
-												<button
-													key={icon}
-													className='hiw-nav-btn'
-													onClick={fn}
-													style={{
-														width: 32,
-														height: 32,
-														borderRadius: '50%',
-														display: 'flex',
-														alignItems: 'center',
-														justifyContent: 'center',
-														fontSize: 14,
-														background: 'rgba(255,255,255,0.55)',
-														border: '1px solid rgba(193,122,80,0.28)',
-														color: '#C17A50',
-													}}>
-													{icon}
-												</button>
+										<AnimatePresence mode='wait'>
+											<motion.div
+												key={current.bgScene}
+												style={{ width: '100%', height: '100%' }}
+												initial={{
+													opacity: 0,
+													scale: 1.04,
+													filter: 'blur(4px)',
+												}}
+												animate={{
+													opacity: 1,
+													scale: 1,
+													filter: 'blur(0px)',
+												}}
+												exit={{
+													opacity: 0,
+													scale: 0.97,
+													filter: 'blur(4px)',
+												}}
+												transition={{
+													duration: 0.6,
+													ease: EASE,
+												}}>
+												<SceneComponent active={inView} />
+											</motion.div>
+										</AnimatePresence>
+									</div>
+
+									{/* Bottom bar */}
+									<div
+										style={{
+											position: 'absolute',
+											bottom: 0,
+											left: 0,
+											right: 0,
+											padding: '0 22px 18px',
+										}}>
+										<div
+											style={{
+												display: 'grid',
+												gridTemplateColumns: `repeat(${steps.length},1fr)`,
+												gap: 6,
+												marginBottom: 14,
+											}}>
+											{steps.map((_, i) => (
+												<ProgressBar
+													key={`${i}-${progressKey}`}
+													active={i === index && !paused && inView}
+													duration={INTERVAL}
+													onComplete={i === index ? next : undefined}
+												/>
 											))}
 										</div>
-										<span
+										<div
 											style={{
-												fontFamily: "var(--font-body)",
-												fontSize: 11,
-												color: '#A88060',
-												letterSpacing: '0.1em',
+												display: 'flex',
+												alignItems: 'center',
+												justifyContent: 'space-between',
 											}}>
-											{String(index + 1).padStart(2, '0')} /{' '}
-											{String(steps.length).padStart(2, '0')}
-										</span>
+											<div style={{ display: 'flex', gap: 8 }}>
+												{[
+													{ fn: prev, icon: '←' },
+													{ fn: next, icon: '→' },
+												].map(({ fn, icon }) => (
+													<button
+														key={icon}
+														className='hiw-nav-btn'
+														onClick={fn}
+														style={{
+															width: 32,
+															height: 32,
+															borderRadius: '50%',
+															display: 'flex',
+															alignItems: 'center',
+															justifyContent: 'center',
+															fontSize: 14,
+															background: 'rgba(255,255,255,0.07)',
+															border: '1px solid rgba(255,255,255,0.16)',
+															color: C.amberLt,
+														}}>
+														{icon}
+													</button>
+												))}
+											</div>
+											<span
+												style={{
+													fontFamily: "var(--font-body)",
+													fontSize: 11,
+													color: C.soft,
+													letterSpacing: '0.1em',
+												}}>
+												{String(index + 1).padStart(2, '0')} /{' '}
+												{String(steps.length).padStart(2, '0')}
+											</span>
+										</div>
 									</div>
-								</div>
+								</motion.div>
 							</div>
 
-							{/* Floating stat, GlassCard style same as WhyChooseUs */}
+							{/* Floating stat, hiw-glass recipe same as WhyChooseUs cards */}
 							<AnimatePresence mode='wait'>
 								<motion.div
 									key={current.stat.value}
-									initial={{ opacity: 0, y: 14 }}
-									animate={{ opacity: 1, y: 0 }}
-									exit={{ opacity: 0 }}
-									transition={{ duration: 0.5, ease: 'easeOut' }}
+									className='hiw-glass'
+									initial={{ opacity: 0, y: 18, filter: 'blur(4px)' }}
+									animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+									exit={{ opacity: 0, y: -8, filter: 'blur(4px)' }}
+									transition={{ duration: 0.55, ease: EASE }}
 									style={{
 										marginTop: 14,
 										display: 'flex',
@@ -2330,18 +2462,13 @@ export default function HowItWorksClient() {
 										gap: 18,
 										padding: '18px 22px',
 										borderRadius: 20,
-										background: 'rgba(255,255,255,0.7)',
-										backdropFilter: 'blur(28px)',
-										WebkitBackdropFilter: 'blur(28px)',
-										border: '1px solid rgba(255,255,255,0.5)',
-										boxShadow: '0 8px 32px rgba(60,42,37,0.07)',
 									}}>
 									<p
 										style={{
 											fontFamily: "var(--font-heading)",
 											fontSize: 34,
 											fontWeight: 600,
-											color: '#B86B45',
+											color: C.amberLt,
 											lineHeight: 1,
 											letterSpacing: '-0.02em',
 											flexShrink: 0,
@@ -2352,7 +2479,7 @@ export default function HowItWorksClient() {
 										style={{
 											width: 1,
 											height: 44,
-											background: 'rgba(184,107,69,0.2)',
+											background: 'rgba(245,185,122,0.25)',
 											flexShrink: 0,
 										}}
 									/>
@@ -2364,7 +2491,7 @@ export default function HowItWorksClient() {
 												fontWeight: 600,
 												letterSpacing: '0.2em',
 												textTransform: 'uppercase',
-												color: '#B86B45',
+												color: C.amberLt,
 												marginBottom: 4,
 											}}>
 											Key Metric
@@ -2373,7 +2500,7 @@ export default function HowItWorksClient() {
 											style={{
 												fontFamily: "var(--font-body)",
 												fontSize: 13,
-												color: '#3C2B27',
+												color: C.text,
 												lineHeight: 1.4,
 											}}>
 											{current.stat.label}
@@ -2382,7 +2509,7 @@ export default function HowItWorksClient() {
 											style={{
 												fontFamily: "var(--font-body)",
 												fontSize: 11,
-												color: '#6B4A2D',
+												color: C.soft,
 												marginTop: 3,
 											}}>
 											✓ {current.proof}
@@ -2397,12 +2524,13 @@ export default function HowItWorksClient() {
 							<AnimatePresence mode='wait'>
 								<motion.div
 									key={current.step}
-									initial={{ opacity: 0, x: 22 }}
-									animate={{ opacity: 1, x: 0 }}
-									exit={{ opacity: 0, x: -16 }}
-									transition={{ duration: 0.55, ease: EASE }}>
+									variants={panelVariants}
+									initial='hidden'
+									animate='visible'
+									exit='exit'>
 									{/* Step row */}
-									<div
+									<motion.div
+										variants={panelBadgeRowVariant}
 										style={{
 											display: 'flex',
 											alignItems: 'center',
@@ -2420,9 +2548,9 @@ export default function HowItWorksClient() {
 												fontFamily: "var(--font-heading)",
 												fontSize: 15,
 												fontWeight: 600,
-												color: '#B86B45',
-												background: 'rgba(184,107,69,0.12)',
-												border: '1.5px solid rgba(184,107,69,0.3)',
+												color: C.amberLt,
+												background: 'rgba(232,147,58,0.14)',
+												border: '1.5px solid rgba(232,147,58,0.3)',
 												flexShrink: 0,
 											}}>
 											{current.step}
@@ -2434,20 +2562,21 @@ export default function HowItWorksClient() {
 												fontWeight: 600,
 												letterSpacing: '0.35em',
 												textTransform: 'uppercase',
-												color: '#A88060',
+												color: C.amberLt,
 											}}>
 											{current.tag}
 										</p>
-									</div>
+									</motion.div>
 
 									{/* Title, Playfair semibold + light italic accent, same as WhyChooseUs h3 */}
-									<h3
+									<motion.h3
+										variants={panelTitleVariant}
 										style={{
 											fontFamily: "var(--font-heading)",
 											fontSize: 'clamp(26px,3.5vw,42px)',
 											fontWeight: 600,
 											lineHeight: 1.12,
-											color: '#3C2A25',
+											color: C.text,
 											margin: 0,
 											marginBottom: 8,
 										}}>
@@ -2456,43 +2585,43 @@ export default function HowItWorksClient() {
 											style={{
 												display: 'block',
 												fontWeight: 300,
-												color: '#B86B45',
+												color: C.amberLt,
 												fontStyle: 'italic',
 											}}>
 											{current.titleAccent}
 										</span>
-									</h3>
+									</motion.h3>
 
-									{/* Copper divider, same as WhyChooseUs */}
+									{/* Amber divider, grow-from-left */}
 									<motion.div
+										variants={panelDividerVariant}
 										style={{
 											height: 2,
 											borderRadius: 999,
-											background:
-												'linear-gradient(90deg,#C17A50,transparent)',
+											background: `linear-gradient(90deg,${C.amber},transparent)`,
 											marginBottom: 24,
 											width: 56,
+											originX: 0,
 										}}
-										initial={{ scaleX: 0, originX: 0 }}
-										animate={{ scaleX: 1 }}
-										transition={{ duration: 0.6, delay: 0.1 }}
 									/>
 
-									{/* Description, Hanken Grotesk, #3C2B27, lineHeight 1.75 */}
-									<p
+									{/* Description */}
+									<motion.p
+										variants={panelDescVariant}
 										style={{
 											fontFamily: "var(--font-body)",
 											fontSize: 'clamp(13.5px,1.8vw,16px)',
 											lineHeight: 1.8,
-											color: '#3C2B27',
+											color: C.soft,
 											fontWeight: 400,
 											marginBottom: 28,
 										}}>
 										{current.desc}
-									</p>
+									</motion.p>
 
-									{/* Feature cards, same glass surface as WhyChooseUs features */}
-									<div
+									{/* Feature cards, hiw-glass surface, staggered with icon rotate-in */}
+									<motion.div
+										variants={panelFeaturesVariant}
 										style={{
 											display: 'flex',
 											flexDirection: 'column',
@@ -2502,25 +2631,17 @@ export default function HowItWorksClient() {
 										{current.points.map((pt, i) => (
 											<motion.div
 												key={pt.label}
-												className='hiw-feat-row'
-												initial={{ opacity: 0, x: 16 }}
-												animate={{ opacity: 1, x: 0 }}
-												transition={{
-													duration: 0.5,
-													delay: 0.12 + i * 0.09,
-												}}
+												variants={panelFeatureRowVariant}
+												className='hiw-feat-row hiw-glass'
 												style={{
 													display: 'flex',
 													alignItems: 'flex-start',
 													gap: 14,
 													padding: '14px 18px',
 													borderRadius: 16,
-													background: 'rgba(255,255,255,0.62)',
-													border: '1px solid rgba(255,255,255,0.5)',
-													backdropFilter: 'blur(20px)',
-													WebkitBackdropFilter: 'blur(20px)',
 												}}>
-												<div
+												<motion.div
+													variants={panelFeatureIconVariant}
 													style={{
 														width: 38,
 														height: 38,
@@ -2539,14 +2660,14 @@ export default function HowItWorksClient() {
 																: undefined,
 													}}>
 													{pt.icon}
-												</div>
+												</motion.div>
 												<div>
 													<p
 														style={{
 															fontFamily: "var(--font-body)",
 															fontSize: 13.5,
 															fontWeight: 600,
-															color: '#3C2A25',
+															color: C.text,
 															marginBottom: 3,
 														}}>
 														{pt.label}
@@ -2555,7 +2676,7 @@ export default function HowItWorksClient() {
 														style={{
 															fontFamily: "var(--font-body)",
 															fontSize: 12.5,
-															color: '#6B4A2D',
+															color: C.soft,
 															lineHeight: 1.55,
 														}}>
 														{pt.detail}
@@ -2563,13 +2684,11 @@ export default function HowItWorksClient() {
 												</div>
 											</motion.div>
 										))}
-									</div>
+									</motion.div>
 
 									{/* CTA buttons, exact style as WhyChooseUs §6 */}
 									<motion.div
-										initial={{ opacity: 0, y: 10 }}
-										animate={{ opacity: 1, y: 0 }}
-										transition={{ duration: 0.5, delay: 0.42 }}
+										variants={panelCtaVariant}
 										style={{
 											display: 'flex',
 											flexWrap: 'wrap',
@@ -2591,7 +2710,7 @@ export default function HowItWorksClient() {
 												background:
 													'linear-gradient(to right,#FF7E5F,#FFB88C)',
 												boxShadow:
-													'0 22px 70px rgba(184,107,69,0.42)',
+													'0 22px 70px rgba(255,126,95,0.4)',
 												textDecoration: 'none',
 												border: 'none',
 											}}>
@@ -2622,13 +2741,13 @@ export default function HowItWorksClient() {
 												fontFamily: "var(--font-body)",
 												fontSize: 13,
 												fontWeight: 500,
-												color: '#3C2B27',
-												background: 'rgba(255,255,255,0.72)',
-												border: '1px solid #FFD6A6',
+												color: C.text,
+												background: 'rgba(255,255,255,0.05)',
+												border: '1px solid rgba(245,185,122,0.35)',
 												textDecoration: 'none',
 											}}>
 											View All Systems{' '}
-											<span style={{ color: '#B86B45' }}>→</span>
+											<span style={{ color: C.amberLt }}>→</span>
 										</a>
 									</motion.div>
 								</motion.div>
@@ -2636,18 +2755,19 @@ export default function HowItWorksClient() {
 						</div>
 					</div>
 
-					{/* ── BOTTOM STEP OVERVIEW, WhyChooseUs process card style ── */}
+					{/* ── BOTTOM STEP OVERVIEW, scroll-triggered stagger via useInView ── */}
 					<motion.div
+						ref={botsRef}
 						className='hiw-bots'
-						initial={{ opacity: 0, y: 28 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true, amount: 0.1 }}
-						transition={{ duration: 1, ease: EASE }}
+						variants={botsContainerVariant}
+						initial='hidden'
+						animate={botsInView ? 'visible' : 'hidden'}
 						style={{ marginTop: 56 }}>
 						{steps.map((s, i) => (
 							<motion.button
 								key={s.step}
-								className='hiw-bc'
+								variants={botsCardVariant(i)}
+								className='hiw-bc hiw-glass hiw-glass-hover'
 								onClick={() => goTo(i)}
 								whileHover={{ y: -4, transition: { duration: 0.2 } }}
 								style={{
@@ -2655,17 +2775,7 @@ export default function HowItWorksClient() {
 									textAlign: 'left',
 									padding: '20px 18px',
 									borderRadius: 20,
-									background:
-										index === i
-											? 'rgba(255,255,255,0.8)'
-											: 'rgba(255,255,255,0.58)',
-									border: `1px solid ${index === i ? 'rgba(193,122,80,0.4)' : 'rgba(255,255,255,0.5)'}`,
-									backdropFilter: 'blur(28px)',
-									WebkitBackdropFilter: 'blur(28px)',
-									boxShadow:
-										index === i
-											? '0 16px 48px rgba(60,42,37,0.1)'
-											: '0 4px 16px rgba(60,42,37,0.05)',
+									border: `1px solid ${index === i ? 'rgba(232,147,58,0.4)' : 'rgba(255,255,255,0.10)'}`,
 									cursor: 'pointer',
 								}}>
 								{/* Active top bar */}
@@ -2679,20 +2789,23 @@ export default function HowItWorksClient() {
 											right: 0,
 											height: 2,
 											borderRadius: '20px 20px 0 0',
-											background:
-												'linear-gradient(90deg,#C17A50,#E8A070)',
+											background: `linear-gradient(90deg,${C.amber},${C.coral})`,
 										}}
 									/>
 								)}
-								{/* Step badge */}
-								<div
+								{/* Step badge, pulses on becoming active */}
+								<motion.div
+									animate={{
+										scale: index === i ? [1, 1.08, 1] : 1,
+									}}
+									transition={{ duration: 0.5, ease: EASE }}
 									style={{
 										width: 38,
 										height: 38,
 										borderRadius: 12,
 										background:
 											index === i
-												? 'linear-gradient(135deg,#E8933A,#FF7E5F)'
+												? `linear-gradient(135deg,${C.amber},${C.coral})`
 												: 'rgba(245,185,122,0.2)',
 										border: `1.5px solid ${index === i ? 'transparent' : 'rgba(245,185,122,0.4)'}`,
 										display: 'flex',
@@ -2701,12 +2814,11 @@ export default function HowItWorksClient() {
 										fontFamily: "var(--font-heading)",
 										fontSize: 14,
 										fontWeight: 700,
-										color: index === i ? 'white' : '#B86B45',
+										color: index === i ? 'white' : C.amberLt,
 										marginBottom: 12,
-										transition: 'all 0.3s ease',
 									}}>
 									{s.step}
-								</div>
+								</motion.div>
 								<p
 									style={{
 										fontFamily: "var(--font-body)",
@@ -2714,7 +2826,7 @@ export default function HowItWorksClient() {
 										fontWeight: 600,
 										letterSpacing: '0.2em',
 										textTransform: 'uppercase',
-										color: '#A88060',
+										color: C.amberLt,
 										marginBottom: 5,
 									}}>
 									{s.tag}
@@ -2724,7 +2836,7 @@ export default function HowItWorksClient() {
 										fontFamily: "var(--font-heading)",
 										fontSize: 13,
 										fontWeight: 600,
-										color: '#3C2A25',
+										color: C.text,
 										lineHeight: 1.25,
 										margin: 0,
 									}}>
@@ -2735,7 +2847,7 @@ export default function HowItWorksClient() {
 										fontFamily: "var(--font-heading)",
 										fontSize: 12.5,
 										fontWeight: 300,
-										color: '#B86B45',
+										color: C.amberLt,
 										fontStyle: 'italic',
 										lineHeight: 1.25,
 										margin: 0,

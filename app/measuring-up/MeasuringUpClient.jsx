@@ -1,41 +1,57 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
-/* ───────────────── DESIGN TOKENS (mirror app/AboutClient & SpaceVerification) ── */
+/* ───────────────── DESIGN TOKENS (dark system, mirrors WhyChooseUsClient /
+   HowItWorksClient / UnderfloorHeatingIndiaClient / GlobalExperienceClient /
+   CertificationsClient) ── */
 const FONT_HEADING = "var(--font-heading)";
 const FONT_BODY = "var(--font-body)";
-const COLOR_TEXT = "#2C1810";
-const COLOR_BODY = "#6B4A2D";
+const COLOR_TEXT = "#FBF3EA";
+const COLOR_BODY = "rgba(251,243,234,0.60)";
 const COLOR_ACCENT = "#C4623A";
 const COLOR_ACCENT_2 = "#E88C2A";
-const COLOR_BG_SOFT = "linear-gradient(180deg, #FFFFFF 0%, #FFF4E8 45%, #FFE8D0 100%)";
-const COLOR_BG_GREY = "#F5EFE8";
+const COLOR_BG_SOFT =
+  "radial-gradient(120% 80% at 50% -10%, rgba(232,147,58,0.14), transparent 55%), linear-gradient(180deg,#0d0805 0%,#150d07 30%,#1a0f08 60%,#0f0906 100%)";
+const COLOR_BG_GREY = "#120b07";
+const EASE = [0.16, 1, 0.3, 1];
 
-/* ───────────────── GLASS CARD BASE ────────────────────────────────────────── */
+// Form fields and the measurement "receipt" panel intentionally stay on a
+// light/cream surface (not dark-glass) so they read as "type here" against
+// the dark page — these constants hold the dark text that surface needs.
+const COLOR_INPUT_TEXT = "#2C1810";
+const COLOR_RECEIPT_TEXT = "#2C1810";
+const COLOR_RECEIPT_BODY = "#6B4A2D";
+
+/* ───────────────── GLASS CARD BASE (dark-glass) ───────────────────────────── */
 const glassCard = {
-  background: "rgba(255,255,255,0.82)",
-  backdropFilter: "blur(28px)",
-  WebkitBackdropFilter: "blur(28px)",
-  border: "1px solid rgba(255,255,255,0.55)",
+  background:
+    "linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)), rgba(20,13,8,0.5)",
+  backdropFilter: "blur(22px)",
+  WebkitBackdropFilter: "blur(22px)",
+  border: "1px solid rgba(255,255,255,0.10)",
   borderRadius: 22,
-  boxShadow: "0 8px 32px rgba(60,42,37,0.07)",
+  boxShadow: "0 24px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
 };
 
+/* Inputs stay lit/cream — only the border/shadow changed so they glow softly
+   against the new dark page instead of sitting on the old light backdrop. */
 const inputStyle = {
   width: "100%",
-  background: "rgba(255,255,255,0.85)",
-  border: "1.5px solid rgba(196,98,58,0.20)",
+  background: "rgba(255,255,255,0.92)",
+  border: "1.5px solid rgba(255,255,255,0.65)",
   borderRadius: 12,
   padding: "12px 16px",
   fontSize: 14,
-  color: COLOR_TEXT,
+  color: COLOR_INPUT_TEXT,
   fontFamily: FONT_BODY,
   outline: "none",
   transition: "border-color 0.2s, box-shadow 0.2s",
   boxSizing: "border-box",
+  boxShadow: "0 4px 22px rgba(232,140,42,0.16), 0 1px 3px rgba(0,0,0,0.35)",
 };
 
 const labelStyle = {
@@ -51,13 +67,15 @@ const labelStyle = {
 
 const readOnlyStyle = {
   ...inputStyle,
-  background: "linear-gradient(135deg, rgba(196,98,58,0.08), rgba(232,140,42,0.08))",
-  border: "1.5px solid rgba(196,98,58,0.30)",
+  background:
+    "linear-gradient(135deg, rgba(196,98,58,0.10), rgba(232,140,42,0.10)), rgba(255,255,255,0.92)",
+  border: "1.5px solid rgba(196,98,58,0.35)",
   color: COLOR_ACCENT,
   fontWeight: 600,
   fontFamily: FONT_HEADING,
   fontSize: 18,
   textAlign: "center",
+  boxShadow: "0 4px 26px rgba(232,140,42,0.26), 0 1px 3px rgba(0,0,0,0.35)",
 };
 
 /* ───────────────── TRUST BADGES (hero) ────────────────────────────────────── */
@@ -92,6 +110,16 @@ const STEPS = [
     alt: "Clean modern floor ready for underfloor heating",
   },
 ];
+
+/* ───────────────── SCROLL-STAGGER VARIANTS ─────────────────────────────────── */
+const gridContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
+const gridCard = {
+  hidden: { opacity: 0, y: 28, scale: 0.96 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: EASE } },
+};
 
 /* ───────────────── REUSABLE ───────────────────────────────────────────────── */
 function SectionHeading({ children, sub, light = false }) {
@@ -236,23 +264,42 @@ export default function MeasuringUpClient() {
           display: inline-flex; align-items: center; justify-content: center; gap: 8px;
           padding: 14px 32px; border-radius: 16px; cursor: pointer;
           background: transparent;
-          color: #2C1810; border: 1.5px solid rgba(44,24,16,0.30);
+          color: #FBF3EA; border: 1.5px solid rgba(251,243,234,0.30);
           font-family: var(--font-body); font-size: 15px; font-weight: 600;
           letter-spacing: 0.02em;
           transition: all .2s ease;
         }
-        .mu-cta-outline:hover { background: rgba(44,24,16,0.05); border-color: rgba(44,24,16,0.55); }
-        .mu-input:focus { border-color: rgba(196,98,58,0.55) !important; box-shadow: 0 0 0 3px rgba(196,98,58,0.12) !important; }
+        .mu-cta-outline:hover { background: rgba(251,243,234,0.08); border-color: rgba(251,243,234,0.55); }
+        .mu-input:focus { border-color: rgba(196,98,58,0.55) !important; box-shadow: 0 0 0 3px rgba(196,98,58,0.16) !important; }
         .mu-input::placeholder { color: rgba(107,74,45,0.45); }
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         input[type=number] { -moz-appearance: textfield; }
-        .mu-step-card { transition: transform .25s ease, box-shadow .25s ease; }
-        .mu-step-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(60,42,37,0.12); }
+        .mu-step-card { transition: box-shadow .25s ease; }
+        .mu-step-card:hover { box-shadow: 0 28px 70px rgba(0,0,0,0.5), 0 0 40px -12px rgba(232,147,58,0.35); }
         .mu-step-card img { transition: transform .4s ease; }
         .mu-step-card:hover img { transform: scale(1.05); }
-        .mu-result-fade { animation: muFadeIn .35s ease-out; }
-        @keyframes muFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* three-orb drift + noise + vignette, same DNA as the rest of the site */
+        @keyframes mu-drift { 0%{transform:translate3d(-5%,-3%,0) scale(1)} 33%{transform:translate3d(5%,4%,0) scale(1.08)} 66%{transform:translate3d(-3%,6%,0) scale(.95)} 100%{transform:translate3d(-5%,-3%,0) scale(1)} }
+        @keyframes mu-drift2 { 0%{transform:translate3d(4%,2%,0) scale(1.05)} 50%{transform:translate3d(-5%,-4%,0) scale(.94)} 100%{transform:translate3d(4%,2%,0) scale(1.05)} }
+        .mu-noise::before {
+          content:''; position:absolute; inset:0; pointer-events:none; z-index:0; opacity:.035;
+          background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+        .mu-vignette {
+          position:absolute; inset:0; z-index:0; pointer-events:none;
+          background: radial-gradient(120% 120% at 50% 30%, transparent 55%, rgba(0,0,0,0.45) 100%);
+        }
+        .mu-aura { position:absolute; left:0; right:0; top:0; height:1000px; z-index:0; pointer-events:none; filter: blur(14px); overflow:hidden; }
+        .mu-orb { position:absolute; border-radius:50%; }
+        .mu-orb-1 { top:-8%; left:2%; width:32vw; height:32vw; max-width:440px; max-height:440px; background: radial-gradient(circle, rgba(232,147,58,0.16), transparent 62%); animation: mu-drift 26s ease-in-out infinite; }
+        .mu-orb-2 { top:4%; right:-4%; width:28vw; height:28vw; max-width:380px; max-height:380px; background: radial-gradient(circle, rgba(255,126,95,0.11), transparent 62%); animation: mu-drift2 31s ease-in-out infinite; }
+        .mu-orb-3 { bottom:-8%; left:36%; width:24vw; height:24vw; max-width:320px; max-height:320px; background: radial-gradient(circle, rgba(127,192,232,0.07), transparent 64%); animation: mu-drift 33s ease-in-out infinite reverse; }
+
+        @media (prefers-reduced-motion: reduce) {
+          .mu-orb-1, .mu-orb-2, .mu-orb-3 { animation: none !important; }
+        }
         @media (max-width: 768px) {
           .mu-hero-grid { grid-template-columns: 1fr !important; }
           .mu-trust-row { justify-content: flex-start !important; }
@@ -260,6 +307,7 @@ export default function MeasuringUpClient() {
       `}</style>
 
       <main
+        className="mu-noise"
         style={{
           backgroundImage: COLOR_BG_SOFT,
           minHeight: "100vh",
@@ -267,17 +315,13 @@ export default function MeasuringUpClient() {
           overflow: "hidden",
         }}
       >
-        {/* warm radial glow, same DNA as AboutPage */}
-        <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            inset: 0,
-            pointerEvents: "none",
-            background:
-              "radial-gradient(60% 35% at 50% 0%, rgba(245,185,122,0.35), transparent 70%)",
-          }}
-        />
+        {/* three-orb drift, subtle here since this is a utility/calculator page */}
+        <div aria-hidden className="mu-aura">
+          <span className="mu-orb mu-orb-1" />
+          <span className="mu-orb mu-orb-2" />
+          <span className="mu-orb mu-orb-3" />
+        </div>
+        <div aria-hidden className="mu-vignette" />
 
         {/* ────────────────────────────────────────────────────────── */}
         {/* 1.1 HERO BANNER */}
@@ -317,8 +361,19 @@ export default function MeasuringUpClient() {
             textAlign: "center",
           }}
         >
-          <Pill>How to measure up</Pill>
-          <h2
+          <motion.div
+            initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: EASE }}
+          >
+            <Pill>How to measure up</Pill>
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.12 }}
             style={{
               fontFamily: FONT_HEADING,
               fontSize: "clamp(1.875rem, 4vw, 2.75rem)",
@@ -331,8 +386,12 @@ export default function MeasuringUpClient() {
             }}
           >
             How to measure up for Underfloor Heating
-          </h2>
-          <p
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.24 }}
             style={{
               fontFamily: FONT_BODY,
               fontSize: 16,
@@ -344,7 +403,7 @@ export default function MeasuringUpClient() {
             }}
           >
            Measuring for underfloor heating within you property is an easy task to complete. You'll need to gain your available heated area following these 3 easy steps.
-          </p>
+          </motion.p>
         </section>
 
         {/* ────────────────────────────────────────────────────────── */}
@@ -359,7 +418,11 @@ export default function MeasuringUpClient() {
             padding: "56px 24px 24px",
           }}
         >
-          <div
+          <motion.div
+            variants={gridContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
@@ -367,8 +430,10 @@ export default function MeasuringUpClient() {
             }}
           >
             {STEPS.map((s, i) => (
-              <div
+              <motion.div
                 key={i}
+                variants={gridCard}
+                whileHover={{ y: -6, transition: { duration: 0.25, ease: EASE } }}
                 className="mu-step-card"
                 style={{
                   ...glassCard,
@@ -420,9 +485,9 @@ export default function MeasuringUpClient() {
                     {s.body}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         {/* ────────────────────────────────────────────────────────── */}
@@ -434,8 +499,8 @@ export default function MeasuringUpClient() {
             zIndex: 1,
             marginTop: 32,
             background: COLOR_BG_GREY,
-            borderTop: "1px solid rgba(196,98,58,0.08)",
-            borderBottom: "1px solid rgba(196,98,58,0.08)",
+            borderTop: "1px solid rgba(232,140,42,0.14)",
+            borderBottom: "1px solid rgba(232,140,42,0.14)",
             padding: "72px 24px",
           }}
         >
@@ -444,7 +509,11 @@ export default function MeasuringUpClient() {
               Heatable Area Calculator
             </SectionHeading>
 
-            <div
+            <motion.div
+              initial={{ opacity: 0, y: 32, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.8, ease: EASE }}
               style={{
                 ...glassCard,
                 padding: "40px 36px",
@@ -453,7 +522,11 @@ export default function MeasuringUpClient() {
             >
               {/* ── SUBSECTION A: ROOM ── */}
               <div style={{ marginBottom: 36 }}>
-                <h3
+                <motion.h3
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.6 }}
+                  transition={{ duration: 0.6, ease: EASE }}
                   style={{
                     fontFamily: FONT_HEADING,
                     fontSize: 22,
@@ -463,7 +536,7 @@ export default function MeasuringUpClient() {
                   }}
                 >
                   1. Measure your room
-                </h3>
+                </motion.h3>
                 <p
                   style={{
                     fontFamily: FONT_BODY,
@@ -540,7 +613,11 @@ export default function MeasuringUpClient() {
 
               {/* ── SUBSECTION B: WINDOW INFORMATION (planning only) ── */}
               <div style={{ marginBottom: 36 }}>
-                <h3
+                <motion.h3
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.6 }}
+                  transition={{ duration: 0.6, ease: EASE }}
                   style={{
                     fontFamily: FONT_HEADING,
                     fontSize: 22,
@@ -550,7 +627,7 @@ export default function MeasuringUpClient() {
                   }}
                 >
                   2. Window Information
-                </h3>
+                </motion.h3>
                 <p
                   style={{
                     fontFamily: FONT_BODY,
@@ -570,7 +647,7 @@ export default function MeasuringUpClient() {
                   style={{
                     ...glassCard,
                     background:
-                      "linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(255,244,232,0.88) 55%, rgba(232,140,42,0.10) 100%)",
+                      "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 55%, rgba(232,140,42,0.08) 100%), rgba(20,13,8,0.5)",
                     borderRadius: 18,
                     padding: "20px 22px",
                     marginBottom: 20,
@@ -690,7 +767,11 @@ export default function MeasuringUpClient() {
 
               {/* ── SUBSECTION C: UN-HEATABLE AREAS ── */}
               <div style={{ marginBottom: 32 }}>
-                <h3
+                <motion.h3
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.6 }}
+                  transition={{ duration: 0.6, ease: EASE }}
                   style={{
                     fontFamily: FONT_HEADING,
                     fontSize: 22,
@@ -700,7 +781,7 @@ export default function MeasuringUpClient() {
                   }}
                 >
                   3. Measure your un-heatable areas
-                </h3>
+                </motion.h3>
                 <p
                   style={{
                     fontFamily: FONT_BODY,
@@ -855,11 +936,11 @@ export default function MeasuringUpClient() {
                     padding: "14px 18px",
                     borderRadius: 14,
                     background: isBelowMinimum
-                      ? "rgba(220, 60, 40, 0.08)"
-                      : "rgba(60, 160, 80, 0.08)",
+                      ? "rgba(220, 60, 40, 0.14)"
+                      : "rgba(60, 160, 80, 0.14)",
                     border: `1.5px solid ${isBelowMinimum
-                      ? "rgba(220, 60, 40, 0.30)"
-                      : "rgba(60, 160, 80, 0.30)"}`,
+                      ? "rgba(220, 60, 40, 0.40)"
+                      : "rgba(60, 160, 80, 0.40)"}`,
                     display: "flex",
                     alignItems: "flex-start",
                     gap: 12,
@@ -872,7 +953,7 @@ export default function MeasuringUpClient() {
                         fontFamily: FONT_BODY,
                         fontSize: 13,
                         fontWeight: 700,
-                        color: isBelowMinimum ? "#C0392B" : "#27AE60",
+                        color: isBelowMinimum ? "#FF6B5B" : "#4ADE80",
                         marginBottom: 4,
                       }}>
                         {isBelowMinimum
@@ -942,26 +1023,32 @@ export default function MeasuringUpClient() {
                 )}
 
                 {showResult && hasRoomDims && (
-                  <div
+                  <motion.div
                     id="calculator-result"
-                    className="mu-result-fade"
+                    initial={{ opacity: 0, y: 20, scale: 0.97, filter: "blur(6px)" }}
+                    animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                    transition={{ duration: 0.7, ease: EASE }}
                     style={{
                       width: "100%",
                       marginTop: 8,
                       background:
-                        "linear-gradient(135deg, rgba(196,98,58,0.07), rgba(232,140,42,0.07))",
-                      border: "1.5px solid rgba(196,98,58,0.20)",
+                        "linear-gradient(135deg, rgba(196,98,58,0.10), rgba(232,140,42,0.10)), rgba(20,13,8,0.4)",
+                      border: "1.5px solid rgba(196,98,58,0.25)",
                       borderRadius: 20,
                       padding: "28px 24px",
                       textAlign: "center",
                     }}
                   >
-                    {/* ── MEASUREMENT SUMMARY ── */}
+                    {/* ── MEASUREMENT SUMMARY — kept as a lighter "receipt"
+                         surface (like the inputs) for legibility of the
+                         dl/dt/dd rows, rather than dark-glass chrome ── */}
                     <div
                       style={{
                         ...glassCard,
                         background:
-                          "linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,244,232,0.85))",
+                          "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,244,232,0.92))",
+                        border: "1px solid rgba(196,98,58,0.22)",
+                        boxShadow: "0 12px 40px rgba(0,0,0,0.35)",
                         borderRadius: 18,
                         padding: "22px 22px 18px",
                         marginBottom: 24,
@@ -1041,7 +1128,7 @@ export default function MeasuringUpClient() {
                               style={{
                                 fontFamily: FONT_BODY,
                                 fontSize: 13,
-                                color: row.emphasis ? COLOR_TEXT : COLOR_BODY,
+                                color: row.emphasis ? COLOR_RECEIPT_TEXT : COLOR_RECEIPT_BODY,
                                 fontWeight: row.emphasis ? 700 : 500,
                                 flexShrink: 0,
                               }}
@@ -1067,7 +1154,7 @@ export default function MeasuringUpClient() {
                                 fontWeight: row.emphasis ? 700 : 600,
                                 color: row.emphasis
                                   ? COLOR_ACCENT
-                                  : COLOR_TEXT,
+                                  : COLOR_RECEIPT_TEXT,
                                 flexShrink: 0,
                                 fontVariantNumeric: "tabular-nums",
                               }}
@@ -1097,7 +1184,7 @@ export default function MeasuringUpClient() {
                         fontFamily: FONT_HEADING,
                         fontSize: "clamp(2.5rem, 6vw, 4rem)",
                         fontWeight: 800,
-                        color: COLOR_TEXT,
+                        color: COLOR_ACCENT_2,
                         lineHeight: 1,
                         marginBottom: 6,
                       }}
@@ -1110,7 +1197,7 @@ export default function MeasuringUpClient() {
                       style={{
                         fontFamily: FONT_BODY,
                         fontSize: 13,
-                        color: "#8B6A5A",
+                        color: COLOR_BODY,
                         margin: 0,
                         lineHeight: 1.6,
                         maxWidth: 540,
@@ -1122,10 +1209,10 @@ export default function MeasuringUpClient() {
                       accommodate the long end of the heating mat to sit at the
                       edge of the heating area.
                     </p>
-                  </div>
+                  </motion.div>
                 )}
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -1145,7 +1232,11 @@ export default function MeasuringUpClient() {
             Things to consider
           </SectionHeading>
 
-          <div
+          <motion.div
+            variants={gridContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
@@ -1154,7 +1245,9 @@ export default function MeasuringUpClient() {
             }}
           >
             {/* Card A, Electric */}
-            <article
+            <motion.article
+              variants={gridCard}
+              whileHover={{ y: -6, transition: { duration: 0.25, ease: EASE } }}
               className="mu-step-card"
               style={{
                 ...glassCard,
@@ -1240,9 +1333,9 @@ export default function MeasuringUpClient() {
                   </Link>
                 </div>
               </div>
-            </article>
+            </motion.article>
 
-          </div>
+          </motion.div>
         </section>
       </main>
     </>
