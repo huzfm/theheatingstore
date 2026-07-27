@@ -16,14 +16,6 @@ import CTAEnding from './CTAEnding';
  * document flow, this component's markup doesn't change between modes.
  *
  * Each chapter registers only the refs its own motion actually needs: every
-<<<<<<< HEAD
- * chapter gets a `root` (the one composition-wide camera move); benefit
- * scenes additionally get `image`/`frame`/`sweep` for the photograph's own
- * physical motion. Nothing else is individually animated, headings, body
- * copy, stats and quote text are plain nested DOM that simply inherits
- * root's opacity/blur/transform, so they always arrive, hold and leave as
- * one composition.
-=======
  * chapter gets a `root` (the one composition-wide camera move); the title
  * chapter additionally gets `eyebrow`/`heading` for its own staggered
  * iris/unveil reveal (see usePinnedTimeline's
@@ -40,7 +32,6 @@ import CTAEnding from './CTAEnding';
  * first and quiet, the quote text follows with more presence. CTA still
  * just gets `root` — its copy is plain nested DOM that inherits root's
  * opacity/blur/transform and arrives as one composition.
->>>>>>> 8199ed9 (latest changes)
  *
  * Three blurred ambient glow layers sit behind the stage content and
  * parallax at different rates off the raw scroll progress, the

@@ -89,40 +89,6 @@ function lerp(a, b, t) {
   return a + (b - a) * t;
 }
 
-<<<<<<< HEAD
-function easeOutCubic(t) {
-  const p = clamp(t);
-  return 1 - Math.pow(1 - p, 3);
-}
-
-function easeOutQuart(t) {
-  const p = clamp(t);
-  return 1 - Math.pow(1 - p, 4);
-}
-
-function easeInCubic(t) {
-  const p = clamp(t);
-  return p * p * p;
-}
-
-function easeInQuart(t) {
-  const p = clamp(t);
-  return p * p * p * p;
-}
-
-/**
- * A restrained back-out, the "hand-directed" overshoot the brief asks for:
- * motion settles a hair past its resting value before easing back, instead
- * of arriving dead-on like a UI transition. `s` is kept low on purpose
- * (default 1.2 vs. the usual ~1.7) so it reads as weight, not bounce.
- */
-function easeOutBackSubtle(t, s = 1.2) {
-  const p = clamp(t) - 1;
-  return p * p * ((s + 1) * p + s) + 1;
-}
-
-=======
->>>>>>> 8199ed9 (latest changes)
 /** [start, end) window a beat occupies in the 0→1 global progress range. */
 export function getBeatWindow(index, total = BEAT_COUNT) {
   const size = 1 / total;
@@ -140,14 +106,6 @@ export function beatLocalProgress(globalProgress, index, total = BEAT_COUNT) {
 /**
  * The "camera" for a whole beat. ENTRY reads as a slow push-in from depth 
  * scale, negative z and a faint tilt resolving out of blur, with a touch of
-<<<<<<< HEAD
- * overshoot as it settles (anticipation, not bounce). HOLD is deliberately
- * inert: the composition is fully resolved and does not move again until it
- * leaves, that stillness is what gives the visitor room to read. EXIT is
- * NOT the enter reversed, the camera keeps drifting the same direction it
- * was already moving and adds an opposite-direction tilt, like it's arcing
- * past the scene rather than rewinding through it.
-=======
  * overshoot as it settles (anticipation, not bounce) via `weightedDrag` —
  * the push-in is a physical camera move with weight, the same character as
  * the image frame's own settle, just on the whole composition. HOLD is
@@ -157,7 +115,6 @@ export function beatLocalProgress(globalProgress, index, total = BEAT_COUNT) {
  * direction it was already moving and adds an opposite-direction tilt on
  * `emberSettle`, like it's arcing past the scene rather than rewinding
  * through it.
->>>>>>> 8199ed9 (latest changes)
  */
 export function getBeatMotion(localT) {
   const t = clamp(localT);
@@ -243,11 +200,6 @@ export function getBeatMotion(localT) {
  * A second, independent motion curve for the image card within a scene 
  * deliberately out of phase with getBeatMotion so the card reads as an
  * object with its own weight, not a layer glued to the camera. Settles a
-<<<<<<< HEAD
- * hair after the scene itself starts resolving, then holds dead still 
- * no oscillation while the visitor is meant to be reading, before a last
- * push as the beat exits.
-=======
  * hair after the scene itself starts resolving, then holds dead still —
  * no oscillation while the visitor is meant to be reading — before a last
  * push as the beat exits. `mirrored` (true for image-on-left scenes) flips
@@ -258,7 +210,6 @@ export function getBeatMotion(localT) {
  * 6 polish pass: this reads as an object with physical mass dropping into
  * its housing, the exact character weightedDrag was authored for, even
  * though the trigger is scroll rather than a pointer.
->>>>>>> 8199ed9 (latest changes)
  */
 export function getFrameMotion(localT, mirrored = false) {
   const t = clamp(localT);
@@ -288,13 +239,6 @@ export function getFrameMotion(localT, mirrored = false) {
 }
 
 /**
-<<<<<<< HEAD
- * A scene's background image never moves during HOLD, the brief is explicit
- * that nothing should keep animating while the visitor reads. Instead the
- * image gets one soft push-in as the camera arrives (a Ken Burns-style
- * settle, not a loop) and one further push as it leaves, arcing past like
- * the beat's own camera does.
-=======
  * True parallax, not just a fade: unlike the frame (which sits perfectly
  * still through HOLD), the image keeps drifting a small amount the whole
  * time the visitor is reading — capped, transform-only (scale + x),
@@ -305,7 +249,6 @@ export function getFrameMotion(localT, mirrored = false) {
  * All three phases are one continuous curve — each segment's start value
  * is the previous segment's end value, so there's never a visible seam.
  * `mirrored` flips the drift direction for image-on-left scenes.
->>>>>>> 8199ed9 (latest changes)
  */
 export function getImageDrift(localT, mirrored = false) {
   const t = clamp(localT);
@@ -326,18 +269,6 @@ export function getImageDrift(localT, mirrored = false) {
 }
 
 /**
-<<<<<<< HEAD
- * The image frame's own "door opening" reveal: a clip-path inset that closes
- * the frame down at rest and opens it in the first slice of ENTRY, plus a
- * diagonal light-sweep and a soft brightness bloom that both settle before
- * the text has finished arriving. `shadowT` (0→1) drives the frame's drop
- * shadow so it deepens as the card lifts into place, a "shadow expansion"
- * synced to the same open/close curve.
- *
- * On the way out the frame closes again, the mirror of the opening reveal,
- * playing across the whole EXIT window so it never looks like a separate
- * effect bolted onto the fade.
-=======
  * A faint, independent depth-offset for the copy panel — its own lag and
  * its own emberRise/emberSettle timing, mirrored opposite the image's own
  * drift, so the two panels read as separate objects at slightly different
@@ -413,7 +344,6 @@ export function getSceneRowstatMotion(localT) {
  * On the way out the frame closes again on `c` (emberSettle) — a brisk
  * re-close followed by an unhurried settle, playing across the whole EXIT
  * window so it never looks like a separate effect bolted onto the fade.
->>>>>>> 8199ed9 (latest changes)
  */
 export function getImageReveal(localT) {
   const t = clamp(localT);

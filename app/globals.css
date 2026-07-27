@@ -233,3 +233,30 @@ html.lenis body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ── Site header (Header.jsx) ────────────────────────────────── */
+@media (max-width: 767px) {
+  .eh-desktop-only { display: none !important; }
+}
+@media (min-width: 768px) {
+  .eh-mobile-only { display: none !important; }
+}
+
+.cta-btn { position: relative; overflow: hidden; }
+.cta-shine {
+  position: absolute;
+  inset-block: 0;
+  left: -50%;
+  width: 50%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-12deg) translateX(0%);
+  opacity: 0;
+  transition: transform 0.7s ease, opacity 0.7s ease;
+  pointer-events: none;
+}
+.cta-btn:hover .cta-shine {
+  transform: skewX(-12deg) translateX(300%);
+  opacity: 1;
+}
+.icon-btn { transition: border-color 0.25s ease, background 0.25s ease; }
+.icon-btn:hover { border-color: rgba(255, 255, 255, 0.4) !important; background: rgba(255, 255, 255, 0.06) !important; }

@@ -3,19 +3,6 @@
 import ImagePanel from './ImagePanel';
 
 /**
-<<<<<<< HEAD
- * One benefit, one complete presentation card, image, kicker, heading,
- * body, and stat all arrive, hold and leave together as a single
- * composition (see usePinnedTimeline: only `root` is animated here, so
- * everything below inherits its motion rather than staggering on its own
- * schedule). Image is placed on alternating sides scene to scene so the
- * sequence has editorial rhythm rather than a repeated template.
- *
- * The copy sits on its own frosted glass panel, the "premium glass
- * surface" the brief calls for on the text side to match the photograph's
- * own glass-edged frame, rather than type floating directly on the page
- * background.
-=======
  * One benefit, one complete presentation card. Image is placed on
  * alternating sides scene to scene so the sequence has editorial rhythm
  * rather than a repeated template — and, per usePinnedTimeline's
@@ -37,7 +24,6 @@ import ImagePanel from './ImagePanel';
  * index's exact timing (`copyCounterRef`, same getSceneIndexMotion call),
  * both being top-of-card framing rather than part of the two-beat
  * heading/body narrative arc.
->>>>>>> 8199ed9 (latest changes)
  */
 export default function Scene({
   scene,

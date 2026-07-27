@@ -10,18 +10,12 @@ import { QUOTE } from './content';
  * benefit scene's: entry settles rather than arrives, and HOLD is
  * stretched well past the standard share so it can be read slowly.
  *
-<<<<<<< HEAD
- * Mark, quote, and attribution all sit on one frosted glass card and arrive
- * together with the beat (see usePinnedTimeline: only `root` is animated) 
- * a single complete composition to read, not a sequence of reveals.
-=======
  * Mark and quote text carry two independent, deliberately unequal reveals
  * (getQuoteMarkMotion/getQuoteTextMotion, driven imperatively by
  * usePinnedTimeline, never React state): the mark arrives first, quick and
  * quiet — a stage direction, not a second headline — before the quote
  * itself lands with more presence. Attribution stays plain nested DOM,
  * inheriting the card's own single resolve like every other beat.
->>>>>>> 8199ed9 (latest changes)
  */
 export default function QuoteScene({ rootRef, markRef, textRef }) {
   return (

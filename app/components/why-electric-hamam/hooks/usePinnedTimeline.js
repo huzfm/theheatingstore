@@ -35,15 +35,6 @@ const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffec
  * re-render. React state is only touched on the (much rarer) active-chapter
  * crossing, for mount gating and pointer-events.
  *
-<<<<<<< HEAD
- * Deliberately NOT present here: any per-child stagger. Every element inside
- * a chapter, heading, body, stats, glass panel, is nested plain DOM under
- * `root` and inherits root's single opacity/blur/transform. Only the image
- * card gets its own motion (`image`/`frame`/`sweep`), and only because the
- * brief asks for it to read as its own physical object with weight, not
- * because it should arrive on a delay, its curve resolves within the same
- * ENTRY window as everything else.
-=======
  * Per-child stagger is deliberately rare here: for most chapters, every
  * element inside is nested plain DOM under `root` and inherits root's
  * single opacity/blur/transform. Four chapter types get more than that,
@@ -59,7 +50,6 @@ const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffec
  * two-layer reveal where the mark arrives first and quiet, like a stage
  * direction, before the quote itself lands. CTA still just inherits root's
  * single curve.
->>>>>>> 8199ed9 (latest changes)
  *
  * @param {import('react').RefObject<HTMLElement>} wrapperRef the pinned section
  * @param {import('react').RefObject<Array<{
