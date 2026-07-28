@@ -6,10 +6,10 @@ import * as THREE from 'three';
 import { TIMELINE } from '@/lib/floor-timeline';
 import { damp, stageProgress, smoothstep, clamp } from '@/lib/three-utils';
 import { carpetAlbedo, carpetAlpha, carpetRoughness, groundShadow } from '@/lib/textures';
-import { LAYER_W, LAYER_L } from './FloorLayers';
+import { LAYER_W, LAYER_L, TILE_Y, TILE_H } from './FloorLayers';
 
 /**
- * Layer 00, a Kashmiri carpet laid over the finished floor, which rolls itself
+ * Layer 01, a Kashmiri carpet laid over the finished floor, which rolls itself
  * up to reveal the tile beneath.
  *
  * The one layer here that isn't part of the build-up: everything below is
@@ -40,13 +40,16 @@ const PLANE_L = LAYER_L;
 /**
  * Heights, measured off the finished floor.
  *
- * TILE_Y (0.13) + half TILE_H (0.085) puts the tile's top face at 0.1725.
- * Both planes here clear it by several millimetres: the first pass had the
- * contact shadow 0.001 above the tile, which z-fought and rendered as flat
- * dark blocks punched through the carpet.
+ * TILE_Y + half TILE_H puts the tile's top face at 0.1005, and both planes
+ * here clear it by several millimetres: the first pass had the contact shadow
+ * 0.001 above the tile, which z-fought and rendered as flat dark blocks
+ * punched through the carpet. Read off the tile's own constants rather than
+ * written down, because they moved once already when the adhesive bed was
+ * removed and the tiles dropped onto the mat, and a copied number would have
+ * left the rug hovering 70mm above its floor.
  */
-const CARPET_Y = 0.185;
-const SHADOW_Y = 0.178;
+const CARPET_Y = TILE_Y + TILE_H / 2 + 0.0125;
+const SHADOW_Y = TILE_Y + TILE_H / 2 + 0.0055;
 
 /**
  * Pile thickness, used only to grow the roll. The rug renders as a single

@@ -7,8 +7,8 @@ import * as THREE from 'three';
 import HeatingSheetModel from './HeatingSheetModel';
 import StudioEnvironment from './StudioEnvironment';
 import CarpetLayer from './CarpetLayer';
-import { TileLayer, AdhesiveLayer } from './FloorLayers';
-import { InsulationLayer, SubfloorLayer } from './BaseLayers';
+import { TileLayer } from './FloorLayers';
+import { InsulationLayer } from './BaseLayers';
 import { TIMELINE } from '@/lib/floor-timeline';
 import { damp, stageProgress, smoothstep } from '@/lib/three-utils';
 import { retainTextures, releaseTextures, groundShadow } from '@/lib/textures';
@@ -34,7 +34,10 @@ function GroundShadow({ progressRef }) {
   });
 
   return (
-    <mesh ref={ref} position={[0, -0.36, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+    /* Just under the insulation board, whose underside at -0.13 is now the
+       bottom of the stack. It was at -0.36, clearing a structural slab that
+       no longer exists; left there the shadow floats in open space. */
+    <mesh ref={ref} position={[0, -0.155, 0]} rotation={[-Math.PI / 2, 0, 0]}>
       <planeGeometry args={[11, 9]} />
       <meshBasicMaterial
         map={map}
@@ -135,9 +138,10 @@ function SceneRig({ progressRef, reduced }) {
       <directionalLight position={[5, 3, -6]} intensity={0.5} color="#9fc0ff" />
       <ambientLight intensity={0.22} />
 
+      {/* Top to bottom, and peeled in this order: carpet, the finished floor,
+          the mat, insulation. */}
       <CarpetLayer progressRef={progressRef} />
       <TileLayer progressRef={progressRef} />
-      <AdhesiveLayer progressRef={progressRef} />
 
       <group ref={matRef}>
         <HeatingSheetModel
@@ -148,7 +152,6 @@ function SceneRig({ progressRef, reduced }) {
       </group>
 
       <InsulationLayer progressRef={progressRef} />
-      <SubfloorLayer progressRef={progressRef} />
       <GroundShadow progressRef={progressRef} />
     </group>
   );

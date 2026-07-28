@@ -5,7 +5,7 @@ import { RoundedBox } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { TIMELINE } from '@/lib/floor-timeline';
 import { damp, stageProgress, smoothstep, clamp } from '@/lib/three-utils';
-import { marbleAlbedo, marbleRoughness, adhesiveAlbedo } from '@/lib/textures';
+import { marbleAlbedo, marbleRoughness } from '@/lib/textures';
 import { MAT_W, MAT_L } from './constants';
 
 const W = MAT_W + 0.5;
@@ -27,15 +27,19 @@ const GROUT = 0.018;
 /**
  * Stack heights, measured from the heating mat at y = 0.
  *
- * These must stay ordered, tile above adhesive, adhesive above mat, and
- * the gaps must stay tight. Two things were wrong before: the tiles sat at
- * y = 0 so the adhesive rendered *on top of* the finished floor, and the
- * slabs were ~140mm thick on a 4m floor, which reads as stacked paving.
+ * The slabs sit straight on the mat now. There used to be a combed adhesive
+ * bed between the two, and the tiles were parked at 0.13 to clear it; with
+ * that layer gone, leaving them there would have left 100mm of daylight
+ * between the floor and the mat it is supposed to be bonded to.
+ *
+ * 0.0155 is the underside: enough to clear the cable, which stands ~9mm proud
+ * of the scrim, and nothing more. Thickness is unchanged, the slabs were
+ * already at the limit before they start reading as stacked paving rather
+ * than as a floor. CarpetLayer lies on the top face at 0.1005, so the two
+ * numbers have to move together.
  */
-const TILE_Y = 0.13;
+const TILE_Y = 0.058;
 const TILE_H = 0.085;
-const ADHESIVE_Y = 0.052;
-const ADHESIVE_H = 0.055;
 
 function TileLayerImpl({ progressRef }) {
   const meshRefs = useRef([]);
@@ -129,56 +133,5 @@ function TileLayerImpl({ progressRef }) {
   );
 }
 
-/**
- * Tile adhesive, combed with a notched trowel.
- *
- * The ridges are the recognisable thing, this is the layer a tiler actually
- * spreads, and the comb pattern identifies it instantly. Rendered as a
- * texture rather than modelled ridges: real geometry here would be a few
- * thousand extra triangles for a layer that's on screen for a second.
- */
-function AdhesiveLayerImpl({ progressRef }) {
-  const ref = useRef(null);
-  const albedo = useMemo(() => adhesiveAlbedo(), []);
-
-  useFrame((_, delta) => {
-    const dt = Math.min(delta, 0.05);
-    const t = smoothstep(stageProgress(progressRef.current, ...TIMELINE.screed));
-    const mesh = ref.current;
-    if (!mesh) return;
-
-    mesh.position.y = damp(mesh.position.y, ADHESIVE_Y + t * 2.4, 6, dt);
-    mesh.position.z = damp(mesh.position.z, -t * 0.4, 6, dt);
-    mesh.rotation.x = damp(mesh.rotation.x, t * 0.13, 6, dt);
-    mesh.material.opacity = 1 - clamp((t - 0.2) / 0.8);
-    mesh.visible = mesh.material.opacity > 0.01;
-  });
-
-  return (
-    <RoundedBox
-      ref={ref}
-      args={[W - 0.05, ADHESIVE_H, L - 0.05]}
-      radius={0.005}
-      smoothness={2}
-      position={[0, ADHESIVE_Y, 0]}
-    >
-      {/* Tiled 7x so the comb ridges are a fine trowel pattern. At 1x the
-          26 ridges spanned the full 4m slab, 150mm notches, which rendered
-          as brown corrugated cardboard. */}
-      <meshStandardMaterial
-        map={albedo}
-        map-repeat={[7, 7]}
-        color="#7d7568"
-        roughness={0.96}
-        metalness={0.02}
-        envMapIntensity={0.4}
-        transparent
-        opacity={1}
-      />
-    </RoundedBox>
-  );
-}
-
 export const TileLayer = memo(TileLayerImpl);
-export const AdhesiveLayer = memo(AdhesiveLayerImpl);
-export { W as LAYER_W, L as LAYER_L };
+export { W as LAYER_W, L as LAYER_L, TILE_Y, TILE_H };

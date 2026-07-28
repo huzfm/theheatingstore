@@ -5,11 +5,18 @@ import { RoundedBox } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { TIMELINE } from '@/lib/floor-timeline';
 import { damp, stageProgress, smoothstep } from '@/lib/three-utils';
-import { insulationAlbedo, concreteAlbedo } from '@/lib/textures';
+import { insulationAlbedo } from '@/lib/textures';
 import { LAYER_W, LAYER_L } from './FloorLayers';
 
 /**
- * Insulation board.
+ * Insulation board, and the bottom of the stack.
+ *
+ * There was a structural concrete slab under this. It went with the move to a
+ * four-layer cutaway: it was the one layer the visitor is told explicitly not
+ * to worry about ("below this line, nothing needs to change"), which makes it
+ * the obvious thing to cut when the sequence needs to be shorter. The board's
+ * underside is now the floor of the shot, which is why the ground shadow in
+ * FloorCutawayScene sits where it does.
  *
  * Gets a foil face on top, a thin, low-roughness, high-metalness plane 
  * because that reflective skin is both what real boards have and what sells
@@ -73,47 +80,4 @@ function InsulationLayerImpl({ progressRef }) {
   );
 }
 
-/**
- * Concrete subfloor, the structural base everything else sits on.
- * Deliberately the darkest, roughest surface in the stack so it recedes and
- * lets the mat hold focus.
- */
-function SubfloorLayerImpl({ progressRef }) {
-  const ref = useRef(null);
-  const albedo = useMemo(() => concreteAlbedo(), []);
-
-  useFrame((_, delta) => {
-    const dt = Math.min(delta, 0.05);
-    const t = smoothstep(stageProgress(progressRef.current, ...TIMELINE.baseRecede));
-    const mesh = ref.current;
-    if (!mesh) return;
-
-    mesh.position.y = damp(mesh.position.y, -0.235 - t * 1.0, 5, dt);
-    mesh.material.opacity = 1 - t * 0.9;
-    mesh.visible = mesh.material.opacity > 0.02;
-  });
-
-  return (
-    <RoundedBox
-      ref={ref}
-      args={[LAYER_W - 0.02, 0.2, LAYER_L - 0.02]}
-      radius={0.006}
-      smoothness={2}
-      position={[0, -0.235, 0]}
-      receiveShadow
-    >
-      <meshStandardMaterial
-        map={albedo}
-        color="#46423c"
-        roughness={1}
-        metalness={0}
-        envMapIntensity={0.35}
-        transparent
-        opacity={1}
-      />
-    </RoundedBox>
-  );
-}
-
 export const InsulationLayer = memo(InsulationLayerImpl);
-export const SubfloorLayer = memo(SubfloorLayerImpl);

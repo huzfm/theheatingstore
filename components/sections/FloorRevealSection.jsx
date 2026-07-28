@@ -144,8 +144,8 @@ export default function FloorRevealSection() {
         <h2 className="font-display text-4xl font-bold tracking-tight">
           Look beneath the floor
         </h2>
-        {/* 3 columns, not 5: STAGES is 7 entries now, and a 5-wide grid left
-            a stranded row of two. */}
+        {/* 3 columns: STAGES is 5 entries, which fills two rows without
+            stranding a lone card the way a 4-wide grid would. */}
         <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {STAGES.map((s) => (
             <div key={s.id} className="border-t border-white/10 pt-6">
@@ -247,8 +247,9 @@ export default function FloorRevealSection() {
           {STAGES.map((s, i) => (
             <div
               key={s.id}
-              // Narrower on mobile: a seventh tick pushed the rail past the
-              // right edge of a 320px viewport at the old fixed w-10.
+              // Narrower on mobile: at the old fixed w-10 the rail ran past
+              // the right edge of a 320px viewport once it grew past five
+              // ticks. Kept, so adding a stage back can't reintroduce that.
               className="h-[2px] w-8 overflow-hidden rounded-full bg-white/15 md:w-10"
             >
               <motion.div
