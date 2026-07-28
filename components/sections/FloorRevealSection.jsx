@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useScrollProgress } from '@/hooks/useScrollProgress';
 import { STAGES, stageAt } from '@/lib/floor-timeline';
+import './FloorRevealSection.css';
 
 /**
  * Three.js is ~150kB gzipped before any of our own scene code. Loading it
@@ -140,7 +141,7 @@ export default function FloorRevealSection() {
      A short static section naming the same five layers.             */
   if (reduceMotion) {
     return (
-      <section className="bg-ink-950 px-6 py-24 text-bone-100 md:px-16">
+      <section className="freveal px-6 py-24 text-bone-100 md:px-16">
         <h2 className="font-display text-4xl font-bold tracking-tight">
           Look beneath the floor
         </h2>
@@ -167,22 +168,32 @@ export default function FloorRevealSection() {
     <section
       ref={wrapperRef}
       data-section="floor-reveal"
-      className="relative h-[340vh] bg-ink-950"
+      className="freveal relative h-[340vh]"
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <div className="absolute inset-0">
+        {/* ── Atmosphere, behind the canvas ────────────────────────── */}
+        <div className="freveal__scrim" />
+        <div className="freveal__glow" />
+        <div className="freveal__seam" />
+        <div className="freveal__grain" />
+
+        <div className="absolute inset-0 z-0">
           {mounted ? (
             <FloorCutawayScene progressRef={progressRef} active={active} />
           ) : null}
         </div>
 
-        {/* ── Overlay copy ─────────────────────────────────────────── */}
-        <div className="pointer-events-none relative flex h-full flex-col justify-between px-6 py-14 md:px-16 md:py-20">
+        {/* ── Overlay copy ─────────────────────────────────────────────
+            z-[3] matches .hhero__inner: without an explicit z-index here
+            this div sits at z-index:auto, which paints *below* the scrim/
+            glow (z-index 1) and grain (z-index 2) regardless of DOM order,
+            crushing the text into the scrim's near-black colour. ───────── */}
+        <div className="pointer-events-none relative z-[3] flex h-full flex-col justify-between px-6 py-14 md:px-16 md:py-20">
           <div>
-            <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-heat-500">
+            <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-[var(--copper-bright)]">
               The system, layer by layer
             </p>
-            <h2 className="mt-5 max-w-[13ch] font-display text-4xl font-bold leading-[0.95] tracking-tight text-white md:text-6xl lg:text-7xl">
+            <h2 className="mt-5 max-w-[13ch] font-display text-4xl font-bold leading-[0.95] tracking-tight text-[var(--ivory)] md:text-6xl lg:text-7xl">
               Look beneath the floor.
             </h2>
           </div>
@@ -200,13 +211,13 @@ export default function FloorRevealSection() {
                 }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               >
-                <p className="text-[11px] uppercase tracking-[0.28em] text-heat-500">
+                <p className="text-[11px] uppercase tracking-[0.28em] text-[var(--copper-bright)]">
                   {s.eyebrow}
                 </p>
-                <h3 className="mt-3 font-display text-xl text-white md:text-2xl">
+                <h3 className="mt-3 font-display text-xl text-[var(--ivory)] md:text-2xl">
                   {s.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/55">
+                <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
                   {s.body}
                 </p>
               </motion.div>
@@ -218,7 +229,7 @@ export default function FloorRevealSection() {
             scrolling. Bottom-centre on mobile; pinned to the right edge and
             vertically centred on wider screens. Persistent, it stays put for
             the whole sequence rather than fading on scroll. */}
-        <div className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2.5 md:bottom-auto md:left-auto md:right-6 md:top-1/2 md:-translate-x-0 md:-translate-y-1/2">
+        <div className="pointer-events-none absolute bottom-8 left-1/2 z-[3] flex -translate-x-1/2 flex-col items-center gap-2.5 md:bottom-auto md:left-auto md:right-6 md:top-1/2 md:-translate-x-0 md:-translate-y-1/2">
           <span className="flex h-9 w-[19px] items-start justify-center rounded-full border border-white/30">
             <motion.span
               className="mt-1.5 h-1.5 w-1.5 rounded-full bg-heat-500"
@@ -235,7 +246,7 @@ export default function FloorRevealSection() {
             Left-aligned on mobile so it clears the floating chat bubble that
             sits bottom-right on the home page; moves to the right on wider
             screens where there's room. */}
-        <div className="pointer-events-none absolute bottom-6 left-6 flex gap-2 md:bottom-14 md:left-auto md:right-16">
+        <div className="pointer-events-none absolute bottom-6 left-6 z-[3] flex gap-2 md:bottom-14 md:left-auto md:right-16">
           {STAGES.map((s, i) => (
             <div
               key={s.id}

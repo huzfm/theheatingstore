@@ -6,7 +6,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import CableModel from './CableModel';
 import { MAT_W, MAT_L, CABLE_SPACING } from './constants';
-import { meshAlpha } from '@/lib/textures';
+import { matMeshAlbedo } from '@/lib/textures';
 
 /**
  * Feature callouts, each anchored to a corner of the mat with an `azimuth`:
@@ -58,10 +58,10 @@ const FEATURES = [
   {
     id: 'warranty',
     index: '04',
-    kicker: 'Assurance',
+    kicker: 'ProWarm assurance',
     title: 'Backed for the long run',
-    body: 'Cable and mat covered for a decade, behind certified installation.',
-    spec: '10 yr',
+    body: 'A Lifetime Warranty and the CableSafe™ Guarantee, if the cable is cut during install, ProWarm replaces it free.',
+    spec: 'Lifetime',
     specLabel: 'warranty',
     anchor: [-MAT_W / 2 + 0.3, 0.07, MAT_L / 2 - 0.34],
     azimuth: -Math.PI * 0.75,
@@ -250,7 +250,7 @@ function ColdTail() {
  * factory splice.
  */
 function HeatingSheetModel({ rotationRef, progressRef, showLabels = true, levelRef = null }) {
-  const mesh = useMemo(() => meshAlpha(), []);
+  const meshMap = useMemo(() => matMeshAlbedo(), []);
 
   /**
    * Which callout owns the screen right now. Each frame we pick the single
@@ -277,25 +277,17 @@ function HeatingSheetModel({ rotationRef, progressRef, showLabels = true, levelR
 
   return (
     <group>
-      {/* Fibreglass scrim. Real mats are an open weave you can see through,
-          so this is an alpha cut-out rather than a solid backing slab 
-          light passes between the strands and the layer below shows through,
-          which is what makes it read as mesh and not as card. */}
+      {/* Fibreglass mesh backing: a dark woven scrim with bonded cross-strips,
+          opaque rather than an alpha cut-out, at product-shot distance a real
+          mat reads as a solid matte fabric panel, not see-through gauze. */}
       <mesh rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[MAT_W, MAT_L]} />
-        {/* Lower opacity and no alphaTest: the hard cutout rendered as a
-            drawn wireframe grid. A soft translucent scrim reads as fabric,
-            which is what it is. */}
         <meshStandardMaterial
-          color="#a49d90"
-          alphaMap={mesh}
-          alphaMap-repeat={[8, 6]}
-          transparent
-          opacity={0.28}
-          roughness={0.85}
+          map={meshMap}
+          map-repeat={[12, 8]}
+          roughness={0.92}
           metalness={0}
-          envMapIntensity={0.5}
-          depthWrite={false}
+          envMapIntensity={0.4}
           side={THREE.DoubleSide}
         />
       </mesh>
