@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useScrollProgress } from '@/hooks/useScrollProgress';
-import { STAGES, stageAt } from '@/lib/floor-timeline';
+import { STAGES, stageAt, SECTION_VH } from '@/lib/floor-timeline';
 
 /**
  * Three.js is ~150kB gzipped before any of our own scene code. Loading it
@@ -136,15 +136,17 @@ export default function FloorRevealSection() {
     };
   }, []);
 
-  /* ── Reduced motion: no sticky, no rotation, no 340vh of scroll. ──
-     A short static section naming the same five layers.             */
+  /* ── Reduced motion: no sticky, no rotation, no 390vh of scroll. ──
+     A short static section naming the same layers.                  */
   if (reduceMotion) {
     return (
       <section className="bg-ink-950 px-6 py-24 text-bone-100 md:px-16">
         <h2 className="font-display text-4xl font-bold tracking-tight">
           Look beneath the floor
         </h2>
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+        {/* 3 columns, not 5: STAGES is 7 entries now, and a 5-wide grid left
+            a stranded row of two. */}
+        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {STAGES.map((s) => (
             <div key={s.id} className="border-t border-white/10 pt-6">
               <p className="text-xs uppercase tracking-[0.28em] text-heat-500">
@@ -160,14 +162,20 @@ export default function FloorRevealSection() {
   }
 
   return (
-    // 340vh of scroll: enough that the 360° turn never feels rushed, short
+    // Scroll length: enough that the 360° turn never feels rushed, short
     // enough that it doesn't feel stuck. The inner panel is sticky rather
     // than GSAP-pinned, no pin-spacer means nothing to recalculate on
     // resize, which is where pinned sections normally break.
+    //
+    // Height comes from SECTION_VH rather than a Tailwind arbitrary value:
+    // it is derived from the carpet's share of the timeline, so the layers
+    // beneath it keep their original pace in pixels scrolled, and Tailwind's
+    // JIT can't see a value computed at runtime.
     <section
       ref={wrapperRef}
       data-section="floor-reveal"
-      className="relative h-[340vh] bg-ink-950"
+      className="relative bg-ink-950"
+      style={{ height: `${SECTION_VH}vh` }}
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <div className="absolute inset-0">
@@ -239,7 +247,9 @@ export default function FloorRevealSection() {
           {STAGES.map((s, i) => (
             <div
               key={s.id}
-              className="h-[2px] w-10 overflow-hidden rounded-full bg-white/15"
+              // Narrower on mobile: a seventh tick pushed the rail past the
+              // right edge of a 320px viewport at the old fixed w-10.
+              className="h-[2px] w-8 overflow-hidden rounded-full bg-white/15 md:w-10"
             >
               <motion.div
                 className="h-full bg-heat-500"

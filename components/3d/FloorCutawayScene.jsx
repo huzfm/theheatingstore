@@ -6,6 +6,7 @@ import { PerformanceMonitor } from '@react-three/drei';
 import * as THREE from 'three';
 import HeatingSheetModel from './HeatingSheetModel';
 import StudioEnvironment from './StudioEnvironment';
+import CarpetLayer from './CarpetLayer';
 import { TileLayer, AdhesiveLayer } from './FloorLayers';
 import { InsulationLayer, SubfloorLayer } from './BaseLayers';
 import { TIMELINE } from '@/lib/floor-timeline';
@@ -134,6 +135,7 @@ function SceneRig({ progressRef, reduced }) {
       <directionalLight position={[5, 3, -6]} intensity={0.5} color="#9fc0ff" />
       <ambientLight intensity={0.22} />
 
+      <CarpetLayer progressRef={progressRef} />
       <TileLayer progressRef={progressRef} />
       <AdhesiveLayer progressRef={progressRef} />
 
