@@ -63,26 +63,6 @@ function hairpin(points, xFrom, xTo, z, zDir) {
 }
 
 /**
- * The longer loop where the run crosses from one strip of mesh into the next.
- * On a real floor this is the slack left after the mesh is cut and the roll
- * turned, so it bulges out past the end of the strip rather than cutting the
- * corner. Two of these are the only places the cable leaves a strip.
- */
-function seamLoop(points, x, zFrom, zTo, bulge) {
-  const mz = (zFrom + zTo) / 2;
-  const r = Math.abs(zTo - zFrom) / 2;
-  const sz = Math.sign(zTo - zFrom);
-  const steps = ARC_STEPS * 2;
-
-  for (let i = 1; i <= steps; i += 1) {
-    const th = (Math.PI * i) / steps;
-    points.push(
-      new THREE.Vector3(x + Math.sin(th) * r * bulge, 0, mz - Math.cos(th) * r * sz)
-    );
-  }
-}
-
-/**
  * The strips of scrim, as { z, width } in the mat's local space. The cable
  * path below walks these same strips.
  */
@@ -100,8 +80,6 @@ export function matBands({ length = MAT_L, bands = MAT_BANDS, seam = BAND_SEAM }
  * The full cable run: one continuous curve through every strip, which is
  * physically what a mat is (the cable is never cut, only the mesh).
  *
- * Returns the curve plus its free start, so the cold tail can be joined to
- * where the heating cable actually begins instead of a hardcoded corner.
  */
 export function buildMatCable({
   width = MAT_W,
@@ -125,15 +103,15 @@ export function buildMatCable({
   /**
    * Forced odd, which makes the whole run tidy: with an odd pass count each
    * strip starts at the edge nearest the previous strip and ends at the edge
-   * nearest the next one. The seam loops stay short and local, and the cable
-   * never has to double back across a strip it has already covered, which is
-   * exactly the constraint a real installer is working under.
+   * nearest the next one. That is what lets the crossing between strips be a
+   * straight link rather than a detour, and it means the cable never doubles
+   * back across a strip it has already covered, which is exactly the
+   * constraint a real installer is working under.
    */
   if (passes % 2 === 0) passes -= 1;
 
   const span = (passes - 1) * spacing;
   const points = [];
-  let start = null;
 
   for (let b = 0; b < bands; b += 1) {
     const zc = -length / 2 + pitch / 2 + b * pitch;
@@ -152,10 +130,9 @@ export function buildMatCable({
       const zA = zc - zHalf * zDir;
       const zB = zc + zHalf * zDir;
 
-      if (points.length === 0) {
-        start = new THREE.Vector3(x, 0, zA);
-        points.push(start.clone());
-      }
+      // Seed the very first point; every later pass already begins on the end
+      // of the bend or link that led into it.
+      if (points.length === 0) points.push(new THREE.Vector3(x, 0, zA));
       line(points, x, zA, x, zB, STRAIGHT_STEPS);
 
       if (i < passes - 1) hairpin(points, x, x + step, zB, zDir);
@@ -163,9 +140,18 @@ export function buildMatCable({
     }
 
     if (b < bands - 1) {
-      // Bulge away from the middle of the mat, i.e. past whichever end this
-      // strip finished at, so the loop sits on bare substrate.
-      seamLoop(points, xFirst + step * (passes - 1), zc + zHalf, zc + pitch - zHalf, forward ? 1 : -1);
+      /**
+       * Crossing into the next strip. A straight link, square across the seam.
+       *
+       * This was a curved loop bulging out past the end of the strip, on the
+       * reasoning that a real cable is left slack where the mesh is cut. But
+       * the odd pass count already leaves this strip finishing on the edge
+       * that faces the next one, so the curve was a detour with nothing to
+       * avoid: it read as a stray bend breaking an otherwise square grid.
+       * Straight is both tidier and the shorter path the cable would take.
+       */
+      const xLast = xFirst + step * (passes - 1);
+      line(points, xLast, zc + zHalf, xLast, zc + pitch - zHalf, STRAIGHT_STEPS);
     }
   }
 
@@ -178,11 +164,5 @@ export function buildMatCable({
    */
   curve.arcLengthDivisions = Math.min(4000, points.length * 3);
 
-  return {
-    curve,
-    start,
-    end: points[points.length - 1].clone(),
-    passes,
-    zHalf,
-  };
+  return curve;
 }

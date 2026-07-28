@@ -208,57 +208,19 @@ function FeatureLabel({ feature, rotationRef, progressRef, activeIdRef }) {
 }
 
 /**
- * The cold tail: the unheated supply lead that runs from the mat back to the
- * thermostat, joined by a moulded factory splice. Every real mat has one,
- * and its absence is a detail the eye notices without being able to name 
- * a heating mat with no way of connecting to anything reads as a prop.
- */
-function ColdTail({ from }) {
-  const { geometry, joint } = useMemo(() => {
-    // Runs from the free end of the heating cable, out over the edge of the
-    // scrim, then away toward the thermostat. Anchoring it to `from` rather
-    // than a hardcoded corner means it still meets the cable if the strip
-    // layout changes, which a fixed corner did not.
-    const x = from.x;
-    const z = from.z;
-    const curve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(x, 0.008, z),
-      new THREE.Vector3(x - 0.3, 0.008, z - 0.12),
-      new THREE.Vector3(-MAT_W / 2 - 0.35, 0.008, z - 0.3),
-      new THREE.Vector3(-MAT_W / 2 - 0.85, 0.008, z - 0.34),
-      new THREE.Vector3(-MAT_W / 2 - 1.25, 0.008, z - 0.28),
-    ]);
-
-    return {
-      // A cold tail is thicker than the heating cable but not by much, at the
-      // previous 0.026 it read as a garden hose bolted to the mat.
-      geometry: new THREE.TubeGeometry(curve, 56, 0.008, 6, false),
-      joint: curve.getPointAt(0.1),
-    };
-  }, [from]);
-
-  return (
-    <group>
-      <mesh geometry={geometry}>
-        <meshStandardMaterial color="#151515" roughness={0.65} metalness={0.1} />
-      </mesh>
-      {/* Moulded factory splice where the cold tail meets the heating cable */}
-      <mesh position={joint} rotation={[0, -0.45, Math.PI / 2]}>
-        <capsuleGeometry args={[0.012, 0.05, 3, 8]} />
-        <meshStandardMaterial color="#262626" roughness={0.5} metalness={0.2} />
-      </mesh>
-    </group>
-  );
-}
-
-/**
- * The heating mat: fibreglass scrim, cable at real spacing, cold tail and
- * factory splice.
+ * The heating mat: fibreglass scrim laid as strips, with the cable at real
+ * spacing running across each strip.
+ *
+ * No cold tail. A real mat has one, and an earlier pass modelled it on that
+ * reasoning, but it is a black unheated lead trailing off the corner of a
+ * shot whose entire subject is a glowing orange run. It read as a stray wire
+ * rather than as a connection, and it was the only thing pulling the eye off
+ * the mat.
  */
 function HeatingSheetModel({ rotationRef, progressRef, showLabels = true, levelRef = null }) {
   const mesh = useMemo(() => meshAlpha(), []);
   const bands = useMemo(() => matBands(), []);
-  const { curve, start } = useMemo(() => buildMatCable(), []);
+  const curve = useMemo(() => buildMatCable(), []);
 
   // Weave density held constant per unit rather than per strip, so the scrim
   // reads as one fabric cut into strips instead of three differently woven
@@ -326,8 +288,6 @@ function HeatingSheetModel({ rotationRef, progressRef, showLabels = true, levelR
       <group position={[0, CABLE_RADIUS + 0.002, 0]}>
         <CableModel curve={curve} radius={CABLE_RADIUS} levelRef={levelRef} />
       </group>
-
-      <ColdTail from={start} />
 
       {showLabels &&
         FEATURES.map((f) => (

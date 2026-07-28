@@ -4,7 +4,7 @@ import { memo, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { PALETTE, clamp } from '@/lib/three-utils';
-import { radialGlow, cableSheath, cableHeat } from '@/lib/textures';
+import { cableSheath, cableHeat } from '@/lib/textures';
 
 /**
  * The serpentine run a heating cable actually takes: straight passes along
@@ -111,6 +111,12 @@ function FixingTabs({ curve, count = 130 }) {
  *  - an additive outer shell, which fakes the light bleed a bloom pass would
  *    give at a fraction of the cost
  *
+ * No travelling sprite highlights. They were a pair of camera-facing additive
+ * quads riding the curve, and against a mat of short passes and tight return
+ * bends they read as two loose glowing balls skidding over the cable rather
+ * than as heat inside it. The scrolled emissive map already says "heat is
+ * moving through this", and it says it along the whole run at once.
+ *
  * All animation mutates material/object properties in useFrame, this mounts
  * once and never re-renders.
  *
@@ -130,15 +136,12 @@ function CableModel({
   spacing = 0.088,
   radius = 0.005,
   intensity = 0.9,
-  pulses = 2,
   levelRef = null,
   curve: curveProp = null,
 }) {
   const materialRef = useRef(null);
   const shellRef = useRef(null);
-  const pulseRefs = useRef([]);
 
-  const glow = useMemo(() => radialGlow(), []);
   const sheath = useMemo(() => cableSheath(), []);
   const heat = useMemo(() => cableHeat(), []);
 
@@ -201,11 +204,6 @@ function CableModel({
     }
   }, [curve, sheath, heat]);
 
-  const glowColor = useMemo(
-    () => new THREE.Color(PALETTE.heat400).multiplyScalar(1.8),
-    []
-  );
-
   useFrame((state, delta) => {
     const t = state.clock.elapsedTime;
     const dt = Math.min(delta, 0.05);
@@ -223,18 +221,6 @@ function CableModel({
     }
     if (shellRef.current) {
       shellRef.current.material.opacity = (0.1 + Math.sin(t * 1.4) * 0.035) * level;
-    }
-
-    for (let i = 0; i < pulseRefs.current.length; i += 1) {
-      const sprite = pulseRefs.current[i];
-      if (!sprite) continue;
-      const phase = (t * 0.11 + i / pulses) % 1;
-      curve.getPointAt(phase, sprite.position);
-      sprite.position.y += 0.02;
-      // Scaled by level rather than faded: at level 0 the sprite collapses to
-      // nothing, so an unpowered cable has no travelling highlight crawling
-      // along it at zero opacity.
-      sprite.scale.setScalar((0.14 + Math.sin(phase * Math.PI) * 0.09) * level);
     }
   });
 
@@ -273,27 +259,6 @@ function CableModel({
       </mesh>
 
       <FixingTabs curve={curve} />
-
-      {/* Travelling highlights. Sprites: one camera-facing quad each,
-          additive, so they read as light rather than geometry. */}
-      {Array.from({ length: pulses }).map((_, i) => (
-        <sprite
-          key={i}
-          ref={(el) => {
-            pulseRefs.current[i] = el;
-          }}
-        >
-          <spriteMaterial
-            map={glow}
-            color={glowColor}
-            blending={THREE.AdditiveBlending}
-            transparent
-            depthWrite={false}
-            toneMapped={false}
-            opacity={0.7}
-          />
-        </sprite>
-      ))}
     </group>
   );
 }
