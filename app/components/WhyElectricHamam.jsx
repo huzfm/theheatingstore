@@ -370,10 +370,13 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
 
         /* Premium glass surface for the copy side, mirroring the image
            panel's own glass-edged frame, type reads as sitting on a placed
-           material object, not floating directly on the page background. */
+           material object, not floating directly on the page background.
+           Narrower than the original even split so the photograph beside it
+           reads as the dominant element of the composition, not a same-size
+           partner. */
         .weh-scene-copy {
-          flex: 1 1 46%; max-width: 580px;
-          padding: clamp(32px, 4vw, 56px);
+          flex: 1 1 34%; max-width: 460px;
+          padding: clamp(28px, 3.4vw, 48px);
           border-radius: 28px;
           background: linear-gradient(155deg, rgba(255,255,255,0.5), rgba(255,255,255,0.16));
           backdrop-filter: blur(22px) saturate(140%);
@@ -439,6 +442,21 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
             0 calc(12px * var(--weh-shadow-t)) calc(28px * var(--weh-shadow-t)) -12px rgba(36,26,22, calc(0.16 * var(--weh-shadow-t))),
             0 0 0 1px rgba(184,107,69,0.1);
         }
+        /* Mode A: image now the dominant compositional element (roughly
+           64/34 against the copy panel, was a near-even 44/46 split). */
+        .weh-image-panel.weh-scene-image--dominant { flex: 1 1 64%; }
+        .weh-image-panel.weh-scene-image--dominant .weh-image-panel-frame {
+          max-width: 760px; max-height: 80vh;
+        }
+        /* Mode B: the frame fills almost the whole stage width instead of
+           sitting beside a copy panel — "full-bleed" within the section's
+           own whitespace margins, not to the browser edge, so it keeps the
+           same frame/shadow/glass-edge treatment as every other scene. */
+        .weh-scene-full { position: relative; width: 100%; max-width: 1560px; margin: 0 auto; }
+        .weh-scene-full .weh-image-panel { width: 100%; }
+        .weh-scene-full .weh-image-panel-frame {
+          width: 100%; max-width: none; aspect-ratio: 16 / 10; max-height: 84vh;
+        }
         .weh-image-panel-img {
           position: absolute; inset: -4%; width: 108%; height: 108%; object-fit: cover;
           will-change: transform;
@@ -446,6 +464,21 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
         .weh-image-panel-scrim {
           position: absolute; inset: 0;
           background: linear-gradient(180deg, rgba(36,26,22,0) 68%, rgba(36,26,22,0.16) 100%);
+        }
+        /* Mode B's stronger scrim, same warm-ink tone as this file's own
+           shadows (rgba(36,26,22,…)) rather than a colder black, darkening
+           whichever side the overlaid copy sits on — same vocabulary as
+           HomeHero's .hhero__scrim (side-anchored gradient for legibility
+           over a photo), re-authored on this section's own ink token. */
+        .weh-image-panel-scrim--strong.weh-image-panel-scrim--left {
+          background:
+            linear-gradient(100deg, rgba(36,26,22,0.82) 0%, rgba(36,26,22,0.56) 24%, rgba(36,26,22,0.08) 48%, transparent 64%),
+            linear-gradient(0deg, rgba(36,26,22,0.68) 0%, rgba(36,26,22,0.05) 38%, transparent 58%);
+        }
+        .weh-image-panel-scrim--strong.weh-image-panel-scrim--right {
+          background:
+            linear-gradient(260deg, rgba(36,26,22,0.82) 0%, rgba(36,26,22,0.56) 24%, rgba(36,26,22,0.08) 48%, transparent 64%),
+            linear-gradient(0deg, rgba(36,26,22,0.68) 0%, rgba(36,26,22,0.05) 38%, transparent 58%);
         }
         /* Diagonal light sweep, crosses the frame once as it opens. */
         .weh-image-panel-sweep {
@@ -461,6 +494,33 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
           mix-blend-mode: overlay;
         }
         .weh-static .weh-image-panel-sweep { display: none; }
+
+        /* Mode B copy: sits directly on the image's own strong scrim rather
+           than a separate glass panel, so it inherits light-on-dark colours
+           instead of .weh-scene-copy's ink-on-glass palette. Reuses every
+           .weh-scene-* typography class as-is (index/counter/title/body/
+           rowstat), just re-tinted, so the two modes share one set of DOM
+           elements/refs and only the surrounding chrome differs. */
+        .weh-scene-overlay-copy {
+          position: absolute; z-index: 2;
+          bottom: clamp(28px, 5vw, 72px);
+          max-width: 560px;
+          padding: 0 clamp(24px, 4vw, 64px);
+          will-change: transform;
+        }
+        .weh-scene-full--textleft .weh-scene-overlay-copy { left: 0; text-align: left; }
+        .weh-scene-full--textright .weh-scene-overlay-copy { right: 0; text-align: right; }
+        .weh-scene-overlay-copy .weh-scene-index { color: rgba(251,250,248,0.55); }
+        .weh-scene-overlay-copy .weh-scene-counter-label { color: rgba(251,250,248,0.78); }
+        .weh-scene-overlay-copy .weh-scene-title { color: var(--weh-surface); }
+        .weh-scene-overlay-copy .weh-scene-body { color: rgba(251,250,248,0.86); max-width: 40ch; }
+        .weh-scene-full--textright .weh-scene-overlay-copy .weh-scene-body { margin-left: auto; }
+        .weh-scene-overlay-copy .weh-scene-rowstat { border-top-color: rgba(251,250,248,0.28); }
+        .weh-scene-overlay-copy .weh-scene-rowstat-label { color: rgba(251,250,248,0.78); }
+        .weh-scene-full--textright .weh-scene-overlay-copy .weh-scene-counter,
+        .weh-scene-full--textright .weh-scene-overlay-copy .weh-scene-rowstat {
+          justify-content: flex-end;
+        }
 
         /* ── Quote scene ─────────────────────────────────────────────── */
         .weh-quote-scene {
@@ -542,6 +602,30 @@ export default function WhyElectricHamam({ ctaHref = '#contact' }) {
           .weh-scene-copy { max-width: 520px; }
           .weh-scene-rowstat { justify-content: center; }
           .weh-image-panel-frame { max-width: 340px; aspect-ratio: 4 / 5; max-height: 46vh; }
+          /* Mode B has no sibling copy panel to make room for, so its frame
+             stays full-width rather than shrinking to the shared 340px cap
+             above; the overlay copy re-centres and spans full width, and
+             the scrim widens to a plain bottom fade since a side-anchored
+             gradient can't guarantee coverage once the column narrows. */
+          .weh-scene-full .weh-image-panel-frame {
+            max-width: none; width: 100%; aspect-ratio: 4 / 5; max-height: 60vh;
+          }
+          .weh-scene-overlay-copy {
+            left: 0 !important; right: 0 !important; max-width: none;
+            padding: 0 28px; text-align: center;
+          }
+          .weh-scene-full--textleft .weh-scene-overlay-copy .weh-scene-body,
+          .weh-scene-full--textright .weh-scene-overlay-copy .weh-scene-body {
+            margin-left: auto; margin-right: auto;
+          }
+          .weh-scene-overlay-copy .weh-scene-counter,
+          .weh-scene-overlay-copy .weh-scene-rowstat {
+            justify-content: center;
+          }
+          .weh-image-panel-scrim--strong.weh-image-panel-scrim--left,
+          .weh-image-panel-scrim--strong.weh-image-panel-scrim--right {
+            background: linear-gradient(0deg, rgba(36,26,22,0.86) 0%, rgba(36,26,22,0.5) 34%, rgba(36,26,22,0.06) 58%, transparent 72%);
+          }
           .weh-quote-attribution { justify-content: center; }
           .weh-ambient-layer { opacity: 0.05 !important; animation: none !important; }
         }

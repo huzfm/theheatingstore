@@ -18,6 +18,7 @@ import { LAYER_W, LAYER_L } from './FloorLayers';
  */
 function InsulationLayerImpl({ progressRef }) {
   const ref = useRef(null);
+  const boardRef = useRef(null);
   const foilRef = useRef(null);
   const albedo = useMemo(() => insulationAlbedo(), []);
 
@@ -27,12 +28,20 @@ function InsulationLayerImpl({ progressRef }) {
     const group = ref.current;
     if (!group) return;
 
+    // Comes into focus as the carpet clears: envMapIntensity ramps up over
+    // the same window the carpet rolls through, so this board reads as
+    // "revealed" rather than having simply been sitting there uncovered.
+    const exposure = smoothstep(stageProgress(progressRef.current, ...TIMELINE.carpetRoll));
+
     group.position.y = damp(group.position.y, -0.075 - t * 0.6, 5, dt);
     const opacity = 1 - t * 0.85;
     group.children.forEach((child) => {
       if (child.material) child.material.opacity = opacity;
     });
     group.visible = opacity > 0.02;
+
+    if (boardRef.current) boardRef.current.envMapIntensity = 0.25 + exposure * 0.2;
+    if (foilRef.current) foilRef.current.envMapIntensity = 0.45 + exposure * 0.35;
   });
 
   return (
@@ -46,6 +55,7 @@ function InsulationLayerImpl({ progressRef }) {
             rig the previous value blew out to pure white, which read as a
             featureless foam block and stole focus from the mat. */}
         <meshStandardMaterial
+          ref={boardRef}
           map={albedo}
           map-repeat={[3, 3]}
           color="#3a3630"
@@ -61,6 +71,7 @@ function InsulationLayerImpl({ progressRef }) {
       <mesh position={[0, 0.057, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[LAYER_W - 0.06, LAYER_L - 0.06]} />
         <meshStandardMaterial
+          ref={foilRef}
           color="#55504a"
           roughness={0.42}
           metalness={0.55}
@@ -80,17 +91,20 @@ function InsulationLayerImpl({ progressRef }) {
  */
 function SubfloorLayerImpl({ progressRef }) {
   const ref = useRef(null);
+  const materialRef = useRef(null);
   const albedo = useMemo(() => concreteAlbedo(), []);
 
   useFrame((_, delta) => {
     const dt = Math.min(delta, 0.05);
     const t = smoothstep(stageProgress(progressRef.current, ...TIMELINE.baseRecede));
+    const exposure = smoothstep(stageProgress(progressRef.current, ...TIMELINE.carpetRoll));
     const mesh = ref.current;
     if (!mesh) return;
 
     mesh.position.y = damp(mesh.position.y, -0.235 - t * 1.0, 5, dt);
     mesh.material.opacity = 1 - t * 0.9;
     mesh.visible = mesh.material.opacity > 0.02;
+    if (materialRef.current) materialRef.current.envMapIntensity = 0.35 + exposure * 0.25;
   });
 
   return (
@@ -103,6 +117,7 @@ function SubfloorLayerImpl({ progressRef }) {
       receiveShadow
     >
       <meshStandardMaterial
+        ref={materialRef}
         map={albedo}
         color="#46423c"
         roughness={1}
