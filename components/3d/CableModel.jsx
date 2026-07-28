@@ -108,7 +108,7 @@ function CableModel({
   width,
   length,
   spacing = 0.088,
-  radius = 0.0065,
+  radius = 0.005,
   intensity = 0.9,
   pulses = 2,
   levelRef = null,
@@ -132,16 +132,12 @@ function CableModel({
    * long. Radial segments stay low: at this diameter the silhouette is a
    * couple of pixels wide.
    */
-  const { geometry, shellGeometry, grooveGeometry } = useMemo(() => {
+  const { geometry, shellGeometry } = useMemo(() => {
     const segments = Math.min(1400, Math.round(curve.getLength() * 12));
     return {
       geometry: new THREE.TubeGeometry(curve, segments, radius, 7, false),
       // Coarser: it's a soft blur, nobody resolves its silhouette.
       shellGeometry: new THREE.TubeGeometry(curve, Math.round(segments / 2), radius * 3.4, 6, false),
-      // Wider and lower still, a static contact-shadow smear standing in for
-      // the ambient occlusion a real cable casts into the mesh it's bonded
-      // to, cheaper than a real shadow map for a shape that never moves.
-      grooveGeometry: new THREE.TubeGeometry(curve, Math.round(segments / 2), radius * 2.1, 6, false),
     };
   }, [curve, radius]);
 
@@ -152,12 +148,11 @@ function CableModel({
     return () => {
       geometry.dispose();
       shellGeometry.dispose();
-      grooveGeometry.dispose();
       // Textures are shared + cached, so they're released by disposeTextures.
       void sheathTexture;
       void heatTexture;
     };
-  }, [geometry, shellGeometry, grooveGeometry, sheath, heat]);
+  }, [geometry, shellGeometry, sheath, heat]);
 
   /**
    * Tiling is set here rather than in the texture factory because it depends
@@ -217,20 +212,6 @@ function CableModel({
 
   return (
     <group>
-      {/* Contact-shadow groove: a static, unlit dark tube sitting just under
-          the cable's footprint, so it reads as bonded into the mesh rather
-          than floating above it. Always on, independent of `level`, this is
-          a physical-fit cue, not a power cue. */}
-      <mesh geometry={grooveGeometry} position={[0, -0.0025, 0]}>
-        <meshBasicMaterial
-          color="#170a10"
-          transparent
-          opacity={0.4}
-          depthWrite={false}
-          toneMapped={false}
-        />
-      </mesh>
-
       {/* Soft outer shell, additive, backside, so it reads as light bleeding
           off the cable rather than a second solid tube around it. */}
       <mesh ref={shellRef} geometry={shellGeometry}>
@@ -247,20 +228,17 @@ function CableModel({
 
       <mesh geometry={geometry}>
         {/* toneMapped={false} keeps the emissive from being crushed by the
-            ACES curve. `color` is the jacket's real, unlit hue (ProWarm's
-            magenta); `emissive` is a separate warm "hot" cue that only shows
-            once `level` (see useFrame above) pushes emissiveIntensity above
-            zero, so the jacket colour and the powered-on glow don't fight
-            for the same hue. */}
+            ACES curve, so the cable stays saturated orange rather than
+            washing toward white. */}
         <meshStandardMaterial
           ref={materialRef}
           map={sheath}
           emissiveMap={heat}
-          color={PALETTE.matCable500}
+          color="#c05a1e"
           emissive={PALETTE.heat500}
           emissiveIntensity={intensity}
-          roughness={0.55}
-          metalness={0.1}
+          roughness={0.38}
+          metalness={0.25}
           envMapIntensity={1.2}
           toneMapped={false}
         />
