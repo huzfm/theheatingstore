@@ -356,7 +356,7 @@ export default function Timeline() {
           perspective: ${PERSPECTIVE}px;
           perspective-origin: 50% 45%;
           transform: translateY(var(--stair-shift, 0)) scale(var(--stair-scale, 1));
-          --stair-scale: 0.5;
+          --stair-scale: 0.46;
           --stair-shift: -6%;
         }
         @media (min-width: 480px) { .stair-stage { --stair-scale: 0.6; } }
@@ -624,10 +624,10 @@ export default function Timeline() {
         </div>
 
         {/* Which milestone you're on. Fills as the staircase turns.
-            Left-aligned and narrower on mobile so the rail clears the floating
-            chat bubble that sits bottom-right, the same call already made on
-            the home page's layer-stack section. */}
-        <div className="pointer-events-none absolute bottom-6 left-6 flex gap-2 md:bottom-14 md:left-auto md:right-16">
+            Right-aligned and narrower on mobile: the floating widget on this
+            route sits bottom-left, and at 390px a left-aligned rail runs
+            straight underneath it. */}
+        <div className="pointer-events-none absolute bottom-6 right-6 flex gap-2 md:bottom-14 md:right-16">
           {MILESTONES.map((item, i) => (
             <div
               key={item.year}
