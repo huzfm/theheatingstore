@@ -20,7 +20,6 @@ export default function HomePage() {
           wave of colour (green → orange) moves through it word by word as the
           section scrolls past. */}
       {/* <WarmthRevealSection /> */}
-      <WhyElectricHamam/>
       <WhyElectricHamamShowcase />
       {/* <VideoGallery/> */}
       {/* <TrustedBrandsSection /> */}
