@@ -5,7 +5,8 @@ import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import CableModel from './CableModel';
-import { MAT_W, MAT_L, CABLE_SPACING } from './constants';
+import { MAT_W, MAT_L, CABLE_RADIUS } from './constants';
+import { buildMatCable, matBands } from './mat-layout';
 import { meshAlpha } from '@/lib/textures';
 
 /**
@@ -49,7 +50,7 @@ const FEATURES = [
     kicker: 'Coverage',
     title: 'Even heat distribution',
     body: 'Fixed cable spacing across the mat, no hot stripes, no cold patches.',
-    spec: '50 mm',
+    spec: '75 mm',
     specLabel: 'spacing',
     anchor: [MAT_W / 2 - 0.3, 0.07, MAT_L / 2 - 0.34],
     azimuth: -Math.PI * 0.25,
@@ -212,33 +213,38 @@ function FeatureLabel({ feature, rotationRef, progressRef, activeIdRef }) {
  * and its absence is a detail the eye notices without being able to name 
  * a heating mat with no way of connecting to anything reads as a prop.
  */
-function ColdTail() {
-  const curve = useMemo(
-    () =>
-      new THREE.CatmullRomCurve3([
-        new THREE.Vector3(-MAT_W / 2 + 0.1, 0.01, MAT_L / 2 - 0.1),
-        new THREE.Vector3(-MAT_W / 2 - 0.35, 0.01, MAT_L / 2 + 0.05),
-        new THREE.Vector3(-MAT_W / 2 - 0.75, 0.01, MAT_L / 2 + 0.32),
-        new THREE.Vector3(-MAT_W / 2 - 1.15, 0.01, MAT_L / 2 + 0.3),
-      ]),
-    []
-  );
+function ColdTail({ from }) {
+  const { geometry, joint } = useMemo(() => {
+    // Runs from the free end of the heating cable, out over the edge of the
+    // scrim, then away toward the thermostat. Anchoring it to `from` rather
+    // than a hardcoded corner means it still meets the cable if the strip
+    // layout changes, which a fixed corner did not.
+    const x = from.x;
+    const z = from.z;
+    const curve = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(x, 0.008, z),
+      new THREE.Vector3(x - 0.3, 0.008, z - 0.12),
+      new THREE.Vector3(-MAT_W / 2 - 0.35, 0.008, z - 0.3),
+      new THREE.Vector3(-MAT_W / 2 - 0.85, 0.008, z - 0.34),
+      new THREE.Vector3(-MAT_W / 2 - 1.25, 0.008, z - 0.28),
+    ]);
 
-  // A cold tail is thicker than the heating cable but not by much, at the
-  // previous 0.026 it read as a garden hose bolted to the mat.
-  const geometry = useMemo(
-    () => new THREE.TubeGeometry(curve, 40, 0.009, 6, false),
-    [curve]
-  );
+    return {
+      // A cold tail is thicker than the heating cable but not by much, at the
+      // previous 0.026 it read as a garden hose bolted to the mat.
+      geometry: new THREE.TubeGeometry(curve, 56, 0.008, 6, false),
+      joint: curve.getPointAt(0.1),
+    };
+  }, [from]);
 
   return (
     <group>
       <mesh geometry={geometry}>
         <meshStandardMaterial color="#151515" roughness={0.65} metalness={0.1} />
       </mesh>
-      {/* Moulded joint where cold tail meets heating cable */}
-      <mesh position={[-MAT_W / 2 - 0.3, 0.012, MAT_L / 2 + 0.02]} rotation={[0, 0.5, Math.PI / 2]}>
-        <capsuleGeometry args={[0.014, 0.06, 3, 8]} />
+      {/* Moulded factory splice where the cold tail meets the heating cable */}
+      <mesh position={joint} rotation={[0, -0.45, Math.PI / 2]}>
+        <capsuleGeometry args={[0.012, 0.05, 3, 8]} />
         <meshStandardMaterial color="#262626" roughness={0.5} metalness={0.2} />
       </mesh>
     </group>
@@ -251,6 +257,13 @@ function ColdTail() {
  */
 function HeatingSheetModel({ rotationRef, progressRef, showLabels = true, levelRef = null }) {
   const mesh = useMemo(() => meshAlpha(), []);
+  const bands = useMemo(() => matBands(), []);
+  const { curve, start } = useMemo(() => buildMatCable(), []);
+
+  // Weave density held constant per unit rather than per strip, so the scrim
+  // reads as one fabric cut into strips instead of three differently woven
+  // sheets. 8 repeats across MAT_W is the pitch the single sheet used.
+  const weaveV = (8 / MAT_W) * bands[0].width;
 
   /**
    * Which callout owns the screen right now. Each frame we pick the single
@@ -278,33 +291,43 @@ function HeatingSheetModel({ rotationRef, progressRef, showLabels = true, levelR
   return (
     <group>
       {/* Fibreglass scrim. Real mats are an open weave you can see through,
-          so this is an alpha cut-out rather than a solid backing slab 
+          so this is an alpha cut-out rather than a solid backing slab
           light passes between the strands and the layer below shows through,
-          which is what makes it read as mesh and not as card. */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[MAT_W, MAT_L]} />
-        {/* Lower opacity and no alphaTest: the hard cutout rendered as a
-            drawn wireframe grid. A soft translucent scrim reads as fabric,
-            which is what it is. */}
-        <meshStandardMaterial
-          color="#a49d90"
-          alphaMap={mesh}
-          alphaMap-repeat={[8, 6]}
-          transparent
-          opacity={0.28}
-          roughness={0.85}
-          metalness={0}
-          envMapIntensity={0.5}
-          depthWrite={false}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
+          which is what makes it read as mesh and not as card.
 
-      <group position={[0, 0.018, 0]}>
-        <CableModel width={MAT_W} length={MAT_L} spacing={CABLE_SPACING} levelRef={levelRef} />
+          One plane per strip, not one for the whole mat: a mat is a 500 mm
+          roll laid in runs with the mesh cut and turned at each end, so the
+          seams between strips are there on every real floor and they're what
+          gives the surface any structure at all. A single sheet left the
+          cable with nothing to be organised by. */}
+      {bands.map((band) => (
+        <mesh key={band.index} position={[0, 0, band.z]} rotation={[-Math.PI / 2, 0, 0]}>
+          <planeGeometry args={[MAT_W, band.width]} />
+          {/* Lower opacity and no alphaTest: the hard cutout rendered as a
+              drawn wireframe grid. A soft translucent scrim reads as fabric,
+              which is what it is. */}
+          <meshStandardMaterial
+            color="#a49d90"
+            alphaMap={mesh}
+            alphaMap-repeat={[8, weaveV]}
+            transparent
+            opacity={0.28}
+            roughness={0.85}
+            metalness={0}
+            envMapIntensity={0.5}
+            depthWrite={false}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+      ))}
+
+      {/* Sits one cable radius above the scrim, which is where a bonded cable
+          actually is. The previous 0.018 was ~10 mm of daylight under it. */}
+      <group position={[0, CABLE_RADIUS + 0.002, 0]}>
+        <CableModel curve={curve} radius={CABLE_RADIUS} levelRef={levelRef} />
       </group>
 
-      <ColdTail />
+      <ColdTail from={start} />
 
       {showLabels &&
         FEATURES.map((f) => (

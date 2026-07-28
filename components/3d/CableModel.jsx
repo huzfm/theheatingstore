@@ -26,7 +26,11 @@ export function createSerpentinePath({ width, length, spacing, margin = 0.1 }) {
     dir *= -1;
   }
 
-  return new THREE.CatmullRomCurve3(points, false, 'centripetal', 0.5);
+  const curve = new THREE.CatmullRomCurve3(points, false, 'centripetal', 0.5);
+  // three.js defaults to 200 arc-length divisions no matter how many control
+  // points there are, which distributes tube segments unevenly on long runs.
+  curve.arcLengthDivisions = Math.min(2000, points.length * 8);
+  return curve;
 }
 
 /**
@@ -35,9 +39,9 @@ export function createSerpentinePath({ width, length, spacing, margin = 0.1 }) {
  * On a real mat the cable is bonded to the scrim at intervals, it doesn't
  * float. The tabs are small and mostly read as a rhythm of dark ticks along
  * the run, but that rhythm is a strong "this is a manufactured assembly"
- * cue. One InstancedMesh, so ~90 of them cost a single draw call.
+ * cue. One InstancedMesh, so they cost a single draw call.
  */
-function FixingTabs({ curve, count = 44 }) {
+function FixingTabs({ curve, count = 130 }) {
   const ref = useRef(null);
 
   useLayoutEffect(() => {
@@ -47,22 +51,33 @@ function FixingTabs({ curve, count = 44 }) {
     const dummy = new THREE.Object3D();
     const up = new THREE.Vector3(0, 1, 0);
     const tangent = new THREE.Vector3();
+    const ahead = new THREE.Vector3();
     const point = new THREE.Vector3();
 
     for (let i = 0; i < count; i += 1) {
       const t = (i + 0.5) / count;
       curve.getPointAt(t, point);
       curve.getTangentAt(t, tangent);
+      // Small enough that the lookahead stays inside one pass, so a tab in
+      // the middle of a straight run isn't rejected by the bend after it.
+      curve.getTangentAt(Math.min(1, t + 0.0008), ahead);
 
-      // Skip tabs that land on a U-turn, on a real mat they're applied to
-      // the straight runs, and one wrapped around a tight bend looks wrong.
-      const straightness = Math.abs(tangent.x);
+      /**
+       * Skip tabs that land on a return bend, on a real mat they're applied
+       * to the straight runs and one wrapped around a tight turn looks wrong.
+       *
+       * Measured as local curvature rather than "is the tangent parallel to
+       * X". The passes on a mat run across the strip, not along the mat, so
+       * an axis test answers for the wrong axis; this one holds whichever way
+       * the run is oriented.
+       */
+      const straightness = tangent.dot(ahead);
 
       dummy.position.copy(point);
-      dummy.position.y -= 0.004;
+      dummy.position.y -= 0.0045;
       dummy.quaternion.setFromUnitVectors(up, tangent.clone().normalize());
       dummy.rotateX(Math.PI / 2);
-      dummy.scale.setScalar(straightness > 0.8 ? 1 : 0.001);
+      dummy.scale.setScalar(straightness > 0.995 ? 1 : 0.001);
       dummy.updateMatrix();
       mesh.setMatrixAt(i, dummy.matrix);
     }
@@ -75,7 +90,7 @@ function FixingTabs({ curve, count = 44 }) {
       {/* Small and dim on purpose. At the previous size and near-white
           colour these read as confetti scattered over the mat, they should
           be a quiet rhythm of ticks you notice only on close inspection. */}
-      <boxGeometry args={[0.022, 0.005, 0.014]} />
+      <boxGeometry args={[0.016, 0.004, 0.011]} />
       <meshStandardMaterial color="#8d8578" roughness={0.9} metalness={0.05} />
     </instancedMesh>
   );
@@ -103,6 +118,11 @@ function FixingTabs({ curve, count = 44 }) {
  * callers that need it to go genuinely cold and light up again (the About
  * story rail). Omitting it pins the level at 1, which is the original
  * behaviour exactly, `intensity * 1` is the expression that was there.
+ *
+ * `curve` overrides the built-in serpentine. The heating mat passes one in
+ * (see mat-layout.js) because a mat's run is strip-by-strip rather than a
+ * single sweep of the whole floor; callers that just want a plain serpentine,
+ * like the hero's pipe network, omit it and get the same path as before.
  */
 function CableModel({
   width,
@@ -112,6 +132,7 @@ function CableModel({
   intensity = 0.9,
   pulses = 2,
   levelRef = null,
+  curve: curveProp = null,
 }) {
   const materialRef = useRef(null);
   const shellRef = useRef(null);
@@ -122,8 +143,8 @@ function CableModel({
   const heat = useMemo(() => cableHeat(), []);
 
   const curve = useMemo(
-    () => createSerpentinePath({ width, length, spacing }),
-    [width, length, spacing]
+    () => curveProp ?? createSerpentinePath({ width, length, spacing }),
+    [curveProp, width, length, spacing]
   );
 
   /**
@@ -131,13 +152,20 @@ function CableModel({
    * spacing, a fixed count goes polygonal on the U-turns once the run gets
    * long. Radial segments stay low: at this diameter the silhouette is a
    * couple of pixels wide.
+   *
+   * The density is set by the tightest feature on the run, which is the
+   * return bend: half a circle of radius spacing/2, so ~0.12 units of arc
+   * that needs ~10 segments to stop looking chamfered. At the old 12 per unit
+   * a bend got under two segments and every turn on the mat was a visible
+   * corner. 46 per unit is ~35k triangles on the mat's run, which is cheap in
+   * a scene with no shadow maps and no post-processing.
    */
   const { geometry, shellGeometry } = useMemo(() => {
-    const segments = Math.min(1400, Math.round(curve.getLength() * 12));
+    const segments = Math.min(3400, Math.max(400, Math.round(curve.getLength() * 46)));
     return {
-      geometry: new THREE.TubeGeometry(curve, segments, radius, 7, false),
+      geometry: new THREE.TubeGeometry(curve, segments, radius, 6, false),
       // Coarser: it's a soft blur, nobody resolves its silhouette.
-      shellGeometry: new THREE.TubeGeometry(curve, Math.round(segments / 2), radius * 3.4, 6, false),
+      shellGeometry: new THREE.TubeGeometry(curve, Math.round(segments / 2.5), radius * 2.8, 5, false),
     };
   }, [curve, radius]);
 
