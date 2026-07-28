@@ -38,15 +38,6 @@ import CTAEnding from './CTAEnding';
  * foreground/midground/background depth the visual brief asks for. Their
  * tint follows whichever scene is currently active.
  */
-// Per-scene composition mode (see Scene.jsx): 'a' (image-dominant beside a
-// glass panel) is the default; 'b' (full-bleed image, copy overlaid on a
-// scrim) is spiked here on a single scene pending the full editorial
-// assignment across all six — not a hardcoded design decision yet, a
-// deliberate one-scene sample to compare against 'a' before committing.
-const SCENE_MODE = {
-  'smoke-free': 'b',
-};
-
 export default function SceneManager({ wrapperRef, ctaHref, reduced }) {
   const titleRoot = useRef(null);
   const titleEyebrow = useRef(null);
@@ -135,7 +126,6 @@ export default function SceneManager({ wrapperRef, ctaHref, reduced }) {
         <Scene
           key={scene.id}
           scene={scene}
-          mode={SCENE_MODE[scene.id] ?? 'a'}
           rootRef={sceneRefs[i].root}
           imageRef={sceneRefs[i].image}
           frameRef={sceneRefs[i].frame}
