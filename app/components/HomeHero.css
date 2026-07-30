@@ -1,9 +1,10 @@
 /**
  * HomeHero.css, the static, art-directed home hero that replaces the
- * scroll-driven WebGL cutaway. One cinematic plate, a warm scrim, and a
- * single left-set copy column. Everything is authored against the same
- * copper / ivory tokens the rest of the site uses, so it reads as the same
- * brand at a calmer fidelity.
+ * scroll-driven WebGL cutaway. A left-set copy column beside an asymmetric
+ * 2x2 visual grid: one large cinematic plate cell (warm scrim, copper bloom,
+ * grain, slow drift) and three dark-glass stat cards. Everything is authored
+ * against the same copper / ivory tokens the rest of the site uses, so it
+ * reads as the same brand at a calmer fidelity.
  *
  * All rules are scoped under `.hhero`, and body/heading globals that would
  * otherwise leak in (1.75 line-height on every element, all-caps h1 scale)
@@ -26,12 +27,34 @@
   align-items: center;
   overflow: hidden;
   isolation: isolate;
-  background: var(--ink);
+  /* The plate no longer bleeds behind the whole section, so the section carries
+     its own light instead of sitting on flat black: a copper bloom behind the
+     grid, a dimmer ember behind the copy, a warm floor lift along the bottom,
+     and a graded ink base under all three. Everything stays low-opacity — it
+     should register as warmth, not as a visible gradient. */
+  background:
+    radial-gradient(78% 62% at 84% 54%, rgba(168, 107, 63, 0.26) 0%, transparent 62%),
+    radial-gradient(62% 55% at 6% 14%, rgba(140, 84, 48, 0.16) 0%, transparent 64%),
+    radial-gradient(130% 62% at 50% 106%, rgba(231, 195, 155, 0.09) 0%, transparent 58%),
+    linear-gradient(158deg, #150e08 0%, #0d0906 46%, var(--ink) 100%);
   color: var(--ivory);
   font-family: var(--font-body);
 }
 
-/* ── plate ──────────────────────────────────────────────────────────── */
+/* Fine grain across the whole section: kills banding in the washes above and
+   gives the ink the same photographic tooth the plate cell has. */
+.hhero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.2;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── plate (now scoped to the photo grid cell) ──────────────────────── */
 
 .hhero__plate {
   position: absolute;
@@ -40,9 +63,9 @@
 }
 .hhero__plate img {
   object-fit: cover;
-  /* Keep the fireplace, timber wall and lounge in frame under the copy on the
-     left, with the dining space and glass wall opening up to the right. */
-  object-position: 46% 52%;
+  /* Reframed for the taller, narrower grid cell: hold the fireplace and lounge
+     centre-frame rather than pushing them clear of a left-set copy column. */
+  object-position: 52% 55%;
   transform: scale(1.04);
   animation: hhero-drift 32s ease-in-out infinite alternate;
 }
@@ -51,8 +74,10 @@
   to   { transform: scale(1.1) translate3d(-1.4%, -1%, 0); }
 }
 
-/* Warm scrim: darkens the left third for legibility, lets the right breathe,
-   and grounds the whole frame so the plate never washes out. */
+/* Warm scrim: the same three-layer stack as the full-bleed original, reflowed
+   for the cell. The diagonal layer is eased off at the top-left (no copy sits
+   over the plate any more) while the bottom grounding is kept intact so the
+   trust chip and badge stay legible over the image. */
 .hhero__scrim {
   position: absolute;
   inset: 0;
@@ -61,11 +86,11 @@
   background:
     linear-gradient(
       100deg,
-      rgba(10, 7, 5, 0.94) 0%,
-      rgba(10, 7, 5, 0.82) 26%,
-      rgba(10, 7, 5, 0.5) 52%,
-      rgba(10, 7, 5, 0.28) 74%,
-      rgba(10, 7, 5, 0.55) 100%
+      rgba(10, 7, 5, 0.62) 0%,
+      rgba(10, 7, 5, 0.44) 26%,
+      rgba(10, 7, 5, 0.2) 52%,
+      rgba(10, 7, 5, 0.16) 74%,
+      rgba(10, 7, 5, 0.45) 100%
     ),
     linear-gradient(
       to top,
@@ -81,15 +106,14 @@
 }
 
 /* A single soft copper bloom anchored to the glowing floor, so the accent
-   colour feels like it comes from the room rather than a CSS overlay. */
+   colour feels like it comes from the room rather than a CSS overlay. Sized
+   against the cell now rather than the viewport. */
 .hhero__glow {
   position: absolute;
-  right: -10%;
-  bottom: -22%;
-  width: 62vw;
-  height: 62vw;
-  max-width: 900px;
-  max-height: 900px;
+  right: -18%;
+  bottom: -26%;
+  width: 108%;
+  height: 68%;
   z-index: 1;
   pointer-events: none;
   background: radial-gradient(
@@ -126,10 +150,187 @@
   max-width: 1320px;
   margin: 0 auto;
   padding: 8.5rem clamp(1.25rem, 5vw, 5rem) 4.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
 }
 
 .hhero__copy {
   max-width: 46rem;
+}
+
+/* ── visual grid ────────────────────────────────────────────────────── */
+
+/* Asymmetric 2x2: a tall-wide photo cell top-left, a narrow accent stat beside
+   it, then a wide short card and a small card on the lower row. Deliberately
+   not four equal squares. */
+.hhero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(0, 0.82fr);
+  grid-template-rows: minmax(0, 1.62fr) minmax(0, 0.78fr);
+  gap: clamp(0.75rem, 1.2vw, 1.1rem);
+  min-height: clamp(24rem, 40vw, 33rem);
+}
+
+.hhero__cell {
+  position: relative;
+  min-width: 0;
+  border-radius: 24px;
+}
+
+/* Cell A, the plate. */
+.hhero__cell--photo {
+  grid-column: 1;
+  grid-row: 1;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ink);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.8),
+    inset 0 0 0 1px rgba(246, 242, 236, 0.1);
+}
+
+/* Cells B/C/D, the dark-glass stat cards. Same recipe as `.whc-card` in
+   WhyChooseUsClient / `.gec-card` in GlobalExperienceClient, so the hero's card
+   language matches every other section on the site. */
+.hhero__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  padding: clamp(1.1rem, 1.8vw, 1.6rem);
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+    rgba(20, 13, 8, 0.5);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+}
+.hhero__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5),
+    0 0 30px -10px rgba(184, 107, 69, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Each stat card carries its own plate behind the glass. The image sits at the
+   bottom of the stack, under a veil that both grounds the type and pulls the
+   photo back into the copper palette regardless of its source temperature. */
+.hhero__card-plate {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+.hhero__card-plate img {
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.02);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hhero__card:hover .hhero__card-plate img { transform: scale(1.07); }
+
+.hhero__card-veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to top,
+      rgba(10, 7, 5, 0.95) 0%,
+      rgba(10, 7, 5, 0.72) 45%,
+      rgba(10, 7, 5, 0.5) 100%
+    ),
+    linear-gradient(150deg, rgba(168, 107, 63, 0.34), rgba(10, 7, 5, 0.2) 70%);
+}
+/* The hero stat's copper wash rides on its veil rather than its background,
+   since the plate is layered above the card's own background box. */
+.hhero__card--accent .hhero__card-veil {
+  background:
+    linear-gradient(
+      to top,
+      rgba(10, 7, 5, 0.88) 0%,
+      rgba(10, 7, 5, 0.52) 55%,
+      rgba(10, 7, 5, 0.35) 100%
+    ),
+    linear-gradient(
+      150deg,
+      rgba(231, 195, 155, 0.34) 0%,
+      rgba(168, 107, 63, 0.72) 55%,
+      rgba(168, 107, 63, 0.42) 100%
+    );
+}
+
+/* Cell B, the hero stat: the same glass shell carrying a copper-tinted wash. */
+.hhero__card--accent {
+  background:
+    linear-gradient(
+      150deg,
+      rgba(231, 195, 155, 0.24) 0%,
+      rgba(168, 107, 63, 0.42) 55%,
+      rgba(168, 107, 63, 0.2) 100%
+    ),
+    rgba(20, 13, 8, 0.5);
+  border-color: rgba(231, 195, 155, 0.34);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4),
+    0 0 44px -18px rgba(224, 150, 74, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.hhero__card--accent .hhero__stat-label { color: rgba(246, 242, 236, 0.78); }
+
+/* Grid placement. The photo cell is child 1, the three cards children 2–4. */
+.hhero__grid > .hhero__card:nth-child(2) { grid-column: 2; grid-row: 1; }
+.hhero__grid > .hhero__card:nth-child(3) { grid-column: 1; grid-row: 2; }
+.hhero__grid > .hhero__card:nth-child(4) { grid-column: 2; grid-row: 2; }
+
+/* The wide lower-left card ("25+ / Global Brands") sets its number and label
+   side-by-side and centres the pair, so the extra width reads as deliberate
+   framing rather than padding. */
+.hhero__grid > .hhero__card:nth-child(3) {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  text-align: center;
+}
+.hhero__grid > .hhero__card:nth-child(3) .hhero__stat-num { align-items: center; }
+
+/* Cell A overlay: the fourth stat ("2011 / Trusted Since"), badged over the
+   plate rather than taking a card slot. */
+.hhero__badge {
+  position: absolute;
+  top: clamp(0.9rem, 1.6vw, 1.35rem);
+  left: clamp(0.9rem, 1.6vw, 1.35rem);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(231, 195, 155, 0.28);
+  background: rgba(18, 12, 8, 0.5);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+}
+.hhero__badge-num {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 1.35rem;
+  line-height: 1;
+  color: var(--copper-bright);
+}
+.hhero__badge-label {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(246, 242, 236, 0.62);
+  line-height: 1.3;
 }
 
 /* eyebrow */
@@ -280,21 +481,7 @@
   border-color: rgba(246, 242, 236, 0.4);
 }
 
-/* stat rail */
-.hhero__stats {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  gap: clamp(1.25rem, 4vw, 3rem);
-  margin: 3.2rem 0 0;
-  padding: 1.6rem 0 0;
-  border-top: 1px solid var(--hairline);
-}
-.hhero__stat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
+/* stat card type */
 .hhero__stat-num {
   display: flex;
   align-items: baseline;
@@ -323,11 +510,12 @@
   line-height: 1.3;
 }
 
-/* floating trust chip, lower-right of the plate */
+/* floating trust chip, lower-right of the photo cell (same convention as when
+   the plate was full-bleed, just bounded by the cell now) */
 .hhero__chip {
   position: absolute;
-  right: clamp(1.25rem, 5vw, 4rem);
-  bottom: clamp(2rem, 6vw, 4rem);
+  right: clamp(0.9rem, 1.6vw, 1.35rem);
+  bottom: clamp(0.9rem, 1.6vw, 1.35rem);
   z-index: 3;
   display: flex;
   align-items: center;
@@ -415,25 +603,99 @@
 
 /* ── responsive ─────────────────────────────────────────────────────── */
 
+@media (max-width: 1100px) {
+  .hhero__inner { gap: clamp(1.5rem, 3vw, 2.5rem); }
+  .hhero__grid { min-height: clamp(22rem, 44vw, 28rem); }
+}
+
+/* Below 900px the two-column split and the asymmetric grid are both dropped:
+   copy stacks over a full-width photo cell with the stat cards beneath it, and
+   the CTAs drop below the visuals so the imagery does the selling before the
+   ask. `.hhero__copy` goes to `display: contents` so its children become direct
+   items of `.hhero__inner` and can be re-ordered around the grid; vertical
+   rhythm then comes from each element's own margins rather than a grid gap. */
 @media (max-width: 900px) {
-  .hhero__plate img { object-position: 62% 55%; }
+  .hhero__plate img { object-position: 58% 55%; }
   .hhero__scrim {
     background:
       linear-gradient(
         180deg,
-        rgba(10, 7, 5, 0.9) 0%,
-        rgba(10, 7, 5, 0.55) 40%,
-        rgba(10, 7, 5, 0.75) 100%
+        rgba(10, 7, 5, 0.55) 0%,
+        rgba(10, 7, 5, 0.2) 40%,
+        rgba(10, 7, 5, 0.8) 100%
       );
   }
-  .hhero__inner { padding-top: 7rem; padding-bottom: 6rem; }
+  .hhero__inner {
+    grid-template-columns: minmax(0, 1fr);
+    padding-top: 7rem;
+    padding-bottom: 6rem;
+    gap: 0;
+  }
+
+  .hhero__copy { display: contents; }
+
+  .hhero__eyebrow { order: 1; justify-self: start; }
+  .hhero__title   { order: 2; }
+  .hhero__lede    { order: 3; }
+  .hhero__climate { order: 4; }
+  .hhero__grid    { order: 5; margin-top: 2.5rem; }
+  .hhero__ctas    { order: 6; }
+
+  .hhero__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+    min-height: 0;
+  }
+  .hhero__cell--photo {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    aspect-ratio: 16 / 10;
+  }
+  .hhero__grid > .hhero__card:nth-child(2) { grid-column: 1; grid-row: 2; }
+  .hhero__grid > .hhero__card:nth-child(3) { grid-column: 2; grid-row: 2; }
+  .hhero__grid > .hhero__card:nth-child(4) { grid-column: 3; grid-row: 2; }
+  /* Once it is no longer the wide cell, the "25+" card sits like its siblings. */
+  .hhero__grid > .hhero__card:nth-child(3) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 0.35rem;
+    text-align: left;
+  }
+  .hhero__grid > .hhero__card:nth-child(3) .hhero__stat-num { align-items: baseline; }
+
   .hhero__chip { display: none; }
 }
 
 @media (max-width: 560px) {
-  .hhero__stats { gap: 1.4rem 2rem; }
-  .hhero__ctas .hhero__btn { flex: 1 1 auto; justify-content: center; }
+  /* Two uppercase CTAs will not sit side by side at phone widths without
+     shrinking to an unreadable size, so stack them full-bleed instead. */
+  .hhero__ctas {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.7rem;
+  }
+  .hhero__ctas .hhero__btn {
+    width: 100%;
+    justify-content: center;
+    --btn-px: 1.2rem;
+  }
   .hhero__cue { display: none; }
+
+  /* Three-across is too tight on phones: 2x2 with the accent card leading. */
+  .hhero__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hhero__cell--photo { aspect-ratio: 4 / 3; }
+  .hhero__grid > .hhero__card:nth-child(2) { grid-column: 1; grid-row: 2; }
+  .hhero__grid > .hhero__card:nth-child(3) { grid-column: 2; grid-row: 2; }
+  .hhero__grid > .hhero__card:nth-child(4) { grid-column: 1 / -1; grid-row: 3; }
+  /* Same convention as desktop's wide cell: the full-width card centres. */
+  .hhero__grid > .hhero__card:nth-child(4) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    text-align: center;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -441,4 +703,9 @@
   .hhero__glow,
   .hhero__eyebrow-dot,
   .hhero__cue-track::after { animation: none; }
+  .hhero__card,
+  .hhero__cell--photo,
+  .hhero__card-plate img { transition: none; }
+  .hhero__card:hover { transform: none; }
+  .hhero__card:hover .hhero__card-plate img { transform: scale(1.02); }
 }

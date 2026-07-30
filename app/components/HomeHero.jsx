@@ -3,14 +3,16 @@
 /**
  * HomeHero, the home page's static, premium hero.
  *
- * Replaces the scroll-driven WebGL cutaway (`app/hero/*`) with a single
- * art-directed plate and a left-set copy column. No Three.js, no scroll
- * runway: it paints once, animates its copy in on load, and idles with a
- * couple of very cheap ambient loops (plate drift, copper bloom) that all
- * respect prefers-reduced-motion via HomeHero.css.
+ * Replaces the scroll-driven WebGL cutaway (`app/hero/*`) with a left-set copy
+ * column beside an asymmetric 2x2 visual grid. No Three.js, no scroll runway:
+ * it paints once, animates copy and grid in on load, and idles with a couple of
+ * very cheap ambient loops (plate drift, copper bloom) that all respect
+ * prefers-reduced-motion via HomeHero.css.
  *
- * The plate is the already-optimised `public/images/hero/plate-*` asset the
- * old hero shipped as its fallback, served responsively through next/image.
+ * The grid's large cell keeps the full cinematic plate treatment (scrim, copper
+ * bloom, grain, slow drift), just reframed from full-bleed into that cell. The
+ * three smaller cells are stat cards on the same dark-glass surface the rest of
+ * the site uses (the `.whc-card` recipe from WhyChooseUsClient).
  */
 
 import Image from 'next/image';
@@ -39,12 +41,36 @@ const StarIcon = (props) => (
   </svg>
 );
 
+/* Each stat carries its own plate. The card images are veiled in ink and washed
+   with copper by HomeHero.css, so mixed-temperature source photography still
+   resolves to the one warm palette the rest of the site uses. */
 const STATS = [
   { num: '2011', label: 'Trusted Since' },
-  { num: '5,000+', label: 'Installations' },
-  { num: '25+', label: 'Global Brands' },
-  { num: <>5<span>yr</span></>, label: 'Warranty' },
+  {
+    num: '5,000+',
+    label: 'Installations',
+    img: '/landing/land3.png',
+    alt: 'Underfloor heating pipework laid out across a full open-plan kitchen floor before screeding',
+  },
+  {
+    num: '25+',
+    label: 'Global Brands',
+    img: '/resons/reason2.jpg',
+    alt: 'A branded electric underfloor heating mat part-rolled over a tiled floor beside stacked porcelain tiles',
+  },
+  {
+    num: <>5<span>yr</span></>,
+    label: 'Warranty',
+    img: '/landing/land1.png',
+    alt: 'A warm timber-lined living room with a rug, throws and low lamplight',
+  },
 ];
+
+/* Three of the four stats become grid cards; "Trusted Since 2011" reads better
+   as a badge on the photo cell than as a fourth card, so it is pulled out here
+   and rendered over the plate instead. `5,000+ Installations` carries the
+   copper-tinted "hero stat" treatment. */
+const [BADGE_STAT, ...CARD_STATS] = STATS;
 
 /* Staggered fade-up for the copy column. */
 const ease = [0.16, 1, 0.3, 1];
@@ -57,25 +83,25 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.9, ease } },
 };
 
+/* The visual grid enters after the copy: photo cell first, then the three stat
+   cards 0.1s apart, on the same ease curve as `item`. */
+const gridContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.25 } },
+};
+const photoCell = {
+  hidden: { opacity: 0, scale: 0.94 },
+  show: { opacity: 1, scale: 1, transition: { duration: 1.1, ease } },
+};
+const cardCell = {
+  hidden: { opacity: 0, y: 26 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.9, ease } },
+};
+
 export default function HomeHero() {
   return (
     <>
       <section className="hhero" aria-label="Underfloor heating and electric hamam systems">
-        <div className="hhero__plate">
-          <Image
-            src="/images/hero/home-hero-lounge.png"
-            alt="Luxury indoor–outdoor living space at dusk with a warm timber floor, fireplace and designer furniture, the kind of home kept comfortable by underfloor heating"
-            fill
-            priority
-            sizes="100vw"
-            quality={95}
-          />
-        </div>
-
-        <div className="hhero__scrim" />
-        <div className="hhero__glow" />
-        <div className="hhero__grain" />
-
         <div className="hhero__inner">
           <motion.div
             className="hhero__copy"
@@ -95,16 +121,16 @@ export default function HomeHero() {
               <span className="accent">Installed Across India.</span>
             </motion.h1>
 
-            <motion.p className="hhero__lede" variants={item}>
+            {/* <motion.p className="hhero__lede" variants={item}>
               From custom design and consultation to certified installation 
               advanced electric heating trusted by homeowners, architects, and
               builders across the country.
-            </motion.p>
+            </motion.p> */}
 
-            <motion.p className="hhero__climate" variants={item}>
+            {/* <motion.p className="hhero__climate" variants={item}>
               Proven performance down to <strong>&minus;25&deg;C</strong> across
               Ladakh, Dras, Kargil &amp; Kashmir
-            </motion.p>
+            </motion.p> */}
 
             <motion.div className="hhero__ctas" variants={item}>
               <Link href="/contact" className="hhero__btn hhero__btn--primary">
@@ -115,40 +141,76 @@ export default function HomeHero() {
                 Book a Free Site Visit
               </Link>
             </motion.div>
+          </motion.div>
 
-            <motion.div className="hhero__stats" variants={item}>
-              {STATS.map((s) => (
-                <div className="hhero__stat" key={s.label}>
-                  <span className="hhero__stat-num">{s.num}</span>
-                  <span className="hhero__stat-label">{s.label}</span>
-                </div>
-              ))}
+          <motion.div
+            className="hhero__grid"
+            variants={gridContainer}
+            initial="hidden"
+            animate="show"
+          >
+            {/* Cell A — the cinematic plate, full original treatment, reframed. */}
+            <motion.div className="hhero__cell hhero__cell--photo" variants={photoCell}>
+              <div className="hhero__plate">
+                <Image
+                  src="/images/hero/home-hero-lounge.png"
+                  alt="Luxury indoor–outdoor living space at dusk with a warm timber floor, fireplace and designer furniture, the kind of home kept comfortable by underfloor heating"
+                  fill
+                  priority
+                  sizes="(max-width: 900px) 100vw, 45vw"
+                  quality={95}
+                />
+              </div>
+
+              <div className="hhero__scrim" />
+              <div className="hhero__glow" />
+              <div className="hhero__grain" />
+
+              <div className="hhero__badge">
+                <span className="hhero__badge-num">{BADGE_STAT.num}</span>
+                <span className="hhero__badge-label">{BADGE_STAT.label}</span>
+              </div>
+
+              <div className="hhero__chip">
+                <span className="hhero__chip-ring">
+                  <ShieldIcon />
+                </span>
+                <span className="hhero__chip-text">
+                  <span className="hhero__chip-stars" aria-hidden="true">
+                    <StarIcon /><StarIcon /><StarIcon /><StarIcon /><StarIcon />
+                  </span>
+                  <span className="hhero__chip-top">Certified Installers</span>
+                  <span className="hhero__chip-sub">Rated 4.9/5 by homeowners</span>
+                </span>
+              </div>
             </motion.div>
+
+            {/* Cells B/C/D — dark-glass stat cards, B carries the copper accent. */}
+            {CARD_STATS.map((s, i) => (
+              <motion.div
+                key={s.label}
+                className={`hhero__cell hhero__card${i === 0 ? ' hhero__card--accent' : ''}`}
+                variants={cardCell}
+              >
+                <div className="hhero__card-plate">
+                  <Image
+                    src={s.img}
+                    alt={s.alt}
+                    fill
+                    sizes="(max-width: 560px) 50vw, (max-width: 900px) 33vw, 22vw"
+                    quality={80}
+                  />
+                </div>
+                <div className="hhero__card-veil" />
+
+                <span className="hhero__stat-num">{s.num}</span>
+                <span className="hhero__stat-label">{s.label}</span>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
 
-        <motion.div
-          className="hhero__chip"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease, delay: 0.8 }}
-        >
-          <span className="hhero__chip-ring">
-            <ShieldIcon />
-          </span>
-          <span className="hhero__chip-text">
-            <span className="hhero__chip-stars" aria-hidden="true">
-              <StarIcon /><StarIcon /><StarIcon /><StarIcon /><StarIcon />
-            </span>
-            <span className="hhero__chip-top">Certified Installers</span>
-            <span className="hhero__chip-sub">Rated 4.9/5 by homeowners</span>
-          </span>
-        </motion.div>
-
-        <div className="hhero__cue" aria-hidden="true">
-          <span className="hhero__cue-track" />
-          Scroll
-        </div>
+    
       </section>
 
       <LeadPopup />
