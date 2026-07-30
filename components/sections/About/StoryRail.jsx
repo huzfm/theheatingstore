@@ -263,6 +263,7 @@ export default function StoryRail() {
                       style={{ width: isActive ? '3.5rem' : '1rem' }}
                     />
                   </div>
+                  
                 </div>
               );
             })}

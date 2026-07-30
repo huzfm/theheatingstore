@@ -67,8 +67,8 @@ export const MILESTONES = [
 export const STATS = [
   { value: 14, suffix: '+', label: 'Years installing' },          // NEEDS-REAL-INFO
   { value: 6000, suffix: '+', label: 'Systems supplied', separator: true }, // NEEDS-REAL-INFO
-  { value: 98, suffix: '%', label: 'Customers satisfied' },        // NEEDS-REAL-INFO
-  { value: 5, suffix: ' yr', label: 'Warranty as standard' },
+  { value: 100, suffix: '%', label: 'Customers satisfied' },        // NEEDS-REAL-INFO
+  { value: 25, suffix: ' yr', label: 'Warranty as standard' },
 ];
 
 export const CTA = {
