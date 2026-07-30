@@ -109,9 +109,19 @@ export default function HomeHero() {
             initial="hidden"
             animate="show"
           >
+            {/* The claim, split into a lead and a date rather than run as one
+                uppercase band. The text content is unchanged, only its
+                structure: "India's Largest" carries the copper, the category
+                sits back in muted ivory, and the year is separated by a hairline
+                so it reads as provenance instead of the tail of a sentence. */}
             <motion.span className="hhero__eyebrow" variants={item}>
               <span className="hhero__eyebrow-dot" aria-hidden="true" />
-              India&apos;s Largest Underfloor Heating Seller Since 2011
+              <span className="hhero__eyebrow-text">
+                <strong className="hhero__eyebrow-key">India&apos;s Largest</strong>{' '}
+                Underfloor Heating Seller
+              </span>
+              <span className="hhero__eyebrow-rule" aria-hidden="true" />
+              <span className="hhero__eyebrow-year">Since 2011</span>
             </motion.span>
 
             <motion.h1 className="hhero__title" variants={item}>

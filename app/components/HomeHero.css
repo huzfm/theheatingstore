@@ -337,19 +337,57 @@
 .hhero__eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  /* Row gap matters as much as column gap: the pill wraps to two lines on
+     phones, and without it the lines collide. */
+  gap: 0.3rem 0.6rem;
+  flex-wrap: wrap;
+  max-width: 100%;
   padding: 0.5rem 0.95rem 0.5rem 0.7rem;
   border: 1px solid var(--hairline);
   border-radius: 999px;
-  background: rgba(246, 242, 236, 0.04);
+  /* Faint copper wash from the left, so the pill picks up the palette instead
+     of sitting as a neutral grey chip above a warm headline. */
+  background:
+    linear-gradient(100deg, rgba(168, 107, 63, 0.16), rgba(246, 242, 236, 0.03) 58%),
+    rgba(246, 242, 236, 0.04);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  /* 0.14em over fifty uppercase characters is what made this read as a band
+     rather than a phrase. The emphasis now comes from colour and weight. */
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(246, 242, 236, 0.82);
+  color: rgba(246, 242, 236, 0.66);
   line-height: 1.2;
+}
+
+/* The category half, deliberately the quiet part. */
+.hhero__eyebrow-text {
+  min-width: 0;
+}
+
+/* The claim itself: copper, heavier, and the only part of the pill at full
+   opacity, so the eye lands on "India's Largest" first. */
+.hhero__eyebrow-key {
+  font-weight: 700;
+  color: var(--copper-bright);
+}
+
+/* Hairline separating the claim from its date. Hidden once the pill wraps
+   would be ideal, but a vertical rule at the start of a line reads as an
+   artefact, so it collapses to zero width instead at the phone breakpoint. */
+.hhero__eyebrow-rule {
+  width: 1px;
+  height: 0.85em;
+  background: rgba(246, 242, 236, 0.22);
+  flex-shrink: 0;
+}
+
+.hhero__eyebrow-year {
+  font-weight: 600;
+  color: rgba(246, 242, 236, 0.86);
+  white-space: nowrap;
 }
 .hhero__eyebrow-dot {
   position: relative;
@@ -668,6 +706,25 @@
 }
 
 @media (max-width: 560px) {
+  /* The pill cannot hold fifty uppercase characters on one line at phone
+     width, so it stops pretending to be a pill: square off the radius, let the
+     two halves stack, and drop the vertical rule that would otherwise start a
+     line. Tracking comes down again because wrapped uppercase at 0.1em is what
+     makes a two-line label look like a paragraph. */
+  .hhero__eyebrow {
+    display: flex;
+    align-items: flex-start;
+    border-radius: 16px;
+    padding: 0.6rem 0.85rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.07em;
+    line-height: 1.45;
+  }
+  .hhero__eyebrow-dot { margin-top: 0.32rem; }
+  .hhero__eyebrow-rule { display: none; }
+  /* Its own line, so the claim above it stays a single readable phrase. */
+  .hhero__eyebrow-year { width: 100%; }
+
   /* Two uppercase CTAs will not sit side by side at phone widths without
      shrinking to an unreadable size, so stack them full-bleed instead. */
   .hhero__ctas {
