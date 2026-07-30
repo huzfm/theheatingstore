@@ -25,6 +25,9 @@ const PRIMARY_NAV = [
 const MORE_NAV = [
   { label: 'Why Choose Us', href: '/why-choose-us' },
   { label: 'How It Works', href: '/how-it-works' },
+  // The physics of the system (floor layers + thermostat), as distinct from
+  // /how-it-works, which covers the installation process.
+  { label: 'Working', href: '/working' },
   { label: 'Blog & Articles', href: '/bloginfo' },
   { label: 'Local Experience', href: '/local-experience' },
   { label: 'Global Experience', href: '/global-experience' },
@@ -37,6 +40,7 @@ const SEARCH_ITEMS = [
   { label: 'Products', href: '/product' },
   { label: 'Installation', href: '/installation' },
   { label: 'How It Works', href: '/how-it-works' },
+  { label: 'Working', href: '/working' },
   { label: 'About Us', href: '/about' },
   { label: 'Contact', href: '/contact' },
   { label: 'Why Choose Us', href: '/why-choose-us' },

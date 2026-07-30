@@ -688,14 +688,48 @@
   .hhero__grid > .hhero__card:nth-child(2) { grid-column: 1; grid-row: 2; }
   .hhero__grid > .hhero__card:nth-child(3) { grid-column: 2; grid-row: 2; }
   .hhero__grid > .hhero__card:nth-child(4) { grid-column: 1 / -1; grid-row: 3; }
-  /* Same convention as desktop's wide cell: the full-width card centres. */
+
+  /* Every stat card gets a floor height here. Without one they are sized by
+     their two lines of text, which on a phone leaves a card barely taller than
+     its own padding, too short for the photo plate behind the glass to read as
+     anything but a smear. */
+  .hhero__grid > .hhero__card { min-height: 8.25rem; }
+
+  /* The warranty card spans both columns. It used to centre its contents in a
+     *row*, which at phone width made it a squat full-bleed band: half the
+     height of the cards above it and its plate cropped to a strip. It keeps the
+     centred alignment, that is what a full-width cell wants, but stacks like
+     its siblings (number over label) and takes a height that gives the plate
+     room to read. */
   .hhero__grid > .hhero__card:nth-child(4) {
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
+    justify-content: flex-end;
+    gap: 0.35rem;
     text-align: center;
+    min-height: 9rem;
   }
+  /* The num is a flex row itself (the "yr" suffix sits on the baseline), so it
+     needs centring on its own axis, not just via the parent's text-align. */
+  .hhero__grid > .hhero__card:nth-child(4) .hhero__stat-num {
+    align-items: baseline;
+    justify-content: center;
+    /* Scaled up well past the two cards above it. It has the full width of the
+       grid to itself, so at the shared 1.9rem it read as the smallest thing in
+       the row rather than the widest cell in it. The "yr" suffix is sized in em
+       against this, so it grows with the number and stays on the baseline. */
+    font-size: clamp(2.6rem, 12vw, 3.6rem);
+  }
+}
+
+/* Narrow phones: the cards keep their proportions but stop wasting a third of
+   their width on padding. */
+@media (max-width: 380px) {
+  .hhero__grid > .hhero__card { padding: 0.9rem; min-height: 7.5rem; }
+  /* The wide card keeps its height: its number is the largest type in the grid
+     and cramping the cell around it is what the extra size is buying. */
+  .hhero__grid > .hhero__card:nth-child(4) { min-height: 8.5rem; }
+  .hhero__stat-label { font-size: 0.68rem; letter-spacing: 0.08em; }
 }
 
 @media (prefers-reduced-motion: reduce) {

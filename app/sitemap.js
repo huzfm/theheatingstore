@@ -72,6 +72,12 @@ export default function sitemap() {
       priority: 0.8,
     },
     {
+      url: `${SITE_URL}/working`,
+      lastModified: lastMod,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${SITE_URL}/global-experience`,
       lastModified: lastMod,
       changeFrequency: "monthly",
