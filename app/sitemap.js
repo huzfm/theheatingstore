@@ -96,6 +96,12 @@ export default function sitemap() {
       priority: 0.7,
     },
     {
+      url: `${SITE_URL}/journal`,
+      lastModified: lastMod,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: `${SITE_URL}/areasweserve`,
       lastModified: new Date(),
       changeFrequency: "monthly",

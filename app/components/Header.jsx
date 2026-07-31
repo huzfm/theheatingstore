@@ -28,6 +28,9 @@ const MORE_NAV = [
   // The physics of the system (floor layers + thermostat), as distinct from
   // /how-it-works, which covers the installation process.
   { label: 'Working', href: '/working' },
+  // Editorial pieces on warmth and interiors, as distinct from /bloginfo,
+  // which is the full article index.
+  { label: 'The Journal', href: '/journal' },
   { label: 'Blog & Articles', href: '/bloginfo' },
   { label: 'Local Experience', href: '/local-experience' },
   { label: 'Global Experience', href: '/global-experience' },
@@ -46,6 +49,7 @@ const SEARCH_ITEMS = [
   { label: 'Why Choose Us', href: '/why-choose-us' },
   { label: 'Certifications', href: '/certifications' },
   { label: 'Blog & Articles', href: '/bloginfo' },
+  { label: 'The Journal', href: '/journal' },
   { label: 'Warranty Check', href: '/warranty-check' },
   { label: 'Measure-Up', href: '/measuring-up' },
   { label: 'Local Experience', href: '/local-experience' },
