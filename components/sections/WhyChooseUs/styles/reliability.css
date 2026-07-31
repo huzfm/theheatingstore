@@ -1,0 +1,286 @@
+/* ── Reliability + Global — "Proven locally. Trusted globally." ────────────
+   One continuous editorial composition, chained off Stats' hairline-divider
+   grid directly above it: local engineering proof (left) split from global
+   reach (right) by a single vertical rule. No cards, no icon boxes. */
+
+.whc-reli-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1.15fr) 1px minmax(0, 1fr);
+	align-items: start;
+	gap: 64px;
+	margin-top: 64px;
+}
+
+.whc-reli-divider {
+	align-self: stretch;
+	width: 1px;
+	background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.16) 15%, rgba(255, 255, 255, 0.16) 85%, transparent);
+	transform-origin: top center;
+}
+
+.whc-col {
+	min-width: 0;
+}
+
+/* shared column head */
+.whc-col-kicker {
+	display: block;
+	margin-bottom: 16px;
+	font-family: var(--font-body);
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: #F5B97A;
+}
+.whc-col-title {
+	margin: 0 0 14px;
+	font-family: var(--font-heading);
+	font-size: clamp(22px, 2.6vw, 30px);
+	font-weight: 600;
+	line-height: 1.15;
+	color: #FBF3EA;
+}
+.whc-col-sub {
+	max-width: 460px;
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 14px;
+	line-height: 1.75;
+	color: rgba(251, 243, 234, 0.60);
+}
+
+/* ── local: thermal indicator — cold-to-warm, qualitative, no invented numbers */
+.whc-thermal {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	margin: 36px 0 40px;
+}
+.whc-thermal-bar {
+	position: relative;
+	flex: 1;
+	height: 3px;
+	min-width: 60px;
+	border-radius: 2px;
+	overflow: hidden;
+	background: rgba(255, 255, 255, 0.08);
+}
+.whc-thermal-bar span {
+	position: absolute;
+	inset: 0;
+	display: block;
+	background: linear-gradient(90deg, #7FC0E8, #E8933A 55%, #FF7E5F);
+}
+.whc-thermal-label {
+	flex-shrink: 0;
+	font-family: var(--font-body);
+	font-size: 10px;
+	font-weight: 600;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+.whc-thermal-label--cold { color: rgba(127, 192, 232, 0.75); }
+.whc-thermal-label--warm { color: #F5B97A; }
+
+/* ── local: reliability index — numbered rows, not cards */
+.whc-reli-list {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	padding: 24px 0 0;
+	list-style: none;
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.whc-reli-row {
+	display: flex;
+	align-items: flex-start;
+	gap: 18px;
+	padding: 20px 0;
+}
+.whc-reli-row + .whc-reli-row {
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.whc-reli-num {
+	flex-shrink: 0;
+	width: 20px;
+	padding-top: 3px;
+	font-family: var(--font-heading);
+	font-size: 12px;
+	font-weight: 600;
+	color: rgba(251, 243, 234, 0.32);
+}
+.whc-reli-icon {
+	display: flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	border-radius: 10px;
+	background: rgba(245, 185, 122, 0.10);
+	border: 1px solid rgba(245, 185, 122, 0.20);
+}
+.whc-reli-title {
+	margin: 0 0 4px;
+	font-family: var(--font-body);
+	font-size: 13.5px;
+	font-weight: 600;
+	color: #FBF3EA;
+}
+.whc-reli-desc {
+	max-width: 420px;
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 12.5px;
+	line-height: 1.6;
+	color: rgba(251, 243, 234, 0.55);
+}
+
+/* ── global: editorial figure */
+.whc-global-figure {
+	display: flex;
+	align-items: baseline;
+	gap: 16px;
+	margin: 14px 0 34px;
+}
+.whc-global-number {
+	font-family: var(--font-heading);
+	font-size: clamp(48px, 5vw, 80px);
+	font-weight: 400;
+	line-height: 0.9;
+	color: #FBF3EA;
+}
+.whc-global-figure-label {
+	max-width: 150px;
+	font-family: var(--font-body);
+	font-size: 12px;
+	line-height: 1.5;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+	color: rgba(251, 243, 234, 0.55);
+}
+
+/* ── global: country ledger — the geography is the list itself */
+.whc-country-ledger {
+	display: flex;
+	flex-direction: column;
+	margin: 0 0 36px;
+	padding: 0;
+	list-style: none;
+}
+.whc-country-row {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 11px 0;
+	border-top: 1px solid rgba(255, 255, 255, 0.07);
+	transition: padding-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.whc-country-row:first-child {
+	border-top: none;
+}
+.whc-country-row:hover {
+	padding-left: 6px;
+}
+.whc-country-idx {
+	flex-shrink: 0;
+	width: 18px;
+	font-family: var(--font-heading);
+	font-size: 11px;
+	color: rgba(251, 243, 234, 0.3);
+}
+.whc-country-name {
+	font-family: var(--font-body);
+	font-size: 13px;
+	font-weight: 500;
+	color: #FBF3EA;
+}
+
+/* ── global: proof strip — quiet, restated figures, not stat cards */
+.whc-proof-strip {
+	display: flex;
+	padding-top: 22px;
+	border-top: 1px solid rgba(232, 147, 58, 0.25);
+}
+.whc-proof-item {
+	flex: 1;
+	padding: 0 20px;
+	border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+.whc-proof-item:first-child {
+	padding-left: 0;
+	border-left: none;
+}
+.whc-proof-value {
+	margin: 0 0 4px;
+	font-family: var(--font-heading);
+	font-size: clamp(19px, 2vw, 25px);
+	font-weight: 600;
+	line-height: 1;
+	color: #F5B97A;
+}
+.whc-proof-label {
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 10.5px;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: rgba(251, 243, 234, 0.5);
+}
+
+/* ── responsive ────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+	.whc-reli-grid {
+		grid-template-columns: 1fr;
+		gap: 48px;
+	}
+	.whc-reli-divider {
+		display: none;
+	}
+	.whc-col-global {
+		padding-top: 4px;
+	}
+}
+
+@media (max-width: 640px) {
+	.whc-reli-grid {
+		margin-top: 44px;
+		gap: 40px;
+	}
+	.whc-col-sub {
+		max-width: none;
+	}
+	.whc-thermal {
+		flex-wrap: wrap;
+		row-gap: 8px;
+		margin: 28px 0 32px;
+	}
+	.whc-thermal-bar {
+		order: 3;
+		flex-basis: 100%;
+	}
+	.whc-reli-desc {
+		max-width: none;
+	}
+	.whc-proof-strip {
+		flex-direction: column;
+		gap: 14px;
+	}
+	.whc-proof-item {
+		padding: 12px 0 0;
+		border-left: none;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+	}
+	.whc-proof-item:first-child {
+		padding-top: 0;
+		border-top: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.whc-country-row {
+		transition: none !important;
+	}
+}

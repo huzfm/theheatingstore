@@ -1,0 +1,216 @@
+/* cta — editorial closing statement, not a boxed card like the rest of the page */
+.whc-cta {
+	position: relative;
+	overflow: hidden;
+	border-top: 1px solid rgba(255, 255, 255, 0.12);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+}
+
+/* fine floor-plan line grid, masked so it fades toward the edges */
+.whc-cta-field {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	opacity: 0.5;
+	background-image: repeating-linear-gradient(0deg, rgba(245, 185, 122, 0.07) 0, transparent 1px, transparent 64px, rgba(245, 185, 122, 0.07) 64px),
+		repeating-linear-gradient(90deg, rgba(245, 185, 122, 0.07) 0, transparent 1px, transparent 64px, rgba(245, 185, 122, 0.07) 64px);
+	-webkit-mask-image: radial-gradient(85% 100% at 15% 40%, #000 0%, transparent 72%);
+	mask-image: radial-gradient(85% 100% at 15% 40%, #000 0%, transparent 72%);
+}
+
+/* soft thermal glow — static anchor by default, nudged by --mx/--my on desktop hover */
+.whc-cta-glow {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	opacity: 0.55;
+	background: radial-gradient(480px circle at var(--mx, 18%) var(--my, 38%), rgba(232, 147, 58, 0.22), transparent 68%);
+	transition: opacity 0.6s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+	.whc-cta-glow { transition: background-position 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease; }
+	.whc-cta:hover .whc-cta-glow { opacity: 0.85; }
+}
+
+.whc-cta-inner {
+	position: relative;
+	z-index: 1;
+	display: grid;
+	grid-template-columns: 1.6fr 1px 1fr;
+	column-gap: 56px;
+	align-items: center;
+	padding: 88px 64px;
+}
+
+.whc-cta-main { position: relative; padding-left: 28px; }
+.whc-cta-rule {
+	position: absolute;
+	left: 0;
+	top: 4px;
+	width: 2px;
+	height: 34px;
+	background: linear-gradient(180deg, #f5b97a, #ff7e5f);
+	border-radius: 2px;
+}
+
+.whc-eyebrow {
+	font-family: var(--font-body);
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.35em;
+	text-transform: uppercase;
+	color: #f5b97a;
+	margin: 0 0 18px;
+}
+
+.whc-cta-title {
+	font-family: var(--font-heading);
+	font-size: clamp(30px, 3.4vw, 46px);
+	font-weight: 600;
+	color: #fbf3ea;
+	line-height: 1.16;
+	letter-spacing: -0.005em;
+	margin: 0;
+	max-width: 560px;
+}
+
+.whc-cta-desc {
+	font-family: var(--font-body);
+	font-size: clamp(14.5px, 1.3vw, 16.5px);
+	color: rgba(251, 243, 234, 0.62);
+	line-height: 1.75;
+	max-width: 480px;
+	margin: 22px 0 0;
+}
+
+.whc-cta-list {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px 22px;
+	margin: 30px 0 0;
+	padding: 0;
+	list-style: none;
+}
+.whc-cta-list-item {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-family: var(--font-body);
+	font-size: 12.5px;
+	font-weight: 500;
+	color: rgba(251, 243, 234, 0.75);
+	padding-right: 22px;
+}
+.whc-cta-list-item:not(:last-child)::after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 1px;
+	height: 12px;
+	background: rgba(255, 255, 255, 0.14);
+}
+
+.whc-cta-divider { width: 1px; height: 100%; background: rgba(255, 255, 255, 0.1); }
+
+.whc-cta-actions {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 16px;
+}
+
+.whc-btn-primary {
+	position: relative;
+	overflow: hidden;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	border-radius: 999px;
+	padding: 16px 30px;
+	font-family: var(--font-body);
+	font-size: 13.5px;
+	font-weight: 600;
+	color: #fff;
+	background: linear-gradient(to right, #ff7e5f, #ffb88c);
+	box-shadow: 0 22px 60px rgba(255, 126, 95, 0.35);
+	text-decoration: none;
+	white-space: nowrap;
+	border: none;
+	transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+.whc-btn-primary svg { transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+.whc-btn-primary::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 40%;
+	background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+	transform: translateX(-150%) skewX(-18deg);
+}
+.whc-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 26px 70px rgba(255, 126, 95, 0.45); }
+.whc-btn-primary:hover svg { transform: translateX(3px); }
+.whc-btn-primary:hover::before { animation: whc-sheen 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+.whc-btn-primary:focus-visible { outline: 2px solid #f5b97a; outline-offset: 3px; }
+
+.whc-btn-ghost {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	font-family: var(--font-body);
+	font-size: 13px;
+	font-weight: 500;
+	color: rgba(251, 243, 234, 0.75);
+	text-decoration: none;
+	white-space: nowrap;
+	padding-bottom: 2px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+	transition: color 0.25s ease, border-color 0.25s ease;
+}
+.whc-btn-ghost-arrow { color: #f5b97a; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.whc-btn-ghost:hover { color: #fbf3ea; border-color: rgba(245, 185, 122, 0.5); }
+.whc-btn-ghost:hover .whc-btn-ghost-arrow { transform: translateX(3px); }
+.whc-btn-ghost:focus-visible { outline: 2px solid #f5b97a; outline-offset: 3px; }
+
+.whc-cta-trust {
+	font-family: var(--font-body);
+	font-size: 11px;
+	color: rgba(251, 243, 234, 0.4);
+	line-height: 1.6;
+	margin: 4px 0 0;
+}
+
+@media (max-width: 1180px) {
+	.whc-cta-inner { column-gap: 40px; padding: 72px 48px; }
+}
+
+@media (max-width: 1024px) {
+	.whc-cta-inner { grid-template-columns: 1fr; gap: 40px; padding: 56px 40px; }
+	.whc-cta-divider { display: none; }
+	.whc-cta-main { padding-left: 24px; }
+	.whc-cta-actions { align-items: flex-start; }
+}
+
+@media (max-width: 640px) {
+	.whc-cta-inner { padding: 48px 24px; }
+	.whc-cta-main { padding-left: 18px; }
+	.whc-cta-desc { max-width: none; }
+	.whc-cta-actions { width: 100%; }
+	.whc-btn-primary { width: 100%; }
+
+	.whc-cta-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+	.whc-cta-list-item { padding-right: 0; }
+	.whc-cta-list-item::after { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.whc-btn-primary::before { display: none !important; }
+	.whc-cta-glow { transition: none !important; }
+}
