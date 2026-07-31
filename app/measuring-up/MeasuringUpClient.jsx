@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -78,13 +78,75 @@ const readOnlyStyle = {
   boxShadow: "0 4px 26px rgba(232,140,42,0.26), 0 1px 3px rgba(0,0,0,0.35)",
 };
 
+/* ───────────────── INLINE ICONS (replace emoji for cross-platform,
+   premium rendering — same recipe as HomeHero/GlobalExperienceClient) ── */
+function ShieldIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function TruckIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <path d="M2.5 6.5h11v9h-11z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <path d="M13.5 10h4l3 3.2V15.5h-7z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <circle cx="6.5" cy="17" r="1.6" stroke="currentColor" strokeWidth="1.6" />
+      <circle cx="17" cy="17" r="1.6" stroke="currentColor" strokeWidth="1.6" />
+    </svg>
+  );
+}
+function TagIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <path d="M11.5 3H4v7.5L13.5 20a1.5 1.5 0 0 0 2.1 0l4.4-4.4a1.5 1.5 0 0 0 0-2.1L11.5 3z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <circle cx="8" cy="7" r="1.3" fill="currentColor" />
+    </svg>
+  );
+}
+function RefreshIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <path d="M3.5 12a8.5 8.5 0 0 1 14.6-5.9M20.5 12a8.5 8.5 0 0 1-14.6 5.9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M18.5 3.5v3.2h-3.2M5.5 20.5v-3.2h3.2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function RulerIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <rect x="2.5" y="13.5" width="19" height="8" rx="1.6" transform="rotate(-45 12 17.5)" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M7.7 13.7l1.4 1.4M10.6 10.8l1.4 1.4M13.5 7.9l1.4 1.4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+function WarningIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <path d="M12 4L2.5 20h19L12 4z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <path d="M12 10v4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <circle cx="12" cy="17.1" r="0.95" fill="currentColor" />
+    </svg>
+  );
+}
+function CheckIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <circle cx="12" cy="12" r="9.5" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M7.5 12.5l3 3 6-6.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 /* ───────────────── TRUST BADGES (hero) ────────────────────────────────────── */
-// const TRUST_BADGES = [
-//   { icon: "🛡️", title: "Lifetime Warranty", sub: "On electric & water systems" },
-//   { icon: "🚚", title: "Next Day Delivery", sub: "On all orders" },
-//   { icon: "💰", title: "Price Smash Promise", sub: "If its cheaper, its free" },
-//   { icon: "🔄", title: "60 Day Money Back", sub: "Guarantee" },
-// ];
+const TRUST_BADGES = [
+  { Icon: ShieldIcon, title: "Lifetime Warranty", sub: "On electric & water systems" },
+  { Icon: TruckIcon, title: "Next Day Delivery", sub: "On all orders" },
+  { Icon: TagIcon, title: "Price Smash Promise", sub: "If it's cheaper, it's free" },
+  { Icon: RefreshIcon, title: "60 Day Money Back", sub: "Guarantee" },
+];
 
 /* ───────────────── 3-STEP CARDS DATA ──────────────────────────────────────── */
 const STEPS = [
@@ -176,6 +238,37 @@ function Pill({ children, color = COLOR_ACCENT }) {
     >
       {children}
     </span>
+  );
+}
+
+/* Subtle divider between calculator subsections — a hairline gradient with a
+   soft centred glow dot, deliberately quiet since this is a working form. */
+function MuDivider({ margin = "8px 0 36px" }) {
+  return (
+    <div
+      style={{
+        position: "relative",
+        height: 1,
+        margin,
+        background:
+          "linear-gradient(90deg, transparent, rgba(196,98,58,0.22), rgba(232,140,42,0.22), transparent)",
+      }}
+    >
+      <span
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: 5,
+          height: 5,
+          borderRadius: "50%",
+          background: COLOR_ACCENT_2,
+          boxShadow: "0 0 10px 2px rgba(232,140,42,0.5)",
+        }}
+      />
+    </div>
   );
 }
 
@@ -275,10 +368,70 @@ export default function MeasuringUpClient() {
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         input[type=number] { -moz-appearance: textfield; }
+
+        /* un-heatable areas table — mobile-only visible field labels
+           (aria-hidden; each input already carries its own aria-label, so
+           screen-reader behaviour is unchanged) and a stacked row layout
+           below the point the 5-column grid gets too tight to use. */
+        .mu-field-label { display: none; }
+        @media (max-width: 640px) {
+          .mu-table-head { display: none !important; }
+          .mu-table-row {
+            grid-template-columns: 1fr 1fr !important;
+            row-gap: 12px;
+            padding: 14px !important;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+          }
+          .mu-field-name { grid-column: 1 / -1; }
+          .mu-field-label {
+            display: block; font-family: var(--font-body); font-size: 10px; font-weight: 700;
+            letter-spacing: 0.08em; text-transform: uppercase; color: #C4623A; margin-bottom: 5px;
+          }
+          .mu-field-remove { display: flex; align-items: flex-end; justify-content: flex-end; }
+        }
+
         .mu-step-card { transition: box-shadow .25s ease; }
         .mu-step-card:hover { box-shadow: 0 28px 70px rgba(0,0,0,0.5), 0 0 40px -12px rgba(232,147,58,0.35); }
         .mu-step-card img { transition: transform .4s ease; }
         .mu-step-card:hover img { transform: scale(1.05); }
+
+        /* connecting thread across the 3-step guide, so the cards read as a
+           sequence: a numbered badge on each card, plus a hairline rail
+           joining them on desktop and a short vertical link on mobile. */
+        .mu-steps-wrap { position: relative; }
+        .mu-steps-rail { display: none; }
+        .mu-step-num {
+          position: absolute; top: -18px; left: 24px; z-index: 2;
+          width: 38px; height: 38px; border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          font-family: var(--font-heading); font-weight: 700; font-size: 15px;
+          color: #FBF3EA;
+          background: linear-gradient(135deg, #C4623A, #E88C2A);
+          border: 2px solid #150d07;
+          box-shadow: 0 8px 20px rgba(196,98,58,0.4);
+        }
+        /* the vertical link only makes sense once the grid is truly a
+           single stacked column (auto-fit collapses to 1 col below ~640px);
+           the horizontal rail only makes sense once all 3 cards share one
+           row (needs ~940px so 3x minmax(280px) + gaps actually fit) — in
+           between, neither is shown rather than risk a line that floats
+           disconnected from a wrapped card. */
+        @media (max-width: 640px) {
+          .mu-steps-grid .mu-step-card:not(:last-child)::after {
+            content: ""; position: absolute; left: 50%; bottom: -24px; transform: translateX(-50%);
+            width: 2px; height: 24px;
+            background: linear-gradient(180deg, rgba(232,147,58,0.5), rgba(255,126,95,0.1));
+          }
+        }
+        @media (min-width: 940px) {
+          .mu-steps-rail {
+            display: block; position: absolute; left: 8%; right: 8%; top: 20px; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(196,98,58,0.35), rgba(232,140,42,0.35), transparent);
+            z-index: 0;
+          }
+        }
 
         /* three-orb drift + noise + vignette, same DNA as the rest of the site */
         @keyframes mu-drift { 0%{transform:translate3d(-5%,-3%,0) scale(1)} 33%{transform:translate3d(5%,4%,0) scale(1.08)} 66%{transform:translate3d(-3%,6%,0) scale(.95)} 100%{transform:translate3d(-5%,-3%,0) scale(1)} }
@@ -297,12 +450,74 @@ export default function MeasuringUpClient() {
         .mu-orb-2 { top:4%; right:-4%; width:28vw; height:28vw; max-width:380px; max-height:380px; background: radial-gradient(circle, rgba(255,126,95,0.11), transparent 62%); animation: mu-drift2 31s ease-in-out infinite; }
         .mu-orb-3 { bottom:-8%; left:36%; width:24vw; height:24vw; max-width:320px; max-height:320px; background: radial-gradient(circle, rgba(127,192,232,0.07), transparent 64%); animation: mu-drift 33s ease-in-out infinite reverse; }
 
+        /* ── 1.1 hero (image + scrim overlay) ── */
+        .mu-hero {
+          position: relative;
+          z-index: 1;
+          width: 100%;
+          min-height: clamp(380px, 46vw, 480px);
+          display: flex;
+          align-items: flex-end;
+          overflow: hidden;
+        }
+        .mu-hero-plate { position: absolute; inset: 0; z-index: 0; }
+        .mu-hero-scrim {
+          position: absolute; inset: 0; z-index: 1; pointer-events: none;
+          background: linear-gradient(180deg, rgba(13,8,5,0.18) 0%, rgba(13,8,5,0.58) 58%, rgba(13,8,5,0.94) 100%);
+        }
+        .mu-hero-inner {
+          position: relative; z-index: 2; width: 100%;
+          max-width: 900px; margin: 0 auto;
+          padding: 132px 24px 36px;
+          text-align: center;
+        }
+        .mu-hero-title {
+          font-family: ${FONT_HEADING};
+          font-size: clamp(1.875rem, 4vw, 2.75rem);
+          font-weight: 700;
+          color: ${COLOR_TEXT};
+          line-height: 1.15;
+          margin: 16px auto 14px;
+          max-width: 760px;
+          letter-spacing: -0.01em;
+        }
+        .mu-hero-lede {
+          font-family: ${FONT_BODY};
+          font-size: 15.5px;
+          color: rgba(251,243,234,0.78);
+          line-height: 1.7;
+          max-width: 640px;
+          margin: 0 auto;
+          font-weight: 500;
+        }
+        .mu-trust-row {
+          display: flex; flex-wrap: wrap; justify-content: center;
+          gap: 10px; margin-top: 22px;
+        }
+        .mu-badge-chip {
+          display: flex; align-items: center; gap: 9px;
+          padding: 7px 14px 7px 7px; border-radius: 999px;
+          background: rgba(255,255,255,0.07);
+          border: 1px solid rgba(255,255,255,0.16);
+          backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+          text-align: left;
+        }
+        .mu-badge-icon {
+          flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          background: linear-gradient(135deg, rgba(196,98,58,0.35), rgba(232,140,42,0.35));
+          color: #FBF3EA;
+        }
+        .mu-badge-title { display: block; font-family: var(--font-body); font-size: 11px; font-weight: 700; color: #FBF3EA; line-height: 1.25; }
+        .mu-badge-sub { display: block; font-family: var(--font-body); font-size: 10px; color: rgba(251,243,234,0.62); line-height: 1.25; }
+
+        @media (max-width: 640px) {
+          .mu-hero-inner { padding-top: 124px; padding-bottom: 28px; }
+          .mu-trust-row { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .mu-orb-1, .mu-orb-2, .mu-orb-3 { animation: none !important; }
-        }
-        @media (max-width: 768px) {
-          .mu-hero-grid { grid-template-columns: 1fr !important; }
-          .mu-trust-row { justify-content: flex-start !important; }
         }
       `}</style>
 
@@ -324,86 +539,68 @@ export default function MeasuringUpClient() {
         <div aria-hidden className="mu-vignette" />
 
         {/* ────────────────────────────────────────────────────────── */}
-        {/* 1.1 HERO BANNER */}
+        {/* 1.1 HERO BANNER — image + scrim overlay carrying the merged
+             pill/heading/lede (previously a separate section below it).
+             Kept to a confident banner height, not full-viewport, since
+             this is a utility/calculator page rather than a landing page. */}
         {/* ────────────────────────────────────────────────────────── */}
-   <section
-  style={{
-    position: "relative",
-    width: "100%",
-    minHeight: 280,
-    display: "flex",
-    alignItems: "center",
-    overflow: "hidden",
-  }}
->
-  <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-    <Image
-      src="/images/measure.png"
-      alt="Cozy warm underfloor heating room"
-      fill
-      priority
-      sizes="100vw"
-      style={{ objectFit: "cover" }}
-    />
-  </div>
-</section>
+        <section className="mu-hero" aria-label="How to measure up for underfloor heating">
+          <div className="mu-hero-plate">
+            <Image
+              src="/images/measure.png"
+              alt="Cozy warm underfloor heating room"
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+          <div className="mu-hero-scrim" aria-hidden="true" />
 
-        {/* ────────────────────────────────────────────────────────── */}
-        {/* 1.2 INTRO SECTION */}
-        {/* ────────────────────────────────────────────────────────── */}
-        <section
-          style={{
-            position: "relative",
-            zIndex: 1,
-            maxWidth: 1100,
-            margin: "0 auto",
-            padding: "72px 24px 24px",
-            textAlign: "center",
-          }}
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6, ease: EASE }}
-          >
-            <Pill>How to measure up</Pill>
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.12 }}
-            style={{
-              fontFamily: FONT_HEADING,
-              fontSize: "clamp(1.875rem, 4vw, 2.75rem)",
-              fontWeight: 700,
-              color: COLOR_TEXT,
-              lineHeight: 1.15,
-              margin: "16px auto 18px",
-              maxWidth: 760,
-              letterSpacing: "-0.01em",
-            }}
-          >
-            How to measure up for Underfloor Heating
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.24 }}
-            style={{
-              fontFamily: FONT_BODY,
-              fontSize: 16,
-              color: COLOR_BODY,
-              lineHeight: 1.75,
-              maxWidth: 720,
-              margin: "0 auto",
-              fontWeight: 500,
-            }}
-          >
-           Measuring for underfloor heating within you property is an easy task to complete. You'll need to gain your available heated area following these 3 easy steps.
-          </motion.p>
+          <div className="mu-hero-inner">
+            <motion.div
+              initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.6, ease: EASE }}
+            >
+              <Pill>How to measure up</Pill>
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.7, ease: EASE, delay: 0.12 }}
+              className="mu-hero-title"
+            >
+              How to measure up for Underfloor Heating
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.7, ease: EASE, delay: 0.24 }}
+              className="mu-hero-lede"
+            >
+              Measuring for underfloor heating within you property is an easy task to complete. You'll need to gain your available heated area following these 3 easy steps.
+            </motion.p>
+
+            <motion.div
+              className="mu-trust-row"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: EASE, delay: 0.36 }}
+            >
+              {TRUST_BADGES.map(({ Icon, title, sub }) => (
+                <div className="mu-badge-chip" key={title}>
+                  <span className="mu-badge-icon" aria-hidden="true">
+                    <Icon style={{ width: 16, height: 16 }} />
+                  </span>
+                  <span>
+                    <span className="mu-badge-title">{title}</span>
+                    <span className="mu-badge-sub">{sub}</span>
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </section>
 
         {/* ────────────────────────────────────────────────────────── */}
@@ -418,49 +615,54 @@ export default function MeasuringUpClient() {
             padding: "56px 24px 24px",
           }}
         >
-          <motion.div
-            variants={gridContainer}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: 24,
-            }}
-          >
-            {STEPS.map((s, i) => (
-              <motion.div
-                key={i}
-                variants={gridCard}
-                whileHover={{ y: -6, transition: { duration: 0.25, ease: EASE } }}
-                className="mu-step-card"
-                style={{
-                  ...glassCard,
-                  overflow: "hidden",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <div
+          <div className="mu-steps-wrap">
+            <div className="mu-steps-rail" aria-hidden="true" />
+            <motion.div
+              variants={gridContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.2 }}
+              className="mu-steps-grid"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                gap: 24,
+              }}
+            >
+              {STEPS.map((s, i) => (
+                <motion.div
+                  key={i}
+                  variants={gridCard}
+                  whileHover={{ y: -6, transition: { duration: 0.25, ease: EASE } }}
+                  className="mu-step-card"
                   style={{
+                    ...glassCard,
                     position: "relative",
-                    width: "100%",
-                    height: 200,
-                    overflow: "hidden",
+                    display: "flex",
+                    flexDirection: "column",
                   }}
                 >
-                  <Image
-                    src={s.img}
-                    alt={s.alt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    style={{ objectFit: "contain" }}
-                  />
-                </div>
-                <div style={{ padding: "24px 24px 28px" }}>
-                  <Pill color={COLOR_ACCENT}>{s.n}</Pill>
-                  <h3
+                  <span className="mu-step-num" aria-hidden="true">{i + 1}</span>
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "100%",
+                      height: 200,
+                      overflow: "hidden",
+                      borderRadius: "22px 22px 0 0",
+                    }}
+                  >
+                    <Image
+                      src={s.img}
+                      alt={s.alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      style={{ objectFit: "contain" }}
+                    />
+                  </div>
+                  <div style={{ padding: "24px 24px 28px" }}>
+                    <Pill color={COLOR_ACCENT}>{s.n}</Pill>
+                    <h3
                     style={{
                       fontFamily: FONT_HEADING,
                       fontSize: 24,
@@ -484,10 +686,11 @@ export default function MeasuringUpClient() {
                   >
                     {s.body}
                   </p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </section>
 
         {/* ────────────────────────────────────────────────────────── */}
@@ -516,7 +719,7 @@ export default function MeasuringUpClient() {
               transition={{ duration: 0.8, ease: EASE }}
               style={{
                 ...glassCard,
-                padding: "40px 36px",
+                padding: "clamp(24px, 5vw, 40px) clamp(18px, 5vw, 36px)",
                 borderRadius: 28,
               }}
             >
@@ -601,15 +804,7 @@ export default function MeasuringUpClient() {
                 </div>
               </div>
 
-              {/* divider */}
-              <div
-                style={{
-                  height: 1,
-                  background:
-                    "linear-gradient(90deg, transparent, rgba(196,98,58,0.25), transparent)",
-                  margin: "8px 0 36px",
-                }}
-              />
+              <MuDivider margin="8px 0 36px" />
 
               {/* ── SUBSECTION B: WINDOW INFORMATION (planning only) ── */}
               <div style={{ marginBottom: 36 }}>
@@ -669,11 +864,11 @@ export default function MeasuringUpClient() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      fontSize: 22,
                       boxShadow: "0 6px 18px rgba(196,98,58,0.15)",
+                      color: COLOR_ACCENT,
                     }}
                   >
-                    📏
+                    <RulerIcon style={{ width: 22, height: 22 }} />
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div
@@ -755,15 +950,7 @@ export default function MeasuringUpClient() {
                 </div>
               </div>
 
-              {/* divider */}
-              <div
-                style={{
-                  height: 1,
-                  background:
-                    "linear-gradient(90deg, transparent, rgba(196,98,58,0.25), transparent)",
-                  margin: "8px 0 36px",
-                }}
-              />
+              <MuDivider margin="8px 0 36px" />
 
               {/* ── SUBSECTION C: UN-HEATABLE AREAS ── */}
               <div style={{ marginBottom: 32 }}>
@@ -828,97 +1015,124 @@ export default function MeasuringUpClient() {
 
                 {/* rows */}
                 <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                  {areas.map((a) => {
-                    const rowTotal =
-                      (parseFloat(a.width) || 0) * (parseFloat(a.length) || 0);
-                    return (
-                      <div
-                        key={a.id}
-                        className="mu-table-row"
-                        style={{
-                          display: "grid",
-                          gridTemplateColumns: "2fr 1fr 1fr 1fr 40px",
-                          gap: 12,
-                          alignItems: "center",
-                        }}
-                      >
-                        <input
-                          className="mu-input"
-                          type="text"
-                          placeholder="e.g. Kitchen unit"
-                          value={a.name}
-                          onChange={(e) =>
-                            updateArea(a.id, "name", e.target.value)
-                          }
-                          style={inputStyle}
-                          aria-label="Area name"
-                        />
-                        <input
-                          className="mu-input"
-                          type="number"
-                          step="0.1"
-                          min="0"
-                          placeholder="0.0"
-                          value={a.width}
-                          onChange={(e) =>
-                            updateArea(a.id, "width", e.target.value)
-                          }
-                          style={inputStyle}
-                          aria-label="Area width in metres"
-                        />
-                        <input
-                          className="mu-input"
-                          type="number"
-                          step="0.1"
-                          min="0"
-                          placeholder="0.0"
-                          value={a.length}
-                          onChange={(e) =>
-                            updateArea(a.id, "length", e.target.value)
-                          }
-                          style={inputStyle}
-                          aria-label="Area length in metres"
-                        />
-                        <input
-                          type="text"
-                          readOnly
-                          value={rowTotal > 0 ? rowTotal.toFixed(2) : "0.00"}
-                          style={{ ...readOnlyStyle, fontSize: 15 }}
-                          aria-label="Row total in square metres"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => removeArea(a.id)}
-                          disabled={areas.length === 1}
-                          aria-label="Remove area"
-                          style={{
-                            width: 36,
-                            height: 36,
-                            borderRadius: 10,
-                            background:
-                              areas.length === 1
-                                ? "rgba(196,98,58,0.05)"
-                                : "rgba(196,98,58,0.10)",
-                            color:
-                              areas.length === 1
-                                ? "rgba(196,98,58,0.4)"
-                                : COLOR_ACCENT,
-                            border: "1px solid rgba(196,98,58,0.20)",
-                            cursor:
-                              areas.length === 1 ? "not-allowed" : "pointer",
-                            fontSize: 16,
-                            fontWeight: 700,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            transition: "all 0.2s ease",
-                          }}
+                  <AnimatePresence initial={false}>
+                    {areas.map((a) => {
+                      const rowTotal =
+                        (parseFloat(a.width) || 0) * (parseFloat(a.length) || 0);
+                      return (
+                        <motion.div
+                          key={a.id}
+                          layout
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3, ease: EASE }}
+                          style={{ overflow: "hidden" }}
                         >
-                          ✕
-                        </button>
-                      </div>
-                    );
-                  })}
+                          <div
+                            className="mu-table-row"
+                            style={{
+                              display: "grid",
+                              gridTemplateColumns: "2fr 1fr 1fr 1fr 40px",
+                              gap: 12,
+                              alignItems: "center",
+                              paddingTop: 2,
+                              paddingBottom: 2,
+                            }}
+                          >
+                            <div className="mu-field mu-field-name">
+                              <span className="mu-field-label" aria-hidden="true">Area Name</span>
+                              <input
+                                className="mu-input"
+                                type="text"
+                                placeholder="e.g. Kitchen unit"
+                                value={a.name}
+                                onChange={(e) =>
+                                  updateArea(a.id, "name", e.target.value)
+                                }
+                                style={inputStyle}
+                                aria-label="Area name"
+                              />
+                            </div>
+                            <div className="mu-field mu-field-width">
+                              <span className="mu-field-label" aria-hidden="true">Width (m)</span>
+                              <input
+                                className="mu-input"
+                                type="number"
+                                step="0.1"
+                                min="0"
+                                placeholder="0.0"
+                                value={a.width}
+                                onChange={(e) =>
+                                  updateArea(a.id, "width", e.target.value)
+                                }
+                                style={inputStyle}
+                                aria-label="Area width in metres"
+                              />
+                            </div>
+                            <div className="mu-field mu-field-length">
+                              <span className="mu-field-label" aria-hidden="true">Length (m)</span>
+                              <input
+                                className="mu-input"
+                                type="number"
+                                step="0.1"
+                                min="0"
+                                placeholder="0.0"
+                                value={a.length}
+                                onChange={(e) =>
+                                  updateArea(a.id, "length", e.target.value)
+                                }
+                                style={inputStyle}
+                                aria-label="Area length in metres"
+                              />
+                            </div>
+                            <div className="mu-field mu-field-total">
+                              <span className="mu-field-label" aria-hidden="true">Total (m²)</span>
+                              <input
+                                type="text"
+                                readOnly
+                                value={rowTotal > 0 ? rowTotal.toFixed(2) : "0.00"}
+                                style={{ ...readOnlyStyle, fontSize: 15 }}
+                                aria-label="Row total in square metres"
+                              />
+                            </div>
+                            <div className="mu-field-remove">
+                              <button
+                                type="button"
+                                onClick={() => removeArea(a.id)}
+                                disabled={areas.length === 1}
+                                aria-label="Remove area"
+                                style={{
+                                  width: 36,
+                                  height: 36,
+                                  borderRadius: 10,
+                                  background:
+                                    areas.length === 1
+                                      ? "rgba(196,98,58,0.05)"
+                                      : "rgba(196,98,58,0.10)",
+                                  color:
+                                    areas.length === 1
+                                      ? "rgba(196,98,58,0.4)"
+                                      : COLOR_ACCENT,
+                                  border: "1px solid rgba(196,98,58,0.20)",
+                                  cursor:
+                                    areas.length === 1 ? "not-allowed" : "pointer",
+                                  fontSize: 16,
+                                  fontWeight: 700,
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  transition: "all 0.2s ease",
+                                }}
+                              >
+                                ✕
+                              </button>
+                            </div>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </AnimatePresence>
                 </div>
 
                 <button
@@ -945,8 +1159,18 @@ export default function MeasuringUpClient() {
                     alignItems: "flex-start",
                     gap: 12,
                   }}>
-                    <span style={{ fontSize: 20, flexShrink: 0 }}>
-                      {isBelowMinimum ? "⚠️" : "✅"}
+                    <span
+                      style={{
+                        flexShrink: 0,
+                        color: isBelowMinimum ? "#FF6B5B" : "#4ADE80",
+                        display: "flex",
+                      }}
+                    >
+                      {isBelowMinimum ? (
+                        <WarningIcon style={{ width: 20, height: 20 }} />
+                      ) : (
+                        <CheckIcon style={{ width: 20, height: 20 }} />
+                      )}
                     </span>
                     <div>
                       <div style={{
@@ -977,15 +1201,7 @@ export default function MeasuringUpClient() {
                 )}
               </div>
 
-              {/* divider */}
-              <div
-                style={{
-                  height: 1,
-                  background:
-                    "linear-gradient(90deg, transparent, rgba(196,98,58,0.25), transparent)",
-                  margin: "8px 0 28px",
-                }}
-              />
+              <MuDivider margin="8px 0 28px" />
 
               {/* ── CALCULATE ── */}
               <div
@@ -1074,7 +1290,7 @@ export default function MeasuringUpClient() {
                           margin: 0,
                           display: "flex",
                           flexDirection: "column",
-                          gap: 10,
+                          gap: 11,
                         }}
                       >
                         {[
@@ -1118,10 +1334,18 @@ export default function MeasuringUpClient() {
                               display: "flex",
                               alignItems: "baseline",
                               gap: 10,
-                              paddingBottom: 8,
+                              padding: row.emphasis ? "10px 12px" : "0 0 9px",
+                              margin: row.emphasis ? "5px -12px -4px" : 0,
+                              borderRadius: row.emphasis ? 12 : 0,
+                              background: row.emphasis
+                                ? "linear-gradient(135deg, rgba(196,98,58,0.09), rgba(232,140,42,0.13))"
+                                : "transparent",
+                              borderTop: row.emphasis
+                                ? "1px solid rgba(196,98,58,0.22)"
+                                : "none",
                               borderBottom: row.emphasis
                                 ? "none"
-                                : "1px dashed rgba(196,98,58,0.18)",
+                                : "1px dashed rgba(196,98,58,0.16)",
                             }}
                           >
                             <dt
@@ -1293,7 +1517,7 @@ export default function MeasuringUpClient() {
                     fontSize: 14,
                     color: COLOR_BODY,
                     lineHeight: 1.7,
-                    margin: "0 0 12px",
+                    margin: "0 0 14px",
                     fontWeight: 500,
                   }}
                 >
@@ -1305,7 +1529,7 @@ export default function MeasuringUpClient() {
                     fontSize: 14,
                     color: COLOR_BODY,
                     lineHeight: 1.7,
-                    margin: "0 0 12px",
+                    margin: "0 0 14px",
                     fontWeight: 500,
                   }}
                 >
@@ -1317,19 +1541,110 @@ export default function MeasuringUpClient() {
                     fontSize: 14,
                     color: COLOR_BODY,
                     lineHeight: 1.7,
-                    margin: "0 0 22px",
+                    margin: "0 0 24px",
                     fontWeight: 500,
                   }}
                 >
                   The underfloor heating element cannot be shortened in length as this will invalidate your lifetime warranty so ordering the correct size system is essential.
                 </p>
-                <div style={{ marginTop: "auto" }}>
+                <div style={{ marginTop: "auto", paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
                   <Link
                     href="/electric-underfloor-heating"
                     className="mu-cta-primary"
                     style={{ width: "100%", textDecoration: "none" }}
                   >
                     Shop Electric Underfloor Heating →
+                  </Link>
+                </div>
+              </div>
+            </motion.article>
+
+            {/* Card B, Water/Wet */}
+            <motion.article
+              variants={gridCard}
+              whileHover={{ y: -6, transition: { duration: 0.25, ease: EASE } }}
+              className="mu-step-card"
+              style={{
+                ...glassCard,
+                borderRadius: 24,
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  height: 220,
+                  overflow: "hidden",
+                }}
+              >
+                <Image
+                  src="/images/p1.png"
+                  alt="Water underfloor heating pipes laid in a serpentine pattern"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+              <div style={{ padding: "26px 28px 28px", display: "flex", flexDirection: "column", flex: 1 }}>
+                <Pill color={COLOR_ACCENT}>Water / Wet</Pill>
+                <h3
+                  style={{
+                    fontFamily: FONT_HEADING,
+                    fontSize: 26,
+                    fontWeight: 700,
+                    color: COLOR_TEXT,
+                    margin: "12px 0 14px",
+                    lineHeight: 1.2,
+                  }}
+                >
+                  Water (Wet) Underfloor Heating
+                </h3>
+                <p
+                  style={{
+                    fontFamily: FONT_BODY,
+                    fontSize: 14,
+                    color: COLOR_BODY,
+                    lineHeight: 1.7,
+                    margin: "0 0 14px",
+                    fontWeight: 500,
+                  }}
+                >
+                  Wet systems circulate warm water through pipework connected to a manifold, so your heatable area also needs to account for pipe centres and the manifold's own footprint within the room.
+                </p>
+                <p
+                  style={{
+                    fontFamily: FONT_BODY,
+                    fontSize: 14,
+                    color: COLOR_BODY,
+                    lineHeight: 1.7,
+                    margin: "0 0 14px",
+                    fontWeight: 500,
+                  }}
+                >
+                  Because pipework is typically set into a screed or low-profile board, water systems suit new builds and larger renovations best, where floor build-up height can be planned in from the start.
+                </p>
+                <p
+                  style={{
+                    fontFamily: FONT_BODY,
+                    fontSize: 14,
+                    color: COLOR_BODY,
+                    lineHeight: 1.7,
+                    margin: "0 0 24px",
+                    fontWeight: 500,
+                  }}
+                >
+                  Pipe runs are continuous per zone and can't be shortened on site, so accurate room measurements up front are essential to specifying the correct manifold and pipe lengths.
+                </p>
+                <div style={{ marginTop: "auto", paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+                  <Link
+                    href="/contact"
+                    className="mu-cta-primary"
+                    style={{ width: "100%", textDecoration: "none" }}
+                  >
+                    Talk to Us About Water Systems →
                   </Link>
                 </div>
               </div>

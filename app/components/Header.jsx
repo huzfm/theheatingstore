@@ -25,7 +25,6 @@ const PRIMARY_NAV = [
 const MORE_NAV = [
   { label: 'Why Choose Us', href: '/why-choose-us' },
   { label: 'How It Works', href: '/how-it-works' },
-  { label: 'Blog & Articles', href: '/bloginfo' },
   { label: 'Local Experience', href: '/local-experience' },
   { label: 'Global Experience', href: '/global-experience' },
   { label: 'Certifications', href: '/certifications' },

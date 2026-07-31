@@ -4,6 +4,7 @@ import WhyElectricHamamShowcase from "@/components/sections/WhyElectricHamam/Why
 import FaqSection from "./FaqSection";
 import ArticlesSection from "./ArticlesSection";
 import FloorRevealSection from "../../components/sections/FloorRevealSection";
+import WhyChooseUFH from "./WhyChooseUFH";
 
 
 export default function HomePage() {
@@ -22,6 +23,8 @@ export default function HomePage() {
       <FaqSection />
 
       <ArticlesSection/>
+
+      <WhyChooseUFH/>
       
       {/* <ContactPage /> */}
     </>

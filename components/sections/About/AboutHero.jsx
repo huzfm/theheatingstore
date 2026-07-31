@@ -33,7 +33,7 @@ export default function AboutHero() {
       <div
         aria-hidden
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url('${HERO.bgImage}')` }}
+        style={{ backgroundImage: `url('/abo.png')` }}
       />
       {/* Legibility + mood: darken overall, darker still under the left copy */}
       <div
