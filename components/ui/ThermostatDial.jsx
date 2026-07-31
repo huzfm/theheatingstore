@@ -131,7 +131,14 @@ function polar(radius, deg) {
   // the same direction stroke-dasharray runs. Keeping both in one convention
   // is what lets the tick mask line up with the ring without a fudge factor.
   const rad = (deg * Math.PI) / 180;
-  return [CX + radius * Math.cos(rad), CY + radius * Math.sin(rad)];
+
+  // Rounded, and not for tidiness: Math.sin/cos are implementation-defined to
+  // within an ulp, so Node and the browser disagree in the last digit or two.
+  // React serialises the full float into the line's x1/y1, which made every
+  // tick a hydration mismatch. Two decimals on a 240-unit viewBox is far below
+  // a device pixel and is identical on both sides.
+  const round = (v) => Math.round(v * 100) / 100;
+  return [round(CX + radius * Math.cos(rad)), round(CY + radius * Math.sin(rad))];
 }
 
 export default function ThermostatDial({ className = '', onStateChange }) {

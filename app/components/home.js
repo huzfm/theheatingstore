@@ -2,19 +2,16 @@ import HomeHero from "./HomeHero";
 
 import WhyElectricHamamShowcase from "@/components/sections/WhyElectricHamam/WhyElectricHamam";
 import FaqSection from "./FaqSection";
-import ArticlesSection from "./ArticlesSection";
-import FloorRevealSection from "../../components/sections/FloorRevealSection";
-import WhyChooseUFH from "./WhyChooseUFH";
+import HeatingMatViewerSection from "../../components/sections/HeatingMatViewerSection";
 
 
 export default function HomePage() {
   return (
     <>
       <HomeHero />
-      {/* Scroll-driven 3D cutaway: floor lifts away, heating mat is revealed,
-          then turns through 360° with its feature callouts. Three.js is
-          lazy-loaded inside this component, so it costs the hero nothing. */}
-      <FloorRevealSection />
+      {/* The mat as a product you can turn. Three.js is lazy-loaded and the
+          render loop only runs while the panel is on screen. */}
+      <HeatingMatViewerSection />
       <WhyElectricHamamShowcase />
       {/* <VideoGallery/> */}
       {/* <TrustedBrandsSection /> */}
@@ -22,10 +19,8 @@ export default function HomePage() {
 
       <FaqSection />
 
-      <ArticlesSection/>
+      {/* The Journal now lives on its own route, /journal. */}
 
-      <WhyChooseUFH/>
-      
       {/* <ContactPage /> */}
     </>
   );

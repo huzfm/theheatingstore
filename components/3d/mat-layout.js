@@ -7,6 +7,8 @@ import {
   CABLE_SPACING,
   CABLE_INSET,
   CABLE_MARGIN,
+  TAPE_WIDTH,
+  TAPE_OFFSETS,
 } from './constants';
 
 /**
@@ -89,6 +91,15 @@ export function buildMatCable({
   spacing = CABLE_SPACING,
   inset = CABLE_INSET,
   margin = CABLE_MARGIN,
+  /**
+   * Optional point-by-point remap applied just before the spline is fitted, so
+   * a caller can lay the run out flat here and then bend the result - which is
+   * how the product viewer winds it onto a roll without this file needing to
+   * know anything about rolls. Warping the control points rather than the
+   * finished curve matters: the spline is then fitted *through* the bent path,
+   * so the return bends stay bends instead of being chords across a curve.
+   */
+  warp = null,
 } = {}) {
   const pitch = length / bands;
   const meshHalf = (pitch - seam) / 2;
@@ -155,14 +166,45 @@ export function buildMatCable({
     }
   }
 
-  const curve = new THREE.CatmullRomCurve3(points, false, 'centripetal', 0.5);
+  const path = warp ? points.map((p) => warp(p)) : points;
+
+  const curve = new THREE.CatmullRomCurve3(path, false, 'centripetal', 0.5);
   /**
    * three.js defaults to 200 arc-length divisions regardless of control point
    * count. Across ~1000 points that is five points per division, so getPointAt
    * distributes tube segments unevenly and the return bends get starved. The
    * table is built once at mount.
    */
-  curve.arcLengthDivisions = Math.min(4000, points.length * 3);
+  curve.arcLengthDivisions = Math.min(4000, path.length * 3);
 
   return curve;
+}
+
+/**
+ * The cream reinforcement tape, as { z, width } per strip.
+ *
+ * Three strips per 500 mm band, laid along the roll rather than across it, and
+ * rendered *above* the cable, because on the real mat that is what pins the
+ * cable to the scrim (see the roll on p.40 of the ProWarm guide, where each
+ * strip visibly bridges every pass it crosses).
+ */
+export function matTapes({
+  length = MAT_L,
+  bands = MAT_BANDS,
+  seam = BAND_SEAM,
+  width = TAPE_WIDTH,
+  offsets = TAPE_OFFSETS,
+} = {}) {
+  const pitch = length / bands;
+  const strip = pitch - seam;
+  const out = [];
+
+  for (let band = 0; band < bands; band += 1) {
+    const zc = -length / 2 + pitch / 2 + band * pitch;
+    offsets.forEach((offset, i) => {
+      out.push({ key: `${band}-${i}`, z: zc + offset * strip, width });
+    });
+  }
+
+  return out;
 }
