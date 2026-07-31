@@ -16,7 +16,7 @@ import { retainTextures, releaseTextures, groundShadow } from '@/lib/textures';
  * read.
  *
  * Deliberately NOT the layered cross-section from FloorCutawayScene, that
- * sequence is the home page's set piece (components/sections/FloorRevealSection),
+ * sequence is /working's set piece (components/sections/FloorRevealSection),
  * and rebuilding it here would make the two pages compete. This scene reuses
  * the same mat, studio rig and performance posture, but the subject is the
  * product itself rather than the build-up around it.

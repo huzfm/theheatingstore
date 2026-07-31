@@ -16,9 +16,11 @@ import WorkingCTA from '@/components/sections/Working/WorkingCTA';
  * answered here, the sectioned FAQ on the home page already carries them.
  *
  * Two sections are shared rather than reimplemented:
- *  - FloorRevealSection is the same scroll-driven 3D cutaway used on the home
- *    page. It lazy-loads three.js itself and parks its render loop when
- *    off-screen, so it costs this route nothing until it's scrolled to.
+ *  - FloorRevealSection is the scroll-driven 3D cutaway. It lazy-loads three.js
+ *    itself and parks its render loop when off-screen, so it costs this route
+ *    nothing until it's scrolled to. This is now its only home, it used to run
+ *    on the home page too, which is why it lives in components/sections rather
+ *    than under this route.
  *  - ThermostatDial (inside ControlSection) is the same SVG instrument that
  *    opens /about. Here it drives the copy beside it instead of standing alone.
  *
