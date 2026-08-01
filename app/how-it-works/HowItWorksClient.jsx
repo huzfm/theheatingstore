@@ -38,25 +38,25 @@ const steps = [
 		title: 'Expert Survey &',
 		titleAccent: 'Custom Floor Design',
 		badge: 'Free of Charge',
-		desc: 'Our NICEIC certified engineers conduct a thorough on-site survey assessing floor construction, room dimensions, thermal load requirements and circuit capacity then produce a bespoke CAD layout tailored precisely to your property.',
+		desc: 'Our NICEIC certified engineers survey the property in person, measuring room dimensions, checking floor construction and existing insulation, and calculating thermal load and U-values room by room. The result is a bespoke CAD heating layout with cable density and circuit zoning mapped to your exact floor plan, not a generic template.',
 		points: [
 			{
 				icon: '📐',
 				label: 'Bespoke CAD Plan',
-				detail: 'Precise cable density mapped per room zone',
+				detail: 'Cable spacing mapped room by room from your actual floor plan',
 			},
 			{
 				icon: '🔬',
 				label: 'Thermal Load Analysis',
-				detail: 'U value assessment to guarantee peak efficiency',
+				detail: 'U-value and heat-loss calculations set the wattage per m²',
 			},
 			{
 				icon: '⚡',
 				label: 'Circuit Zoning',
-				detail: 'Load calculations per circuit and thermostat zone',
+				detail: 'Load calculated per circuit so each thermostat zone is balanced',
 			},
 		],
-		stat: { value: 'Free', label: 'Full survey and design, zero obligation' },
+		stat: { value: 'Free', label: 'Full survey and CAD design, zero obligation' },
 		proof: '14,000+ bespoke CAD designs delivered across the UK',
 		bgScene: 'survey',
 	},
@@ -66,22 +66,22 @@ const steps = [
 		title: 'Precision Cable',
 		titleAccent: 'Installation',
 		badge: 'NICEIC Certified',
-		desc: 'Our engineers embed ultra thin heating cables directly into your screed or fix self adhesive mats across the sub floor. Every metre is laid to the exact CAD specification ensuring even heat distribution with zero cold spots.',
+		desc: 'Engineers embed ultra-thin heating cable directly into the screed, or fix self-adhesive mats across the subfloor, laid to the exact CAD spec so there are no cold spots. Every installation is wired and commissioned to BS 7671 Amendment 4 and signed off under NICEIC certification before the floor finish goes down.',
 		points: [
 			{
 				icon: '🔥',
 				label: '3–4mm Cable Profile',
-				detail: 'Completely invisible beneath any floor finish',
+				detail: 'Sits invisibly beneath tile, stone, LVT or timber',
 			},
 			{
 				icon: '🧲',
-				label: 'Self Adhesive Mats',
-				detail: 'Rapid fix system for tile, stone, LVT and wood',
+				label: 'Self-Adhesive Mats',
+				detail: 'Fast-fix system for renovations over an existing subfloor',
 			},
 			{
 				icon: '🛠️',
-				label: 'Screed Embedded',
-				detail: 'Wet underfloor system for new-build concrete slabs',
+				label: 'Screed-Embedded Cable',
+				detail: 'Wet system for new-build slabs and full renovations',
 			},
 		],
 		stat: {
@@ -97,17 +97,17 @@ const steps = [
 		title: 'Radiant Warmth',
 		titleAccent: 'From the Ground Up',
 		badge: 'No Cold Spots. Ever.',
-		desc: 'Unlike radiators that circulate hot air upward, electric underfloor heating radiates warmth evenly across the entire floor surface delivering a perfectly layered thermal environment that is warm at foot level and comfortable throughout.',
+		desc: 'Radiators heat air, which rises, cools and recirculates dust as it moves around a room. Underfloor heating radiates warmth directly from the floor surface, so the whole room warms evenly with no draughts, no dust circulation and no hot-and-cold layering. Comfort that reads as air quality, not just temperature.',
 		points: [
 			{
 				icon: '🌡️',
 				label: '26°C Floor Surface',
-				detail: 'Warmth precisely where the body needs it most',
+				detail: 'Warmth exactly where the body feels it, not six feet up a wall',
 			},
 			{
 				icon: '💨',
 				label: 'Zero Air Movement',
-				detail: 'No dust, no allergens, no convection draughts',
+				detail: 'No convection currents to stir dust, pollen or allergens',
 			},
 			{
 				icon: '🔇',
@@ -116,7 +116,7 @@ const steps = [
 			},
 		],
 		stat: { value: '100%', label: 'Floor area heated with total uniformity' },
-		proof: 'Recommended by leading allergists and interior architects',
+		proof: 'Zero convection currents to circulate dust, pollen or allergens, room after room',
 		bgScene: 'radiant',
 	},
 	{
@@ -124,27 +124,27 @@ const steps = [
 		tag: 'Smart Controls',
 		title: 'Intelligent Thermostat',
 		titleAccent: '& Energy Management',
-		badge: 'Up to 25% Bill Reduction',
-		desc: 'Our Heatmiser and Salus smart thermostats feature dual-sensor technology that monitors both floor temperature and ambient air simultaneously. Adaptive start, geo-fencing and 7 day scheduling significantly reduce energy bills without compromising comfort.',
+		badge: 'Reported 15–30% Zoned Savings',
+		desc: "Heatmiser Neo and Salus iT800 systems pair a floor sensor with an air sensor, so the thermostat reacts to both rather than just room temperature. Geofencing brings the heating on as you head home, and open-window detection pauses it automatically when a window opens nearby. The wider industry is moving toward Matter and Thread based cross-brand compatibility; our systems currently run through their own dedicated hub and app, with independent market reporting putting typical zoned-control savings in the 15–30% range depending on the property and how it's used.",
 		points: [
 			{
 				icon: '🎯',
 				label: 'Dual Sensor Precision',
-				detail: '±0.5°C accuracy, floor and air both monitored',
+				detail: '±0.5°C accuracy, floor and air temperature both monitored',
 			},
 			{
 				icon: '📅',
-				label: 'Adaptive Scheduling',
-				detail: 'Self-learning 7-day programme with geo-fencing',
+				label: 'Geofencing & Adaptive Scheduling',
+				detail: 'Self-learning 7-day programme, heating adjusts as you leave and return',
 			},
 			{
 				icon: '🛡️',
-				label: 'Overheat Protection',
-				detail: 'Automatic safety cutout, fully certified and fail safe',
+				label: 'Open-Window & Overheat Protection',
+				detail: 'Automatic cutout if a window opens nearby or the floor runs hot',
 			},
 		],
 		stat: { value: '±0.5°', label: 'Temperature control accuracy per zone' },
-		proof: "Heatmiser NeoStat rated the UK's number one thermostat",
+		proof: 'Heatmiser Neo integrates with Google Home, Amazon Alexa and Apple HomeKit via neoHub',
 		bgScene: 'thermostat',
 	},
 	{
@@ -152,8 +152,8 @@ const steps = [
 		tag: 'After Care',
 		title: '25 Year Warranty',
 		titleAccent: '& Support',
-		badge: "Industry's Best Guarantee",
-		desc: 'Every system we install carries our industry leading 25 year product warranty backed by a 24-hour replacement guarantee. Our dedicated aftercare team remains on call for the full lifetime of your heating system with zero callout fees, ever.',
+		badge: '25 Years. Zero Callout Fees.',
+		desc: 'Every system we install carries a 25 year product warranty backed by a 24-hour replacement guarantee. Our dedicated aftercare team remains on call for the full lifetime of your heating system with zero callout fees, ever.',
 		points: [
 			{
 				icon: '🛡️',
@@ -168,12 +168,12 @@ const steps = [
 			{
 				icon: '📞',
 				label: 'Zero Callout Fees',
-				detail: 'technical support with no hidden charges',
+				detail: 'Technical support with no hidden charges',
 			},
 		],
 		stat: {
 			value: '25yr',
-			label: 'Warranty, longer than any competitor offers',
+			label: 'Warranty covering cables, thermostats and controls',
 		},
 		proof: '300,000+ customers served. Zero unresolved warranty claims.',
 		bgScene: 'warranty',
@@ -926,7 +926,7 @@ function SceneInstall({ active }) {
 						x='284'
 						y='57'
 						textAnchor='middle'>
-						Every installation inspected
+						BS 7671 Amendment 4
 					</text>
 					<text
 						fontFamily="var(--font-body)"
@@ -935,7 +935,7 @@ function SceneInstall({ active }) {
 						x='284'
 						y='68'
 						textAnchor='middle'>
-						& certified on completion
+						Inspected & signed off on site
 					</text>
 				</motion.g>
 			)}
@@ -1804,6 +1804,21 @@ const scenes = {
 	warranty: SceneWarranty,
 };
 
+// Extremely subtle per-step atmosphere behind the scene card. Radiant is
+// deliberately left transparent, it already carries its own internal
+// warm-to-cool gradient (rHeat/rFloor) and a second tint would double up.
+const sceneTint = {
+	survey:
+		'radial-gradient(120% 100% at 30% 15%, rgba(193,122,80,0.10), transparent 65%)',
+	install:
+		'radial-gradient(120% 100% at 70% 25%, rgba(232,147,58,0.12), transparent 65%)',
+	radiant: 'transparent',
+	thermostat:
+		'radial-gradient(120% 100% at 50% 15%, rgba(127,192,232,0.08), transparent 65%)',
+	warranty:
+		'radial-gradient(120% 100% at 65% 70%, rgba(232,160,80,0.10), transparent 65%)',
+};
+
 // ─────────────────────────────────────────────────────────────────────────────
 // PROGRESS BAR
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1955,6 +1970,9 @@ export default function HowItWorksClient() {
 	const orbY2 = useTransform(scrollYProgress, [0, 1], [-40, 100]);
 	const orbY3 = useTransform(scrollYProgress, [0, 1], [-90, 50]);
 
+	const tabRefs = useRef([]);
+	const cardRefs = useRef([]);
+
 	const goTo = useCallback((i) => {
 		setIndex(i);
 		setProgressKey((k) => k + 1);
@@ -1966,6 +1984,36 @@ export default function HowItWorksClient() {
 	const prev = useCallback(
 		() => goTo((index - 1 + steps.length) % steps.length),
 		[index, goTo],
+	);
+
+	// Arrow-key stepping for the step tabs and bottom overview cards, Home/End
+	// jump to the first/last step. Mirrors the standard WAI-ARIA tab pattern.
+	const handleStepKeyDown = useCallback(
+		(e, i, refs) => {
+			let dest = null;
+			if (e.key === 'ArrowRight') dest = (i + 1) % steps.length;
+			else if (e.key === 'ArrowLeft')
+				dest = (i - 1 + steps.length) % steps.length;
+			else if (e.key === 'Home') dest = 0;
+			else if (e.key === 'End') dest = steps.length - 1;
+			if (dest === null) return;
+			e.preventDefault();
+			goTo(dest);
+			refs.current[dest]?.focus();
+		},
+		[goTo],
+	);
+
+	// Swipe-to-navigate on the scene card, same drag threshold technique used
+	// by the WhyChooseUs process carousel elsewhere in this codebase.
+	const handleSceneDragEnd = useCallback(
+		(_e, info) => {
+			const { offset, velocity } = info;
+			if (offset.x < -60 || velocity.x < -500) next();
+			else if (offset.x > 60 || velocity.x > 500) prev();
+			setPaused(false);
+		},
+		[next, prev],
 	);
 
 	const current = steps[index];
@@ -2064,6 +2112,11 @@ export default function HowItWorksClient() {
         @media (prefers-reduced-motion: reduce) {
           .hiw-orb-1, .hiw-orb-2, .hiw-orb-3, .hiw-float, .hiw-h-accent, .hiw-badge-dot { animation:none !important; }
         }
+
+        .hiw-sr-only {
+          position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+          overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+        }
       `}</style>
 
 			<section
@@ -2077,6 +2130,12 @@ export default function HowItWorksClient() {
 					fontFamily: "var(--font-body)",
 					color: C.text,
 				}}>
+				{/* Announces the auto-advancing step for screen reader users,
+				   since the carousel otherwise changes with no visual cue for them */}
+				<div aria-live='polite' className='hiw-sr-only'>
+					{`Step ${index + 1} of ${steps.length}: ${current.tag} — ${current.title} ${current.titleAccent}`}
+				</div>
+
 				{/* Three-orb drift system, same language as WhyChooseUs */}
 				<div aria-hidden className='hiw-aura'>
 					<motion.div style={{ y: reduce ? 0 : orbY1 }}>
@@ -2136,6 +2195,7 @@ export default function HowItWorksClient() {
 									boxShadow:
 										'inset 0 1px 0 rgba(255,255,255,0.06),0 8px 30px rgba(0,0,0,0.4)',
 									margin: 0,
+									marginTop:25
 								}}>
 								<span
 									className='hiw-badge-dot'
@@ -2189,18 +2249,19 @@ export default function HowItWorksClient() {
 								fontWeight: 400,
 								maxWidth: 580,
 							}}>
-							Every Heating Store installation follows a proven
-							five step process from a bespoke CAD floor survey
-							and NICEIC certified cable laying, through smart
-							thermostat commissioning and final performance
-							testing, to our industry leading 25 year warranty.
-							No shortcuts. No guesswork.
+							Every Heating Store installation follows the same
+							five step process: a bespoke CAD floor survey,
+							NICEIC certified cable laying to BS 7671, smart
+							thermostat commissioning, and a 25 year warranty
+							at the end of it. No shortcuts. No guesswork.
 						</motion.p>
 					</div>
 
 					{/* ── STEP TABS ── */}
 					<motion.div
 						className='hiw-tabs'
+						role='tablist'
+						aria-label='How it works steps'
 						initial={{ opacity: 0, y: 14 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true }}
@@ -2209,8 +2270,13 @@ export default function HowItWorksClient() {
 						{steps.map((s, i) => (
 							<button
 								key={s.step}
+								ref={(el) => (tabRefs.current[i] = el)}
 								className='hiw-tab'
+								role='tab'
+								aria-selected={index === i}
+								tabIndex={index === i ? 0 : -1}
 								onClick={() => goTo(i)}
+								onKeyDown={(e) => handleStepKeyDown(e, i, tabRefs)}
 								style={{
 									display: 'inline-flex',
 									alignItems: 'center',
@@ -2269,9 +2335,33 @@ export default function HowItWorksClient() {
 										borderRadius: 28,
 										overflow: 'hidden',
 										transformStyle: 'preserve-3d',
+										touchAction: 'pan-y',
 									}}
+									drag='x'
+									dragElastic={0.08}
+									dragConstraints={{ left: 0, right: 0 }}
+									onDragStart={() => setPaused(true)}
+									onDragEnd={handleSceneDragEnd}
 									onMouseEnter={() => setPaused(true)}
 									onMouseLeave={() => setPaused(false)}>
+									{/* Ambient per-step tint, sits behind everything else in the card */}
+									<AnimatePresence>
+										<motion.div
+											key={current.bgScene}
+											aria-hidden
+											initial={{ opacity: 0 }}
+											animate={{ opacity: 1 }}
+											exit={{ opacity: 0 }}
+											transition={{ duration: reduce ? 0 : 0.6, ease: EASE }}
+											style={{
+												position: 'absolute',
+												inset: 0,
+												zIndex: 0,
+												pointerEvents: 'none',
+												background: sceneTint[current.bgScene],
+											}}
+										/>
+									</AnimatePresence>
 									{/* Watermark */}
 									<div
 										style={{
@@ -2766,9 +2856,12 @@ export default function HowItWorksClient() {
 						{steps.map((s, i) => (
 							<motion.button
 								key={s.step}
+								ref={(el) => (cardRefs.current[i] = el)}
 								variants={botsCardVariant(i)}
 								className='hiw-bc hiw-glass hiw-glass-hover'
+								aria-current={index === i ? 'step' : undefined}
 								onClick={() => goTo(i)}
+								onKeyDown={(e) => handleStepKeyDown(e, i, cardRefs)}
 								whileHover={{ y: -4, transition: { duration: 0.2 } }}
 								style={{
 									position: 'relative',

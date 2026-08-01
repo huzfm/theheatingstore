@@ -1,0 +1,370 @@
+/* ── Testimonials — editorial customer story ─────────────────────────────
+   One featured quote at a time, not a card grid. Desktop pairs a large quote
+   panel with a quiet index rail (Stats' primary/secondary asymmetry);
+   mobile swaps to a single swipeable panel using the same nav language. */
+
+.whc-testi-stage {
+	display: grid;
+	grid-template-columns: minmax(0, 1.65fr) minmax(240px, 1fr);
+	gap: 64px;
+	align-items: stretch;
+}
+
+/* — featured quote panel — */
+.whc-testi-panel {
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	min-height: clamp(360px, 32vw, 460px);
+	padding: clamp(32px, 3.6vw, 56px) clamp(28px, 3.4vw, 52px);
+}
+.whc-testi-panel::after {
+	opacity: 0;
+	transition: opacity 0.5s ease;
+}
+.whc-testi-panel:hover::after {
+	opacity: 1;
+}
+.whc-testi-mark {
+	position: absolute;
+	top: -14px;
+	right: 18px;
+	z-index: 0;
+	pointer-events: none;
+	line-height: 0;
+}
+.whc-testi-panel-inner {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.whc-testi-stars {
+	display: flex;
+	gap: 3px;
+	opacity: 0.55;
+	margin-bottom: 22px;
+	flex-shrink: 0;
+}
+
+.whc-testi-quote {
+	flex: 1 1 auto;
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: clamp(21px, 2.3vw, 30px);
+	font-weight: 500;
+	line-height: 1.5;
+	letter-spacing: -0.01em;
+	color: #fbf3ea;
+}
+
+.whc-testi-identity {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 16px;
+	margin-top: 28px;
+	padding-top: 22px;
+	border-top: 1px solid rgba(255, 255, 255, 0.09);
+	flex-shrink: 0;
+}
+.whc-testi-monogram {
+	width: 50px;
+	height: 50px;
+	flex-shrink: 0;
+	border-radius: 12px;
+	border: 1px solid rgba(232, 147, 58, 0.35);
+	background: rgba(232, 147, 58, 0.06);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: var(--font-heading);
+	font-size: 18px;
+	letter-spacing: 0.02em;
+	color: #f5b97a;
+}
+.whc-testi-identity-body {
+	flex: 1 1 auto;
+	min-width: 140px;
+}
+.whc-testi-name {
+	font-family: var(--font-heading);
+	font-size: clamp(15px, 1.5vw, 17px);
+	letter-spacing: 0.03em;
+	color: #fbf3ea;
+	margin: 0;
+}
+.whc-testi-role {
+	font-family: var(--font-body);
+	font-size: 12.5px;
+	color: rgba(251, 243, 234, 0.55);
+	margin: 3px 0 0;
+}
+.whc-testi-tag {
+	font-family: var(--font-body);
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: #f5b97a;
+	white-space: nowrap;
+	margin-left: auto;
+	padding-left: 14px;
+	border-left: 1px solid rgba(232, 147, 58, 0.3);
+}
+
+/* — index rail — */
+.whc-testi-rail {
+	display: flex;
+	flex-direction: column;
+}
+.whc-testi-rail-count {
+	display: flex;
+	align-items: baseline;
+	gap: 6px;
+	margin-bottom: 22px;
+}
+.whc-testi-rail-current {
+	font-family: var(--font-heading);
+	font-size: 38px;
+	line-height: 0.9;
+	color: #fbf3ea;
+}
+.whc-testi-rail-sep {
+	font-family: var(--font-body);
+	font-size: 14px;
+	color: rgba(251, 243, 234, 0.4);
+}
+.whc-testi-rail-total {
+	font-family: var(--font-body);
+	font-size: 14px;
+	color: rgba(251, 243, 234, 0.55);
+}
+
+.whc-testi-rail-list {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+.whc-testi-rail-item {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	width: 100%;
+	text-align: left;
+	background: none;
+	border: none;
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+	padding: 16px 4px 16px 14px;
+	cursor: pointer;
+	font: inherit;
+	color: inherit;
+}
+.whc-testi-rail-item:first-child {
+	border-top: none;
+	padding-top: 0;
+}
+.whc-testi-rail-item::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 16px;
+	width: 2px;
+	border-radius: 1px;
+	background: transparent;
+	transition: background 0.35s ease;
+}
+.whc-testi-rail-item:first-child::before {
+	bottom: 0;
+}
+.whc-testi-rail-item.is-active::before {
+	background: linear-gradient(180deg, #e8933a, #ff7e5f);
+}
+.whc-testi-rail-index {
+	font-family: var(--font-body);
+	font-size: 10px;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	color: rgba(251, 243, 234, 0.35);
+	margin-top: 3px;
+	transition: color 0.35s ease;
+}
+.whc-testi-rail-item.is-active .whc-testi-rail-index {
+	color: #f5b97a;
+}
+.whc-testi-rail-body {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}
+.whc-testi-rail-name {
+	font-family: var(--font-body);
+	font-size: 13.5px;
+	font-weight: 600;
+	color: rgba(251, 243, 234, 0.55);
+	transition: color 0.35s ease;
+}
+.whc-testi-rail-item.is-active .whc-testi-rail-name {
+	color: #fbf3ea;
+}
+.whc-testi-rail-tag {
+	font-family: var(--font-body);
+	font-size: 10.5px;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: rgba(251, 243, 234, 0.35);
+}
+.whc-testi-rail-item:hover .whc-testi-rail-name {
+	color: #fbf3ea;
+}
+.whc-testi-rail-item:focus-visible {
+	outline: 2px solid #f5b97a;
+	outline-offset: 2px;
+	border-radius: 4px;
+}
+
+.whc-testi-rail-nav {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	margin-top: 26px;
+	padding-top: 22px;
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* — nav buttons (shared: rail + mobile) — */
+.whc-testi-nav-btn {
+	width: 38px;
+	height: 38px;
+	flex-shrink: 0;
+	border-radius: 50%;
+	border: 1px solid rgba(255, 255, 255, 0.14);
+	background: rgba(255, 255, 255, 0.03);
+	color: #fbf3ea;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: border-color 0.3s ease, background 0.3s ease;
+}
+.whc-testi-nav-btn:hover {
+	border-color: rgba(232, 147, 58, 0.5);
+	background: rgba(232, 147, 58, 0.08);
+}
+.whc-testi-nav-btn svg {
+	transition: transform 0.3s ease;
+}
+.whc-testi-nav-btn--prev:hover svg {
+	transform: translateX(-2px);
+}
+.whc-testi-nav-btn--next:hover svg {
+	transform: translateX(2px);
+}
+.whc-testi-nav-btn:focus-visible {
+	outline: 2px solid #f5b97a;
+	outline-offset: 3px;
+}
+
+/* — mobile — */
+.whc-testi-mobile {
+	display: none;
+}
+.whc-testi-mobile-panel {
+	position: relative;
+	overflow: hidden;
+	padding: clamp(24px, 6vw, 32px);
+	cursor: grab;
+}
+.whc-testi-mobile-panel:active {
+	cursor: grabbing;
+}
+.whc-testi-mobile-panel .whc-testi-quote {
+	font-size: clamp(18px, 5vw, 22px);
+}
+.whc-testi-mobile-panel .whc-testi-monogram {
+	width: 44px;
+	height: 44px;
+	font-size: 15px;
+}
+
+.whc-testi-mobile-nav {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	margin-top: 20px;
+}
+.whc-testi-mobile-count {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+.whc-testi-mobile-count-text {
+	font-family: var(--font-body);
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	color: rgba(251, 243, 234, 0.5);
+	text-align: center;
+}
+
+.whc-testi-note {
+	margin-top: 32px;
+	text-align: center;
+	font-family: var(--font-body);
+	font-size: 14px;
+	color: rgba(251, 243, 234, 0.6);
+}
+.whc-testi-note a {
+	color: #f5b97a;
+	font-weight: 600;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+/* — responsive — */
+@media (max-width: 1024px) {
+	.whc-testi-stage {
+		grid-template-columns: 1fr;
+		gap: 40px;
+	}
+	.whc-testi-panel {
+		min-height: 0;
+	}
+}
+
+@media (max-width: 768px) {
+	.whc-testi-stage {
+		display: none;
+	}
+	.whc-testi-mobile {
+		display: block;
+	}
+}
+
+@media (max-width: 480px) {
+	.whc-testi-identity {
+		gap: 12px;
+	}
+	.whc-testi-tag {
+		margin-left: 0;
+		padding-left: 0;
+		border-left: none;
+		width: 100%;
+		margin-top: 4px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.whc-testi-nav-btn svg,
+	.whc-testi-rail-item::before,
+	.whc-testi-rail-index,
+	.whc-testi-rail-name {
+		transition: none !important;
+	}
+}
