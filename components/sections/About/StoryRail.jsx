@@ -57,9 +57,13 @@ function Panel({ className = '', children }) {
 /**
  * The About story rail.
  *
- * Left column scrolls the origin narrative and the three principles; the right
- * column holds a sticky 3D heating mat that changes state as each block lands.
- * The copy is unchanged, every string comes from data.js via lib/story-rail.
+ * Left column scrolls the three principles; the right column holds a sticky 3D
+ * heating mat that changes state as each block lands. Every string comes from
+ * data.js via lib/story-rail.
+ *
+ * The origin narrative used to lead this rail and now has its own section,
+ * OriginGallery, immediately above. The thresholds and keyframes in
+ * lib/story-rail were re-derived for the shorter three-block rail.
  *
  * Pinning is CSS `position: sticky`, not ScrollTrigger's `pin`. ScrollTrigger
  * still drives everything reactive (it owns the 0→1 scrub the scene reads),
@@ -242,9 +246,13 @@ export default function StoryRail() {
 
                     {b.title ? (
                       i === 0 ? (
+                        /* First block carries the section's h2. It is set at
+                           the principle scale, not the display scale it used
+                           to be: the origin heading above now owns that size,
+                           and two competing h2s in a row read as a mistake. */
                         <RevealText
                           as="h2"
-                          className="mt-6 max-w-[18ch] font-serif text-[clamp(1.9rem,4vw,3.25rem)] leading-[1.02] text-bone-100"
+                          className="mt-6 max-w-[18ch] font-serif text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.08] text-bone-100"
                         >
                           {b.title}
                         </RevealText>

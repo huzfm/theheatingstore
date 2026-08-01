@@ -34,10 +34,13 @@ const TOTAL = REASONS.length;
  *    and it's driven by an IntersectionObserver over a thin centre band, not
  *    by a scroll handler, so it costs nothing per frame.
  *
- * Motion is opacity/transform only, each row reveals on its own
+ * Each row is a numbered editorial entry — eyebrow tag, heading, body, stat,
+ * and an outlined watermark numeral on wide screens — and reveals on its own
  * `whileInView` so the cascade follows the reader rather than firing all
- * seven at once, and the whole thing degrades to plain static markup under
- * `prefers-reduced-motion`.
+ * seven at once. Odd rows slide in from the left and even rows from the
+ * right, over a blur-fade, using the same entrance vocabulary as the rest of
+ * the site. Motion is opacity/transform/filter only, and the whole thing
+ * degrades to plain static markup under `prefers-reduced-motion`.
  */
 
 const CSS = `
@@ -54,7 +57,7 @@ const CSS = `
   }
   .weh h2, .weh h2 span { font-size: clamp(2.3rem, 5vw, 4.1rem); line-height: 0.94; }
   .weh h3 { font-size: clamp(1.45rem, 2.1vw, 2rem); line-height: 1.02; }
-  .weh .weh-num { font-size: clamp(1.5rem, 1.9vw, 1.9rem); line-height: 1; }
+  .weh .weh-numeral { font-size: clamp(3.75rem, 6.5vw, 7rem); line-height: 0.78; }
   .weh .weh-stat-value { font-size: clamp(1.05rem, 1.4vw, 1.35rem); line-height: 1.1; }
   .weh p { line-height: 1.7; }
 
@@ -81,28 +84,37 @@ const CSS = `
   }
   .weh-row-inner { transition: transform 0.5s cubic-bezier(.16,1,.3,1); }
 
-  .weh-num { color: rgba(140,133,125,0.75); transition: color 0.4s ease; }
-  .weh-icon { color: rgba(140,133,125,0.55); transition: color 0.4s ease, opacity 0.4s ease; opacity: 0.7; }
-  .weh-spine {
-    width: 1px; flex: 1 1 auto; min-height: 0.75rem;
-    background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.02));
-    position: relative;
+  /* Eyebrow tag, "( 01. — Reason )". The bracket glyphs are decorative
+     punctuation, so they're marked aria-hidden and the readable part is a
+     plain string the screen reader gets on its own. */
+  .weh-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    font-size: 10.5px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: rgba(140,133,125,0.9);
+    transition: color 0.4s ease;
   }
-  .weh-spine::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, var(--a), transparent);
-    transform: scaleY(0); transform-origin: top center;
-    transition: transform 0.6s cubic-bezier(.16,1,.3,1);
+  .weh-eyebrow-bracket { color: rgba(140,133,125,0.45); transition: color 0.4s ease; }
+  .weh-icon { color: rgba(140,133,125,0.55); transition: color 0.4s ease, opacity 0.4s ease; opacity: 0.7; }
+
+  /* Oversized decorative numeral. Outlined rather than filled so it reads as
+     a watermark beside the body copy instead of competing with the heading. */
+  .weh-numeral {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.11);
+    user-select: none;
+    transition: -webkit-text-stroke-color 0.45s ease;
   }
   .weh-stat-value { color: #f5f1ec; transition: color 0.4s ease; }
 
   .weh-row.is-on .weh-row-rule::after { transform: scaleX(1); }
   .weh-row.is-on .weh-row-wash { opacity: 1; }
-  .weh-row.is-on .weh-num,
+  .weh-row.is-on .weh-eyebrow,
+  .weh-row.is-on .weh-eyebrow-bracket,
   .weh-row.is-on .weh-icon,
   .weh-row.is-on .weh-stat-value { color: var(--a); }
   .weh-row.is-on .weh-icon { opacity: 1; }
-  .weh-row.is-on .weh-spine::after { transform: scaleY(1); }
+  .weh-row.is-on .weh-numeral { -webkit-text-stroke-color: var(--a-40); }
 
   /* Nudge only where a pointer can actually hover, a translate that fires on
      scroll position alone would read as drift. */
@@ -122,8 +134,9 @@ const CSS = `
     .weh-row-rule::after,
     .weh-row-wash,
     .weh-row-inner,
-    .weh-spine::after,
-    .weh-num, .weh-icon, .weh-stat-value { transition: none; }
+    .weh-numeral,
+    .weh-eyebrow, .weh-eyebrow-bracket,
+    .weh-icon, .weh-stat-value { transition: none; }
   }
 `;
 
@@ -163,10 +176,22 @@ function Actions({ className = '' }) {
   );
 }
 
-function Reason({ reason, index, active, reduce, onEnter, onLeave, registerRef }) {
+/* Entrance offsets for the alternating reveal. The horizontal travel is cut
+   hard on narrow viewports: the wide value across a ~320px column reads as a
+   lurch rather than a drift, and it stacks with the section's side padding.
+   The section is `overflow-hidden`, so neither value can induce page scroll. */
+const SLIDE_WIDE = 220;
+const SLIDE_NARROW = 62;
+
+function Reason({ reason, index, active, reduce, narrow, onEnter, onLeave, registerRef }) {
   const { num, title, desc, stat, statLabel, accent, Icon } = reason;
   const [hovered, setHovered] = useState(false);
   const on = hovered || active;
+
+  /* Odd-numbered reasons (01, 03, 05, 07 — even indices) enter from the left,
+     even-numbered ones from the right, so the list rocks as it's read. */
+  const direction = index % 2 === 0 ? -1 : 1;
+  const offset = (narrow ? SLIDE_NARROW : SLIDE_WIDE) * direction;
 
   return (
     <motion.li
@@ -186,43 +211,52 @@ function Reason({ reason, index, active, reduce, onEnter, onLeave, registerRef }
         setHovered(false);
         onLeave?.();
       }}
-      initial={reduce ? false : { opacity: 0, y: 26 }}
-      whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '0px 0px -12% 0px' }}
-      transition={{ duration: 0.7, ease: EASE }}
+      /* `amount: 0.3` keys the reveal to each row individually, so row 3 waits
+         until row 3 is itself approaching the viewport rather than firing with
+         the rest of the list. `once` keeps it from replaying on the way back up. */
+      initial={reduce ? false : { opacity: 0, x: offset, filter: 'blur(6px)' }}
+      whileInView={reduce ? undefined : { opacity: 1, x: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 1.25, ease: EASE }}
     >
       <span className="weh-row-rule" aria-hidden="true" />
       <span className="weh-row-wash" aria-hidden="true" />
 
-      <div className="weh-row-inner relative flex gap-5 py-7 pr-1 sm:gap-8 sm:py-9">
-        {/* Index spine: number, hairline, glyph. Reads as a catalogue entry
-            and gives the eye a fixed left edge to run down. */}
-        <div className="flex w-9 shrink-0 flex-col items-center sm:w-11">
-          <span aria-hidden="true" className="weh-display weh-num">
-            {num}
-          </span>
-          <span className="weh-spine my-3" aria-hidden="true" />
-          <span className="weh-icon">
-            <Icon size={18} color="currentColor" />
-          </span>
-        </div>
-
+      <div className="weh-row-inner relative flex items-start gap-6 py-9 pr-1 sm:gap-10 sm:py-12">
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2.5">
-            <h3 className="text-bone-100">{title}</h3>
+          <span className="weh-eyebrow">
+            <span className="weh-icon">
+              <Icon size={15} color="currentColor" />
+            </span>
+            <span aria-hidden="true" className="weh-eyebrow-bracket">
+              (
+            </span>
+            {num}. — Reason
+            <span aria-hidden="true" className="weh-eyebrow-bracket">
+              )
+            </span>
+          </span>
 
-            <div className="flex items-baseline gap-2 sm:flex-col sm:items-end sm:gap-1">
-              <span className="weh-display weh-stat-value">{stat}</span>
-              <span className="text-[10px] uppercase tracking-[0.18em] text-bone-500 sm:text-[10.5px]">
-                {statLabel}
-              </span>
-            </div>
-          </div>
+          <h3 className="mt-4 text-bone-100">{title}</h3>
 
           <p className="mt-4 max-w-[52ch] text-[15px] text-bone-300/75 sm:text-[15.5px]">
             {desc}
           </p>
+
+          <div className="mt-6 flex items-baseline gap-2.5">
+            <span className="weh-display weh-stat-value">{stat}</span>
+            <span className="text-[10px] uppercase tracking-[0.18em] text-bone-500 sm:text-[10.5px]">
+              {statLabel}
+            </span>
+          </div>
         </div>
+
+        {/* Decorative watermark numeral. Hidden below `lg`: the eyebrow already
+            carries the number, so at narrow widths a second copy is redundant
+            crowding rather than a badge worth keeping. */}
+        <span aria-hidden="true" className="weh-display weh-numeral hidden shrink-0 lg:block">
+          {num}
+        </span>
       </div>
     </motion.li>
   );
@@ -236,10 +270,22 @@ export default function WhyElectricHamam() {
 
   const [active, setActive] = useState(0);
   const [canHover, setCanHover] = useState(false);
+  const [narrow, setNarrow] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
     const sync = () => setCanHover(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
+
+  /* Drives the shorter entrance travel on phones. Read in an effect rather
+     than during render so the server and first client pass agree; the section
+     sits well below the fold, so no row has revealed by the time this lands. */
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)');
+    const sync = () => setNarrow(mq.matches);
     sync();
     mq.addEventListener('change', sync);
     return () => mq.removeEventListener('change', sync);
@@ -434,6 +480,7 @@ export default function WhyElectricHamam() {
                   index={i}
                   active={active === i}
                   reduce={reduce}
+                  narrow={narrow}
                   registerRef={(el) => {
                     rowRefs.current[i] = el;
                   }}

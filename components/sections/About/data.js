@@ -31,6 +31,69 @@ export const ORIGIN = {
   ],
   image:
     'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=80&auto=format&fit=crop',
+
+  /**
+   * Circular gallery items, PLACEHOLDER IMAGERY.
+   *
+   * Every `src` below is a stock photograph standing in for a real one. None of
+   * them show our own work, our own team, or Kashmir. Replace all eight with
+   * genuine job-site photography before launch, the copy on each card is
+   * written to be true of us, the picture underneath it currently is not.
+   *
+   * Portrait crops (roughly 3:4) read best, the cards are taller than they are
+   * wide. The shader cover-fits anything, but a landscape source loses its
+   * sides.
+   */
+  gallery: [
+    {
+      id: 'workshop',
+      label: 'The first workshop',
+      caption: 'Srinagar, 2011. Four engineers, a rented unit, and one bad winter for imported radiators.', // PLACEHOLDER
+      src: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=900&q=80&auto=format&fit=crop',
+    },
+    {
+      id: 'first-floor',
+      label: 'The first floor',
+      caption: 'The first mat we ever laid, specced for a house that lost power most evenings.', // PLACEHOLDER
+      src: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80&auto=format&fit=crop',
+    },
+    {
+      id: 'cable',
+      label: 'Cable, not guesswork',
+      caption: 'Every run measured and logged before a single screed board goes down.', // PLACEHOLDER
+      src: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=900&q=80&auto=format&fit=crop',
+    },
+    {
+      id: 'hamam',
+      label: 'Hamam, done right',
+      caption: 'Wet-area-certified systems for the one room in a Kashmiri home that never gets to be cold.', // PLACEHOLDER
+      src: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=900&q=80&auto=format&fit=crop',
+    },
+    {
+      id: 'winter',
+      label: 'Built for the valley',
+      caption: 'Specced against the coldest week of the year, not the average one.', // PLACEHOLDER
+      src: 'https://images.unsplash.com/photo-1418985991508-e47386d96a71?w=900&q=80&auto=format&fit=crop',
+    },
+    {
+      id: 'commissioning',
+      label: 'Commissioned by hand',
+      caption: 'Insulation resistance and continuity checked twice, before the floor closes and after.', // PLACEHOLDER
+      src: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=900&q=80&auto=format&fit=crop',
+    },
+    {
+      id: 'team',
+      label: 'Engineers, not resellers',
+      caption: 'The people who spec the system are the people who stand behind the install.', // PLACEHOLDER
+      src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80&auto=format&fit=crop',
+    },
+    {
+      id: 'today',
+      label: 'Warmer, every winter',
+      caption: 'Thousands of floors later, still building for the moment the grid goes quiet.', // PLACEHOLDER
+      src: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=900&q=80&auto=format&fit=crop',
+    },
+  ],
 };
 
 /* Three principles, rendered as distinct glow cards, not an icon grid. */
