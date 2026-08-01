@@ -35,6 +35,9 @@ importers:
       next:
         specifier: 16.1.6
         version: 16.1.6(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      ogl:
+        specifier: ^1.0.11
+        version: 1.0.11
       postprocessing:
         specifier: 6.39.3
         version: 6.39.3(three@0.185.1)
@@ -955,6 +958,9 @@ packages:
 
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
+
+  ogl@1.0.11:
+    resolution: {integrity: sha512-kUpC154AFfxi16pmZUK4jk3J+8zxwTWGPo03EoYA8QPbzikHoaC82n6pNTbd+oEaJonaE8aPWBlX7ad9zrqLsA==}
 
   path-key@3.1.1:
     resolution: {integrity: sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==}
@@ -1933,6 +1939,8 @@ snapshots:
   nth-check@2.1.1:
     dependencies:
       boolbase: 1.0.0
+
+  ogl@1.0.11: {}
 
   path-key@3.1.1: {}
 
