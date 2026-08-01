@@ -1,0 +1,274 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   How It Works — shared layout, hover states, responsive rules, keyframes
+   Color tokens/easing live in components/sections/WhyChooseUs/theme.js and
+   are imported per-component; this file only holds what CSS-in-JS can't do
+   cleanly (pseudo-elements, hover states, media queries, sticky layout).
+   ───────────────────────────────────────────────────────────────────────── */
+
+#journey {
+	scroll-margin-top: 90px;
+}
+
+/* Grain texture, matches the rest of the site's dark pages */
+.hiw-noise {
+	position: relative;
+}
+.hiw-noise::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+	opacity: 0.045;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hiw-noise > * {
+	position: relative;
+	z-index: 1;
+}
+
+.hiw-vignette {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	background: radial-gradient(120% 120% at 50% 30%, transparent 55%, rgba(0, 0, 0, 0.45) 100%);
+}
+
+/* Glass card recipe, identical to the rest of the site's dark-glass system */
+.hiw-glass {
+	position: relative;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)), rgba(20, 13, 8, 0.5);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+	border-radius: 20px;
+}
+
+/* CTA hover states */
+.hiw-btn-primary {
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.hiw-btn-primary:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 26px 70px rgba(255, 126, 95, 0.45) !important;
+}
+.hiw-btn-secondary {
+	transition: background 0.2s ease, border-color 0.2s ease;
+}
+.hiw-btn-secondary:hover {
+	background: rgba(232, 147, 58, 0.12) !important;
+	border-color: rgba(232, 147, 58, 0.5) !important;
+}
+.hiw-btn-primary:focus-visible,
+.hiw-btn-secondary:focus-visible {
+	outline: 2px solid #f5b97a;
+	outline-offset: 3px;
+}
+
+/* ── Hero ── */
+.hiw-hero-grid {
+	grid-template-columns: 1.05fr 0.95fr;
+}
+
+/* ── Journey (signature sticky-scroll section) ── */
+.hiw-journey-mobile-bar {
+	display: none;
+}
+
+.hiw-journey-grid {
+	display: grid;
+	grid-template-columns: 380px 1fr;
+	gap: 64px;
+	align-items: stretch;
+	padding-bottom: 96px;
+}
+
+.hiw-journey-rail-col {
+	position: relative;
+}
+
+.hiw-rail {
+	position: sticky;
+	top: 110px;
+}
+
+.hiw-rail-stepper {
+	position: relative;
+	padding: 4px 0;
+}
+.hiw-rail-track,
+.hiw-rail-fill {
+	position: absolute;
+	left: 13px;
+	top: 14px;
+	bottom: 14px;
+	width: 2px;
+	border-radius: 2px;
+}
+.hiw-rail-track {
+	background: rgba(255, 255, 255, 0.12);
+}
+.hiw-rail-fill {
+	background: linear-gradient(180deg, #e8933a, #ff7e5f);
+	transform-origin: top;
+}
+
+.hiw-rail-scene {
+	margin-top: 30px;
+	padding: 20px 16px 0;
+	overflow: hidden;
+}
+
+.hiw-stage-visual-mobile {
+	display: none;
+}
+
+.hiw-stage {
+	padding-bottom: 88px;
+	min-height: 40vh;
+}
+.hiw-stage:last-child {
+	padding-bottom: 0;
+}
+
+/* ── Technical precision ── */
+.hiw-tech-grid {
+	display: grid;
+	grid-template-columns: 0.85fr 1.15fr;
+	gap: 64px;
+	align-items: center;
+}
+
+/* ── Customer experience (before/during/after) ── */
+.hiw-cx-row {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 48px;
+}
+.hiw-cx-item {
+	padding-left: 24px;
+	border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+.hiw-cx-item:first-child {
+	padding-left: 0;
+	border-left: none;
+}
+
+/* ── Trust stat rail ── */
+.hiw-stat-rail {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	padding: 28px 10px;
+}
+.hiw-stat-rail-item {
+	text-align: center;
+	padding: 0 10px;
+	border-left: 1px solid rgba(255, 255, 255, 0.09);
+}
+.hiw-stat-rail-item:first-child {
+	border-left: none;
+}
+
+/* ── Tablet ── */
+@media (max-width: 1100px) {
+	.hiw-journey-grid {
+		grid-template-columns: 320px 1fr;
+		gap: 40px;
+	}
+	.hiw-tech-grid {
+		grid-template-columns: 1fr;
+		gap: 40px;
+	}
+}
+
+/* ── Mobile: sticky rail collapses, visuals move inline per stage ── */
+@media (max-width: 900px) {
+	.hiw-hero-grid {
+		grid-template-columns: 1fr !important;
+		padding-top: 108px !important;
+	}
+
+	.hiw-journey-grid {
+		grid-template-columns: 1fr;
+	}
+	.hiw-journey-rail-col {
+		display: none;
+	}
+	.hiw-journey-mobile-bar {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		position: sticky;
+		top: 76px;
+		z-index: 3;
+		margin-bottom: 40px;
+		padding: 10px 4px;
+		background: rgba(13, 8, 5, 0.85);
+		backdrop-filter: blur(10px);
+	}
+	.hiw-bar-track {
+		flex: 1;
+		height: 3px;
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.12);
+		overflow: hidden;
+	}
+	.hiw-bar-fill {
+		height: 100%;
+		border-radius: 999px;
+		background: linear-gradient(90deg, #e8933a, #ff7e5f);
+	}
+	.hiw-stage {
+		opacity: 1 !important;
+		padding-bottom: 56px;
+		min-height: 0;
+	}
+	.hiw-stage-visual-mobile {
+		display: block;
+		margin-bottom: 24px;
+		border-radius: 20px;
+		overflow: hidden;
+		padding: 14px 10px;
+	}
+
+	.hiw-cx-row {
+		grid-template-columns: 1fr;
+		gap: 40px;
+	}
+	.hiw-cx-item {
+		padding-left: 0;
+		padding-top: 24px;
+		border-left: none;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+	}
+	.hiw-cx-item:first-child {
+		padding-top: 0;
+		border-top: none;
+	}
+
+	.hiw-stat-rail {
+		grid-template-columns: repeat(2, 1fr);
+		row-gap: 24px;
+	}
+	.hiw-stat-rail-item:nth-child(3) {
+		border-left: none;
+	}
+}
+
+@media (max-width: 480px) {
+	.hiw-stat-rail {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+/* ── Reduced motion: keep content, drop scroll-linked and looping motion ── */
+@media (prefers-reduced-motion: reduce) {
+	.hiw-rail-fill {
+		transition: none !important;
+	}
+	* {
+		scroll-behavior: auto !important;
+	}
+}

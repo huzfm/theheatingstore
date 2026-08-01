@@ -1,0 +1,247 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Measuring Up — shared layout, hover states, responsive rules, keyframes.
+   Color tokens/easing live in components/sections/WhyChooseUs/theme.js and
+   are imported per-component; this file only holds what CSS-in-JS can't do
+   cleanly (pseudo-elements, hover states, media queries, sticky layout).
+   Naming and structure mirror app/how-it-works/how-it-works.css so the two
+   rebuilt pages share one visual system.
+   ───────────────────────────────────────────────────────────────────────── */
+
+#mu-calculator {
+  scroll-margin-top: 90px;
+}
+
+/* Grain texture, matches the rest of the site's dark pages */
+.mu-noise {
+  position: relative;
+}
+.mu-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.mu-noise > * {
+  position: relative;
+  z-index: 1;
+}
+
+.mu-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 120% at 50% 20%, transparent 55%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+/* Single soft amber wash behind the hero only — refined down from the old
+   three-orb drift system, since a working calculator page should feel
+   quiet rather than atmospheric. */
+.mu-aura {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 720px;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(20px);
+  overflow: hidden;
+}
+@keyframes mu-drift {
+  0% { transform: translate3d(-4%, -2%, 0) scale(1); }
+  50% { transform: translate3d(4%, 3%, 0) scale(1.06); }
+  100% { transform: translate3d(-4%, -2%, 0) scale(1); }
+}
+.mu-orb {
+  position: absolute;
+  border-radius: 50%;
+  top: -10%;
+  left: 10%;
+  width: 34vw;
+  height: 34vw;
+  max-width: 460px;
+  max-height: 460px;
+  background: radial-gradient(circle, rgba(232, 147, 58, 0.13), transparent 62%);
+  animation: mu-drift 34s ease-in-out infinite;
+}
+
+/* Glass card recipe, identical to the rest of the site's dark-glass system */
+.mu-glass {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)), rgba(20, 13, 8, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+}
+
+/* Buttons */
+.mu-btn-primary {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.mu-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 26px 60px rgba(255, 126, 95, 0.4) !important;
+}
+.mu-btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+.mu-btn-secondary {
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.mu-btn-secondary:hover {
+  background: rgba(232, 147, 58, 0.12) !important;
+  border-color: rgba(232, 147, 58, 0.5) !important;
+}
+.mu-btn-primary:focus-visible,
+.mu-btn-secondary:focus-visible,
+.mu-remove-btn:focus-visible,
+.mu-input:focus-visible {
+  outline: 2px solid #f5b97a;
+  outline-offset: 2px;
+}
+
+/* Inputs — kept on a light/cream surface so they read as "type here"
+   against the dark page. */
+.mu-input {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.mu-input:focus {
+  border-color: rgba(196, 98, 58, 0.6) !important;
+  box-shadow: 0 0 0 3px rgba(232, 147, 58, 0.18) !important;
+}
+.mu-input::placeholder {
+  color: rgba(107, 74, 45, 0.4);
+}
+.mu-input-error {
+  border-color: rgba(220, 70, 50, 0.55) !important;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.mu-remove-btn {
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.mu-remove-btn:not(:disabled):hover {
+  background: rgba(220, 70, 50, 0.16) !important;
+  border-color: rgba(220, 70, 50, 0.35) !important;
+  color: #ff8a75 !important;
+}
+
+/* ── Hero ── */
+.mu-hero-grid {
+  grid-template-columns: 1.3fr 0.7fr;
+}
+
+/* ── Calculator two-column layout ── */
+.mu-calc-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 40px;
+  align-items: start;
+}
+.mu-calc-rail {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Step guide cards ── */
+.mu-guide-card {
+  transition: box-shadow 0.25s ease;
+}
+.mu-guide-card:hover {
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.5), 0 0 40px -14px rgba(232, 147, 58, 0.3);
+}
+.mu-guide-card img {
+  transition: transform 0.4s ease;
+}
+.mu-guide-card:hover img {
+  transform: scale(1.04);
+}
+
+/* ── Un-heatable area rows — mobile field labels (aria-hidden, each input
+   already carries its own aria-label) and stacked layout once the row
+   grid gets too tight. ── */
+.mu-field-label {
+  display: none;
+}
+.mu-area-row-grid {
+  display: grid;
+  grid-template-columns: 34px 1.6fr 1fr 1fr 0.9fr 36px;
+  gap: 10px;
+  align-items: center;
+}
+@media (max-width: 760px) {
+  .mu-area-row-grid {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 12px;
+  }
+  .mu-field-badge { display: none; }
+  .mu-field-name { grid-column: 1 / -1; }
+  .mu-field-total { grid-column: 1 / -1; }
+  .mu-field-label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #f5b97a;
+    margin-bottom: 5px;
+  }
+  .mu-field-remove {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
+/* ── Considerations cards ── */
+.mu-card {
+  transition: box-shadow 0.25s ease;
+}
+.mu-card:hover {
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.5), 0 0 40px -14px rgba(232, 147, 58, 0.3);
+}
+
+/* ── Tablet ── */
+@media (max-width: 1080px) {
+  .mu-calc-grid {
+    grid-template-columns: 1fr;
+  }
+  .mu-calc-rail {
+    position: static;
+    top: auto;
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 900px) {
+  .mu-hero-grid {
+    grid-template-columns: 1fr !important;
+    padding-top: 108px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mu-orb { animation: none !important; }
+  * { scroll-behavior: auto !important; }
+}

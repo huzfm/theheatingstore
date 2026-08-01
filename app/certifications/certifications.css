@@ -1,0 +1,714 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Certifications — Engineering & Certification Intelligence
+   Layout, hover states, responsive rules and keyframes. Color tokens and
+   easing live in components/sections/WhyChooseUs/theme.js.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.cfx-noise {
+	position: relative;
+}
+.cfx-noise::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+	opacity: 0.045;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.cfx-noise > * {
+	position: relative;
+	z-index: 1;
+}
+
+.cfx-blueprint {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	opacity: 0.5;
+	background-image: repeating-linear-gradient(
+			0deg,
+			rgba(255, 255, 255, 0.025) 0,
+			transparent 1px,
+			transparent 88px,
+			rgba(255, 255, 255, 0.025) 89px
+		),
+		repeating-linear-gradient(
+			90deg,
+			rgba(255, 255, 255, 0.025) 0,
+			transparent 1px,
+			transparent 88px,
+			rgba(255, 255, 255, 0.025) 89px
+		);
+	mask-image: radial-gradient(80% 70% at 50% 20%, #000 40%, transparent 100%);
+}
+
+.cfx-vignette {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	background: radial-gradient(120% 120% at 50% 30%, transparent 55%, rgba(0, 0, 0, 0.45) 100%);
+}
+
+.cfx-glass {
+	position: relative;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)), rgba(20, 13, 8, 0.5);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cfx-eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font-family: var(--font-body);
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.35em;
+	color: #f5b97a;
+}
+
+/* ── Hero ── */
+.cfx-hero-grid {
+	display: grid;
+	grid-template-columns: 1.05fr 0.95fr;
+	gap: 64px;
+	align-items: center;
+}
+
+.cfx-meta-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0;
+	margin-top: 40px;
+}
+.cfx-meta-item {
+	padding: 0 22px;
+	border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+.cfx-meta-item:first-child {
+	padding-left: 0;
+	border-left: none;
+}
+
+/* Technical seal */
+.cfx-seal-wrap {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	max-width: 460px;
+	margin: 0 auto;
+}
+.cfx-seal-ring {
+	position: absolute;
+	inset: 0;
+	border-radius: 50%;
+	border: 1px solid rgba(245, 185, 122, 0.16);
+}
+.cfx-seal-ring--dashed {
+	border-style: dashed;
+	border-color: rgba(245, 185, 122, 0.22);
+	animation: cfx-spin 90s linear infinite;
+}
+.cfx-seal-ring--ticks {
+	background: repeating-conic-gradient(
+		rgba(245, 185, 122, 0.35) 0deg 1.2deg,
+		transparent 1.2deg 9deg
+	);
+	-webkit-mask: radial-gradient(circle, transparent 63%, #000 64%, #000 66%, transparent 67%);
+	mask: radial-gradient(circle, transparent 63%, #000 64%, #000 66%, transparent 67%);
+	animation: cfx-spin 140s linear infinite reverse;
+}
+.cfx-seal-core {
+	position: absolute;
+	inset: 30%;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: radial-gradient(circle at 50% 40%, rgba(232, 147, 58, 0.22), rgba(20, 13, 8, 0.7) 72%);
+	border: 1px solid rgba(245, 185, 122, 0.3);
+	box-shadow: 0 0 60px -10px rgba(232, 147, 58, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.cfx-seal-core::after {
+	content: '';
+	position: absolute;
+	z-index: 0;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	bottom: 16%;
+	background: #f5b97a;
+	box-shadow: 0 0 26px 10px rgba(245, 185, 122, 0.5);
+	animation: cfx-pulse 3.2s ease-in-out infinite;
+}
+.cfx-seal-core > span {
+	position: relative;
+	z-index: 1;
+}
+.cfx-seal-label {
+	position: absolute;
+	font-family: var(--font-body);
+	font-size: 10px;
+	font-weight: 600;
+	letter-spacing: 0.14em;
+	color: rgba(251, 243, 234, 0.65);
+	white-space: nowrap;
+	transform: translate(-50%, -50%);
+	padding: 4px 10px;
+	border-radius: 999px;
+	background: rgba(13, 8, 5, 0.6);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.cfx-seal-crosshair {
+	position: absolute;
+	inset: 0;
+}
+.cfx-seal-crosshair::before,
+.cfx-seal-crosshair::after {
+	content: '';
+	position: absolute;
+	background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+}
+.cfx-seal-crosshair::before {
+	left: 0;
+	right: 0;
+	top: 50%;
+	height: 1px;
+}
+.cfx-seal-crosshair::after {
+	top: 0;
+	bottom: 0;
+	left: 50%;
+	width: 1px;
+	background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+}
+.cfx-seal-coord {
+	position: absolute;
+	font-family: ui-monospace, monospace;
+	font-size: 9px;
+	letter-spacing: 0.05em;
+	color: rgba(245, 185, 122, 0.4);
+}
+
+/* ── Partner strip ── */
+.cfx-partners {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+}
+.cfx-partner {
+	position: relative;
+	padding: 34px 26px;
+	border-left: 1px solid rgba(255, 255, 255, 0.09);
+	text-decoration: none;
+	display: block;
+	overflow: hidden;
+	transition: background 0.4s ease;
+}
+.cfx-partner:first-child {
+	border-left: none;
+}
+.cfx-partner:hover,
+.cfx-partner:focus-visible {
+	background: rgba(232, 147, 58, 0.06);
+}
+.cfx-partner-bar {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 2px;
+	background: linear-gradient(90deg, #e8933a, #ff7e5f);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cfx-partner:hover .cfx-partner-bar,
+.cfx-partner:focus-visible .cfx-partner-bar {
+	transform: scaleX(1);
+}
+.cfx-partner-name {
+	opacity: 0.78;
+	transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
+}
+.cfx-partner:hover .cfx-partner-name,
+.cfx-partner:focus-visible .cfx-partner-name {
+	opacity: 1;
+	color: #f5b97a !important;
+	transform: translateY(-2px);
+}
+
+/* ── Compliance system ── */
+.cfx-compliance-grid {
+	display: grid;
+	grid-template-columns: 1.15fr 1fr;
+	grid-template-rows: auto auto;
+	gap: 1px;
+	background: rgba(255, 255, 255, 0.09);
+	border: 1px solid rgba(255, 255, 255, 0.09);
+}
+.cfx-compliance-primary {
+	grid-row: 1 / 3;
+	padding: 44px 40px;
+}
+.cfx-compliance-secondary {
+	padding: 32px 36px;
+}
+.cfx-compliance-cell {
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01)), #130c07;
+	position: relative;
+	transition: background 0.5s ease;
+}
+.cfx-compliance-cell::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border: 1px solid transparent;
+	opacity: 0;
+	transition: opacity 0.5s ease, border-color 0.5s ease;
+	pointer-events: none;
+}
+.cfx-compliance-cell:hover::before,
+.cfx-compliance-cell:focus-within::before {
+	opacity: 1;
+	border-color: rgba(232, 147, 58, 0.4);
+	box-shadow: inset 0 0 40px -18px rgba(232, 147, 58, 0.6);
+}
+.cfx-compliance-chips {
+	grid-column: 1 / 3;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1px;
+	background: rgba(255, 255, 255, 0.09);
+}
+.cfx-chip {
+	flex: 1 1 120px;
+	padding: 18px 20px;
+	background: #130c07;
+	font-family: ui-monospace, monospace;
+	font-size: 12.5px;
+	letter-spacing: 0.04em;
+	color: rgba(251, 243, 234, 0.68);
+	text-align: center;
+	transition: background 0.4s ease, color 0.4s ease;
+}
+.cfx-chip:hover {
+	background: rgba(232, 147, 58, 0.08);
+	color: #f5b97a;
+}
+
+/* ── Standards timeline ── */
+.cfx-timeline-grid {
+	display: grid;
+	grid-template-columns: 360px 1fr;
+	gap: 56px;
+	align-items: start;
+}
+.cfx-timeline-list {
+	display: flex;
+	flex-direction: column;
+}
+.cfx-timeline-btn {
+	all: unset;
+	cursor: pointer;
+	display: flex;
+	align-items: baseline;
+	gap: 18px;
+	padding: 20px 4px;
+	border-top: 1px solid rgba(255, 255, 255, 0.09);
+	transition: padding-left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cfx-timeline-list > *:last-child {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+.cfx-timeline-btn:hover,
+.cfx-timeline-btn:focus-visible {
+	padding-left: 12px;
+}
+.cfx-timeline-detail {
+	min-height: 220px;
+	padding: 40px 44px;
+}
+
+/* mobile accordion */
+.cfx-accordion-panel {
+	overflow: hidden;
+}
+
+/* ── Water systems cross-section ── */
+.cfx-water-grid {
+	display: grid;
+	grid-template-columns: 0.9fr 1.1fr;
+	gap: 64px;
+	align-items: center;
+}
+.cfx-water-flow {
+	position: relative;
+	padding-left: 34px;
+}
+.cfx-water-line {
+	position: absolute;
+	left: 5px;
+	top: 6px;
+	bottom: 6px;
+	width: 1px;
+	background: rgba(255, 255, 255, 0.12);
+	transform-origin: top;
+}
+.cfx-water-line-fill {
+	position: absolute;
+	left: 5px;
+	top: 6px;
+	bottom: 6px;
+	width: 1px;
+	background: linear-gradient(180deg, #e8933a, #ff7e5f);
+	transform-origin: top;
+}
+.cfx-water-node {
+	position: relative;
+	padding-bottom: 40px;
+}
+.cfx-water-node:last-child {
+	padding-bottom: 0;
+}
+.cfx-water-dot {
+	position: absolute;
+	left: -34px;
+	top: 3px;
+	width: 11px;
+	height: 11px;
+	border-radius: 50%;
+	background: #150d07;
+	border: 2px solid rgba(245, 185, 122, 0.5);
+}
+
+/* ── Safety sequence ── */
+.cfx-safety-row {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
+.cfx-safety-item {
+	padding: 8px 36px;
+	border-left: 1px solid rgba(255, 255, 255, 0.1);
+	transition: opacity 0.5s ease;
+}
+.cfx-safety-item:first-child {
+	padding-left: 0;
+	border-left: none;
+}
+.cfx-safety-item:last-child {
+	padding-right: 0;
+}
+.cfx-safety-row:hover .cfx-safety-item {
+	opacity: 0.4;
+}
+.cfx-safety-row:hover .cfx-safety-item:hover {
+	opacity: 1;
+}
+
+/* ── Warranty ── */
+.cfx-warranty-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1px;
+	background: rgba(255, 255, 255, 0.09);
+	border: 1px solid rgba(255, 255, 255, 0.09);
+}
+.cfx-warranty-panel {
+	position: relative;
+	overflow: hidden;
+	padding: 56px 44px;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01)), #130c07;
+}
+.cfx-warranty-watermark {
+	position: absolute;
+	right: 8px;
+	bottom: -30px;
+	font-family: var(--font-heading);
+	font-size: 220px;
+	line-height: 1;
+	color: rgba(255, 255, 255, 0.025);
+	pointer-events: none;
+	user-select: none;
+}
+
+/* ── Track record ── */
+.cfx-track-map {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0;
+	padding-top: 36px;
+}
+.cfx-track-node {
+	position: relative;
+	padding: 0 30px 0 0;
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+.cfx-track-node:not(:last-child)::after {
+	content: '';
+	width: 46px;
+	height: 1px;
+	background-image: linear-gradient(90deg, rgba(245, 185, 122, 0.45) 50%, transparent 0);
+	background-size: 8px 1px;
+	margin: 0 4px;
+}
+.cfx-track-dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: #f5b97a;
+	box-shadow: 0 0 10px 2px rgba(245, 185, 122, 0.5);
+	flex-shrink: 0;
+}
+
+/* ── Project intelligence ── */
+.cfx-intel-row {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 48px;
+}
+.cfx-intel-item {
+	padding-left: 28px;
+	border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+.cfx-intel-item:first-child {
+	padding-left: 0;
+	border-left: none;
+}
+
+/* ── Kashmir expertise ── */
+.cfx-kashmir {
+	position: relative;
+	overflow: hidden;
+	background: radial-gradient(60% 50% at 85% 15%, rgba(232, 147, 58, 0.14), transparent 60%), linear-gradient(180deg, #0a0603 0%, #120b06 100%);
+}
+.cfx-kashmir-grid {
+	display: grid;
+	grid-template-columns: 0.85fr 1.15fr;
+	gap: 56px;
+	align-items: start;
+}
+.cfx-kashmir-list {
+	display: flex;
+	flex-direction: column;
+}
+.cfx-kashmir-item {
+	display: grid;
+	grid-template-columns: 90px 1fr;
+	gap: 24px;
+	padding: 22px 0;
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.cfx-kashmir-list > *:last-child {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ── Final CTA ── */
+.cfx-cta {
+	position: relative;
+	overflow: hidden;
+	border-radius: 28px;
+	border: 1px solid rgba(245, 185, 122, 0.25);
+	background: linear-gradient(150deg, #1a0f08 0%, #241407 55%, #1a0f08 100%);
+	padding: 64px 48px;
+}
+.cfx-cta-grid {
+	position: absolute;
+	inset: 0;
+	opacity: 0.5;
+	background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0, transparent 1px, transparent 60px, rgba(255, 255, 255, 0.03) 61px),
+		repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0, transparent 1px, transparent 60px, rgba(255, 255, 255, 0.03) 61px);
+	mask-image: radial-gradient(70% 90% at 20% 30%, #000, transparent 100%);
+}
+.cfx-btn-primary {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	border-radius: 999px;
+	padding: 15px 32px;
+	font-size: 13px;
+	font-weight: 600;
+	color: white;
+	background: linear-gradient(to right, #ff7e5f, #ffb88c);
+	box-shadow: 0 22px 60px rgba(255, 126, 95, 0.35);
+	text-decoration: none;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.cfx-btn-primary:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 26px 70px rgba(255, 126, 95, 0.45);
+}
+.cfx-btn-secondary {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	border-radius: 999px;
+	padding: 13px 28px;
+	font-size: 13px;
+	font-weight: 500;
+	color: #fbf3ea;
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(245, 185, 122, 0.35);
+	text-decoration: none;
+	transition: background 0.2s ease, border-color 0.2s ease;
+}
+.cfx-btn-secondary:hover {
+	background: rgba(232, 147, 58, 0.12);
+	border-color: rgba(232, 147, 58, 0.5);
+}
+.cfx-btn-primary:focus-visible,
+.cfx-btn-secondary:focus-visible {
+	outline: 2px solid #f5b97a;
+	outline-offset: 3px;
+}
+
+/* ── Keyframes ── */
+@keyframes cfx-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+@keyframes cfx-pulse {
+	0%,
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 0.55;
+		transform: scale(1.4);
+	}
+}
+@keyframes cfx-blink {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.25;
+	}
+}
+
+/* ── Tablet ── */
+@media (max-width: 1100px) {
+	.cfx-hero-grid {
+		gap: 40px;
+	}
+	.cfx-water-grid {
+		grid-template-columns: 1fr;
+		gap: 40px;
+	}
+	.cfx-timeline-grid {
+		grid-template-columns: 280px 1fr;
+		gap: 32px;
+	}
+}
+
+/* ── Mobile ── */
+@media (max-width: 900px) {
+	.cfx-hero-grid {
+		grid-template-columns: 1fr !important;
+	}
+	.cfx-meta-row {
+		margin-top: 32px;
+	}
+	.cfx-partners {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	.cfx-partner:nth-child(2) {
+		border-left: none;
+	}
+	.cfx-partner:nth-child(3),
+	.cfx-partner:nth-child(4) {
+		border-top: 1px solid rgba(255, 255, 255, 0.09);
+	}
+	.cfx-compliance-grid {
+		grid-template-columns: 1fr;
+	}
+	.cfx-compliance-primary {
+		grid-row: auto;
+	}
+	.cfx-compliance-chips {
+		grid-column: 1;
+		flex-direction: column;
+	}
+	.cfx-timeline-grid {
+		grid-template-columns: 1fr;
+		gap: 0;
+	}
+	.cfx-timeline-detail {
+		padding: 28px 4px;
+	}
+	.cfx-safety-row {
+		grid-template-columns: 1fr;
+	}
+	.cfx-safety-item {
+		padding: 24px 0;
+		border-left: none;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+	}
+	.cfx-safety-item:first-child {
+		border-top: none;
+	}
+	.cfx-warranty-grid {
+		grid-template-columns: 1fr;
+	}
+	.cfx-intel-row {
+		grid-template-columns: 1fr;
+		gap: 36px;
+	}
+	.cfx-intel-item {
+		padding-left: 0;
+		padding-top: 28px;
+		border-left: none;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+	}
+	.cfx-intel-item:first-child {
+		padding-top: 0;
+		border-top: none;
+	}
+	.cfx-kashmir-grid {
+		grid-template-columns: 1fr;
+	}
+	.cfx-kashmir-item {
+		grid-template-columns: 56px 1fr;
+	}
+	.cfx-cta {
+		padding: 44px 24px;
+	}
+}
+
+@media (max-width: 480px) {
+	.cfx-partners {
+		grid-template-columns: 1fr;
+	}
+	.cfx-partner:nth-child(2) {
+		border-top: 1px solid rgba(255, 255, 255, 0.09);
+	}
+	.cfx-partner {
+		border-left: none !important;
+	}
+	.cfx-warranty-watermark {
+		font-size: 140px;
+	}
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+	.cfx-seal-ring--dashed,
+	.cfx-seal-ring--ticks,
+	.cfx-seal-core::after {
+		animation: none !important;
+	}
+}
