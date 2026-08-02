@@ -122,7 +122,7 @@ export default function AboutHero() {
       >
         <div
           className="ah-bg absolute inset-0 bg-cover"
-          style={{ backgroundImage: "url('/images/aboutt.png')" }}
+          style={{ backgroundImage: "url('/images/abouttt.png')" }}
         />
       </motion.div>
 
@@ -196,7 +196,7 @@ export default function AboutHero() {
           Bare text set directly on the fireplace panel, not a card. Full
           stack on tablet/desktop; a single repositioned line on mobile so
           it never crowds the headline. */}
-      <motion.div
+      {/* <motion.div
         initial={reduce ? false : { opacity: 0, filter: 'blur(6px)' }}
         animate={{ opacity: 1, filter: 'blur(0px)' }}
         transition={{ duration: 1, ease: EASE, delay: 2.05 }}
@@ -213,7 +213,7 @@ export default function AboutHero() {
           {HERO.instrument.value}
         </span>
         <span className="text-[9px] uppercase tracking-[0.22em] text-heat-300/80">{HERO.instrument.status}</span>
-      </motion.div>
+      </motion.div> */}
 
       <motion.div
         initial={reduce ? false : { opacity: 0 }}
