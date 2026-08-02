@@ -34,22 +34,14 @@ export default function SupportCTA() {
 						}}>
 						<div style={{ maxWidth: 560 }}>
 							<h2 style={{ margin: 0 }}>
-								<span
-									style={{
-										display: 'block',
-										fontFamily: 'var(--font-heading)',
-										fontSize: 'clamp(28px,3.6vw,42px)',
-										fontWeight: 600,
-										lineHeight: 1.15,
-										color: C.text,
-									}}>
+								<span className='brand-h' style={{ display: 'block' }}>
 									Engineered correctly.
 								</span>
-								<span className='brand-h-accent' style={{ display: 'block', fontFamily: 'var(--font-heading)', fontSize: 'clamp(28px,3.6vw,42px)', lineHeight: 1.15 }}>
+								<span className='brand-h brand-h-accent' style={{ display: 'block' }}>
 									Supported locally.
 								</span>
 							</h2>
-							<p style={{ marginTop: 20, fontSize: 15, lineHeight: 1.85, color: C.soft }}>
+							<p className='brand-sub' style={{ marginTop: 20, lineHeight: 1.85 }}>
 								Our Kashmir-based technical team provides ongoing support to
 								ensure every installation meets the highest standards.
 							</p>

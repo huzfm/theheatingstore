@@ -137,7 +137,7 @@ export default function Hero() {
 							aspectRatio: '4 / 5',
 						}}>
 						<Image
-							src='/images/floor1.jpg'
+							src='/images/howitworks.png'
 							alt='Cross-section of an electric underfloor heating cable installed over insulation board beneath a timber floor finish'
 							fill
 							priority
@@ -170,35 +170,7 @@ export default function Hero() {
 						</div>
 					</div>
 
-					{/* Floating stat chip */}
-					<div
-						className='hiw-glass'
-						style={{
-							position: 'absolute',
-							left: -18,
-							bottom: -22,
-							display: 'flex',
-							alignItems: 'center',
-							gap: 14,
-							padding: '16px 20px',
-							borderRadius: 18,
-						}}>
-						<p
-							style={{
-								fontFamily: 'var(--font-heading)',
-								fontSize: 28,
-								fontWeight: 600,
-								color: C.amberLt,
-								lineHeight: 1,
-								margin: 0,
-							}}>
-							4mm
-						</p>
-						<div style={{ width: 1, height: 34, background: 'rgba(245,185,122,0.25)' }} />
-						<p style={{ fontSize: 12, color: C.soft, lineHeight: 1.4, margin: 0, maxWidth: 130 }}>
-							Total profile, thinner than a pound coin
-						</p>
-					</div>
+					
 				</motion.div>
 			</div>
 		</section>

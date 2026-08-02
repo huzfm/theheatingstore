@@ -75,12 +75,8 @@ export default function Warranty() {
 					whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
 					viewport={{ once: true, amount: 0.4 }}
 					transition={{ duration: 0.8, ease: EASE }}
-					style={{
-						fontFamily: 'var(--font-heading)',
-						fontSize: 'clamp(28px,3.6vw,44px)',
-						fontWeight: 600,
-						margin: '0 0 44px',
-					}}>
+					className='brand-h'
+					style={{ margin: '0 0 44px' }}>
 					Protection Architecture
 				</motion.h2>
 

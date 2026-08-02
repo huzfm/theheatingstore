@@ -32,13 +32,8 @@ export default function WaterSystems() {
 						whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
 						viewport={{ once: true, amount: 0.4 }}
 						transition={{ duration: 0.8, ease: EASE, delay: 0.06 }}
-						style={{
-							fontFamily: 'var(--font-heading)',
-							fontSize: 'clamp(28px,3.6vw,44px)',
-							fontWeight: 600,
-							lineHeight: 1.12,
-							margin: 0,
-						}}>
+						className='brand-h'
+						style={{ margin: 0 }}>
 						Water-Based Standards
 					</motion.h2>
 					<motion.p
@@ -46,7 +41,8 @@ export default function WaterSystems() {
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true, amount: 0.4 }}
 						transition={{ duration: 0.7, ease: EASE, delay: 0.14 }}
-						style={{ marginTop: 18, fontSize: 15, lineHeight: 1.85, color: C.soft, maxWidth: 440 }}>
+						className='brand-sub'
+						style={{ marginTop: 18, lineHeight: 1.85, maxWidth: 440 }}>
 						WRAS-approved pipes and fittings, complying with Water Supply
 						Regulations and Scottish Byelaws — every manifold assembly meets
 						strict hygienic standards, engineered for a 50-year service life.

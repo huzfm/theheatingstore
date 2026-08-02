@@ -39,7 +39,7 @@ export default function Hero() {
 						: { y: plateY, scale: plateScale }
 				}>
 				<img
-					src='/images/floor1.jpg'
+					src='/images/global.png'
 					alt='Electric heating cable technology beneath a finished floor'
 					className='ge-hero-plate-img'
 				/>

@@ -31,14 +31,8 @@ export default function KashmirExpertise() {
 							whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
 							viewport={{ once: true, amount: 0.4 }}
 							transition={{ duration: 0.8, ease: EASE }}
-							style={{
-								display: 'block',
-								fontFamily: 'var(--font-heading)',
-								fontSize: 'clamp(28px,3.6vw,42px)',
-								fontWeight: 600,
-								lineHeight: 1.15,
-								color: C.text,
-							}}>
+							className='brand-h'
+							style={{ display: 'block' }}>
 							International standards.
 						</motion.span>
 						<motion.span
@@ -46,8 +40,8 @@ export default function KashmirExpertise() {
 							whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
 							viewport={{ once: true, amount: 0.4 }}
 							transition={{ duration: 0.8, ease: EASE, delay: 0.12 }}
-							className='brand-h-accent'
-							style={{ display: 'block', fontFamily: 'var(--font-heading)', fontSize: 'clamp(28px,3.6vw,42px)', lineHeight: 1.15 }}>
+							className='brand-h brand-h-accent'
+							style={{ display: 'block' }}>
 							Kashmir-specific execution.
 						</motion.span>
 					</h2>
@@ -56,7 +50,8 @@ export default function KashmirExpertise() {
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true, amount: 0.4 }}
 						transition={{ duration: 0.7, ease: EASE, delay: 0.24 }}
-						style={{ marginTop: 24, fontSize: 15, lineHeight: 1.85, color: C.soft, maxWidth: 400 }}>
+						className='brand-sub'
+						style={{ marginTop: 24, lineHeight: 1.85, maxWidth: 400 }}>
 						Certifications set the baseline. Ours are engineered further,
 						for conditions certification bodies elsewhere never test for.
 					</motion.p>

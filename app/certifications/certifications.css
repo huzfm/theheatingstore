@@ -65,11 +65,11 @@
 	align-items: center;
 	gap: 10px;
 	font-family: var(--font-body);
-	font-size: 11px;
+	font-size: 10px;
 	font-weight: 600;
 	text-transform: uppercase;
-	letter-spacing: 0.35em;
-	color: #f5b97a;
+	letter-spacing: 0.4em;
+	color: var(--brand-orange-light);
 }
 
 /* ── Hero ── */

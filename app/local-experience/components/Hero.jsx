@@ -22,7 +22,7 @@ export default function Hero() {
 		<section ref={heroRef} className='le-hero' aria-label='Electric hamam and underfloor heating in Kashmir and across India'>
 			<div className='le-hero-plate'>
 				<Image
-					src='/images/herosection.jpg'
+					src='/images/local.png'
 					alt='Glowing serpentine underfloor heating cable radiating warmth beneath a marble hamam floor'
 					fill
 					priority

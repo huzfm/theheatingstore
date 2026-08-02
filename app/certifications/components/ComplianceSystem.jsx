@@ -45,13 +45,8 @@ export default function ComplianceSystem() {
 					whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
 					viewport={{ once: true, amount: 0.4 }}
 					transition={{ duration: 0.8, ease: EASE, delay: 0.06 }}
-					style={{
-						fontFamily: 'var(--font-heading)',
-						fontSize: 'clamp(28px,3.6vw,44px)',
-						fontWeight: 600,
-						lineHeight: 1.1,
-						margin: 0,
-					}}>
+					className='brand-h'
+					style={{ margin: 0 }}>
 					International Compliance
 				</motion.h2>
 				<motion.p
@@ -59,7 +54,8 @@ export default function ComplianceSystem() {
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true, amount: 0.4 }}
 					transition={{ duration: 0.7, ease: EASE, delay: 0.14 }}
-					style={{ marginTop: 14, fontSize: 15.5, color: C.soft, maxWidth: 520 }}>
+					className='brand-sub'
+					style={{ marginTop: 14, maxWidth: 520 }}>
 					Standards behind every installation.
 				</motion.p>
 
