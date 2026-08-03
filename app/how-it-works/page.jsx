@@ -1,23 +1,59 @@
+import HowItWorksClient from './HowItWorksClient';
+import { STAGES } from '@/components/sections/HowItWorks/data';
+
+/**
+ * Positioned on *process* keywords, not on "how underfloor heating works",
+ * which /working already owns. The two pages were previously competing for the
+ * same query with near-identical titles.
+ */
 export const metadata = {
-  title: "How Underfloor Heating Works | Electric Hamam Installation Process",
+  title: 'The Installation Process | Survey to Handover, Step by Step',
   description:
-    "Understand how electric hamam and underfloor heating systems work, from heating elements and thermostat controls to Kashmir floor layers and heat retention design. A complete technical breakdown.",
+    'What actually happens when you install electric hamam underfloor heating in Kashmir: the free site visit, the heat design and quote, installation, screed curing and commissioning, and the warranty you are left with.',
   keywords: [
-    "how underfloor heating works Kashmir",
-    "electric hamam working principle Kashmir",
-    "underfloor heating technology Kashmir",
-    "floor heating system explained Kashmir",
-    "electric heating mechanics Kashmir",
+    'underfloor heating installation process Kashmir',
+    'electric hamam installation steps',
+    'free heating site survey Kashmir',
+    'underfloor heating installation time',
+    'electric hamam warranty Kashmir',
+    'how long does underfloor heating take to install',
   ],
   openGraph: {
-    title: "How Underfloor Heating Works | Electric Hamam Installation Process",
+    title: 'The Installation Process | Survey to Handover, Step by Step',
     description:
-      "Understand how electric hamam and underfloor heating systems work, complete technical breakdown.",
+      'Five stages, no surprises: who arrives, what they do, how long your house is a building site, and what you are left holding.',
+    type: 'article',
   },
+  alternates: { canonical: '/how-it-works' },
 };
 
-import HowItWorksClient from './HowItWorksClient';
+/* Structured data mirrors what is actually rendered below, it is built from
+   the same STAGES the page imports, so the markup cannot drift from the copy.
+   No FAQPage schema here: the page carries no FAQ, and marking up questions
+   that are not on the page is exactly what Google penalises. */
+const howToSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'Installing electric hamam underfloor heating, stage by stage',
+  description:
+    'The five stages of an electric underfloor heating installation, from the free site visit through to commissioning and aftercare.',
+  step: STAGES.map((s, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    name: s.title,
+    text: s.lead,
+    url: `https://theheatingstore.in/how-it-works#stage-${s.num}`,
+  })),
+};
 
 export default function HowItWorks() {
-  return <HowItWorksClient />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <HowItWorksClient />
+    </>
+  );
 }
