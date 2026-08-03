@@ -231,3 +231,274 @@
 		animation: none !important;
 	}
 }
+
+/* ── Mobile art direction (≤640px) ───────────────────────────────────────
+   Not a shrunk desktop layout — a deliberate editorial composition: a
+   compact technical metadata band, a dominant left-aligned headline, and
+   a thin data rail closing the viewport. Desktop rules above are untouched;
+   everything here is additive and scoped to small screens only. */
+
+.ge-hero-meta-m,
+.ge-hero-coord-m,
+.ge-hero-scroll-m {
+	display: none;
+}
+
+@media (max-width: 640px) {
+	.ge-hero-eyebrow-wrap {
+		display: none;
+	}
+
+	.ge-hero-corner-tl,
+	.ge-hero-corner-br {
+		width: 20px;
+		height: 20px;
+		opacity: 0.3;
+	}
+	.ge-hero-corner-tl {
+		top: 18px;
+		left: 16px;
+	}
+	.ge-hero-corner-br {
+		bottom: 18px;
+		right: 16px;
+	}
+
+	/* mobile-specific art-directed crop — keeps the hearth and floor texture
+	   in frame while leaving negative space above for the headline */
+	.ge-hero-plate-img {
+		object-position: 54% 38%;
+	}
+
+	.ge-hero-scrim {
+		background:
+			radial-gradient(120% 55% at 54% 58%, rgba(232, 147, 58, 0.16) 0%, rgba(232, 147, 58, 0) 60%),
+			linear-gradient(
+				180deg,
+				rgba(5, 5, 5, 0.72) 0%,
+				rgba(5, 5, 5, 0.25) 24%,
+				rgba(5, 5, 5, 0.35) 42%,
+				rgba(5, 5, 5, 0.72) 72%,
+				rgba(5, 5, 5, 0.98) 100%
+			);
+	}
+
+	.ge-grain {
+		opacity: 0.045;
+	}
+
+	/* top metadata band — architectural project label. top offset clears the
+	   site's transparent absolute-positioned header (~96px tall) that overlays
+	   the hero photograph on every page. */
+	.ge-hero-meta-m {
+		display: flex;
+		flex-direction: column;
+		gap: 0.45rem;
+		position: absolute;
+		z-index: 3;
+		top: 100px;
+		left: 22px;
+		max-width: 60%;
+	}
+	.ge-hero-meta-m-tick {
+		width: 16px;
+		height: 1px;
+		background: var(--copper-light);
+		opacity: 0.7;
+	}
+	.ge-hero-meta-m-label {
+		font-size: 0.6rem;
+		font-weight: 600;
+		letter-spacing: 0.26em;
+		text-transform: uppercase;
+		color: var(--copper);
+	}
+	.ge-hero-meta-m-route {
+		font-size: 0.56rem;
+		font-weight: 500;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--ivory-mute);
+	}
+
+	/* top-right coordinate annotation — tiny, technical, non-competing */
+	.ge-hero-coord-m {
+		display: flex;
+		flex-direction: column;
+		position: absolute;
+		z-index: 3;
+		top: 100px;
+		right: 22px;
+		gap: 0.15rem;
+		text-align: right;
+		font-size: 0.55rem;
+		font-weight: 500;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--ivory);
+		opacity: 0.45;
+	}
+	.ge-hero-coord-m-city {
+		color: var(--copper-light);
+		opacity: 0.9;
+	}
+
+	/* vertical composition */
+	.ge-hero-inner {
+		padding: 0 20px;
+		justify-content: flex-end;
+	}
+	.ge-hero-main {
+		max-width: 360px;
+		margin-bottom: 2rem;
+	}
+
+	.ge-hero-title {
+		margin-top: 32px;
+		max-width: 360px;
+		font-size: clamp(2.55rem, 11vw, 4rem);
+		line-height: 0.94;
+		letter-spacing: -0.035em;
+		font-weight: 600;
+		text-align: left;
+	}
+	.ge-hero-title-accent {
+		margin-top: 16px;
+		font-size: 0.44em;
+		font-weight: 400;
+		letter-spacing: 0;
+		line-height: 1.15;
+	}
+
+	.ge-hero-lede {
+		margin: 20px 0 0;
+		max-width: 340px;
+		font-size: 0.86rem;
+		line-height: 1.65;
+		color: rgba(251, 243, 234, 0.68);
+	}
+
+	.ge-hero-bottom {
+		flex-direction: column;
+		align-items: flex-start;
+		margin-top: 2rem;
+		padding: 1.25rem 0 1.75rem;
+		border-top: 1px solid var(--line);
+	}
+	.ge-hero-stats {
+		width: 100%;
+		gap: 1.5rem;
+		justify-content: flex-start;
+	}
+	.ge-hero-stat {
+		gap: 0.3rem;
+		padding-left: 1.5rem;
+	}
+	.ge-hero-stat:first-child {
+		padding-left: 0;
+	}
+	.ge-hero-stat-num {
+		font-size: clamp(1.15rem, 5.8vw, 1.5rem);
+	}
+	.ge-hero-stat-label {
+		font-size: 0.58rem;
+		letter-spacing: 0.13em;
+		max-width: 11rem;
+	}
+
+	/* scroll cue — normal flow beneath the stats rail, never overlapping
+	   wrapped stat labels regardless of how many lines they take */
+	.ge-hero-scroll-m {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 0.6rem;
+		margin-top: 1.25rem;
+	}
+	.ge-hero-scroll-m-num {
+		font-size: 0.6rem;
+		letter-spacing: 0.1em;
+		color: var(--ivory-mute);
+	}
+	.ge-hero-scroll-m-line {
+		position: relative;
+		width: 20px;
+		height: 1px;
+		background: var(--line-strong);
+		overflow: hidden;
+	}
+	.ge-hero-scroll-m-tick {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 30%;
+		background: var(--copper-light);
+	}
+	.ge-hero-scroll-m-label {
+		font-size: 0.55rem;
+		font-weight: 600;
+		letter-spacing: 0.22em;
+		text-transform: uppercase;
+		color: var(--ivory-mute);
+	}
+}
+
+@media (max-width: 380px) {
+	.ge-hero-meta-m,
+	.ge-hero-coord-m {
+		top: 92px;
+	}
+	.ge-hero-meta-m {
+		left: 20px;
+	}
+	.ge-hero-coord-m {
+		right: 20px;
+	}
+	.ge-hero-inner {
+		padding: 0 18px;
+	}
+	.ge-hero-title {
+		margin-top: 24px;
+	}
+	.ge-hero-title-accent {
+		margin-top: 12px;
+	}
+	.ge-hero-lede {
+		margin-top: 16px;
+		font-size: 0.82rem;
+	}
+	.ge-hero-bottom {
+		margin-top: 1.5rem;
+		padding-top: 1rem;
+	}
+	.ge-hero-stat-num {
+		font-size: clamp(1.05rem, 5.2vw, 1.3rem);
+	}
+}
+
+@media (max-height: 740px) and (max-width: 640px) {
+	.ge-hero-meta-m,
+	.ge-hero-coord-m {
+		top: 88px;
+	}
+	.ge-hero-main {
+		margin-bottom: 1.25rem;
+	}
+	.ge-hero-title {
+		margin-top: 16px;
+	}
+	.ge-hero-title-accent {
+		margin-top: 10px;
+	}
+	.ge-hero-lede {
+		margin-top: 12px;
+	}
+	.ge-hero-bottom {
+		margin-top: 1rem;
+		padding: 0.85rem 0 1.1rem;
+	}
+	.ge-hero-scroll-m {
+		margin-top: 0.85rem;
+	}
+}

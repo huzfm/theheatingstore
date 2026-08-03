@@ -13,7 +13,7 @@ export const metadata = {
     title: "Electric Hamam Installation | Premium Underfloor Heating Systems",
     description:
       "Expert electric hamam and underfloor heating installation for homes, villas, and luxury spaces in Kashmir.",
-    images: ["/images/electric.png"],
+    images: ["/images/electric-og.jpg"],
   },
 };
 

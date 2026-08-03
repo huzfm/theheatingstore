@@ -112,7 +112,7 @@
 }
 .le-hero-plate { position:absolute; inset:0; z-index:0; overflow:hidden; }
 .le-hero-plate img {
-	object-fit:cover; object-position:50% 38%;
+	object-fit:cover; object-position:50% 45%;
 	animation: le-hero-drift 36s ease-in-out infinite alternate;
 	transform-origin:center;
 }
@@ -150,19 +150,145 @@
 	font-family:var(--font-body); font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase;
 	color:rgba(251,243,234,0.55);
 }
+.le-hero-scrollcue-index { display:none; }
 .le-hero-scrollcue-line { width:1px; height:34px; background:linear-gradient(180deg, rgba(245,185,122,0.9), transparent); animation: le-scrollcue 2.2s ease-in-out infinite; }
 @keyframes le-scrollcue { 0%{ transform:scaleY(0.3); transform-origin:top;} 50%{ transform:scaleY(1); transform-origin:top;} 100%{ transform:scaleY(0.3); transform-origin:bottom;} }
+
+/* top-right architectural annotation — mobile-only, desktop untouched */
+.le-hero-geo { display:none; }
 
 @media (max-width:900px) {
 	.le-hero { min-height:92svh; }
 	.le-hero-scrim { background: linear-gradient(180deg, rgba(9,6,4,0.5) 0%, rgba(9,6,4,0.6) 40%, rgba(9,6,4,0.96) 100%); }
 	.le-hero-textscrim { background: linear-gradient(180deg, rgba(8,5,3,0.35) 0%, rgba(8,5,3,0.55) 55%, rgba(8,5,3,0.85) 100%); }
 }
-@media (max-width:560px) {
-	.le-hero-title { max-width:none; }
-	.le-hero-actions { gap:10px; }
-	.le-btn-primary, .le-btn-ghost { flex:1 1 auto; padding-left:22px; padding-right:22px; }
-	.le-hero-scrollcue { display:none; }
+
+/* ─────────────────────────────────────────────────────────────────────
+   HERO — MOBILE ART DIRECTION (≤640px)
+   Rebuilt from scratch for phones rather than collapsed from desktop:
+   the badge detaches to a top annotation line, the headline/lede/CTA
+   sit as a bottom-anchored block, and the photograph keeps a dedicated
+   art-directed crop + layered scrim instead of the desktop treatment.
+   ───────────────────────────────────────────────────────────────────── */
+@media (max-width:640px) {
+	.le-hero { min-height:100svh; height:auto; }
+
+	/* art-directed crop: keeps the glowing cable pattern in frame behind
+	   the copy instead of desktop's centered-left composition */
+	.le-hero-plate img { object-position:62% 42%; }
+
+	.le-hero-scrim {
+		background: linear-gradient(
+			180deg,
+			rgba(13,8,5,0.82) 0%,
+			rgba(13,8,5,0.28) 25%,
+			rgba(13,8,5,0.42) 48%,
+			rgba(13,8,5,0.85) 76%,
+			rgba(13,8,5,0.98) 100%
+		);
+	}
+	.le-hero-textscrim {
+		background:
+			radial-gradient(130% 55% at 50% 72%, rgba(13,8,5,0.6), transparent 70%),
+			linear-gradient(180deg, transparent 0%, rgba(13,8,5,0.1) 45%, rgba(13,8,5,0.55) 100%);
+	}
+
+	/* top-right architectural annotation — sits just below the site's
+	   fixed overlay header (96px tall), not flush against the hero edge */
+	.le-hero-geo {
+		display:block; position:absolute; z-index:3; top:108px; right:22px;
+		font-family:var(--font-body); font-size:9px; font-weight:600;
+		letter-spacing:0.16em; text-transform:uppercase; color:rgba(251,243,234,0.35);
+	}
+
+	/* hero-inner becomes the full-bleed positioning context: the badge
+	   detaches to an absolute top line, the rest bottom-anchors as a group */
+	.le-hero-inner {
+		position:absolute; inset:0; margin:0; max-width:none;
+		display:flex; flex-direction:column; justify-content:flex-end;
+		padding:110px 22px 90px;
+	}
+
+	/* top metadata group — positioned on the wrapper (not the badge itself),
+	   because Framer Motion leaves an inline transform/filter on the badge's
+	   own motion.div even at rest, which would otherwise hijack the
+	   containing block for an absolutely-positioned .le-badge */
+	.le-hero-topmeta { position:absolute; top:108px; left:22px; right:100px; z-index:4; }
+
+	/* badge → refined editorial metadata line, no pill */
+	.le-hero .le-badge {
+		display:block; padding:0; margin:0; gap:0;
+		background:none; border:none; box-shadow:none; backdrop-filter:none;
+		font-size:9.5px; font-weight:600; letter-spacing:0.14em;
+		color:rgba(245,185,122,0.85); line-height:1.5;
+	}
+	.le-hero .le-badge-dot { display:none; }
+	.le-hero .le-badge::after {
+		content:''; display:block; width:28px; height:1px; margin-top:9px;
+		background:linear-gradient(90deg, rgba(245,185,122,0.9), transparent);
+	}
+
+	/* headline — editorial two-tier composition, not desktop shrunk down.
+	   font-weight stays 400: Bebas Neue ships one weight only, anything
+	   heavier gets faux-bolded by the browser. */
+	.le-hero-title {
+		max-width:350px;
+		font-size:clamp(2.55rem, 11vw, 4rem);
+		line-height:0.96; letter-spacing:-0.035em;
+	}
+	.le-hero-title em {
+		font-size:0.45em; font-weight:400; letter-spacing:0.01em;
+		line-height:1.15; margin-top:16px;
+	}
+
+	.le-hero-lede {
+		max-width:330px; margin-top:20px;
+		font-size:14px; line-height:1.65; color:rgba(245,241,235,0.70);
+	}
+
+	/* CTA — full-width stack, premium mobile-navigation feel */
+	.le-hero-actions {
+		flex-direction:column; align-items:stretch; gap:10px;
+		width:100%; max-width:350px; margin-top:30px;
+	}
+	.le-hero-actions .le-btn-primary,
+	.le-hero-actions .le-btn-ghost {
+		width:100%; height:54px; padding:0 26px;
+	}
+	.le-hero-actions .le-btn-primary {
+		background:linear-gradient(135deg,#E8933A,#FF7E5F);
+		box-shadow:0 16px 36px -16px rgba(232,147,58,0.55);
+	}
+	.le-hero-actions .le-btn-primary::after {
+		content:'\2192'; margin-left:2px; transition:transform .35s cubic-bezier(0.16,1,0.3,1);
+	}
+	.le-hero-actions .le-btn-primary:active {
+		transform:translateY(-1px); filter:brightness(1.05);
+		box-shadow:0 10px 24px -10px rgba(232,147,58,0.6);
+	}
+	.le-hero-actions .le-btn-primary:active::after { transform:translateX(2px); }
+	.le-hero-actions .le-btn-ghost:active { transform:translateY(-1px); }
+
+	/* scroll cue — refined index mark, bottom-centered */
+	.le-hero-scrollcue {
+		left:50%; right:auto; bottom:22px; transform:translateX(-50%);
+		flex-direction:column; align-items:center; gap:6px;
+		font-size:9px; letter-spacing:0.22em; opacity:0.45;
+	}
+	.le-hero-scrollcue-index { display:block; font-size:9px; letter-spacing:0.18em; }
+	.le-hero-scrollcue-line { height:22px; animation:le-scrollcue-slow 3s ease-in-out infinite; }
+}
+@keyframes le-scrollcue-slow { 0%,100%{ opacity:0.35; transform:translateY(0); } 50%{ opacity:0.9; transform:translateY(3px); } }
+
+/* short phones — trim rhythm before touching headline size */
+@media (max-width:640px) and (max-height:740px) {
+	.le-hero-inner { padding:80px 22px 60px; }
+	.le-hero-topmeta { top:98px; }
+	.le-hero-geo { top:98px; }
+	.le-hero-title { font-size:clamp(2.3rem, 10vw, 3.4rem); }
+	.le-hero-lede { margin-top:14px; }
+	.le-hero-actions { margin-top:20px; }
+	.le-hero-scrollcue { bottom:14px; }
 }
 
 /* ═══════════════════════════════ PROOF RAIL ═══════════════════════════════ */

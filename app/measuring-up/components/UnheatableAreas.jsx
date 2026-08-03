@@ -1,8 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { C, EASE } from "@/components/sections/WhyChooseUs/theme";
-import { inputStyle, readOnlyStyle } from "./formStyles";
+import { EASE } from "@/components/sections/WhyChooseUs/theme";
 
 function WarningIcon(props) {
   return (
@@ -21,6 +20,20 @@ function CheckIcon(props) {
     </svg>
   );
 }
+function RemoveIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+function PlusIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 export default function UnheatableAreas({
   areas,
@@ -34,38 +47,16 @@ export default function UnheatableAreas({
 }) {
   return (
     <div>
-      <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 6 }}>
-        <span
-          aria-hidden="true"
-          style={{
-            fontFamily: "var(--font-heading)",
-            fontSize: 12,
-            fontWeight: 600,
-            letterSpacing: "0.1em",
-            color: C.amberLt,
-          }}
-        >
-          STEP 02
-        </span>
+      <div className="mu-step-row">
+        <span className="mu-step-index" aria-hidden="true">02</span>
       </div>
-      <h3
-        style={{
-          fontFamily: "var(--font-heading)",
-          fontSize: 22,
-          fontWeight: 600,
-          color: C.text,
-          margin: "0 0 6px",
-        }}
-      >
-        Non-heatable areas
-      </h3>
-      <p style={{ fontSize: 13, color: C.soft, lineHeight: 1.6, margin: "0 0 20px", maxWidth: 560 }}>
-        Enter fixed areas where heating cannot be installed, such as
-        built-in units, kitchen cabinets, bathroom suites or other
-        permanent fixtures.
+      <h3 className="mu-step-title">Fixed areas</h3>
+      <p className="mu-step-copy">
+        Deduct permanent furniture or areas where heating cannot be installed —
+        built-in units, kitchen islands, bathroom suites or other fixtures.
       </p>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      <div className="mu-row-list">
         <AnimatePresence initial={false}>
           {areas.map((a, i) => {
             const rowTotal = (parseFloat(a.width) || 0) * (parseFloat(a.length) || 0);
@@ -79,109 +70,90 @@ export default function UnheatableAreas({
                 transition={{ duration: 0.3, ease: EASE }}
                 style={{ overflow: "hidden" }}
               >
-                <div
-                  className="mu-area-row-grid"
-                  style={{
-                    padding: "12px 4px",
-                    borderBottom: "1px solid rgba(255,255,255,0.08)",
-                  }}
-                >
-                  <span
-                    className="mu-field-badge"
-                    aria-hidden="true"
-                    style={{
-                      width: 30,
-                      height: 30,
-                      borderRadius: "50%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontFamily: "var(--font-heading)",
-                      fontSize: 12,
-                      fontWeight: 600,
-                      color: C.amberLt,
-                      background: "rgba(232,147,58,0.1)",
-                      border: "1px solid rgba(232,147,58,0.25)",
-                    }}
-                  >
+                <div className="mu-row">
+                  <span className="mu-row-index" aria-hidden="true">
                     {String(i + 1).padStart(2, "0")}
                   </span>
 
-                  <div className="mu-field-name">
-                    <span className="mu-field-label" aria-hidden="true">Area Name</span>
-                    <input
-                      className="mu-input"
-                      type="text"
-                      placeholder="e.g. Kitchen island"
-                      value={a.name}
-                      onChange={(e) => updateArea(a.id, "name", e.target.value)}
-                      style={inputStyle}
-                      aria-label={`Area ${i + 1} name`}
-                    />
+                  <div className="mu-row-name">
+                    <label className="mu-field-label" htmlFor={`area-name-${a.id}`}>
+                      Area Name
+                    </label>
+                    <div className="mu-field-shell">
+                      <input
+                        id={`area-name-${a.id}`}
+                        className="mu-field-input"
+                        type="text"
+                        placeholder="e.g. Kitchen island"
+                        value={a.name}
+                        onChange={(e) => updateArea(a.id, "name", e.target.value)}
+                        style={{ fontSize: 15 }}
+                        aria-label={`Area ${i + 1} name`}
+                      />
+                    </div>
                   </div>
+
                   <div>
-                    <span className="mu-field-label" aria-hidden="true">Width (m)</span>
-                    <input
-                      className="mu-input"
-                      type="number"
-                      step="0.1"
-                      min="0"
-                      inputMode="decimal"
-                      placeholder="0.0"
-                      value={a.width}
-                      onChange={(e) => updateArea(a.id, "width", e.target.value)}
-                      style={inputStyle}
-                      aria-label={`Area ${i + 1} width in metres`}
-                    />
+                    <label className="mu-field-label" htmlFor={`area-width-${a.id}`}>
+                      Width
+                    </label>
+                    <div className="mu-field-shell">
+                      <input
+                        id={`area-width-${a.id}`}
+                        className="mu-field-input"
+                        type="number"
+                        step="0.1"
+                        min="0"
+                        inputMode="decimal"
+                        placeholder="0.0"
+                        value={a.width}
+                        onChange={(e) => updateArea(a.id, "width", e.target.value)}
+                        aria-label={`Area ${i + 1} width in metres`}
+                      />
+                      <span className="mu-field-unit" aria-hidden="true">m</span>
+                    </div>
                   </div>
+
                   <div>
-                    <span className="mu-field-label" aria-hidden="true">Length (m)</span>
-                    <input
-                      className="mu-input"
-                      type="number"
-                      step="0.1"
-                      min="0"
-                      inputMode="decimal"
-                      placeholder="0.0"
-                      value={a.length}
-                      onChange={(e) => updateArea(a.id, "length", e.target.value)}
-                      style={inputStyle}
-                      aria-label={`Area ${i + 1} length in metres`}
-                    />
+                    <label className="mu-field-label" htmlFor={`area-length-${a.id}`}>
+                      Length
+                    </label>
+                    <div className="mu-field-shell">
+                      <input
+                        id={`area-length-${a.id}`}
+                        className="mu-field-input"
+                        type="number"
+                        step="0.1"
+                        min="0"
+                        inputMode="decimal"
+                        placeholder="0.0"
+                        value={a.length}
+                        onChange={(e) => updateArea(a.id, "length", e.target.value)}
+                        aria-label={`Area ${i + 1} length in metres`}
+                      />
+                      <span className="mu-field-unit" aria-hidden="true">m</span>
+                    </div>
                   </div>
-                  <div className="mu-field-total">
-                    <span className="mu-field-label" aria-hidden="true">Total (m²)</span>
-                    <input
-                      type="text"
-                      readOnly
-                      value={rowTotal > 0 ? rowTotal.toFixed(2) : "0.00"}
-                      style={{ ...readOnlyStyle, fontSize: 14 }}
-                      aria-label={`Area ${i + 1} total in square metres`}
-                    />
+
+                  <div className="mu-row-total">
+                    <span className="mu-field-label">Total</span>
+                    <div className="mu-readout">
+                      <div className="mu-readout-value" aria-label={`Area ${i + 1} total in square metres`} style={{ fontSize: 17 }}>
+                        {rowTotal > 0 ? rowTotal.toFixed(2) : "0.00"}
+                        <span>m&sup2;</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="mu-field-remove">
+
+                  <div className="mu-row-remove-cell">
                     <button
                       type="button"
                       onClick={() => removeArea(a.id)}
                       disabled={areas.length === 1}
                       aria-label={`Remove area ${i + 1}`}
-                      className="mu-remove-btn"
-                      style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: 10,
-                        background: areas.length === 1 ? "rgba(255,255,255,0.03)" : "rgba(255,255,255,0.06)",
-                        color: areas.length === 1 ? "rgba(251,243,234,0.25)" : C.soft,
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        cursor: areas.length === 1 ? "not-allowed" : "pointer",
-                        fontSize: 15,
-                        fontWeight: 700,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
+                      className="mu-row-remove"
                     >
-                      &#10005;
+                      <RemoveIcon style={{ width: 16, height: 16 }} />
                     </button>
                   </div>
                 </div>
@@ -191,62 +163,27 @@ export default function UnheatableAreas({
         </AnimatePresence>
       </div>
 
-      <button
-        type="button"
-        onClick={addArea}
-        className="mu-btn-secondary"
-        style={{
-          marginTop: 16,
-          display: "inline-flex",
-          alignItems: "center",
-          gap: 8,
-          padding: "10px 22px",
-          borderRadius: 999,
-          fontSize: 13,
-          fontWeight: 600,
-          color: C.text,
-          background: "rgba(255,255,255,0.05)",
-          border: "1px solid rgba(245,185,122,0.3)",
-          cursor: "pointer",
-        }}
-      >
-        + Add another area
+      <button type="button" onClick={addArea} className="mu-add-row">
+        <PlusIcon style={{ width: 12, height: 12 }} />
+        Add Fixed Area
       </button>
 
       {roomTotal > 0 && unheatable > 0 && (
-        <div
-          style={{
-            marginTop: 18,
-            padding: "14px 18px",
-            borderRadius: 14,
-            background: isBelowMinimum ? "rgba(232,147,58,0.10)" : "rgba(74,222,128,0.08)",
-            border: `1.5px solid ${isBelowMinimum ? "rgba(232,147,58,0.35)" : "rgba(74,222,128,0.3)"}`,
-            display: "flex",
-            alignItems: "flex-start",
-            gap: 12,
-          }}
-        >
-          <span style={{ flexShrink: 0, color: isBelowMinimum ? C.amberLt : "#4ADE80", display: "flex" }}>
-            {isBelowMinimum ? <WarningIcon style={{ width: 20, height: 20 }} /> : <CheckIcon style={{ width: 20, height: 20 }} />}
+        <div className="mu-status-row">
+          <span className="mu-status-icon" style={{ color: isBelowMinimum ? "#F5B97A" : "#4ADE80" }}>
+            {isBelowMinimum ? <WarningIcon style={{ width: 18, height: 18 }} /> : <CheckIcon style={{ width: 18, height: 18 }} />}
           </span>
           <div>
-            <div
-              style={{
-                fontSize: 13,
-                fontWeight: 700,
-                color: isBelowMinimum ? C.amberLt : "#4ADE80",
-                marginBottom: isBelowMinimum ? 4 : 0,
-              }}
-            >
+            <div className="mu-status-text" style={{ color: isBelowMinimum ? "#F5B97A" : "#4ADE80" }}>
               {isBelowMinimum
-                ? `Available floor area is ${heatablePercentage.toFixed(0)}% — the recommended minimum is 80%`
+                ? `Available floor area is ${heatablePercentage.toFixed(0)}% — below the 80% recommended minimum`
                 : `Available floor area is ${heatablePercentage.toFixed(0)}%`}
             </div>
             {isBelowMinimum && (
-              <div style={{ fontSize: 12.5, color: C.soft, lineHeight: 1.6 }}>
-                We install underfloor heating on a minimum of 80% of the
-                floor area. Reduce your non-heatable areas, or contact us
-                to talk through your project.
+              <div className="mu-status-sub">
+                We install underfloor heating on a minimum of 80% of the floor
+                area. Reduce your fixed-area deductions, or contact us to talk
+                through your project.
               </div>
             )}
           </div>

@@ -10,14 +10,7 @@ export const HERO = {
   brand: 'The Heating Store',
   location: 'Kashmir · Est. 2011',
   coords: ['34.0837° N', '74.7978° E', 'Srinagar'],
-  // Rendered line-by-line (not word-by-word), so each line is its own
-  // string; `accent` is appended in the warm amber accent color.
-  headline: [
-    { text: 'Built for' },
-    { text: 'winter.' },
-    { text: 'Engineered' },
-    { text: 'for ', accent: 'Kashmir.' },
-  ],
+  headline: 'Built for winter. Engineered for Kashmir.',
   sub: "The Heating Store engineers, supplies and installs electric hamam and underfloor heating systems built for sub-zero winters, heavy snow and the realities of Kashmir's power cuts.",
   primary: { label: 'Talk to an Expert', href: '/SpaceVerification' },
   secondary: { label: 'Explore our approach', href: '/how-it-works' },

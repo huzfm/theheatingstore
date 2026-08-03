@@ -7,6 +7,7 @@ import {
 	useReducedMotion,
 } from 'framer-motion';
 import { useRef } from 'react';
+import Image from 'next/image';
 import Eyebrow from '../ui/Eyebrow';
 import Counter from '../ui/Counter';
 import { heroStats } from '../data';
@@ -38,10 +39,15 @@ export default function Hero() {
 						? undefined
 						: { y: plateY, scale: plateScale }
 				}>
-				<img
+				<Image
 					src='/images/global.png'
 					alt='Electric heating cable technology beneath a finished floor'
 					className='ge-hero-plate-img'
+					width={1536}
+					height={1024}
+					priority
+					sizes='100vw'
+					quality={78}
 				/>
 			</motion.div>
 			<div className='ge-hero-scrim' aria-hidden='true' />
@@ -54,13 +60,36 @@ export default function Hero() {
 				34.0837&deg; N, 74.7973&deg; E &mdash; SRINAGAR
 			</div>
 
+			{/* mobile-only metadata — desktop Eyebrow/coord are hidden ≤640px and
+			    replaced by this dedicated small-screen composition; the desktop
+			    markup above is untouched */}
+			<motion.div
+				className='ge-hero-meta-m'
+				initial={{ opacity: 0, y: 12 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ delay: 0.15, duration: 0.8, ease: EASE }}>
+				<span className='ge-hero-meta-m-tick' aria-hidden='true' />
+				<span className='ge-hero-meta-m-label'>Global Experience</span>
+				<span className='ge-hero-meta-m-route'>Kashmir &rarr; India &rarr; World</span>
+			</motion.div>
+			<motion.div
+				className='ge-hero-coord-m'
+				aria-hidden='true'
+				initial={{ opacity: 0, y: -8 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ delay: 0.2, duration: 0.8, ease: EASE }}>
+				<span>34.0837&deg; N</span>
+				<span>74.7973&deg; E</span>
+				<span className='ge-hero-coord-m-city'>Srinagar</span>
+			</motion.div>
+
 			<div className='ge-hero-inner'>
 				<motion.div
 					className='ge-hero-main'
 					variants={staggerContainer}
 					initial='hidden'
 					animate='show'>
-					<motion.div variants={staggerItem}>
+					<motion.div variants={staggerItem} className='ge-hero-eyebrow-wrap'>
 						<Eyebrow>Global Experience / Kashmir &rarr; India &rarr; World</Eyebrow>
 					</motion.div>
 					<motion.h1 variants={staggerItem} className='ge-hero-title'>
@@ -114,6 +143,29 @@ export default function Hero() {
 								}}
 							/>
 						</span>
+					</div>
+
+					{/* mobile-only scroll cue — sits in normal flow below the stats
+					    rail so it can never overlap wrapped stat labels; desktop's
+					    .ge-hero-scroll above is hidden below 640px */}
+					<div className='ge-hero-scroll-m' aria-hidden='true'>
+						<span className='ge-hero-scroll-m-num'>01</span>
+						<span className='ge-hero-scroll-m-line'>
+							<motion.span
+								className='ge-hero-scroll-m-tick'
+								animate={
+									prefersReducedMotion
+										? undefined
+										: { x: ['-100%', '330%', '-100%'] }
+								}
+								transition={{
+									duration: 2.2,
+									repeat: Infinity,
+									ease: 'easeInOut',
+								}}
+							/>
+						</span>
+						<span className='ge-hero-scroll-m-label'>Scroll</span>
 					</div>
 				</motion.div>
 			</div>

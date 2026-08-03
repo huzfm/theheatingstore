@@ -1,217 +1,179 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, MotionConfig, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { C, EASE } from "@/components/sections/WhyChooseUs/theme";
 import { TRUST_BADGES } from "../data";
 
-export default function MeasurementHero() {
+/**
+ * One headline line, masked and revealed as a whole rather than word by
+ * word — reads as a typeset line being brought into focus, not a
+ * typewriter effect. Reduced-motion handling is delegated to the
+ * `MotionConfig reducedMotion="user"` wrapper in the parent component
+ * rather than a manual branch here — Framer Motion resolves that setting
+ * internally in an SSR-safe way, avoiding a hydration mismatch that a
+ * hand-rolled `useReducedMotion()` branch on the *element type itself*
+ * would otherwise risk.
+ */
+function MaskLine({ children, delay = 0, className = "" }) {
   return (
-    <section
-      className="mu-noise"
-      style={{
-        position: "relative",
-        overflow: "hidden",
-        background:
-          "radial-gradient(120% 80% at 50% -10%, rgba(232,147,58,0.14), transparent 55%),linear-gradient(180deg,#0d0805 0%,#150d07 30%,#1a0f08 60%,#0f0906 100%)",
-        fontFamily: "var(--font-body)",
-        color: C.text,
-      }}
-    >
-      <div aria-hidden className="mu-aura">
-        <span className="mu-orb" />
-      </div>
-      <div aria-hidden className="mu-vignette" />
-
-      <div
-        className="mu-hero-grid"
-        style={{
-          position: "relative",
-          zIndex: 2,
-          maxWidth: 1320,
-          margin: "0 auto",
-          padding: "128px 20px 80px",
-          display: "grid",
-          gap: 56,
-          alignItems: "center",
-        }}
+    <span className="mh-mask">
+      <motion.span
+        className={className}
+        initial={{ y: "100%", opacity: 0, filter: "blur(6px)" }}
+        animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
+        transition={{ duration: 0.95, delay, ease: EASE }}
       >
-        {/* LEFT — copy */}
-        <div>
-          <motion.p
-            initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.8, ease: EASE }}
-            className="brand-badge"
-            style={{ margin: "0 0 26px" }}
-          >
-            <span className="brand-badge-dot" />
-            Measurement Tool
-          </motion.p>
+        {children}
+      </motion.span>
+    </span>
+  );
+}
 
-          <motion.h1
-            initial={{ opacity: 0, y: 26, filter: "blur(6px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.9, ease: EASE, delay: 0.12 }}
-            className="brand-h"
-            style={{ fontSize: "clamp(34px,5vw,60px)" }}
-          >
-            Measure your space
-            <span className="brand-h-accent" style={{ display: "block" }}>
-              with confidence.
-            </span>
-          </motion.h1>
+/** Small mount-triggered rise/fade, shared by every non-headline reveal. */
+function Reveal({ children, delay = 0, y = 16, className = "", as = "div" }) {
+  const MotionTag = motion[as];
+  return (
+    <MotionTag
+      className={className}
+      initial={{ opacity: 0, y }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay, ease: EASE }}
+    >
+      {children}
+    </MotionTag>
+  );
+}
 
-          <motion.p
-            initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.9, ease: EASE, delay: 0.26 }}
-            className="brand-sub"
-            style={{ marginTop: 24, maxWidth: 480 }}
-          >
-            Enter your room dimensions and fixed furniture — this calculator
-            works out heatable floor area as you type.
-          </motion.p>
+export default function MeasurementHero() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.04]);
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.4 }}
-            style={{ marginTop: 38, display: "flex", flexWrap: "wrap", gap: 14 }}
-          >
-            <a
-              href="#mu-calculator"
-              className="mu-btn-primary"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                borderRadius: 999,
-                padding: "15px 32px",
-                fontSize: 13,
-                fontWeight: 600,
-                color: "white",
-                background: "linear-gradient(to right,#FF7E5F,#FFB88C)",
-                boxShadow: "0 22px 60px rgba(255,126,95,0.35)",
-                textDecoration: "none",
-              }}
-            >
-              Begin Measurement
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path
-                  d="M7 3v8M4 8l3 3 3-3"
-                  stroke="white"
-                  strokeWidth="1.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
-          </motion.div>
+  return (
+    <MotionConfig reducedMotion="user">
+      <section ref={sectionRef} className="mh-hero mu-noise" style={{ color: C.text }}>
+        {/* ── Background layers ── */}
+        <div className="mh-grid" aria-hidden="true" />
+        <div className="mu-vignette" aria-hidden="true" />
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.5 }}
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 10,
-              marginTop: 34,
-            }}
-          >
-            {TRUST_BADGES.map((b) => (
-              <div
-                key={b.title}
-                style={{
-                  padding: "7px 14px",
-                  borderRadius: 999,
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(255,255,255,0.12)",
-                }}
-              >
-                <span style={{ display: "block", fontSize: 11, fontWeight: 700, color: C.text, lineHeight: 1.3 }}>
-                  {b.title}
+        <div className="mh-inner">
+          <div className="mh-top">
+            {/* ── LEFT — editorial copy ── */}
+            <div className="mh-content">
+              <Reveal delay={0.1} y={14} className="mh-eyebrow">
+                <span className="mh-eyebrow-num">01</span>
+                <span className="mh-eyebrow-rule" aria-hidden="true" />
+                <span className="mh-eyebrow-label">Measurement</span>
+              </Reveal>
+
+              <h1 className="mh-headline">
+                <MaskLine delay={0.24} className="mh-headline-line">
+                  Measure your space
+                </MaskLine>
+                <span className="mh-accent-wrap">
+                  <MaskLine delay={0.38} className="mh-headline-accent">
+                    with confidence.
+                  </MaskLine>
+                  <span className="mh-accent-rule" aria-hidden="true" />
                 </span>
-                <span style={{ display: "block", fontSize: 10, color: C.mute, lineHeight: 1.3 }}>{b.sub}</span>
-              </div>
-            ))}
-          </motion.div>
-        </div>
+              </h1>
 
-        {/* RIGHT — framed measuring photo, sized close to its native
-            resolution so it stays crisp (source is a modest 640x230 crop,
-            not a large photo — this deliberately isn't blown up to fill
-            the column like a generic hero image would be). */}
-        <motion.div
-          initial={{ opacity: 0, y: 32, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1, ease: EASE, delay: 0.2 }}
-          style={{ maxWidth: 480 }}
-        >
-          <div
-            className="mu-glass"
-            style={{
-              position: "relative",
-              borderRadius: 20,
-              overflow: "hidden",
-              aspectRatio: "640 / 230",
-            }}
-          >
-            <Image
-              src="/images/measure-crop.png"
-              alt="Tape measure laid across a floor ready for underfloor heating"
-              fill
-              priority
-              sizes="(max-width: 900px) 90vw, 560px"
-              style={{ objectFit: "cover" }}
-            />
-            <div
-              aria-hidden
-              style={{
-                position: "absolute",
-                inset: 0,
-                background: "linear-gradient(180deg, rgba(13,8,5,0) 55%, rgba(13,8,5,0.62) 100%)",
-              }}
-            />
-            <div style={{ position: "absolute", left: 18, bottom: 14, right: 18 }}>
-              <p style={{ fontSize: 12, color: C.text, margin: 0 }}>
-                Every quote starts with the same measurement.
-              </p>
+              <Reveal delay={0.56} className="mh-copy" as="p">
+                Enter your room dimensions and fixed furniture — this calculator
+                works out heatable floor area as you type.
+              </Reveal>
+
+              <Reveal delay={0.7} className="mh-cta-wrap">
+                <a href="#mu-calculator" className="mh-cta">
+                  <span>Begin Measurement</span>
+                  <span className="mh-cta-arrow" aria-hidden="true">
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                      <path
+                        d="M7 2v9M4 8l3 3 3-3"
+                        stroke="currentColor"
+                        strokeWidth="1.4"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </a>
+              </Reveal>
+            </div>
+
+            {/* ── RIGHT — cinematic architectural photograph ── */}
+            <div className="mh-visual">
+              <motion.div
+                className="mh-frame"
+                initial={{ opacity: 0, clipPath: "inset(9% 9% 9% 9% round 3px)" }}
+                animate={{ opacity: 1, clipPath: "inset(0% 0% 0% 0% round 3px)" }}
+                transition={{ duration: 1.3, ease: EASE, delay: 0.15 }}
+              >
+                <motion.div className="mh-frame-scale" style={{ scale: imageScale }}>
+                  <Image
+                    src="/images/mm.png"
+                    alt="Tape measure laid across a bare floor, measuring the room ahead of underfloor heating installation"
+                    fill
+                    priority
+                    sizes="(max-width: 900px) 100vw, 62vw"
+                    className="mh-image"
+                  />
+                </motion.div>
+
+                <div className="mh-image-overlay" aria-hidden="true" />
+
+                <Reveal delay={0.95} y={8} className="mh-image-label" as="span">
+                  <span className="mh-image-label-tick" aria-hidden="true" />
+                  Room Study / 001
+                </Reveal>
+
+                <Reveal delay={1.05} y={6} className="mh-dim mh-dim-h" as="div">
+                  <span className="mh-dim-line" aria-hidden="true" />
+                  <span className="mh-dim-value">4.82&nbsp;m</span>
+                </Reveal>
+
+                <Reveal delay={1.15} y={6} className="mh-dim mh-dim-v" as="div">
+                  <span className="mh-dim-line" aria-hidden="true" />
+                  <span className="mh-dim-value">2.94&nbsp;m</span>
+                </Reveal>
+
+                <Reveal delay={1.2} y={6} className="mh-reference" as="span">
+                  Reference Scale — Space Study
+                </Reveal>
+              </motion.div>
             </div>
           </div>
 
-          {/* Supporting stat card */}
-          <div
-            className="mu-glass"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 14,
-              padding: "16px 20px",
-              borderRadius: 16,
-              marginTop: 16,
-            }}
-          >
-            <p
-              style={{
-                fontFamily: "var(--font-heading)",
-                fontSize: 28,
-                fontWeight: 600,
-                color: C.amberLt,
-                lineHeight: 1,
-                margin: 0,
-              }}
-            >
-              3
-            </p>
-            <div style={{ width: 1, height: 34, background: "rgba(245,185,122,0.25)" }} />
-            <p style={{ fontSize: 12, color: C.soft, lineHeight: 1.4, margin: 0 }}>
-              Simple inputs: room size, fixed areas, sill height
-            </p>
-          </div>
-        </motion.div>
-      </div>
-    </section>
+          {/* ── BOTTOM — editorial spec strip + scroll cue ── */}
+          <Reveal delay={0.85} y={14} className="mh-bottom">
+            <div className="mh-trust">
+              {TRUST_BADGES.map((b) => (
+                <div className="mh-trust-item" key={b.title}>
+                  <span className="mh-trust-title">{b.title}</span>
+                  <span className="mh-trust-sub">{b.sub}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mh-scroll" aria-hidden="true">
+              <span className="mh-scroll-num">01</span>
+              <span className="mh-scroll-label">Scroll to calculate</span>
+              <span className="mh-scroll-line">
+                <motion.span
+                  className="mh-scroll-tick"
+                  animate={{ x: ["-100%", "220%", "-100%"] }}
+                  transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </span>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    </MotionConfig>
   );
 }

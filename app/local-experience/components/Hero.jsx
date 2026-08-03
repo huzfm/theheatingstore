@@ -27,16 +27,17 @@ export default function Hero() {
 					fill
 					priority
 					sizes='100vw'
-					style={{ objectFit: 'cover', objectPosition: '50% 45%' }}
+					style={{ objectFit: 'cover' }}
 				/>
 			</div>
 			<div aria-hidden className='le-hero-scrim' />
 			<div aria-hidden className='le-hero-textscrim' />
 			<div aria-hidden className='le-hero-grain' />
+			<div aria-hidden className='le-hero-geo'>Kashmir &middot; India</div>
 
 			<div className='le-hero-inner'>
 				<motion.div variants={staggerContainer} initial='hidden' animate='show'>
-					<motion.div variants={staggerItem}>
+					<motion.div variants={staggerItem} className='le-hero-topmeta'>
 						<Badge>Kashmir #1 Seller · Since 2011</Badge>
 					</motion.div>
 
@@ -63,8 +64,9 @@ export default function Hero() {
 			</div>
 
 			<div className='le-hero-scrollcue' aria-hidden>
+				<span className='le-hero-scrollcue-index'>01</span>
 				<span className='le-hero-scrollcue-line' />
-				Scroll
+				<span className='le-hero-scrollcue-label'>Scroll</span>
 			</div>
 		</section>
 	);

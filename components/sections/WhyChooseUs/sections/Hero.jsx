@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
+import Image from 'next/image';
 import { Icon } from '../icons';
 import { staggerContainer, staggerItem } from '../theme';
 import { AVATARS } from '../data';
@@ -34,10 +35,15 @@ const HEAT_DEEP = '#f2681c';
 			className='whc-hero'
 			aria-label='Why homeowners, architects and builders choose The Heating Store'>
 			<motion.div className='whc-hero-plate' style={prefersReducedMotion ? undefined : { y: plateY }}>
-				<img
+				<Image
 					src='/images/f.png'
 					alt='Luxury heated interior with warm timber flooring'
 					className='whc-hero-plate-img'
+					width={1536}
+					height={1024}
+					priority
+					sizes='100vw'
+					quality={78}
 				/>
 			</motion.div>
 			<div className='whc-hero-scrim' aria-hidden='true' />

@@ -5,17 +5,7 @@ import UnheatableAreas from "./UnheatableAreas";
 import InstallationDetails from "./InstallationDetails";
 
 function Divider() {
-  return (
-    <div
-      aria-hidden="true"
-      style={{
-        position: "relative",
-        height: 1,
-        margin: "32px 0",
-        background: "linear-gradient(90deg, transparent, rgba(232,147,58,0.22), transparent)",
-      }}
-    />
-  );
+  return <div className="mu-panel-divider" aria-hidden="true" />;
 }
 
 export default function MeasurementForm({
@@ -35,7 +25,12 @@ export default function MeasurementForm({
   setWindowSillHeight,
 }) {
   return (
-    <div className="mu-glass" style={{ padding: "clamp(24px, 4vw, 36px)", borderRadius: 24 }}>
+    <div className="mu-panel">
+      <div className="mu-panel-head">
+        <span className="mu-panel-title">Measurement Inputs</span>
+        <span className="mu-panel-live" aria-hidden="true">Live</span>
+      </div>
+
       <RoomDimensions
         roomWidth={roomWidth}
         setRoomWidth={setRoomWidth}

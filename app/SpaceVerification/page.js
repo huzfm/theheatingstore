@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 const MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
@@ -1059,15 +1060,16 @@ export default function SpaceVerification() {
                               width: '100%',
                             }}
                           >
-                            <div style={{ overflow: 'hidden', borderRadius: '20px 20px 0 0', height: 140 }}>
-                              <img
+                            <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '20px 20px 0 0', height: 140 }}>
+                              <Image
                                 src={room.img}
                                 alt={room.label}
+                                fill
+                                loading="lazy"
+                                sizes="(max-width: 640px) 50vw, 220px"
+                                quality={72}
                                 style={{
-                                  width: '100%',
-                                  height: '100%',
                                   objectFit: 'cover',
-                                  display: 'block',
                                   transition: 'transform 0.4s ease',
                                   transform: roomType === room.id ? 'scale(1.05)' : 'scale(1)',
                                 }}
@@ -1147,15 +1149,16 @@ export default function SpaceVerification() {
                               width: '100%',
                             }}
                           >
-                            <div style={{ overflow: 'hidden', borderRadius: '20px 20px 0 0', height: 180 }}>
-                              <img
+                            <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '20px 20px 0 0', height: 180 }}>
+                              <Image
                                 src={floor.img}
                                 alt={floor.label}
+                                fill
+                                loading="lazy"
+                                sizes="(max-width: 640px) 90vw, 340px"
+                                quality={72}
                                 style={{
-                                  width: '100%',
-                                  height: '100%',
                                   objectFit: 'cover',
-                                  display: 'block',
                                   transition: 'transform 0.4s ease',
                                   transform: subfloor === floor.id ? 'scale(1.05)' : 'scale(1)',
                                 }}
@@ -1993,12 +1996,14 @@ export default function SpaceVerification() {
                             position: 'relative',
                             background: `${t.color}10`,
                           }}>
-                            <img
+                            <Image
                               src={t.image}
                               alt={t.label}
+                              fill
+                              loading="lazy"
+                              sizes="(max-width: 640px) 90vw, 340px"
+                              quality={72}
                               style={{
-                                width: '100%',
-                                height: '100%',
                                 objectFit: 'cover',
                                 transition: 'transform 0.4s ease',
                                 transform: thermostat === t.id ? 'scale(1.05)' : 'scale(1)',

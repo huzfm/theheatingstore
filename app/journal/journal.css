@@ -1,0 +1,141 @@
+/* ── The Journal — editorial design system ─────────────────────────────
+   Scoped to .journal-page so nothing here leaks into the rest of the site.
+   Light "paper" sections carry the --jr-* tokens below; dark sections
+   (hero, manifesto, CTA) reuse the sitewide ink-950 / bone-100 / heat-400
+   tokens already defined in globals.css for brand consistency. */
+
+.journal-page {
+  --jr-paper: #f4eee4;
+  --jr-paper-deep: #ece1cd;
+  --jr-ink: #17130f;
+  --jr-ink-soft: #5a4d42;
+  --jr-ink-faint: #8d8074;
+  --jr-line: rgba(23, 19, 15, 0.12);
+  --jr-line-soft: rgba(23, 19, 15, 0.07);
+  --jr-accent: var(--brand-orange, #e8933a);
+  overflow-x: clip;
+  background: var(--jr-paper);
+}
+
+.journal-page ::selection {
+  background: var(--jr-accent);
+  color: #17130f;
+}
+
+/* Display headline: Bebas Neue, uppercase, tight editorial leading.
+   Global rules force line-height 1.75 on spans/divs — reassert here so the
+   mask-reveal wrappers don't inherit that and blow up hero height. */
+.jr-display,
+.jr-display * {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+}
+
+.jr-eyebrow {
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+}
+
+.jr-serif-quote {
+  font-family: var(--font-heading);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Grain: identical recipe to AboutHero's noise overlay. */
+.jr-grain {
+  pointer-events: none;
+  background-image: url('/noise.png');
+  mix-blend-mode: overlay;
+}
+
+/* Topic navigation — thin-border text nav, underline grows from the left
+   on hover, a small dot marks the active item. No pill buttons. */
+.jr-nav-item {
+  position: relative;
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--jr-ink-faint);
+  padding-block: 0.35rem;
+  transition: color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+.jr-nav-item::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--jr-ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.jr-nav-item:hover {
+  color: var(--jr-ink);
+}
+.jr-nav-item:hover::after {
+  transform: scaleX(1);
+}
+.jr-nav-item[data-active='true'] {
+  color: var(--jr-ink);
+}
+.jr-nav-item[data-active='true']::after {
+  transform: scaleX(1);
+  background: var(--jr-accent);
+}
+.jr-nav-item:focus-visible {
+  outline: 2px solid var(--jr-accent);
+  outline-offset: 4px;
+}
+
+/* Scroll cue: shared visual language with AboutHero's indicator. */
+.jr-scroll-track {
+  position: relative;
+  overflow: hidden;
+}
+.jr-scroll-run {
+  animation: jr-scroll-run 2.6s ease-in-out infinite;
+}
+@keyframes jr-scroll-run {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+/* Card focus state for keyboard users — visible, on-brand, never removed. */
+.jr-card:focus-visible {
+  outline: 2px solid var(--jr-accent);
+  outline-offset: 6px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journal-page * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Fine control at the very smallest widths — keep the hero and featured
+   story from feeling cramped on 360-390px glass. */
+@media (max-width: 380px) {
+  .jr-hero-headline { font-size: clamp(2.75rem, 17vw, 3.5rem) !important; }
+}
+
+/* Compact short mobile glass (e.g. 360x740) so the hero's intro, footer
+   meta and scroll cue all still land inside one screen rather than
+   spilling past it. */
+@media (max-width: 767px) and (max-height: 760px) {
+  .jr-hero-headline { font-size: clamp(2.5rem, 13vw, 3.25rem) !important; }
+}

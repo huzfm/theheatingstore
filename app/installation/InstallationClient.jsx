@@ -126,13 +126,20 @@ export default function InstallationContent() {
 					style={{
 						position: 'absolute',
 						inset: 0,
-						backgroundImage: "url('/images/el.png')",
-						backgroundSize: 'cover',
-						backgroundPosition: 'center',
 						filter: 'brightness(0.60) saturate(1.2) contrast(1.1)',
 						pointerEvents: 'none',
 					}}
-				/>
+				>
+					<Image
+						src="/images/el.png"
+						alt=""
+						fill
+						priority
+						sizes="100vw"
+						quality={78}
+						style={{ objectFit: 'cover', objectPosition: 'center' }}
+					/>
+				</div>
 				{/* lighter dark tint so headline stays legible + fades into #0a0a0a */}
 				<div aria-hidden style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,10,10,0.42) 0%, rgba(10,10,10,0.3) 45%, #0a0a0a 100%)', pointerEvents: 'none' }} />
 				<div aria-hidden style={{ position: 'absolute', top: '-15%', left: '50%', transform: 'translateX(-50%)', width: 'min(1000px, 120vw)', height: '70vh', background: `radial-gradient(50% 50% at 50% 40%, ${HEAT_DEEP}40, transparent 70%)`, filter: 'blur(20px)', pointerEvents: 'none' }} />
