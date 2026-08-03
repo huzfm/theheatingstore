@@ -1,23 +1,26 @@
+import LocalExperienceClient from './LocalExperienceClient';
+
 export const metadata = {
-  title: "Underfloor Heating Solutions for Kashmir | Electric Hamam Local Expertise",
+  title: 'Underfloor Heating in Kashmir | Our Local Team, Brands & Coverage',
   description:
-    "The Heating Store delivers electric hamam solutions tailored for Kashmir homes, -15C winter conditions, and local construction practices. Expert installation across Srinagar, Anantnag, Baramulla, and beyond.",
+    'The Heating Store has installed electric hamam and underfloor heating across Kashmir since 2011. The six brands we stock and support, and the towns our Srinagar team covers, from Srinagar and Baramulla to Shimla, Delhi and Darjeeling.',
   keywords: [
-    "underfloor heating Kashmir",
-    "electric hamam Kashmir homes",
-    "floor heating solutions Kashmir",
-    "local heating installation Kashmir",
-    "heating system Kashmir climate",
+    'underfloor heating Kashmir',
+    'electric hamam Srinagar',
+    'underfloor heating installers Kashmir',
+    'heating brands India',
+    'electric hamam Baramulla Anantnag',
+    'underfloor heating service network India',
   ],
   openGraph: {
-    title: "Underfloor Heating Solutions for Kashmir | Electric Hamam Local Expertise",
+    title: 'Underfloor Heating in Kashmir | Our Local Team, Brands & Coverage',
     description:
-      "Electric hamam solutions tailored for Kashmir homes and -15C winter conditions.",
+      'A Srinagar team, six supported brands, and installations from the Valley to the coast.',
+    type: 'article',
   },
+  alternates: { canonical: '/local-experience' },
 };
 
-import UnderfloorHeatingIndiaClient from './LocalExperienceClient';
-
-export default function UnderfloorHeatingIndia() {
-  return <UnderfloorHeatingIndiaClient />;
+export default function LocalExperience() {
+  return <LocalExperienceClient />;
 }

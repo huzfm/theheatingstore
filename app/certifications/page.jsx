@@ -1,22 +1,25 @@
+import CertificationsClient from './CertificationsClient';
+
 export const metadata = {
-  title: "Quality Certifications & Safety Standards | Electric Hamam",
+  title: 'Certifications & Safety Standards | CE, IEC, ISO Compliance',
   description:
-    "The Heating Store holds globally recognized quality and safety certifications for all electric hamam and underfloor heating systems installed in Kashmir. Learn about our compliance standards and testing protocols.",
+    'Every standard our electric hamam and underfloor heating systems are certified to, grouped by what each one governs: CE and UKCA marks, IEC 60335 safety, ISO 9001 manufacturing, BS 7671 installation, and WRAS approval for water-based systems.',
   keywords: [
-    "electric hamam certifications Kashmir",
-    "underfloor heating safety standards",
-    "ISO certified heating systems",
-    "quality assurance electric hamam",
-    "heating system compliance Kashmir",
+    'underfloor heating certifications India',
+    'IEC 60335 heating cable',
+    'CE UKCA certified underfloor heating',
+    'ISO 9001 heating manufacturer',
+    'BS 7671 underfloor heating installation',
+    'WRAS approved underfloor heating',
   ],
   openGraph: {
-    title: "Quality Certifications & Safety Standards | Electric Hamam",
+    title: 'Certifications & Safety Standards | CE, IEC, ISO Compliance',
     description:
-      "globally recognized quality and safety certifications for electric hamam and underfloor heating systems.",
+      'Once a heating cable is under screed, nobody inspects it again. Every certification exists because that is the only chance to get it right.',
+    type: 'article',
   },
+  alternates: { canonical: '/certifications' },
 };
-
-import CertificationsClient from './CertificationsClient';
 
 export default function Certifications() {
   return <CertificationsClient />;

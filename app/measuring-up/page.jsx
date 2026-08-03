@@ -1,22 +1,25 @@
+import MeasuringUpClient from './MeasuringUpClient';
+
 export const metadata = {
-  title: "How to Measure Up for Underfloor Heating | Electric Hammam",
+  title: 'Heatable Area Calculator | How to Measure Up for Underfloor Heating',
   description:
-    "Step-by-step guide to measure your room for underfloor heating installation. Use our Heatable Area Calculator to find the perfect system size.",
+    'Work out how much of your floor can actually be heated. Measure the room, deduct fixed furniture and fittings, apply the 10% perimeter allowance, and get the figure an underfloor heating quote is built from.',
   keywords: [
-    "measure room underfloor heating",
-    "heatable area calculator",
-    "room measurement guide",
-    "underfloor heating sizing",
-    "fixed furniture deductions",
+    'heatable area calculator',
+    'measure room for underfloor heating',
+    'underfloor heating sizing calculator',
+    'fixed furniture deductions underfloor heating',
+    'underfloor heating perimeter allowance',
+    'how much underfloor heating do I need',
   ],
   openGraph: {
-    title: "How to Measure Up for Underfloor Heating",
+    title: 'Heatable Area Calculator | How to Measure Up for Underfloor Heating',
     description:
-      "Use our 3-step measuring guide and Heatable Area Calculator to size your underfloor heating system correctly.",
+      'Three measurements, and the number a quote is built from. Free calculator.',
+    type: 'article',
   },
+  alternates: { canonical: '/measuring-up' },
 };
-
-import MeasuringUpClient from "./MeasuringUpClient";
 
 export default function MeasuringUpPage() {
   return <MeasuringUpClient />;

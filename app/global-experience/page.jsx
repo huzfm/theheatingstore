@@ -1,22 +1,25 @@
+import GlobalExperienceClient from './GlobalExperienceClient';
+
 export const metadata = {
-  title: "Global Underfloor Heating Experience | Electric Hamam Kashmir Standards",
+  title: 'Global Standards, Local Installs | Certified Heating Systems',
   description:
-    "The Heating Store brings global best practices and internationally certified electric hamam systems to Kashmir and India. Explore how world class heating standards translate into superior comfort for your home.",
+    'The electric hamam systems we install in Kashmir are proven across eight countries and built to international IEC standards. The manufacturers we carry, the buildings we heat, and every installation manual free to download.',
   keywords: [
-    "global underfloor heating Kashmir",
-    "international heating standards Kashmir",
-    "world class heating Kashmir",
-    "global heating experience Kashmir",
-    "electric hamam Kashmir",
+    'internationally certified underfloor heating India',
+    'IEC certified heating cable',
+    'global underfloor heating brands India',
+    'underfloor heating installation manual download',
+    'electric hamam mosque heating Kashmir',
+    'commercial underfloor heating India',
   ],
   openGraph: {
-    title: "Global Underfloor Heating Experience | Electric Hamam Kashmir Standards",
+    title: 'Global Standards, Local Installs | Certified Heating Systems',
     description:
-      "Bringing global best practices and internationally certified electric hamam systems to Kashmir.",
+      'Proven across eight countries, built to international standards, installed here.',
+    type: 'article',
   },
+  alternates: { canonical: '/global-experience' },
 };
-
-import GlobalExperienceClient from './GlobalExperienceClient';
 
 export default function GlobalExperience() {
   return <GlobalExperienceClient />;

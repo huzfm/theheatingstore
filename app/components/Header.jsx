@@ -3,15 +3,15 @@
 /**
  * Header.jsx, flat, full-width bar (ProWarm-style layout), restyled from
  * the earlier floating-pill version. All functionality is unchanged:
- * primary nav, "More pages" dropdown, ⌘K search modal, mobile drawer.
+ * primary nav, "More pages" dropdown, mobile drawer.
  */
 
-import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from 'framer-motion';
-import { Search, X, ChevronDown, ArrowRight, Menu } from 'lucide-react';
+import { X, ChevronDown, ArrowRight, Menu } from 'lucide-react';
 
 /* ---------- NAV DATA ---------- */
 
@@ -28,32 +28,14 @@ const MORE_NAV = [
   // The physics of the system (floor layers + thermostat), as distinct from
   // /how-it-works, which covers the installation process.
   { label: 'Working', href: '/working' },
-  // Editorial pieces on warmth and interiors, as distinct from /bloginfo,
-  // which is the full article index.
+  // Editorial pieces on warmth and interiors. The full article index at
+  // /bloginfo still exists but is no longer linked from the nav.
   { label: 'The Journal', href: '/journal' },
-  { label: 'Blog & Articles', href: '/bloginfo' },
   { label: 'Local Experience', href: '/local-experience' },
   { label: 'Global Experience', href: '/global-experience' },
   { label: 'Certifications', href: '/certifications' },
   { label: 'Measure-Up', href: '/measuring-up' },
   { label: 'Contact', href: '/contact' },
-];
-
-const SEARCH_ITEMS = [
-  { label: 'Products', href: '/product' },
-  { label: 'Installation', href: '/installation' },
-  { label: 'How It Works', href: '/how-it-works' },
-  { label: 'Working', href: '/working' },
-  { label: 'About Us', href: '/about' },
-  { label: 'Contact', href: '/contact' },
-  { label: 'Why Choose Us', href: '/why-choose-us' },
-  { label: 'Certifications', href: '/certifications' },
-  { label: 'Blog & Articles', href: '/bloginfo' },
-  { label: 'The Journal', href: '/journal' },
-  { label: 'Warranty Check', href: '/warranty-check' },
-  { label: 'Measure-Up', href: '/measuring-up' },
-  { label: 'Local Experience', href: '/local-experience' },
-  { label: 'Global Experience', href: '/global-experience' },
 ];
 
 const HIDE_ON = ['/SpaceVerification'];
@@ -133,185 +115,9 @@ function BrandMark({ compact = false }) {
   );
 }
 
-/* ---------- SearchModal (inline, unchanged) ---------- */
-
-function SearchModal({ open, onClose }) {
-  const [query, setQuery] = useState('');
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    if (open) {
-      setQuery('');
-      setTimeout(() => inputRef.current?.focus(), 60);
-    }
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e) => {
-      if (e.key === 'Escape') onClose();
-    };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [open, onClose]);
-
-  const results = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return SEARCH_ITEMS;
-    return SEARCH_ITEMS.filter((it) => it.label.toLowerCase().includes(q));
-  }, [query]);
-
-  return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.18 }}
-          onClick={onClose}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            background: 'rgba(0,0,0,0.7)',
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
-            zIndex: 10001,
-            display: 'flex',
-            alignItems: 'flex-start',
-            justifyContent: 'center',
-            padding: '12vh 16px 16px',
-          }}
-        >
-          <motion.div
-            initial={{ opacity: 0, y: -16, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -16, scale: 0.98 }}
-            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              width: '100%',
-              maxWidth: 600,
-              borderRadius: 16,
-              background: C.glassBg,
-              border: `1px solid ${C.glassBorder}`,
-              backdropFilter: 'blur(32px)',
-              WebkitBackdropFilter: 'blur(32px)',
-              boxShadow: '0 32px 80px rgba(0,0,0,0.6)',
-              overflow: 'hidden',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
-                padding: '18px 20px',
-                borderBottom: `1px solid ${C.glassBorder}`,
-              }}
-            >
-              <Search size={18} color={C.warmOrange} />
-              <input
-                ref={inputRef}
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search pages…"
-                style={{
-                  flex: 1,
-                  background: 'transparent',
-                  border: 'none',
-                  outline: 'none',
-                  color: C.textPrimary,
-                  fontFamily: "var(--font-body)",
-                  fontSize: 16,
-                  fontWeight: 500,
-                }}
-              />
-              <kbd
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 11,
-                  padding: '3px 7px',
-                  borderRadius: 6,
-                  background: 'rgba(255,255,255,0.06)',
-                  border: `1px solid ${C.glassBorder}`,
-                  color: C.textSecondary,
-                }}
-              >
-                ESC
-              </kbd>
-              <button
-                onClick={onClose}
-                aria-label="Close search"
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
-                  color: C.textSecondary,
-                  padding: 4,
-                  display: 'flex',
-                }}
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            <div style={{ maxHeight: 360, overflowY: 'auto', padding: 8 }}>
-              {results.length === 0 ? (
-                <div
-                  style={{
-                    padding: 24,
-                    textAlign: 'center',
-                    color: C.textMuted,
-                    fontFamily: "var(--font-body)",
-                    fontSize: 13.5,
-                  }}
-                >
-                  No results for &ldquo;{query}&rdquo;
-                </div>
-              ) : (
-                results.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={onClose}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '12px 14px',
-                      borderRadius: 12,
-                      textDecoration: 'none',
-                      color: C.textPrimary,
-                      fontFamily: "var(--font-body)",
-                      fontSize: 14,
-                      fontWeight: 500,
-                      transition: 'background 0.18s ease',
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.05)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-                  >
-                    <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <Search size={14} color={C.textMuted} />
-                      {item.label}
-                    </span>
-                    <span style={{ fontSize: 11, color: C.textMuted, fontFamily: "var(--font-body)" }}>
-                      {item.href}
-                    </span>
-                  </Link>
-                ))
-              )}
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
-
 /* ---------- MobileMenu (inline, unchanged) ---------- */
 
-function MobileMenu({ open, onClose, pathname, onSearchOpen }) {
+function MobileMenu({ open, onClose, pathname }) {
   const [moreExpanded, setMoreExpanded] = useState(false);
 
   useEffect(() => {
@@ -476,30 +282,6 @@ function MobileMenu({ open, onClose, pathname, onSearchOpen }) {
               borderTop: `1px solid ${C.glassBorder}`,
             }}
           >
-            <button
-              onClick={() => {
-                onClose();
-                setTimeout(() => onSearchOpen(), 120);
-              }}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-                padding: '12px 14px',
-                borderRadius: 12,
-                background: 'rgba(255,255,255,0.04)',
-                border: `1px solid ${C.glassBorder}`,
-                color: C.textPrimary,
-                cursor: 'pointer',
-                fontFamily: "var(--font-body)",
-                fontSize: 14,
-                fontWeight: 500,
-              }}
-            >
-              <Search size={16} color={C.warmOrange} />
-              Search
-            </button>
-
             <Link
               href="/contact"
               onClick={onClose}
@@ -689,7 +471,6 @@ function NavLinks({ pathname }) {
 export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const { scrollY } = useScroll();
@@ -697,17 +478,6 @@ export default function Header() {
     const next = latest > 12;
     setScrolled((prev) => (prev === next ? prev : next));
   });
-
-  useEffect(() => {
-    const onKey = (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        setSearchOpen(true);
-      }
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, []);
 
   if (HIDE_ON.some((p) => pathname === p || pathname?.startsWith(p + '/'))) {
     return null;
@@ -806,10 +576,7 @@ export default function Header() {
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
         pathname={pathname}
-        onSearchOpen={() => setSearchOpen(true)}
       />
-
-      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }
