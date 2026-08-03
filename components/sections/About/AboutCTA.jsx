@@ -1,12 +1,12 @@
 'use client';
 
 import { RevealText, Reveal } from '@/components/ui/RevealText';
-import MagneticButton from '@/components/ui/MagneticButton';
+import HeroCTAs from '@/components/ui/HeroCTAs';
 import { CTA } from './data';
 
 /**
  * Closing invitation. A raised heat-lit panel so the page lands on a warm,
- * confident note before the global footer. Buttons reuse MagneticButton.
+ * confident note before the global footer. Buttons are the shared HeroCTAs pair.
  */
 export default function AboutCTA() {
   return (
@@ -39,15 +39,7 @@ export default function AboutCTA() {
             </p>
           </Reveal>
           <Reveal delay={0.22}>
-            <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-2">
-              <MagneticButton as="a" href={CTA.primary.href} variant="solid" size="lg">
-                {CTA.primary.label}
-              </MagneticButton>
-              <MagneticButton as="a" href={CTA.secondary.href} variant="outline" size="lg">
-                {CTA.secondary.label}
-                <span aria-hidden className="text-heat-400">→</span>
-              </MagneticButton>
-            </div>
+            <HeroCTAs center className="mt-9" />
           </Reveal>
         </div>
       </div>

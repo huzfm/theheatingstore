@@ -1,7 +1,7 @@
 'use client';
 
 import ThermalLine from './ThermalLine';
-import MagneticCTA from './MagneticCTA';
+import HeroCTAs from '@/components/ui/HeroCTAs';
 
 /**
  * The copy column, four acts, one idea at a time.
@@ -100,12 +100,7 @@ export default function HeroContent() {
 
           <div className="hero__finale-ctas">
             <ThermalLine group="cta" className="hero__cta-row">
-              <MagneticCTA href="/contact" variant="primary">
-                Talk to an Expert
-              </MagneticCTA>
-              <MagneticCTA href="/SpaceVerification" variant="secondary">
-                Book Site Visit
-              </MagneticCTA>
+              <HeroCTAs center />
             </ThermalLine>
           </div>
         </div>

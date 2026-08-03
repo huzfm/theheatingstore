@@ -1,9 +1,9 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { RevealText } from '@/components/ui/RevealText';
+import HeroCTAs from '@/components/ui/HeroCTAs';
 import { REASONS } from './reasons';
 
 const EASE = [0.16, 1, 0.3, 1];
@@ -144,36 +144,7 @@ const CSS = `
  *  desktop, and at the foot of the list on small screens where the rail
  *  scrolls away above the argument it introduces. */
 function Actions({ className = '' }) {
-  return (
-    <div className={`flex flex-wrap items-center gap-3 ${className}`}>
-      <Link
-        href="/contact"
-        className="group inline-flex items-center gap-2.5 rounded-full bg-heat-500 px-6 py-3.5 text-[14px] font-semibold text-ink-950 transition-colors duration-300 hover:bg-heat-400"
-      >
-        Book a free site visit
-        <svg
-          width="15"
-          height="15"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="transition-transform duration-300 group-hover:translate-x-1"
-          aria-hidden="true"
-        >
-          <path d="M5 12h14M13 6l6 6-6 6" />
-        </svg>
-      </Link>
-      <Link
-        href="/how-it-works"
-        className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3.5 text-[14px] font-semibold text-bone-100 transition-colors duration-300 hover:border-heat-500/60 hover:text-white"
-      >
-        How installation works
-      </Link>
-    </div>
-  );
+  return <HeroCTAs className={className} />;
 }
 
 /* Entrance offsets for the alternating reveal. The horizontal travel is cut

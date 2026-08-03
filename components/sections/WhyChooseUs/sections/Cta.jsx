@@ -4,8 +4,8 @@ import { useReducedMotion } from 'framer-motion';
 import { useCallback, useEffect, useRef } from 'react';
 import { C } from '../theme';
 import { CTA_INCLUDED } from '../data';
-import { Icon } from '../icons';
 import { Reveal } from '../ui/Reveal';
+import HeroCTAs from '@/components/ui/HeroCTAs';
 import '../styles/cta.css';
 
 export default function Cta() {
@@ -80,17 +80,7 @@ export default function Cta() {
 
 						<div className='whc-cta-actions'>
 							<Reveal amount={0.5} delay={0.45} y={16}>
-								<a href='/contact' className='whc-btn-primary'>
-									<span>Talk to an Expert</span>
-									<Icon.ArrowRight size={16} />
-								</a>
-							</Reveal>
-
-							<Reveal amount={0.5} delay={0.55} y={12}>
-								<a href='#process' className='whc-btn-ghost'>
-									View Our Process
-									<span className='whc-btn-ghost-arrow'>→</span>
-								</a>
+								<HeroCTAs />
 							</Reveal>
 
 							<Reveal amount={0.5} delay={0.65} y={10}>

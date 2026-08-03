@@ -11,8 +11,7 @@ export const HERO = {
   // RevealText animates word-by-word, so keep this as a plain string.
   headline: 'We keep Kashmir warm when the power goes out.',
   sub: 'The Heating Store engineers, supplies and installs electric hamam and underfloor heating built for sub-zero winters and daily power cuts, where staying warm is not a luxury, it is the whole point.',
-  primary: { label: 'Talk to an Expert', href: '/SpaceVerification' },
-  secondary: { label: 'See the Process', href: '/how-it-works' },
+  // Button labels/destinations are owned by components/ui/HeroCTAs.
   // Full-bleed atmospheric backdrop (heavily darkened behind the copy).
   bgImage:
     'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80&auto=format&fit=crop',
@@ -138,6 +137,5 @@ export const CTA = {
   eyebrow: 'The warm part',
   title: 'Ready for a floor that holds its heat?',
   sub: 'Talk to our team for a free, no-obligation survey and installation quote.',
-  primary: { label: 'Book a Survey', href: '/contact' },
-  secondary: { label: 'Browse Systems', href: '/product' },
+  // Button labels/destinations are owned by components/ui/HeroCTAs.
 };

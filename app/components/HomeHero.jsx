@@ -16,17 +16,11 @@
  */
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 import './HomeHero.css';
 import LeadPopup from './LeadPopup.jsx';
-
-const ArrowIcon = (props) => (
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
-    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+import HeroCTAs from '@/components/ui/HeroCTAs';
 
 const ShieldIcon = (props) => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
@@ -143,13 +137,7 @@ export default function HomeHero() {
             </motion.p> */}
 
             <motion.div className="hhero__ctas" variants={item}>
-              <Link href="/contact" className="hhero__btn hhero__btn--primary">
-                Talk to an Expert
-                <ArrowIcon />
-              </Link>
-              <Link href="/SpaceVerification" className="hhero__btn hhero__btn--ghost">
-                Book a Free Site Visit
-              </Link>
+              <HeroCTAs />
             </motion.div>
           </motion.div>
 

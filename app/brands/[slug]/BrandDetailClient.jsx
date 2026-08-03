@@ -30,6 +30,7 @@ import {
 	ArrowRight,
 	Phone,
 } from 'lucide-react';
+import HeroCTAs from '@/components/ui/HeroCTAs';
 import BrandImage from '../../../components/BrandImage';
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -193,10 +194,7 @@ function HeroSection({ brand }) {
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8, ease: EASE, delay: 0.45 }}
 					style={{ marginTop: 32 }}>
-					<Link href='/contact' className='bd-cta bd-cta--solid'>
-						<span>Get a {brand.name} quote</span>
-						<span className='bd-cta-arrow'>→</span>
-					</Link>
+					<HeroCTAs center />
 				</motion.div>
 			</motion.div>
 
@@ -413,8 +411,10 @@ function ProductsGrid({ brand }) {
 								</ul>
 
 								<div style={{ display: 'flex', gap: 8, marginTop: 'auto' }}>
-									<Link href='/contact' style={{ flex: 1, textAlign: 'center', padding: '11px 12px', borderRadius: 10, background: accent, color: INK, fontFamily: 'var(--font-body)', fontSize: 12, fontWeight: 700, letterSpacing: '0.06em', textDecoration: 'none' }}>Get Quote</Link>
-									<Link href='/contact' style={{ flex: 1, textAlign: 'center', padding: '11px 12px', borderRadius: 10, background: 'transparent', color: BONE_MUTE, fontFamily: 'var(--font-body)', fontSize: 12, fontWeight: 600, letterSpacing: '0.06em', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.2)' }}>Learn More</Link>
+									{/* Same two actions as the site-wide HeroCTAs pair, kept at card
+									    scale: a full-size pill pair does not fit a product card. */}
+									<Link href='/contact' style={{ flex: 1, textAlign: 'center', padding: '11px 12px', borderRadius: 10, background: accent, color: INK, fontFamily: 'var(--font-body)', fontSize: 12, fontWeight: 700, letterSpacing: '0.06em', textDecoration: 'none' }}>Talk to an Expert</Link>
+									<Link href='/SpaceVerification' style={{ flex: 1, textAlign: 'center', padding: '11px 12px', borderRadius: 10, background: 'transparent', color: BONE_MUTE, fontFamily: 'var(--font-body)', fontSize: 12, fontWeight: 600, letterSpacing: '0.06em', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.2)' }}>Book a Free Site Visit</Link>
 								</div>
 							</div>
 						</motion.div>
@@ -451,11 +451,7 @@ function TrustStrip() {
 							</div>
 						))}
 					</div>
-					<Link href='/contact' className='bd-cta bd-cta--solid'>
-						<Phone size={16} strokeWidth={2} />
-						<span>Book a free site visit</span>
-						<ArrowRight size={16} strokeWidth={2} />
-					</Link>
+					<HeroCTAs />
 				</div>
 			</div>
 		</section>

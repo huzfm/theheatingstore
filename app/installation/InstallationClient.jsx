@@ -9,7 +9,7 @@ import {
 	useReducedMotion,
 } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
+import HeroCTAs from '@/components/ui/HeroCTAs';
 import { useRef } from 'react';
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -236,10 +236,7 @@ export default function InstallationContent() {
 					<p style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(15px, 2vw, 18px)', lineHeight: 1.7, color: BONE_MUTE, maxWidth: 540, margin: '0 auto 40px' }}>
 						Our certified engineers survey your space, recommend the right system, and handle every stage above, backed by our Kashmir installation warranty.
 					</p>
-					<div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-						<Link href='/contact' className='inst-cta inst-cta--solid'><span>Book a free site visit</span><span className='inst-cta-arrow'>→</span></Link>
-						<Link href='/product' className='inst-cta'><span>Explore brands</span></Link>
-					</div>
+					<HeroCTAs center />
 				</motion.div>
 			</section>
 

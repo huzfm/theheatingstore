@@ -10,6 +10,7 @@ import {
 } from 'framer-motion';
 import { useRef } from 'react';
 import Link from 'next/link';
+import HeroCTAs from '@/components/ui/HeroCTAs';
 import { BRANDS } from '../lib/brandsData';
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -441,15 +442,7 @@ function ClosingCTA() {
 				<p style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(15px, 2vw, 18px)', lineHeight: 1.7, color: BONE_MUTE, maxWidth: 560, margin: '0 auto 40px' }}>
 					Every system is backed by our Kashmir installation warranty and fitted by factory-trained technicians. Tell us your space, we&apos;ll design the right system.
 				</p>
-				<div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-					<Link href='/contact' className='pb-cta pb-cta--solid'>
-						<span>Talk to our experts</span>
-						<span className='pb-cta-arrow'>→</span>
-					</Link>
-					<Link href='/warranty-check' className='pb-cta'>
-						<span>Check warranty</span>
-					</Link>
-				</div>
+				<HeroCTAs center />
 			</motion.div>
 		</section>
 	);

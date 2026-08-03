@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { RevealText, Reveal } from '@/components/ui/RevealText';
-import MagneticButton from '@/components/ui/MagneticButton';
+import HeroCTAs from '@/components/ui/HeroCTAs';
 import ThermostatDial from '@/components/ui/ThermostatDial';
 import HeatFloorAnimation from './HeatFloorAnimation';
 import { HERO } from './data';
@@ -86,15 +86,7 @@ export default function AboutHero() {
           </Reveal>
 
           <Reveal delay={0.28}>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-2">
-              <MagneticButton as="a" href={HERO.primary.href} variant="solid" size="lg">
-                {HERO.primary.label}
-              </MagneticButton>
-              <MagneticButton as="a" href={HERO.secondary.href} variant="outline" size="lg">
-                {HERO.secondary.label}
-                <span aria-hidden className="text-heat-400">→</span>
-              </MagneticButton>
-            </div>
+            <HeroCTAs className="mt-10" />
           </Reveal>
         </div>
 
