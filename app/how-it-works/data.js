@@ -14,7 +14,7 @@ export const PROCESS = [
 		title: 'Expert Survey &',
 		titleAccent: 'Bespoke Floor Design',
 		outcome: 'A CAD heating layout mapped to your exact floor plan',
-		desc: 'Our NICEIC certified engineers survey the property in person, measuring room dimensions, checking floor construction and existing insulation, and calculating thermal load and U-values room by room. The result is a bespoke CAD heating layout with cable density and circuit zoning mapped to your exact floor plan, not a generic template.',
+		desc: 'NICEIC certified engineers survey the property in person, measuring rooms, floor construction and insulation, then calculate thermal load room by room — producing a bespoke CAD heating layout, not a generic template.',
 		points: [
 			{ label: 'Bespoke CAD Plan', detail: 'Cable spacing mapped room by room from your actual floor plan' },
 			{ label: 'Thermal Load Analysis', detail: 'U-value and heat-loss calculations set the wattage per m²' },
@@ -30,7 +30,7 @@ export const PROCESS = [
 		title: 'Precision Cable',
 		titleAccent: 'Installation',
 		outcome: 'A tested, wired system signed off to BS 7671',
-		desc: 'Engineers embed ultra-thin heating cable directly into the screed, or fix self-adhesive mats across the subfloor, laid to the exact CAD spec so there are no cold spots. Every installation is wired and commissioned to BS 7671 Amendment 4 and signed off under NICEIC certification before the floor finish goes down.',
+		desc: 'Engineers embed ultra-thin cable into the screed, or fix self-adhesive mats to the subfloor, laid to the exact CAD spec so there are no cold spots — wired and signed off under NICEIC certification before the floor finish goes down.',
 		points: [
 			{ label: '3–4mm Cable Profile', detail: 'Sits invisibly beneath tile, stone, LVT or timber' },
 			{ label: 'Self-Adhesive Mats', detail: 'Fast-fix system for renovations over an existing subfloor' },
@@ -46,7 +46,7 @@ export const PROCESS = [
 		title: 'Intelligent Thermostat',
 		titleAccent: '& Commissioning',
 		outcome: 'A commissioned system tuned to your household',
-		desc: "Heatmiser Neo and Salus iT800 systems pair a floor sensor with an air sensor, so the thermostat reacts to both rather than just room temperature. Geofencing brings the heating on as you head home, and open-window detection pauses it automatically when a window opens nearby. Independent market reporting puts typical zoned-control savings in the 15–30% range depending on the property and how it's used.",
+		desc: "Heatmiser Neo and Salus iT800 pair a floor sensor with an air sensor, so the thermostat reacts to both. Geofencing brings the heating on as you head home; open-window detection pauses it automatically.",
 		points: [
 			{ label: 'Dual Sensor Precision', detail: '±0.5°C accuracy, floor and air temperature both monitored' },
 			{ label: 'Geofencing & Adaptive Scheduling', detail: 'Self-learning 7-day programme, heating adjusts as you leave and return' },
@@ -62,7 +62,7 @@ export const PROCESS = [
 		title: '25 Year Warranty',
 		titleAccent: '& Ongoing Support',
 		outcome: 'Lifetime cover, with zero callout fees',
-		desc: 'Every system we install carries a 25 year product warranty backed by a 24-hour replacement guarantee. Our dedicated aftercare team remains on call for the full lifetime of your heating system with zero callout fees, ever.',
+		desc: 'Every system carries a 25 year product warranty backed by a 24-hour replacement guarantee, with our aftercare team on call for the life of the system — zero callout fees, ever.',
 		points: [
 			{ label: '25 Year Warranty', detail: 'Cables, thermostats and all components fully covered' },
 			{ label: '24 Hour Swap Guarantee', detail: 'Faulty unit replaced within one working day' },
@@ -81,7 +81,7 @@ export const TECHNICAL = {
 	tag: 'Heat Science',
 	title: 'Radiant Warmth,',
 	titleAccent: 'Engineered From the Ground Up',
-	desc: 'Radiators heat air, which rises, cools and recirculates dust as it moves around a room. Underfloor heating radiates warmth directly from the floor surface, so the whole room warms evenly with no draughts, no dust circulation and no hot-and-cold layering. Comfort that reads as air quality, not just temperature.',
+	desc: 'Radiators heat air, which rises, cools and recirculates dust around a room. Underfloor heating radiates warmth from the floor itself, so the room warms evenly with no draughts and no hot-and-cold layering.',
 	points: [
 		{ label: '26°C Floor Surface', detail: 'Warmth exactly where the body feels it, not six feet up a wall' },
 		{ label: 'Zero Air Movement', detail: 'No convection currents to stir dust, pollen or allergens' },

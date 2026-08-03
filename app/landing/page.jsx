@@ -86,20 +86,29 @@ function StatCounter({ stat, inView }) {
   );
 }
 
-/* ── Hero image carousel ──────────────────────────────────────────── */
+/* ── Hero image carousel ──────────────────────────────────────────────────
+   Only the active slide plus the one coming up next are ever mounted, so the
+   other 4 multi-megabyte plates never download until the carousel actually
+   reaches them, instead of all 6 loading up front behind an opacity:0. */
 function HeroCarousel() {
   const [active, setActive] = useState(0);
+  const [loaded, setLoaded] = useState(() => new Set([0, 1 % HERO_IMAGES.length]));
   useEffect(() => {
     const id = setInterval(() => {
-      setActive((i) => (i + 1) % HERO_IMAGES.length);
+      setActive((i) => {
+        const next = (i + 1) % HERO_IMAGES.length;
+        const upcoming = (next + 1) % HERO_IMAGES.length;
+        setLoaded((prev) => (prev.has(upcoming) ? prev : new Set(prev).add(upcoming)));
+        return next;
+      });
     }, 2000);
     return () => clearInterval(id);
   }, []);
   return (
     <div className="hero-carousel">
-      {HERO_IMAGES.map((src, i) => (
+      {HERO_IMAGES.map((src, i) => loaded.has(i) && (
         <div key={src} className="hero-slide" style={{ opacity: i === active ? 1 : 0 }}>
-          <Image src={src} alt="Underfloor heating installation" fill priority={i === 0} sizes="100vw" style={{ objectFit: 'cover' }} />
+          <Image src={src} alt="Underfloor heating installation" fill priority={i === 0} sizes="100vw" quality={78} style={{ objectFit: 'cover' }} />
         </div>
       ))}
       <div className="hero-slide-dots">

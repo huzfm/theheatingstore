@@ -1,6 +1,7 @@
-'use client';
 
+'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { RevealText, Reveal } from '@/components/ui/RevealText';
 import MagneticButton from '@/components/ui/MagneticButton';
@@ -29,12 +30,18 @@ export default function AboutHero() {
 
   return (
     <section className="relative isolate overflow-hidden bg-ink-950 text-bone-100">
-      {/* Full-bleed backdrop image */}
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url('/abo.png')` }}
-      />
+      {/* Full-bleed backdrop image, the page's LCP element */}
+      <div aria-hidden className="absolute inset-0">
+        <Image
+          src="/abo.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          quality={78}
+          className="object-cover object-center"
+        />
+      </div>
       {/* Legibility + mood: darken overall, darker still under the left copy */}
       <div
         aria-hidden

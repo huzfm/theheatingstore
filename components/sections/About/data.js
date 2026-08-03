@@ -7,18 +7,20 @@
  */
 
 export const HERO = {
-  eyebrow: 'Since 2011 · Kashmir',
-  // RevealText animates word-by-word, so keep this as a plain string.
-  headline: 'We keep Kashmir warm when the power goes out.',
-  sub: 'The Heating Store engineers, supplies and installs electric hamam and underfloor heating built for sub-zero winters and daily power cuts, where staying warm is not a luxury, it is the whole point.',
+  brand: 'The Heating Store',
+  location: 'Kashmir · Est. 2011',
+  coords: ['34.0837° N', '74.7978° E', 'Srinagar'],
+  headline: 'Built for winter. Engineered for Kashmir.',
+  sub: "The Heating Store engineers, supplies and installs electric hamam and underfloor heating systems built for sub-zero winters, heavy snow and the realities of Kashmir's power cuts.",
   primary: { label: 'Talk to an Expert', href: '/SpaceVerification' },
-  secondary: { label: 'See the Process', href: '/how-it-works' },
-  // Full-bleed atmospheric backdrop (heavily darkened behind the copy).
-  bgImage:
-    'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80&auto=format&fit=crop',
-  // Static poster shown in place of the live 3D under reduced motion.
-  poster:
-    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1000&q=80&auto=format&fit=crop',
+  secondary: { label: 'Explore our approach', href: '/how-it-works' },
+  instrument: {
+    metric: 'Floor Temperature',
+    value: '24.0°C',
+    status: 'Holding',
+  },
+  footerLeft: 'Electric Hamam — Thermal Systems — Kashmir · India',
+  footerRight: 'Est. 2011 — Winter Systems — 01 / About',
 };
 
 /* Origin story, narrative, not bullets. Founding year carried from prior copy. */

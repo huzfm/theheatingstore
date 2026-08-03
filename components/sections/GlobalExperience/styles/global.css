@@ -1,0 +1,125 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   GlobalExperience — design tokens, container, and cross-section primitives.
+   Tokens are aliased 1:1 onto the site's shared amber/coral/ivory system
+   (components/sections/WhyChooseUs/theme.js) so this page reads as the same
+   brand as WhyChooseUs, Certifications, How It Works, Local Experience and
+   Measuring Up — only the names stay page-local for readability in this file.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.ge-root {
+	--bg-0: #0d0805;
+	--bg-1: #150d07;
+	--bg-2: #1a0f08;
+	--ivory: #fbf3ea;
+	--ivory-soft: rgba(251, 243, 234, 0.6);
+	--ivory-mute: rgba(251, 243, 234, 0.4);
+	--copper-deep: #e8933a;
+	--copper: #f5b97a;
+	--copper-light: #ff7e5f;
+	--line: rgba(255, 255, 255, 0.09);
+	--line-strong: rgba(255, 255, 255, 0.16);
+	--ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+	position: relative;
+	isolation: isolate;
+	background:
+		radial-gradient(120% 80% at 50% -10%, rgba(232, 147, 58, 0.14), transparent 55%),
+		linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 30%, #1a0f08 60%, #0f0906 100%);
+	color: var(--ivory);
+	font-family: var(--font-body);
+	overflow: hidden;
+}
+
+/* Hero title stays the one uppercase/weight-400 display treatment — the same
+   split WhyChooseUs itself uses (its Hero departs from its own page system).
+   Every other heading matches WhyChooseUs' non-hero .whc-h: weight 600,
+   sentence case, line-height 1.06. */
+.ge-root h1 {
+	font-family: var(--font-heading);
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: -0.01em;
+	line-height: 0.98;
+	color: var(--ivory);
+	margin: 0;
+}
+.ge-root h2,
+.ge-root h3 {
+	font-family: var(--font-heading);
+	font-weight: 600;
+	letter-spacing: -0.01em;
+	line-height: 1.06;
+	color: var(--ivory);
+	margin: 0;
+}
+
+.ge-container {
+	position: relative;
+	z-index: 2;
+	max-width: 1400px;
+	margin: 0 auto;
+	padding-inline: clamp(1.25rem, 5vw, 4rem);
+}
+
+.ge-section {
+	position: relative;
+	padding-block: clamp(4.5rem, 9vw, 8rem);
+}
+
+/* Eyebrow — technical label used above every section heading */
+.ge-eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.65rem;
+	font-family: var(--font-body);
+	font-size: 0.7rem;
+	font-weight: 600;
+	letter-spacing: 0.32em;
+	text-transform: uppercase;
+	color: var(--copper);
+}
+.ge-eyebrow-tick {
+	width: 22px;
+	height: 1px;
+	background: var(--copper-light);
+	flex-shrink: 0;
+}
+
+/* Hairline divider, used between rows/rules across the page */
+.ge-hr {
+	border: none;
+	height: 1px;
+	background: var(--line);
+}
+
+/* Grain texture overlay — extremely subtle, applied inside dark full-bleed
+   sections only (never over photography, where it competes with detail). */
+.ge-grain {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	opacity: 0.035;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Architectural numeral — large, light, tight tracking. Uses the body
+   typeface rather than the display face, which is bold/condensed and reads
+   as a poster at large sizes rather than an engineering numeral. */
+.ge-numeral {
+	font-family: var(--font-body);
+	font-weight: 400;
+	letter-spacing: -0.02em;
+	color: var(--ivory);
+	font-variant-numeric: lining-nums tabular-nums;
+}
+
+.ge-copper-text {
+	color: var(--copper-light);
+}
+
+@media (max-width: 767px) {
+	.ge-section {
+		padding-block: clamp(3.5rem, 12vw, 5rem);
+	}
+}

@@ -9,6 +9,7 @@ import {
 	useReducedMotion,
 } from 'framer-motion';
 import { useRef } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { BRANDS } from '../lib/brandsData';
 
@@ -71,13 +72,20 @@ function Hero() {
 				style={{
   position: 'absolute',
   inset: 0,
-  backgroundImage: "url('/images/p.png')",
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
   filter: 'brightness(1.1) saturate(1.2) contrast(1.1)',
   pointerEvents: 'none',
 }}
-			/>
+			>
+				<Image
+					src="/images/p.png"
+					alt=""
+					fill
+					priority
+					sizes="100vw"
+					quality={78}
+					style={{ objectFit: 'cover', objectPosition: 'center' }}
+				/>
+			</div>
 			{/* dark tint so the headline stays legible + fades into #0a0a0a */}
 			<div aria-hidden style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.35) 45%, #0a0a0a 100%)', pointerEvents: 'none' }} />
 			{/* Heat glow */}

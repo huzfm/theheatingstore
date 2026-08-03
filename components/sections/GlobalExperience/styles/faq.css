@@ -1,0 +1,133 @@
+/* ── FAQ ──────────────────────────────────────────────────────────────── */
+
+.ge-faq-section {
+	background: var(--bg-1);
+	border-top: 1px solid var(--line);
+}
+
+.ge-faq-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 3rem;
+}
+
+.ge-faq-heading {
+	margin-top: 1.1rem;
+	font-size: clamp(2.2rem, 4.4vw, 3.25rem);
+}
+.ge-faq-copy {
+	margin: 1.5rem 0 0;
+	max-width: 20rem;
+	font-size: 0.9rem;
+	line-height: 1.7;
+	color: var(--ivory-soft);
+}
+
+.ge-faq-list {
+	display: flex;
+	flex-direction: column;
+}
+.ge-faq-row {
+	border-top: 1px solid var(--line);
+}
+.ge-faq-row:last-child {
+	border-bottom: 1px solid var(--line);
+}
+
+.ge-faq-trigger {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: 1.25rem;
+	padding: 1.5rem 0;
+	background: none;
+	border: none;
+	cursor: pointer;
+	text-align: left;
+	color: inherit;
+	font: inherit;
+}
+.ge-faq-num {
+	flex-shrink: 0;
+	width: 2.25rem;
+	font-size: 1rem;
+	color: var(--ivory-mute);
+	transition: color 0.3s ease;
+}
+.ge-faq-row.is-open .ge-faq-num {
+	color: var(--copper);
+}
+.ge-faq-q {
+	flex: 1;
+	font-family: var(--font-body);
+	font-weight: 600;
+	font-size: 1rem;
+	line-height: 1.4;
+	color: var(--ivory);
+}
+.ge-faq-toggle {
+	position: relative;
+	flex-shrink: 0;
+	width: 20px;
+	height: 20px;
+	transition: transform 0.4s var(--ease);
+}
+.ge-faq-row.is-open .ge-faq-toggle {
+	transform: rotate(45deg);
+}
+.ge-faq-toggle-h,
+.ge-faq-toggle-v {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	background: var(--copper-light);
+	transform: translate(-50%, -50%);
+}
+.ge-faq-toggle-h {
+	width: 14px;
+	height: 1px;
+}
+.ge-faq-toggle-v {
+	width: 1px;
+	height: 14px;
+}
+
+.ge-faq-panel {
+	overflow: hidden;
+}
+.ge-faq-panel-inner {
+	display: flex;
+	gap: 1.1rem;
+	padding: 0 0 1.75rem 3.5rem;
+}
+.ge-faq-accent {
+	flex-shrink: 0;
+	width: 2px;
+	align-self: stretch;
+	background: linear-gradient(180deg, var(--copper-light), transparent);
+}
+.ge-faq-a {
+	font-size: 0.88rem;
+	line-height: 1.75;
+	color: var(--ivory-soft);
+	margin: 0;
+	max-width: 34rem;
+}
+
+@media (max-width: 480px) {
+	.ge-faq-panel-inner {
+		padding-left: 2.25rem;
+	}
+}
+
+@media (min-width: 900px) {
+	.ge-faq-grid {
+		grid-template-columns: minmax(240px, 320px) 1fr;
+		gap: 5rem;
+	}
+	.ge-faq-intro {
+		position: sticky;
+		top: 130px;
+		align-self: start;
+	}
+}

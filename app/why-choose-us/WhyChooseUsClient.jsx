@@ -27,25 +27,20 @@ export default function WhyChooseUsClient() {
 			{/* ═══ stat grid ═══ */}
 			<Stats />
 
-{/* ═══ §3 PROCESS ═══ */}
+			{/* ═══ §3 PROCESS ═══ */}
 			<Process />
 
 			{/* ═══ §4 BRANDS ═══ */}
 			<Brands />
 
 
-{/* ═══ §5 TESTIMONIALS ═══ */}
+			{/* ═══ §5 TESTIMONIALS ═══ */}
 			<Testimonials />
-
 
 			{/* ═══ §2 RELIABILITY + GLOBAL ═══ */}
 			<ReliabilityGlobal />
 
-			
 
-			
-
-			
 			{/* ═══ §6 CTA ═══ */}
 			<Cta />
 

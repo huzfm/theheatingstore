@@ -20,20 +20,26 @@ export const metadata = {
   },
 };
 
-import ArticlesSection from "../components/ArticlesSection";
+import "./journal.css";
+import JournalHero from "./components/JournalHero";
+import FeaturedStory from "./components/FeaturedStory";
+import JournalIndex from "./components/JournalIndex";
+import JournalManifesto from "./components/JournalManifesto";
+import JournalCTA from "./components/JournalCTA";
 
 /**
- * The Journal, lifted off the home page onto its own route.
- *
- * ArticlesSection is unchanged and still owns all of the layout and copy, it
- * simply reads as the page here rather than as one band near the foot of the
- * home page. Individual cards still deep-link into /blog, which remains the
- * full article index.
+ * The Journal — a dedicated editorial destination, not a single section.
+ * Cinematic cover, a lead feature, a filterable index of the remaining
+ * stories, a short manifesto, then one closing invitation.
  */
 export default function JournalPage() {
   return (
-    <main>
-      <ArticlesSection />
+    <main className="journal-page">
+      <JournalHero />
+      <FeaturedStory />
+      <JournalIndex />
+      <JournalManifesto />
+      <JournalCTA />
     </main>
   );
 }

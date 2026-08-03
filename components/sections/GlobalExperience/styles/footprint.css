@@ -1,0 +1,149 @@
+/* ── Global Footprint ────────────────────────────────────────────────── */
+
+.ge-fp {
+	background: var(--bg-0);
+	border-top: 1px solid var(--line);
+}
+
+.ge-fp-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 3rem;
+}
+
+.ge-fp-heading {
+	margin-top: 1.1rem;
+	font-size: clamp(2.4rem, 4.6vw, 3.6rem);
+}
+.ge-fp-copy {
+	margin: 1.5rem 0 0;
+	max-width: 22rem;
+	font-size: 0.92rem;
+	line-height: 1.7;
+	color: var(--ivory-soft);
+}
+
+.ge-fp-list {
+	display: flex;
+	gap: 1.25rem;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	margin: 0 -1.25rem;
+	padding: 0.25rem 1.25rem 0.75rem;
+}
+
+.ge-fp-tile {
+	position: relative;
+	flex: 0 0 auto;
+	width: 168px;
+	scroll-snap-align: start;
+	padding: 1.5rem 0 1.35rem;
+	border-top: 1px solid var(--line);
+	overflow: hidden;
+	transition: border-color 0.4s var(--ease);
+}
+.ge-fp-tile-bg {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	opacity: 0;
+	background: radial-gradient(120% 100% at 0% 100%, rgba(245, 185, 122, 0.14), transparent 68%);
+	transition: opacity 0.5s var(--ease);
+}
+.ge-fp-tile-top {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+}
+.ge-fp-flag {
+	width: 44px;
+	height: 29px;
+	object-fit: cover;
+	border-radius: 2px;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+	transition: transform 0.5s var(--ease);
+}
+.ge-fp-num {
+	position: relative;
+	font-family: var(--font-body);
+	font-size: 0.78rem;
+	letter-spacing: -0.01em;
+	color: var(--ivory-mute);
+	font-variant-numeric: tabular-nums;
+	transition: opacity 0.4s var(--ease), color 0.4s var(--ease);
+}
+.ge-fp-name {
+	position: relative;
+	z-index: 1;
+	margin: 1.1rem 0 0;
+	font-family: var(--font-heading);
+	font-size: 1.05rem;
+	letter-spacing: 0.01em;
+	text-transform: uppercase;
+	color: var(--ivory);
+	transition: transform 0.5s var(--ease);
+}
+.ge-fp-line {
+	position: relative;
+	z-index: 1;
+	display: block;
+	margin-top: 0.9rem;
+	height: 1px;
+	width: 0%;
+	background: var(--copper-light);
+	transition: width 0.55s var(--ease);
+}
+
+@media (hover: hover) {
+	.ge-fp-tile:hover {
+		border-color: var(--line-strong);
+	}
+	.ge-fp-tile:hover .ge-fp-tile-bg {
+		opacity: 1;
+	}
+	.ge-fp-tile:hover .ge-fp-flag {
+		transform: scale(1.08);
+	}
+	.ge-fp-tile:hover .ge-fp-name {
+		transform: translateX(4px);
+	}
+	.ge-fp-tile:hover .ge-fp-line {
+		width: 100%;
+	}
+	.ge-fp-tile:hover .ge-fp-num {
+		color: var(--copper);
+		opacity: 1;
+	}
+}
+
+@media (min-width: 768px) {
+	.ge-fp-grid {
+		grid-template-columns: minmax(260px, 360px) 1fr;
+		gap: 4rem;
+		align-items: start;
+	}
+	.ge-fp-list {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0 2.5rem;
+		overflow: visible;
+		margin: 0;
+		padding: 0.5rem 0 0;
+	}
+	.ge-fp-tile {
+		width: auto;
+	}
+	.ge-fp-tile:nth-child(2n) {
+		margin-top: 3.25rem;
+	}
+}
+
+@media (min-width: 1100px) {
+	.ge-fp-list {
+		grid-template-columns: repeat(2, minmax(0, 340px));
+	}
+}
