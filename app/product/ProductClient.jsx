@@ -150,7 +150,7 @@ function Hero() {
 						maxWidth: 620,
 						marginTop: 32,
 					}}>
-					One uncompromising standard of installation. Explore the brands we trust to keep Kashmir warm, from decades of British engineering to radiant systems built to hold heat at −25°C.
+					One uncompromising standard of installation. Explore the brands we trust to keep India warm, from decades of British engineering to radiant systems built to hold heat at −25°C.
 				</motion.p>
 			</motion.div>
 

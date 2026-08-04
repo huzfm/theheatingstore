@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useScrollProgress } from '@/hooks/useScrollProgress';
 import { RevealText, Reveal } from '@/components/ui/RevealText';
@@ -45,6 +45,32 @@ import {
 } from '@/lib/about-stair';
 
 const EASE = [0.16, 1, 0.3, 1];
+
+/* useLayoutEffect warns when it runs during SSR; nothing here reads the DOM on
+   the server, so fall back to useEffect there. */
+const useIsoLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
+
+/**
+ * True only at lg and up, and only after mount.
+ *
+ * The server can't know the viewport, so the first render is always the flat
+ * list, which is also what a phone keeps. On desktop the swap to the staircase
+ * happens in a layout effect, i.e. after hydration matches but before the
+ * browser paints, so there is no visible flash of the flat list.
+ */
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useIsoLayoutEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const sync = () => setIsDesktop(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
+
+  return isDesktop;
+}
 
 /**
  * One cylindrical part of the newel: four planes through the vertical axis.
@@ -229,20 +255,23 @@ function Staircase({ spinRef, stepRefs }) {
  * measured once and has to be recomputed on every resize, and sticky has
  * nothing to recompute. ScrollTrigger still owns the 0→1 scrub.
  *
- * It runs at every width. The geometry is fixed px and the finished render is
- * scaled to fit (see .stair-stage), so a phone gets the same structure and the
- * same projection rather than a flattened-out variant. Only reduced motion
- * opts out, to a plain list.
+ * It runs at lg and up only. The geometry is fixed px and the finished render
+ * is scaled to fit (see .stair-stage), which held its projection on a phone but
+ * left the structure small and hard to read for the cost of a pinned 320vh
+ * scrub; below lg, and under reduced motion, the milestones render as a plain
+ * list instead.
  */
 export default function Timeline() {
   const wrapperRef = useRef(null);
   const spinRef = useRef(null);
   const stepRefs = useRef([]);
   const reduce = useReducedMotion();
+  const isDesktop = useIsDesktop();
 
   const [active, setActive] = useState(0);
 
-  const enabled = !reduce;
+  // Below lg the staircase is not rendered at all, so nothing must scrub.
+  const enabled = !reduce && isDesktop;
 
   /**
    * Scroll → DOM, with no React state in the hot path. ScrollTrigger's scrub
@@ -314,10 +343,13 @@ export default function Timeline() {
     </>
   );
 
-  /* ── Reduced motion ───────────────────────────────────────────────
+  /* ── Flat: reduced motion, and every viewport below lg ────────────
      No sticky, no 320vh of scroll, no 3D. The same five milestones as
-     an ordinary ordered list.                                       */
-  if (reduce) {
+     an ordinary ordered list. The staircase is a fixed-px structure
+     scaled down to fit a phone, where it ends up small, expensive and
+     hard to read, so mobile gets the list instead. Desktop is
+     untouched.                                                      */
+  if (reduce || !isDesktop) {
     return (
       <section className="relative bg-ink-950 py-24 text-bone-100 sm:py-28">
         <div className="mx-auto max-w-5xl px-5 sm:px-8">

@@ -7,11 +7,22 @@
  */
 
 export const HERO = {
-  eyebrow: 'Since 2011 · Kashmir',
-  // RevealText animates word-by-word, so keep this as a plain string.
-  headline: 'We keep Kashmir warm when the power goes out.',
+  eyebrow: 'Since 2011',
+  // RevealText animates word-by-word, so keep this as a plain string. The full
+  // sentence is what the h1 exposes to assistive tech; the two halves below are
+  // the same sentence split so the second can carry the heat gradient.
+  headline: 'We keep homes warm when the electricity goes out.',
+  headlineLead: 'We keep homes warm',
+  headlineAccent: 'when the electricity goes out.',
   sub: 'The Heating Store engineers, supplies and installs electric hamam and underfloor heating built for sub-zero winters and daily power cuts, where staying warm is not a luxury, it is the whole point.',
   // Button labels/destinations are owned by components/ui/HeroCTAs.
+  /* Three figures the rest of the page then backs up. Same shape as the
+     /how-it-works hero strip. Kept to three: a fourth wraps on a phone. */
+  facts: [
+    { value: '2011', label: 'Engineering floors since' },      // NEEDS-REAL-INFO
+    { value: '6,000+', label: 'Systems supplied & installed' }, // NEEDS-REAL-INFO
+    { value: '25 yr', label: 'Warranty as standard' },
+  ],
   // Full-bleed atmospheric backdrop (heavily darkened behind the copy).
   bgImage:
     'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80&auto=format&fit=crop',
@@ -120,7 +131,7 @@ export const MILESTONES = [
   { year: '2011', title: 'The first floor', desc: 'Founded by heating engineers in Srinagar, chasing a warmth that survives load-shedding.' }, // NEEDS-REAL-INFO
   { year: '2015', title: 'Hamam, done right', desc: 'Introduced wet-area-certified electric hamam systems for the Kashmiri home.' }, // PLACEHOLDER
   { year: '2019', title: 'Beyond the valley', desc: 'Extended supply and installation to homes and projects across the region.' }, // PLACEHOLDER
-  { year: '2023', title: "Kashmir's largest", desc: 'Grew into the valley’s largest underfloor heating supplier and installer.' }, // NEEDS-REAL-INFO
+  { year: '2023', title: "India's largest", desc: "Grew into the country's largest underfloor heating supplier and installer." }, // NEEDS-REAL-INFO
   { year: 'Today', title: 'Warmer, every winter', desc: 'Thousands of floors later, still building for the coldest day, not the average one.' },
 ];
 

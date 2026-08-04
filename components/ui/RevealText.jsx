@@ -57,10 +57,21 @@ export function RevealText({
           aria-hidden="true"
           // inline-block + clipped box gives each word its own mask line.
           className="inline-block overflow-hidden align-bottom"
-          style={{ paddingBottom: '0.12em', marginBottom: '-0.12em' }}
+          // lineHeight inline, and not as a class on the caller's heading:
+          // globals.css sets `span { line-height: 1.75 }` outside any cascade
+          // layer, and unlayered CSS beats every Tailwind utility whatever its
+          // specificity. So a `leading-*` class on the h1 styles the h1 and
+          // these word spans keep 1.75, which is what was double-spacing every
+          // wrapped headline on the site. Inline wins outright.
+          style={{
+            lineHeight: 'inherit',
+            paddingBottom: '0.12em',
+            marginBottom: '-0.12em',
+          }}
         >
           <motion.span
             className="inline-block"
+            style={{ lineHeight: 'inherit' }}
             variants={{
               hidden: { y: '110%', opacity: 0 },
               visible: {
