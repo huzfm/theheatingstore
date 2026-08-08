@@ -103,18 +103,25 @@ export default function HomeHero() {
             initial="hidden"
             animate="show"
           >
-            {/* The claim, split into a lead and a date rather than run as one
-                uppercase band. The text content is unchanged, only its
-                structure: "India's Largest" carries the copper, the category
-                sits back in muted ivory, and the year is separated by a hairline
-                so it reads as provenance instead of the tail of a sentence. */}
+            {/* The claim, set as a maker's line.
+                ──────────────────────────────────
+                Three equal segments divided by copper diamonds and closed by a
+                hairline that fades out to the right - the provenance line a
+                house puts under its name, not a UI chip. Words unchanged.
+
+                Everything is one size and one tracking; the only hierarchy is
+                colour, so "India's Largest" leads on copper and the rest sits
+                back in ivory. That is what lets it stay a single quiet line
+                under type this large: an eyebrow that competes on size with
+                the headline beneath it has already lost. */}
             <motion.span className="hhero__eyebrow" variants={item}>
-              <span className="hhero__eyebrow-dot" aria-hidden="true" />
-              <span className="hhero__eyebrow-text">
-                <strong className="hhero__eyebrow-key">India&apos;s Largest</strong>{' '}
-                Underfloor Heating Seller
-              </span>
-              <span className="hhero__eyebrow-rule" aria-hidden="true" />
+              <span className="hhero__eyebrow-key">India&apos;s Largest</span>
+              <span className="hhero__eyebrow-sep" aria-hidden="true" />
+              <span className="hhero__eyebrow-sub">Underfloor Heating Seller</span>
+              <span
+                className="hhero__eyebrow-sep hhero__eyebrow-sep--date"
+                aria-hidden="true"
+              />
               <span className="hhero__eyebrow-year">Since 2011</span>
             </motion.span>
 

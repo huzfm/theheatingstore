@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import HeatingMatModel from './HeatingMatModel';
@@ -13,7 +13,7 @@ import {
   ROLL_WIDTH,
 } from './constants';
 import { damp, clamp, smoothstep } from '@/lib/three-utils';
-import { retainTextures, releaseTextures, groundShadow } from '@/lib/textures';
+import { retainTextures, releaseTextures } from '@/lib/textures';
 
 /** Idle spin, rad/s. Slow enough to read detail on, fast enough to notice. */
 const AUTO_SPEED = 0.16;
@@ -114,38 +114,6 @@ function fitDistance(aspect) {
 const CAM_D = fitDistance(1.4);
 
 /**
- * Baked shadow pool, in place of drei's ContactShadows.
- *
- * ContactShadows re-renders a depth pass into a render target every frame. The
- * product only ever spins about Y above a fixed plane, so a single pre-drawn
- * radial gradient is visually equivalent and costs one textured quad. It does
- * not belong inside the rotating group: a shadow that turns with the object it
- * is cast by is the fastest way to break the illusion.
- *
- * Warm grey rather than black, and lighter than it was. Over the old near-black
- * backdrop the pool was barely visible and could afford to be dense; on cream it
- * is the most conspicuous thing in the frame after the product itself, and pure
- * black at that strength reads as a hole cut in the page rather than as light
- * being blocked. A shadow on a warm ground takes its colour from the ground.
- */
-function GroundShadow() {
-  const map = useMemo(() => groundShadow(), []);
-
-  return (
-    <mesh position={[0, -PRODUCT_HALF_H - 0.2, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-      <planeGeometry args={[PRODUCT_RADIUS * 5, PRODUCT_RADIUS * 4]} />
-      <meshBasicMaterial
-        map={map}
-        transparent
-        opacity={0.34}
-        depthWrite={false}
-        color="#4a4036"
-      />
-    </mesh>
-  );
-}
-
-/**
  * Rotation, damping and framing.
  *
  * The whole product is one rigid group so the mat, its element, the tape and
@@ -223,8 +191,8 @@ function MatRig({ controls, reduced }) {
           Warm key high and left, cool fill low and right to keep the shadow
           side off black without flattening the weave, and a rim from behind
           that separates the mat's far edge from the backdrop. No shadow-casting
-          lights: the environment map does the shaping and the baked pool below
-          does the grounding.
+          lights and no ground pool: the environment map does all the shaping,
+          and the product floats clean against the paper backdrop.
 
           Retuned for a cream backdrop. The rim is down from 1.15 because a hot
           edge existed to lift the product off near-black and against pale paper
@@ -243,8 +211,6 @@ function MatRig({ controls, reduced }) {
       <group ref={spinRef}>
         <HeatingMatModel />
       </group>
-
-      <GroundShadow />
     </>
   );
 }

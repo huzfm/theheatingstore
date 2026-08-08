@@ -333,78 +333,75 @@
   line-height: 1.3;
 }
 
-/* eyebrow */
+/* ── eyebrow ──────────────────────────────────────────────────────────
+   A maker's line: three segments, copper diamonds between them, closed by a
+   hairline that fades out to the right.
+
+   One size, one tracking, one weight throughout - the hierarchy is carried
+   entirely by colour, which is what keeps it a single quiet line beneath type
+   this large. Nothing is drawn around it: no border, no fill, no blur. The
+   only ink beyond the words is two 3px diamonds and a one-pixel rule, and the
+   rule is what gives it a bottom edge without enclosing anything. */
 .hhero__eyebrow {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  /* Row gap matters as much as column gap: the pill wraps to two lines on
-     phones, and without it the lines collide. */
-  gap: 0.3rem 0.6rem;
   flex-wrap: wrap;
+  gap: 0.35rem 0.85rem;
   max-width: 100%;
-  padding: 0.5rem 0.95rem 0.5rem 0.7rem;
-  border: 1px solid var(--hairline);
-  border-radius: 999px;
-  /* Faint copper wash from the left, so the pill picks up the palette instead
-     of sitting as a neutral grey chip above a warm headline. */
-  background:
-    linear-gradient(100deg, rgba(168, 107, 63, 0.16), rgba(246, 242, 236, 0.03) 58%),
-    rgba(246, 242, 236, 0.04);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  font-size: 0.72rem;
+  padding-bottom: 0.85rem;
+  font-size: 0.68rem;
   font-weight: 500;
-  /* 0.14em over fifty uppercase characters is what made this read as a band
-     rather than a phrase. The emphasis now comes from colour and weight. */
-  letter-spacing: 0.1em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(246, 242, 236, 0.66);
-  line-height: 1.2;
+  line-height: 1.3;
 }
 
-/* The category half, deliberately the quiet part. */
-.hhero__eyebrow-text {
-  min-width: 0;
+/* The closing rule. Full width of the line, fading right, so it reads as an
+   underscore drawn beneath the words rather than as the top of a box. */
+.hhero__eyebrow::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(224, 150, 74, 0.45) 0%,
+    rgba(246, 242, 236, 0.16) 42%,
+    rgba(246, 242, 236, 0) 100%
+  );
 }
 
-/* The claim itself: copper, heavier, and the only part of the pill at full
-   opacity, so the eye lands on "India's Largest" first. */
+/* The lead. Same size as its neighbours - only the colour and a little weight
+   separate it, and on a dark plate that is more than enough. */
 .hhero__eyebrow-key {
-  font-weight: 700;
+  font-weight: 600;
   color: var(--copper-bright);
 }
 
-/* Hairline separating the claim from its date. Hidden once the pill wraps
-   would be ideal, but a vertical rule at the start of a line reads as an
-   artefact, so it collapses to zero width instead at the phone breakpoint. */
-.hhero__eyebrow-rule {
-  width: 1px;
-  height: 0.85em;
-  background: rgba(246, 242, 236, 0.22);
-  flex-shrink: 0;
+.hhero__eyebrow-sub {
+  min-width: 0;
+  color: rgba(246, 242, 236, 0.72);
 }
 
+/* Provenance, one step further back again. */
 .hhero__eyebrow-year {
-  font-weight: 600;
-  color: rgba(246, 242, 236, 0.86);
   white-space: nowrap;
-}
-.hhero__eyebrow-dot {
-  position: relative;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--copper-bright);
-  box-shadow: 0 0 0 0 rgba(224, 150, 74, 0.6);
-  animation: hhero-pulse 2.4s ease-out infinite;
-  flex-shrink: 0;
-}
-@keyframes hhero-pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(224, 150, 74, 0.55); }
-  70%  { box-shadow: 0 0 0 8px rgba(224, 150, 74, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(224, 150, 74, 0); }
+  color: rgba(246, 242, 236, 0.46);
 }
 
+/* Divider. A square turned 45°, small enough that it registers as punctuation
+   rather than as an ornament - the mark a maker's plate uses between the parts
+   of a claim, where a bullet would read as a list and a slash as a fraction. */
+.hhero__eyebrow-sep {
+  width: 3px;
+  height: 3px;
+  flex-shrink: 0;
+  transform: rotate(45deg);
+  background: rgba(224, 150, 74, 0.7);
+}
 /* headline */
 .hhero__title {
   margin: 1.6rem 0 0;
@@ -656,24 +653,80 @@
 }
 
 @media (max-width: 560px) {
-  /* The pill cannot hold fifty uppercase characters on one line at phone
-     width, so it stops pretending to be a pill: square off the radius, let the
-     two halves stack, and drop the vertical rule that would otherwise start a
-     line. Tracking comes down again because wrapped uppercase at 0.1em is what
-     makes a two-line label look like a paragraph. */
-  .hhero__eyebrow {
-    display: flex;
-    align-items: flex-start;
-    border-radius: 16px;
-    padding: 0.6rem 0.85rem;
-    font-size: 0.66rem;
-    letter-spacing: 0.07em;
-    line-height: 1.45;
+  /* The headline is broken into three lines by hand (<br /> in HomeHero.jsx),
+     so it only holds together while the longest of them fits the column. The
+     base size clamps at a 3rem *floor*, which never scales below the width
+     where 5vw stops being the largest term - meaning a 360px phone got the
+     same 48px as a laptop and "Electric Hamam Systems." wrapped, turning three
+     deliberate lines into five accidental ones.
+
+     The size is solved from that line rather than guessed at in vw. "Electric
+     Hamam Systems." sets to about 8.84em in Bebas Neue - it is a condensed
+     face, its caps average nearer 0.40em than the 0.55em a normal-width sans
+     would take - and the column is 100vw less the 1.25rem gutter either side.
+     Dividing by 9.2 rather than 8.84 leaves about 4% in hand for rounding.
+
+     Doing it as a calc against the real gutter, instead of a vw approximation,
+     keeps that 4% margin identical at every width: a plain vw factor has to be
+     tuned for the narrowest phone and then wastes the difference on every
+     wider one. The cap meets the base rule's 3rem floor exactly, so nothing
+     jumps as the breakpoint is crossed. */
+  .hhero__title {
+    font-size: clamp(1.75rem, calc((100vw - 2.5rem) / 9.2), 3rem);
+    margin-top: 1.25rem;
   }
-  .hhero__eyebrow-dot { margin-top: 0.32rem; }
-  .hhero__eyebrow-rule { display: none; }
-  /* Its own line, so the claim above it stays a single readable phrase. */
-  .hhero__eyebrow-year { width: 100%; }
+
+  /* Three segments will not hold one phone line, so the break is designed
+     rather than left to the wrap point.
+
+     The claim takes the top line on its own - it is the part worth reading
+     first, and given its own line it can hold the wide tracking that makes it
+     look set rather than squeezed. Category and date stay together beneath it,
+     still divided by their diamond, so the second line keeps the rhythm the
+     desktop line has. The claim's own diamond goes: a divider at the end of a
+     line divides nothing, and it would hang off the corner.
+
+     Left as one wrapping line this arrived at the same two lines, but with the
+     split falling wherever the loaded font happened to put it - some widths
+     breaking after the diamond, narrow phones breaking into three. */
+  .hhero__eyebrow {
+    gap: 0.4rem 0.55rem;
+    padding-bottom: 0.7rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.13em;
+  }
+  .hhero__eyebrow-key {
+    width: 100%;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+  }
+  .hhero__eyebrow-sep:not(.hhero__eyebrow-sep--date) { display: none; }
+  .hhero__eyebrow-year { letter-spacing: 0.16em; }
+
+  /* "2011 / Trusted Since" sits over the photo plate. Anchored to the top left
+     corner on desktop, where the cell is wide and the corner is a place; on a
+     phone the plate is the full column and the badge reads as having drifted
+     off-centre, so it goes to the middle of the plate on both axes. The
+     transform is what does the centring - the offsets alone would put its top
+     left corner on the centre point, not the badge.
+
+     Scaled up with it. In the corner it was a marker and could stay small; in
+     the middle of a 4:3 plate it is the only thing on the image, and at corner
+     size it read as an overlay someone forgot to place rather than as the
+     plate's caption. The padding and radius grow with the type so the
+     proportions of the glass panel hold. */
+  .hhero__badge {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    text-align: center;
+    gap: 0.2rem;
+    padding: 0.8rem 1.35rem;
+    border-radius: 16px;
+  }
+  .hhero__badge-num { font-size: 2.1rem; }
+  .hhero__badge-label { font-size: 0.72rem; letter-spacing: 0.16em; }
 
   /* Two uppercase CTAs will not sit side by side at phone widths without
      shrinking to an unreadable size, so stack them full-bleed instead. */
@@ -727,6 +780,12 @@
 /* Narrow phones: the cards keep their proportions but stop wasting a third of
    their width on padding. */
 @media (max-width: 380px) {
+  /* The eyebrow's second line - category, diamond, date - is the widest thing
+     in the copy column at this size, so it comes down a step rather than
+     wrapping into a third line. */
+  .hhero__eyebrow { font-size: 0.55rem; letter-spacing: 0.1em; gap: 0.35rem 0.45rem; }
+  .hhero__eyebrow-key { letter-spacing: 0.16em; }
+
   .hhero__grid > .hhero__card { padding: 0.9rem; min-height: 7.5rem; }
   /* The wide card keeps its height: its number is the largest type in the grid
      and cramping the cell around it is what the extra size is buying. */
@@ -737,7 +796,6 @@
 @media (prefers-reduced-motion: reduce) {
   .hhero__plate img,
   .hhero__glow,
-  .hhero__eyebrow-dot,
   .hhero__cue-track::after { animation: none; }
   .hhero__card,
   .hhero__cell--photo,

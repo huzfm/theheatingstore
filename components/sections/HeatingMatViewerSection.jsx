@@ -17,42 +17,36 @@ const HeatingMatViewerScene = dynamic(importScene, {
   loading: () => <ScenePoster />,
 });
 
-/** Facts, all from public/PDFs/prowarm.pdf rather than rounded off by hand. */
+/**
+ * Facts, all from public/PDFs/prowarm.pdf rather than rounded off by hand.
+ * Amount and unit are split so the card can set them at different sizes: on a
+ * 150px-wide phone card "500 mm" as one string forces the figure down to the
+ * size of the label under it, and the number stops being the thing you read.
+ */
 const SPECS = [
-  { value: '500 mm', label: 'Roll width' },
-  { value: '2 mm', label: 'Cable thickness' },
-  { value: '65 mm', label: 'Loop pitch' },
-  { value: '150 W', label: 'Per m²' },
+  { amount: '500', unit: 'mm', label: 'Roll width' },
+  { amount: '2', unit: 'mm', label: 'Cable thickness' },
+  { amount: '65', unit: 'mm', label: 'Loop pitch' },
+  { amount: '150', unit: 'W', label: 'Per m²' },
 ];
 
 /**
  * Stand-in while the Three.js chunk downloads. Echoes the studio rig - warm key
- * from upper left, cool fill opposite, a soft pool where the shadow lands - so
- * it reads as the same shot mid-load rather than as an empty panel. Tuned dark
- * on light, because the backdrop behind it is cream: on a pale ground the thing
- * that reads as "an object is about to be here" is a shadow, not a glow.
+ * from upper left, cool fill opposite - so it reads as the same shot mid-load
+ * rather than as an empty panel. No ground pool: the scene it stands in for no
+ * longer casts one, and a shadow here that vanishes on load reads as a glitch.
  */
 function ScenePoster() {
   return (
-    <div className="absolute inset-0" aria-hidden>
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(50% 45% at 30% 26%, rgba(120,102,84,0.07), transparent 70%),' +
-            'radial-gradient(45% 40% at 74% 40%, rgba(90,105,140,0.05), transparent 72%)',
-        }}
-      />
-      <motion.div
-        className="absolute inset-x-0 bottom-[22%] mx-auto h-24 w-[62%] max-w-lg rounded-[50%]"
-        style={{
-          background:
-            'radial-gradient(ellipse at center, rgba(74,64,54,0.13), transparent 70%)',
-        }}
-        animate={{ opacity: [0.35, 0.7, 0.35] }}
-        transition={{ duration: 1.8, ease: 'easeInOut', repeat: Infinity }}
-      />
-    </div>
+    <div
+      className="absolute inset-0"
+      aria-hidden
+      style={{
+        background:
+          'radial-gradient(50% 45% at 30% 26%, rgba(120,102,84,0.07), transparent 70%),' +
+          'radial-gradient(45% 40% at 74% 40%, rgba(90,105,140,0.05), transparent 72%)',
+      }}
+    />
   );
 }
 
@@ -338,18 +332,64 @@ export default function HeatingMatViewerSection() {
           </AnimatePresence>
         </div>
 
-        {/* One row of figures under the product, in place of the copy that used
-            to sit beside it. Four numbers say what four paragraphs did. */}
-        <dl className="mt-10 flex w-full max-w-3xl flex-wrap justify-center gap-x-10 gap-y-6 border-t border-ink-950/10 pt-6 sm:gap-x-16">
-          {SPECS.map((spec) => (
-            <div key={spec.label} className="text-center">
-              <dd className="font-display text-2xl font-semibold text-heat-700 md:text-[1.75rem]">
-                {spec.value}
-              </dd>
-              <dt className="mt-1 text-[10px] uppercase tracking-[0.2em] text-ink-950/40">
+        {/* ── Specs ────────────────────────────────────────────────────
+            Four panels, two up on phones and four across from sm. Each is a
+            pale card on the cream ground - white at 65% over a blur, so it
+            picks up the backdrop's gradient instead of sitting on it as a flat
+            white block - lifted by a hairline border, a glass highlight along
+            its top edge and a soft, wide shadow.
+
+            Label above figure, which is both the correct <dl> order and the
+            layout that survives a narrow card: the label is the part that
+            wraps, and with it underneath, one card wrapping to two lines
+            pushed its figure out of line with the other three. */}
+        <dl className="mt-12 grid w-full max-w-4xl grid-cols-2 gap-2.5 sm:grid-cols-4 sm:gap-4">
+          {SPECS.map((spec, i) => (
+            <motion.div
+              key={spec.label}
+              initial={reduced ? false : { opacity: 0, y: 16 }}
+              whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{
+                duration: 0.6,
+                delay: i * 0.08,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="group relative flex flex-col items-center justify-center overflow-hidden rounded-xl border border-ink-950/[0.07] bg-white/65 px-2.5 py-5 text-center shadow-[0_1px_2px_rgba(74,64,54,0.04),0_12px_30px_-18px_rgba(74,64,54,0.35)] backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-heat-600/25 hover:bg-white/85 hover:shadow-[0_1px_2px_rgba(74,64,54,0.05),0_22px_44px_-20px_rgba(74,64,54,0.4)] sm:rounded-2xl sm:px-4 sm:py-7"
+            >
+              {/* Glass edge: a one-pixel highlight along the top and a faint
+                  wash down from it, which is what makes the panel read as
+                  raised rather than as a rectangle with a border. */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/90 to-transparent"
+              />
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/45 to-transparent"
+              />
+              {/* Heat accent, held back until hover so the resting state stays
+                  quiet and four cards do not turn into four orange bars. */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-heat-600/70 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              />
+
+              <dt className="relative text-[9px] uppercase leading-[1.5] tracking-[0.14em] text-ink-950/45 sm:text-[10px] sm:tracking-[0.18em]">
                 {spec.label}
               </dt>
-            </div>
+              {/* Baseline-aligned so the unit sits on the figure's baseline
+                  rather than its centre, which is the difference between a
+                  typeset measurement and a number with a word after it. */}
+              <dd className="relative mt-1.5 flex items-baseline justify-center gap-1 font-display font-semibold text-heat-700 sm:mt-2">
+                <span className="text-[1.75rem] leading-none tracking-tight sm:text-[2rem]">
+                  {spec.amount}
+                </span>
+                <span className="text-xs font-medium leading-none text-heat-700/55 sm:text-sm">
+                  {spec.unit}
+                </span>
+              </dd>
+            </motion.div>
           ))}
         </dl>
       </div>

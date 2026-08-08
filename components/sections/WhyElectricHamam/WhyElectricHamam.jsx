@@ -34,8 +34,8 @@ const TOTAL = REASONS.length;
  *    and it's driven by an IntersectionObserver over a thin centre band, not
  *    by a scroll handler, so it costs nothing per frame.
  *
- * Each row is a numbered editorial entry — eyebrow tag, heading, body, stat,
- * and an outlined watermark numeral on wide screens — and reveals on its own
+ * Each row is a numbered editorial entry — heading, body, stat, and an
+ * outlined watermark numeral carrying the count — and reveals on its own
  * `whileInView` so the cascade follows the reader rather than firing all
  * seven at once. Odd rows slide in from the left and even rows from the
  * right, over a blur-fade, using the same entrance vocabulary as the rest of
@@ -58,6 +58,14 @@ const CSS = `
   .weh h2, .weh h2 span { font-size: clamp(2.3rem, 5vw, 4.1rem); line-height: 0.94; }
   .weh h3 { font-size: clamp(1.45rem, 2.1vw, 2rem); line-height: 1.02; }
   .weh .weh-numeral { font-size: clamp(3.75rem, 6.5vw, 7rem); line-height: 0.78; }
+
+  /* The numeral is the row's only counter now, so it renders at every width.
+     Below the lg breakpoint the text column is narrow enough that the desktop
+     size would eat it, so the numeral steps down to a badge, not a watermark. */
+  @media (max-width: 1023px) {
+    .weh .weh-numeral { font-size: clamp(2.5rem, 7vw, 3.5rem); }
+  }
+
   .weh .weh-stat-value { font-size: clamp(1.05rem, 1.4vw, 1.35rem); line-height: 1.1; }
   .weh p { line-height: 1.7; }
 
@@ -84,19 +92,6 @@ const CSS = `
   }
   .weh-row-inner { transition: transform 0.5s cubic-bezier(.16,1,.3,1); }
 
-  /* Eyebrow tag, "( 01. — Reason )". The bracket glyphs are decorative
-     punctuation, so they're marked aria-hidden and the readable part is a
-     plain string the screen reader gets on its own. */
-  .weh-eyebrow {
-    display: inline-flex; align-items: center; gap: 0.55rem;
-    font-size: 10.5px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.22em;
-    color: rgba(140,133,125,0.9);
-    transition: color 0.4s ease;
-  }
-  .weh-eyebrow-bracket { color: rgba(140,133,125,0.45); transition: color 0.4s ease; }
-  .weh-icon { color: rgba(140,133,125,0.55); transition: color 0.4s ease, opacity 0.4s ease; opacity: 0.7; }
-
   /* Oversized decorative numeral. Outlined rather than filled so it reads as
      a watermark beside the body copy instead of competing with the heading. */
   .weh-numeral {
@@ -109,11 +104,7 @@ const CSS = `
 
   .weh-row.is-on .weh-row-rule::after { transform: scaleX(1); }
   .weh-row.is-on .weh-row-wash { opacity: 1; }
-  .weh-row.is-on .weh-eyebrow,
-  .weh-row.is-on .weh-eyebrow-bracket,
-  .weh-row.is-on .weh-icon,
   .weh-row.is-on .weh-stat-value { color: var(--a); }
-  .weh-row.is-on .weh-icon { opacity: 1; }
   .weh-row.is-on .weh-numeral { -webkit-text-stroke-color: var(--a-40); }
 
   /* Nudge only where a pointer can actually hover, a translate that fires on
@@ -134,9 +125,7 @@ const CSS = `
     .weh-row-rule::after,
     .weh-row-wash,
     .weh-row-inner,
-    .weh-numeral,
-    .weh-eyebrow, .weh-eyebrow-bracket,
-    .weh-icon, .weh-stat-value { transition: none; }
+    .weh-numeral, .weh-stat-value { transition: none; }
   }
 `;
 
@@ -155,7 +144,7 @@ const SLIDE_WIDE = 220;
 const SLIDE_NARROW = 62;
 
 function Reason({ reason, index, active, reduce, narrow, onEnter, onLeave, registerRef }) {
-  const { num, title, desc, stat, statLabel, accent, Icon } = reason;
+  const { num, title, desc, stat, statLabel, accent } = reason;
   const [hovered, setHovered] = useState(false);
   const on = hovered || active;
 
@@ -193,22 +182,9 @@ function Reason({ reason, index, active, reduce, narrow, onEnter, onLeave, regis
       <span className="weh-row-rule" aria-hidden="true" />
       <span className="weh-row-wash" aria-hidden="true" />
 
-      <div className="weh-row-inner relative flex items-start gap-6 py-9 pr-1 sm:gap-10 sm:py-12">
+      <div className="weh-row-inner relative flex items-start gap-6 py-9 pl-5 pr-1 sm:gap-10 sm:py-12 sm:pl-8">
         <div className="min-w-0 flex-1">
-          <span className="weh-eyebrow">
-            <span className="weh-icon">
-              <Icon size={15} color="currentColor" />
-            </span>
-            <span aria-hidden="true" className="weh-eyebrow-bracket">
-              (
-            </span>
-            {num}. — Reason
-            <span aria-hidden="true" className="weh-eyebrow-bracket">
-              )
-            </span>
-          </span>
-
-          <h3 className="mt-4 text-bone-100">{title}</h3>
+          <h3 className="text-bone-100">{title}</h3>
 
           <p className="mt-4 max-w-[52ch] text-[15px] text-bone-300/75 sm:text-[15.5px]">
             {desc}
@@ -222,10 +198,11 @@ function Reason({ reason, index, active, reduce, narrow, onEnter, onLeave, regis
           </div>
         </div>
 
-        {/* Decorative watermark numeral. Hidden below `lg`: the eyebrow already
-            carries the number, so at narrow widths a second copy is redundant
-            crowding rather than a badge worth keeping. */}
-        <span aria-hidden="true" className="weh-display weh-numeral hidden shrink-0 lg:block">
+        {/* Watermark numeral. Now the row's only counter — the eyebrow tag that
+            used to carry the number is gone — so it stays on screen at every
+            width rather than being hidden below `lg`. It's sized down there
+            (see the CSS) so it doesn't crowd the copy in a ~340px column. */}
+        <span aria-hidden="true" className="weh-display weh-numeral block shrink-0">
           {num}
         </span>
       </div>
@@ -357,22 +334,6 @@ export default function WhyElectricHamam() {
           {/* ── Rail ─────────────────────────────────────────────────── */}
           <div className="lg:col-span-5 xl:col-span-4">
             <div className="lg:sticky lg:top-28">
-              <motion.div
-                className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2"
-                initial={reduce ? false : { opacity: 0, y: 10 }}
-                whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.6 }}
-                transition={{ duration: 0.7, ease: EASE }}
-              >
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-heat-500 opacity-70" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-heat-500" />
-                </span>
-                <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-heat-400">
-                  Why Electric Hamam
-                </span>
-              </motion.div>
-
               <h2 className="mt-6 text-balance">
                 <RevealText as="span" className="block text-bone-100">
                   7 Reasons to Install
