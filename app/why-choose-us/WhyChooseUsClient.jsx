@@ -1,46 +1,71 @@
 'use client';
 
-import WhyChooseUsHero from '@/components/sections/WhyChooseUs/WhyChooseUsHero';
-import ProofStats from '@/components/sections/WhyChooseUs/ProofStats';
-import Reliability from '@/components/sections/WhyChooseUs/Reliability';
-import WhatYouGet from '@/components/sections/WhyChooseUs/WhatYouGet';
-import Testimonials from '@/components/sections/WhyChooseUs/Testimonials';
-import CertificationMarquee from '@/components/sections/WhyChooseUs/CertificationMarquee';
-import WhyChooseUsCTA from '@/components/sections/WhyChooseUs/WhyChooseUsCTA';
+import WhyUsHero from '@/components/sections/WhyUs/WhyUsHero';
+import ChapterNav from '@/components/sections/WhyUs/ChapterNav';
+import ProofStats from '@/components/sections/WhyUs/ProofStats';
+import Guarantees from '@/components/sections/WhyUs/Guarantees';
+import Testimonials from '@/components/sections/WhyUs/Testimonials';
+import StoryBeat from '@/components/sections/WhyUs/StoryBeat';
+import CoverageIndex from '@/components/sections/WhyUs/CoverageIndex';
+import BrandWall from '@/components/sections/WhyUs/BrandWall';
+import CountryIndex from '@/components/sections/WhyUs/CountryIndex';
+import DocumentLibrary from '@/components/sections/WhyUs/DocumentLibrary';
+import CertificationMarquee from '@/components/sections/WhyUs/CertificationMarquee';
+import WhyUsCTA from '@/components/sections/WhyUs/WhyUsCTA';
+import { LOCAL_STORY, GLOBAL_STORY } from '@/components/sections/WhyUs/data';
 
 /**
- * /why-choose-us, rebuilt on the site's shared design system.
+ * /why-choose-us — the merge of three routes into one.
  *
- * This module was already split into per-section components, but on a design
- * system of its own: a theme.js, an icons.jsx of hand-rolled SVGs, ui/
- * duplicates of Badge, Counter, Flag, Reveal and SectionHeading, and ~1,800
- * lines of CSS across nine stylesheets, plus three drifting aura orbs. All of
- * it is replaced by the heat/ink/bone tokens, Bebas Neue and the shared
- * RevealText / HeroCTAs primitives the rest of the site uses.
+ * /why-choose-us, /local-experience and /global-experience were all answering
+ * "why buy this from you", split three ways. Each was too thin to rank on its
+ * own and none of them made the whole argument, so a visitor who read one got a
+ * third of the case. The other two URLs now 301 here (next.config.mjs), into
+ * the #local and #global anchors respectively.
  *
- * Order changed too. The old file rendered Hero, Stats, Process, Brands,
- * Testimonials, Reliability, Cta, Marquee, with the reliability argument
- * arriving after the testimonials that were meant to corroborate it, and a
- * brands strip that duplicated the brand wall on /local-experience. Reliability
- * now precedes the testimonials, and Brands is dropped rather than repeated.
+ * The page is one argument in three movements, and the order is the argument:
  *
- * Three content changes, all noted in data.js:
- *   - The five-step "process" was two steps and three offers. /how-it-works
- *     owns the sequence, so this is "what you get" and links there.
- *   - The stat cards' progress bars were driven by hardcoded percentages
- *     (92, 100, 78, 56) that measured nothing.
- *   - The customer avatars were four Unsplash photographs of strangers.
+ *   The claim      hero, then the four figures, unqualified
+ *   01 The promise what we owe you when it fails, then the trade corroborating
+ *                  it — the guarantees come before the testimonials that vouch
+ *                  for them, not after
+ *   02 Here        why a Kashmir winter is a different brief, the towns we
+ *                  reach, the brands we can service
+ *   03 Elsewhere   why certification decides a buried cable's life, the nine
+ *                  countries, the manuals
+ *   The ask        certifications strip, one CTA
+ *
+ * Eleven sections down from the three routes' combined sixteen. What went, and
+ * why, is documented at the top of components/sections/WhyUs/data.js — the
+ * short version is two heroes, two CTAs, and eleven Unsplash stock photographs
+ * that were carrying no argument.
  */
 export default function WhyChooseUsClient() {
   return (
     <main className="bg-ink-950">
-      <WhyChooseUsHero />
+      <WhyUsHero />
+      <ChapterNav />
+
+      {/* The claim */}
       <ProofStats />
-      <Reliability />
-      <WhatYouGet />
+
+      {/* 01 — what we promise */}
+      <Guarantees />
       <Testimonials />
+
+      {/* 02 — here */}
+      <StoryBeat story={LOCAL_STORY} />
+      <CoverageIndex />
+      <BrandWall />
+
+      {/* 03 — elsewhere */}
+      <StoryBeat story={GLOBAL_STORY} />
+      <CountryIndex />
+      <DocumentLibrary />
+
+      {/* The ask */}
       <CertificationMarquee />
-      <WhyChooseUsCTA />
+      <WhyUsCTA />
     </main>
   );
 }

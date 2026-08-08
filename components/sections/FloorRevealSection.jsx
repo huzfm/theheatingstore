@@ -1,10 +1,13 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
-import { motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useScrollProgress } from '@/hooks/useScrollProgress';
 import { STAGES, stageAt, SECTION_VH } from '@/lib/floor-timeline';
+// Data only, no three.js behind it, so importing the callout copy here does
+// not undo the lazy-loading of the scene below.
+import { FEATURES_BY_ID } from '@/lib/mat-features';
 
 /**
  * Three.js is ~150kB gzipped before any of our own scene code. Loading it
@@ -50,14 +53,115 @@ function ScenePoster() {
   );
 }
 
+/**
+ * Whether the viewport is too narrow to carry an anchored callout card over
+ * the mat. Matches the `sm` breakpoint the card's own styles are written to.
+ *
+ * Read in an effect rather than during render, so the server and the first
+ * client render agree; until it resolves, `null` means "not yet known" and the
+ * callouts stay off, which is a frame of nothing rather than a frame of the
+ * wrong layout.
+ */
+function useIsNarrow() {
+  const [narrow, setNarrow] = useState(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 639px)');
+    const sync = () => setNarrow(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
+
+  return narrow;
+}
+
+/**
+ * The active callout, docked into the overlay instead of floating over the
+ * mat. Phone-only: the anchored card is ~150px of opaque fill on a mat that is
+ * barely 300px across, so on a narrow screen it hid most of the thing it was
+ * annotating. The scene keeps the glowing anchor node (labels="node"), and the
+ * copy lands here, in the strip the stage caption already owns, where it
+ * covers nothing.
+ *
+ * Same information as the card and in the same order, laid out for a wide
+ * short slot rather than a narrow tall one: chip and kicker on one line, the
+ * claim, the reason, then the spec and the position ticks on a footer row.
+ */
+function DockedCallout({ feature }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      className="absolute inset-x-0 bottom-0"
+    >
+      <div className="flex items-center gap-2">
+        <span className="flex h-[16px] items-center rounded-full bg-heat-500/15 px-1.5 font-mono text-[8.5px] font-medium tracking-[0.1em] text-heat-300 ring-1 ring-inset ring-heat-400/25">
+          {feature.index}
+          <span className="text-heat-300/40">/{String(feature.total).padStart(2, '0')}</span>
+        </span>
+        <span className="text-[9px] font-medium uppercase tracking-[0.28em] text-heat-500">
+          {feature.kicker}
+        </span>
+      </div>
+
+      <h3 className="mt-2.5 font-display text-xl leading-tight text-white">
+        {feature.title}
+      </h3>
+      <p className="mt-1.5 text-sm leading-snug text-white/55">{feature.body}</p>
+
+      <div className="mt-3 flex items-center gap-3 border-t border-white/[0.08] pt-2.5">
+        <span className="font-display text-[15px] font-bold leading-none text-heat-400">
+          {feature.spec}
+        </span>
+        <span className="text-[8.5px] uppercase tracking-[0.2em] text-white/40">
+          {feature.specLabel}
+        </span>
+
+        {/* One tick per callout, so the turn has a visible position and end.
+            The section's own progress rail counts layers, not callouts, and
+            during the turn it has been full for a while. */}
+        <span aria-hidden="true" className="ml-auto flex shrink-0 items-center gap-[3px]">
+          {Array.from({ length: feature.total }).map((_, i) => (
+            <span
+              key={i}
+              className={
+                i === feature.ordinal
+                  ? 'h-[2px] w-2.5 rounded-full bg-heat-400'
+                  : 'h-[2px] w-1.5 rounded-full bg-white/15'
+              }
+            />
+          ))}
+        </span>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function FloorRevealSection() {
   const wrapperRef = useRef(null);
   const progressRef = useRef(0);
   const reduceMotion = useReducedMotion();
+  const narrow = useIsNarrow();
 
   const [stage, setStage] = useState(0);
   const [active, setActive] = useState(false);
   const [mounted, setMounted] = useState(false);
+  // Which callout the turn is currently on. Only meaningful on narrow screens,
+  // where this component rather than the scene draws the copy; the scene
+  // reports it six times across the whole section, so the re-renders are
+  // negligible.
+  const [featureId, setFeatureId] = useState(null);
+
+  // Stable identity: the scene is a lazily-imported component, and a fresh
+  // callback on every render of this one would re-render the whole canvas
+  // subtree each time the stage changes.
+  const handleActiveFeature = useCallback((id) => setFeatureId(id), []);
+
+  // Non-null only while a narrow screen is between callouts' unlock points.
+  const dockedFeature = narrow && featureId ? FEATURES_BY_ID[featureId] : null;
 
   /**
    * Scroll → progressRef, with no React state in the hot path. The stage
@@ -180,7 +284,16 @@ export default function FloorRevealSection() {
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <div className="absolute inset-0">
           {mounted ? (
-            <FloorCutawayScene progressRef={progressRef} active={active} />
+            <FloorCutawayScene
+              progressRef={progressRef}
+              active={active}
+              // Narrow screens get the anchor node only and the copy is drawn
+              // in the caption slot below; wider ones keep the full anchored
+              // card. `null` is the pre-measurement state, so nothing is drawn
+              // until we know which it is.
+              labels={narrow === null ? 'none' : narrow ? 'node' : 'card'}
+              onActiveFeature={narrow ? handleActiveFeature : null}
+            />
           ) : null}
         </div>
 
@@ -195,16 +308,21 @@ export default function FloorRevealSection() {
             </h2>
           </div>
 
-          {/* Stage caption, crossfades as the sequence advances */}
-          <div className="relative h-32 max-w-md">
+          {/* Stage caption, crossfades as the sequence advances. Once the turn
+              starts on a narrow screen the callout takes the slot over: it is
+              the more specific copy, and the stage caption it replaces was
+              generic narration of the same turn. Taller in that state, and the
+              children are bottom-anchored, so the swap doesn't shift anything
+              on screen. */}
+          <div className={`relative max-w-md ${dockedFeature ? 'h-44' : 'h-32'}`}>
             {STAGES.map((s, i) => (
               <motion.div
                 key={s.id}
-                className="absolute inset-0"
+                className="absolute inset-x-0 bottom-0"
                 initial={false}
                 animate={{
-                  opacity: stage === i ? 1 : 0,
-                  y: stage === i ? 0 : 12,
+                  opacity: !dockedFeature && stage === i ? 1 : 0,
+                  y: !dockedFeature && stage === i ? 0 : 12,
                 }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               >
@@ -219,14 +337,25 @@ export default function FloorRevealSection() {
                 </p>
               </motion.div>
             ))}
+
+            <AnimatePresence>
+              {/* Keyed by feature, so a handover is an exit plus an enter,
+                  i.e. a crossfade between two callouts rather than one card
+                  whose text is swapped underneath the reader. */}
+              {dockedFeature ? (
+                <DockedCallout key={dockedFeature.id} feature={dockedFeature} />
+              ) : null}
+            </AnimatePresence>
           </div>
         </div>
 
         {/* Scroll cue, a mouse-style indicator inviting the visitor to keep
-            scrolling. Bottom-centre on mobile; pinned to the right edge and
-            vertically centred on wider screens. Persistent, it stays put for
-            the whole sequence rather than fading on scroll. */}
-        <div className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2.5 md:bottom-auto md:left-auto md:right-6 md:top-1/2 md:-translate-x-0 md:-translate-y-1/2">
+            scrolling. Pinned to the right edge and vertically centred, and
+            desktop-only: on a phone it sat bottom-centre, directly on top of
+            the caption, and there is no free margin to move it into. Persistent
+            where it does show, it stays put for the whole sequence rather than
+            fading on scroll. */}
+        <div className="pointer-events-none absolute right-6 top-1/2 hidden -translate-y-1/2 flex-col items-center gap-2.5 md:flex">
           <span className="flex h-9 w-[19px] items-start justify-center rounded-full border border-white/30">
             <motion.span
               className="mt-1.5 h-1.5 w-1.5 rounded-full bg-heat-500"

@@ -242,7 +242,7 @@ function SceneRig({ progressRef, idle, showCallouts, turntable }) {
           rotationRef={rotationRef}
           progressRef={progressRef}
           levelRef={levelRef}
-          showLabels={false}
+          labels="none"
         />
         {/* Callouts are scroll-gated, so they need a progressRef. In turntable
             mode there isn't one. */}

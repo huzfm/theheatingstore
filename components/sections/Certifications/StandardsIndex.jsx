@@ -13,8 +13,8 @@ import { GROUPS } from './data';
  * in a line under its heading.
  *
  * gap-px over a light background paints the hairline grid between tiles, the
- * same construction as the brand wall on /local-experience and the country
- * index on /global-experience, so the three index sections read as one pattern.
+ * same construction as the brand wall and the country index on
+ * /why-choose-us, so the three index sections read as one pattern.
  */
 export default function StandardsIndex() {
   return (

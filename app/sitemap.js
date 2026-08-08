@@ -51,7 +51,9 @@ export default function sitemap() {
       url: `${SITE_URL}/why-choose-us`,
       lastModified: lastMod,
       changeFrequency: "monthly",
-      priority: 0.8,
+      // Raised from 0.8: this absorbed /local-experience and
+      // /global-experience, so it is now the site's single credibility page.
+      priority: 0.9,
     },
     {
       url: `${SITE_URL}/blog`,
@@ -77,18 +79,9 @@ export default function sitemap() {
       changeFrequency: "monthly",
       priority: 0.8,
     },
-    {
-      url: `${SITE_URL}/global-experience`,
-      lastModified: lastMod,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${SITE_URL}/local-experience`,
-      lastModified: lastMod,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
+    // /global-experience and /local-experience were removed here on purpose:
+    // both now 301 to /why-choose-us, and listing a redirecting URL in the
+    // sitemap is a crawl signal that contradicts the redirect.
     {
       url: `${SITE_URL}/bloginfo`,
       lastModified: lastMod,

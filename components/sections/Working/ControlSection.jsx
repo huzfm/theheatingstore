@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { RevealText, Reveal } from '@/components/ui/RevealText';
 import ThermostatDial from '@/components/ui/ThermostatDial';
 import HeatFloorAnimation from '@/components/sections/About/HeatFloorAnimation';
@@ -30,6 +30,14 @@ export default function ControlSection() {
      so an inline arrow would re-run that effect on every render of this
      component. */
   const handleState = useCallback((s) => setDialState(s), []);
+
+  /* The slide the mobile view shows. Falls back to the first state rather than
+     rendering nothing if the dial ever reports an id this copy doesn't cover. */
+  const activeIndex = Math.max(
+    0,
+    CONTROL.states.findIndex((s) => s.id === dialState)
+  );
+  const activeState = CONTROL.states[activeIndex];
 
   return (
     <section className="relative overflow-hidden bg-ink-950 px-5 py-24 text-bone-100 sm:px-8 lg:py-32">
@@ -118,8 +126,98 @@ export default function ControlSection() {
             </p>
           </div>
 
+          {/* ── Mobile: one state at a time ──────────────────────────────
+              The desktop timeline is five paragraphs on a spine, and stacked
+              on a phone that is a column taller than the screen: the dial
+              advances, the highlight moves to a row that is scrolled out of
+              view, and the two halves stop looking connected. So on narrow
+              screens the list becomes a single slide showing only the state
+              the dial is actually in, with a dot rail for position.
+
+              Advanced by the dial, not by a timer or a swipe. The dial owns
+              the sequence and its states have different durations, so
+              anything that could move this independently would immediately
+              disagree with the instrument it is captioning. */}
+          <div className="lg:hidden">
+            {/* Given a card rather than left as loose text on the page
+                background. The slide changes on the dial's schedule, not the
+                reader's, and copy that swaps itself with no frame around it
+                reads as a glitch; a panel makes it obvious that this is one
+                surface showing one state at a time. Same chrome as the
+                instrument above it, so the two read as a pair. */}
+            <div
+              className="relative overflow-hidden rounded-[24px] border border-white/10 p-6 shadow-[0_40px_90px_-40px_rgba(0,0,0,0.9)] sm:p-7"
+              style={{
+                background:
+                  'radial-gradient(130% 100% at 0% 0%, rgba(255,138,61,0.09), transparent 55%), linear-gradient(180deg, #151312 0%, #0c0b0a 100%)',
+              }}
+            >
+              {/* Lit top edge, the same hairline the callout cards use. */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-px"
+                style={{
+                  background:
+                    'linear-gradient(to right, transparent, rgba(255,176,97,0.75) 24%, rgba(255,255,255,0.14) 62%, transparent)',
+                }}
+              />
+
+              <div className="flex items-center gap-4">
+                <span aria-hidden className="flex items-center gap-1.5">
+                  {CONTROL.states.map((s) => (
+                    <motion.span
+                      key={s.id}
+                      className="h-[3px] rounded-full"
+                      initial={false}
+                      animate={{
+                        width: dialState === s.id ? 22 : 10,
+                        backgroundColor:
+                          dialState === s.id ? '#ff8a3d' : 'rgba(255,255,255,0.16)',
+                      }}
+                      transition={{ duration: 0.5, ease: EASE }}
+                    />
+                  ))}
+                </span>
+                <span className="font-mono text-[10px] tracking-[0.18em] text-bone-500/70">
+                  {String(activeIndex + 1).padStart(2, '0')}
+                  <span className="text-bone-500/40">
+                    /{String(CONTROL.states.length).padStart(2, '0')}
+                  </span>
+                </span>
+              </div>
+
+              {/* Fixed height, so the card doesn't resize under the reader
+                  every time a shorter or longer paragraph comes round. Sized
+                  to the longest of the five at this width. */}
+              <div className="relative mt-6 min-h-[190px]">
+                <AnimatePresence>
+                  <motion.div
+                    key={activeState.id}
+                    className="absolute inset-x-0 top-0"
+                    initial={{ opacity: 0, y: 14 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -14 }}
+                    transition={{ duration: 0.5, ease: EASE }}
+                  >
+                    <h3 className="flex items-center gap-3 font-display text-[13px] uppercase tracking-[0.22em] text-bone-100">
+                      <span
+                        aria-hidden
+                        className="h-1.5 w-1.5 shrink-0 rounded-full bg-heat-500"
+                        style={{ boxShadow: '0 0 10px 2px rgba(255,138,61,0.7)' }}
+                      />
+                      {activeState.label}
+                    </h3>
+                    <p className="mt-4 text-sm leading-relaxed text-bone-300">
+                      {activeState.body}
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+          </div>
+
           {/* The five states, highlighted from the dial's own state */}
-          <ol className="relative">
+          <ol className="relative hidden lg:block">
             {/* Spine the markers sit on */}
             <span
               aria-hidden

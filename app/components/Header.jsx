@@ -31,8 +31,9 @@ const MORE_NAV = [
   // Editorial pieces on warmth and interiors. The full article index at
   // /bloginfo still exists but is no longer linked from the nav.
   { label: 'The Journal', href: '/journal' },
-  { label: 'Local Experience', href: '/local-experience' },
-  { label: 'Global Experience', href: '/global-experience' },
+  // Local Experience and Global Experience used to sit here. Both were merged
+  // into /why-choose-us above and now 301 to it (next.config.mjs), so three nav
+  // entries pointing at the same argument became one.
   { label: 'Certifications', href: '/certifications' },
   { label: 'Measure-Up', href: '/measuring-up' },
   { label: 'Contact', href: '/contact' },

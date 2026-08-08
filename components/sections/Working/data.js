@@ -19,7 +19,7 @@ export const HERO = {
     'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80&auto=format&fit=crop',
   /* Three claims the rest of the page then proves, in order. */
   facts: [
-    { value: '5 mm', label: 'Mat thickness under your floor' },
+    { value: '5 - 6 cm', label: 'Mat thickness under your floor' },
     { value: '150–200 W', label: 'Per m², depending on the room' }, // FaqSection, "Cost & Electricity"
     { value: '6–10 hrs', label: 'Warmth held through a power cut' }, // FaqSection, "Cost & Electricity"
   ],

@@ -15,7 +15,7 @@
  *   - The partner-brands paragraph, whose four links pointed at #prowarm-pdf,
  *     #warmup-pdf, #thermosphere-pdf and #fastwarm-pdf. No such anchors exist
  *     on this page, so all four were dead links. The manufacturer documents
- *     live on /global-experience, which is where this now points.
+ *     live on /why-choose-us#global, which is where this now points.
  */
 
 export const HERO = {

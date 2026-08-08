@@ -8,7 +8,7 @@ import CertificationsCTA from '@/components/sections/Certifications/Certificatio
 /**
  * /certifications, dark cinematic redesign. Composed from per-section
  * components in components/sections/Certifications/, matching /about,
- * /working, /how-it-works, /local-experience and /global-experience: the same
+ * /working, /how-it-works and /why-choose-us: the same
  * heat/ink/bone tokens, Bebas Neue display face, and RevealText / HeroCTAs
  * primitives. Reduced motion honoured throughout.
  *

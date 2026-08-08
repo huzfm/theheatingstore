@@ -46,13 +46,38 @@ const STORED_R = 62;
 const STORED_CIRC = 2 * Math.PI * STORED_R;
 const STORED_ARC = STORED_CIRC * 0.75;
 
-/* Temperatures the loop moves between. */
-const AMBIENT = 18;
-const TARGET = 24;
+/* ── The scale ──────────────────────────────────────────────────────
+   10 °C at the bottom of the arc, 40 °C at the top, which is the range a real
+   underfloor thermostat offers: frost protection at one end, the floor limit
+   at the other.
 
-/* Where the ring rests when the system is off, not zero. A dial pinned at
-   empty reads as broken; a floor at room temperature is simply resting. */
-const OFF_FILL = (AMBIENT - 10) / (TARGET + 4 - 10);
+   It used to be implicit and self-contradictory, the resting position was
+   computed against a 10–28 range while HEATING filled the entire arc, i.e. two
+   different scales on one instrument. Every ring position now comes from this
+   one pair of numbers. */
+const MIN_TEMP = 10;
+const MAX_TEMP = 40;
+
+/** Where a temperature sits on the 270° arc: 0 at MIN_TEMP, 1 at MAX_TEMP. */
+const fillFor = (t) => (t - MIN_TEMP) / (MAX_TEMP - MIN_TEMP);
+
+/* Temperatures the loop moves between: the full width of the scale above.
+   Resting sits at MIN_TEMP, which on a real thermostat is the frost-protection
+   floor rather than a dead instrument, and the target is the top of the range.
+   The point of a demonstration dial is to show what the control can do, so the
+   cycle travels the whole span rather than a comfortable slice in the middle
+   of it. */
+const AMBIENT = MIN_TEMP;
+const TARGET = MAX_TEMP;
+
+/* Where the ring rests when the system is off. Bottom of the scale, because
+   that is where the number now rests too, the two used to disagree. */
+const OFF_FILL = fillFor(AMBIENT);
+
+/* The fill the loop tops out at. Kept as its own constant rather than assumed
+   to be a full ring, so the inner glow below still peaks when the system
+   reaches its target if that target is ever set short of MAX_TEMP. */
+const HEAT_FILL = fillFor(TARGET);
 
 /**
  * The loop. Durations are tuned for someone reading the headline beside it:
@@ -111,9 +136,11 @@ export const DIAL_STATES = {
 /** Ring fill each state settles at, as a fraction of the 270° arc. */
 const FILL = {
   off: OFF_FILL,
-  heating: 1,
-  holding: 1,
+  heating: HEAT_FILL,
+  holding: HEAT_FILL,
   scheduled: 0,
+  // The ring is unpowered here, so it drops back to resting while the stored
+  // arc inside it carries the temperature the floor is still holding.
   outage: OFF_FILL,
 };
 
@@ -123,7 +150,11 @@ const TEMP = {
   heating: TARGET,
   holding: TARGET,
   scheduled: AMBIENT,
-  outage: 22.4,
+  // Not the target and not resting: the floor has given some of its stored
+  // heat back but is still well up the scale, which is the whole claim this
+  // state exists to make. Held at the same fraction retained as before the
+  // scale widened.
+  outage: 32,
 };
 
 function polar(radius, deg) {
@@ -140,6 +171,12 @@ function polar(radius, deg) {
   const round = (v) => Math.round(v * 100) / 100;
   return [round(CX + radius * Math.cos(rad)), round(CY + radius * Math.sin(rad))];
 }
+
+/* Positions for the printed scale endpoints. Radius 106 is the band between
+   the ring's outer edge (104) and the bezel (112); the 3° inset keeps each
+   number clear of the ring's rounded cap. */
+const MIN_LABEL = polar(106, START_DEG + 3);
+const MAX_LABEL = polar(106, START_DEG + SWEEP_DEG - 3);
 
 export default function ThermostatDial({ className = '', onStateChange }) {
   const reduce = useReducedMotion();
@@ -183,9 +220,13 @@ export default function ThermostatDial({ className = '', onStateChange }) {
       storedRef.current.style.strokeDashoffset = `${STORED_ARC * (1 - stored)}`;
     }
     // Inner glow tracks the fill, so more heat really is more glow rather
-    // than the two being animated separately and drifting apart.
+    // than the two being animated separately and drifting apart. Normalised
+    // against HEAT_FILL, not against a full ring: on a 10-40 scale the target
+    // is under half the arc, and reading the raw fraction would leave the
+    // heating state at half the glow it is meant to have.
     if (innerGlowRef.current) {
-      innerGlowRef.current.style.opacity = `${(0.06 + fill * 0.5).toFixed(3)}`;
+      const level = Math.min(1, fill / HEAT_FILL);
+      innerGlowRef.current.style.opacity = `${(0.06 + level * 0.5).toFixed(3)}`;
     }
     if (tempRef.current) tempRef.current.textContent = temp.toFixed(1);
   };
@@ -404,7 +445,30 @@ export default function ThermostatDial({ className = '', onStateChange }) {
             transform={`rotate(${START_DEG} ${CX} ${CY})`}
           />
 
-          {/* Scheduled state draws the track as a dotted outline instead 
+          {/* Scale endpoints, printed at the two ends of the arc the way a
+              physical thermostat does. Without them the range is a constant
+              nobody can see, and the ring resting under halfway at 24 °C looks
+              like an under-filled dial rather than a correctly-read one. Set
+              just outside the ring, inside the bezel, and a couple of degrees
+              past each end so they clear the rounded stroke caps. */}
+          <g
+            fill="#ffffff"
+            fillOpacity="0.3"
+            fontSize="9"
+            fontWeight="500"
+            letterSpacing="0.6"
+            textAnchor="middle"
+            dominantBaseline="middle"
+          >
+            <text x={MIN_LABEL[0]} y={MIN_LABEL[1]}>
+              {MIN_TEMP}
+            </text>
+            <text x={MAX_LABEL[0]} y={MAX_LABEL[1]}>
+              {MAX_TEMP}
+            </text>
+          </g>
+
+          {/* Scheduled state draws the track as a dotted outline instead
               present, waiting, clearly not running. */}
           <circle
             cx={CX}
@@ -480,15 +544,16 @@ export default function ThermostatDial({ className = '', onStateChange }) {
             Outside the SVG so it inherits the site's type stack rather than
             SVG text metrics, which never quite match. */}
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-          <div className="flex items-start gap-1">
-            <span
-              ref={tempRef}
-              className="font-display text-[clamp(2.6rem,7vw,3.9rem)] font-semibold leading-none tracking-tight text-bone-100 tabular-nums"
-            >
-              {AMBIENT.toFixed(1)}
-            </span>
-            <span className="mt-1 text-lg font-light text-bone-500">°C</span>
-          </div>
+          {/* No °C unit beside the number. The dial is unmistakably a
+              thermostat and the scale is unambiguous, so the unit was one more
+              thing sharing the centre of a circle that reads best with a single
+              figure in it. */}
+          <span
+            ref={tempRef}
+            className="font-display text-[clamp(2.6rem,7vw,3.9rem)] font-semibold leading-none tracking-tight text-bone-100 tabular-nums"
+          >
+            {AMBIENT.toFixed(1)}
+          </span>
 
           {/* Status line. Keyed on state so each label crossfades in rather
               than the text swapping under you. */}

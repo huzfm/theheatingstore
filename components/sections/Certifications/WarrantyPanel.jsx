@@ -17,7 +17,7 @@ import { WARRANTY } from './data';
  *
  * The link at the foot replaces the old partner-brands paragraph, whose four
  * anchors (#prowarm-pdf and friends) pointed at nothing on this page. The
- * documents are on /global-experience.
+ * documents are on /why-choose-us#global, which absorbed /global-experience.
  */
 export default function WarrantyPanel() {
   return (
@@ -95,7 +95,7 @@ export default function WarrantyPanel() {
               </ul>
 
               <Link
-                href="/global-experience"
+                href="/why-choose-us#global"
                 className="group mt-8 inline-flex items-center gap-2 text-[13px] font-medium text-heat-400 transition-colors duration-300 hover:text-heat-300"
               >
                 Manufacturer manuals and certificates

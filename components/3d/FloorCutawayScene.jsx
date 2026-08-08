@@ -55,7 +55,7 @@ function GroundShadow({ progressRef }) {
  * FloorLayers / BaseLayers), leaving this file the two genuinely global
  * concerns: where the camera is, and how the mat moves.
  */
-function SceneRig({ progressRef, reduced }) {
+function SceneRig({ progressRef, reduced, labels, onActiveFeature }) {
   const matRef = useRef(null);
   const rotationRef = useRef(0);
   const groupRef = useRef(null);
@@ -147,7 +147,8 @@ function SceneRig({ progressRef, reduced }) {
         <HeatingSheetModel
           rotationRef={rotationRef}
           progressRef={progressRef}
-          showLabels={!reduced}
+          labels={labels}
+          onActiveChange={onActiveFeature}
         />
       </group>
 
@@ -181,6 +182,8 @@ export default function FloorCutawayScene({
   progressRef,
   active = true,
   reduced = false,
+  labels = 'card',
+  onActiveFeature = null,
 }) {
   const [dpr, setDpr] = useState(1.25);
 
@@ -214,7 +217,12 @@ export default function FloorCutawayScene({
       <fog attach="fog" args={['#0a0a0a', 9, 21]} />
 
       <StudioEnvironment />
-      <SceneRig progressRef={progressRef} reduced={reduced} />
+      <SceneRig
+        progressRef={progressRef}
+        reduced={reduced}
+        labels={labels}
+        onActiveFeature={onActiveFeature}
+      />
       <TextureCleanup />
     </Canvas>
   );

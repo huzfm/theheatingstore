@@ -64,10 +64,10 @@ export const STAGES = [
     tag: 'Installation',
     icon: 'wrench',
     title: 'Our own team lays the floor, not a subcontractor',
-    lead: 'Insulation board goes down first so heat travels up into the room instead of into the slab. Cable or mat is fixed at the spacing on the drawing, tested, and buried in a 20–25 mm screed layer, then tested again. A fault found after the tiles are down is a floor that has to come up.',
+    lead: 'Insulation board goes down first so heat travels up into the room instead of into the slab. Cable or mat is fixed at the spacing on the drawing, tested, and buried in a 5-6 cm screed layer, then tested again. A fault found after the tiles are down is a floor that has to come up.',
     outcome: 'A heated floor slab, tested, ready for your finish.',
     you: 'Clear the rooms. The subfloor has to be empty and dry when we start.',
-    metric: { value: '20–25 mm', label: 'Screed layer over the cable' },
+    metric: { value: '5 – 6 cm', label: 'Screed layer over the cable' },
     link: { href: '/installation', label: 'See the build, layer by layer' },
   },
   {
@@ -78,7 +78,7 @@ export const STAGES = [
     lead: 'The stage people are surprised by. Fresh screed has to cure before it is heated, typically three to four weeks, and the first heat-up is then ramped over several days rather than switched straight to your target. Rushing either cracks the screed. We set the thermostats with you and hand over the drawing, the test readings and the warranty papers.',
     outcome: 'A commissioned system and the paperwork that proves it.',
     you: 'Hold off on heavy furniture until the first heat-up is complete.',
-    metric: { value: '3–4 wks', label: 'Typical screed cure before first heat' },
+    metric: { value: '7-10 days', label: 'Typical screed cure before first heat' },
   },
   {
     num: '05',
