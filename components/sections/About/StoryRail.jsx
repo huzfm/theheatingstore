@@ -61,6 +61,14 @@ function Panel({ className = '', children }) {
  * heating mat that changes state as each block lands. Every string comes from
  * data.js via lib/story-rail.
  *
+ * Below lg there is no mat at all. A second WebGL canvas on a phone bought us
+ * a decorative loop of a model nobody could read at that size, on the devices
+ * least able to spend the battery, and it pushed the actual argument, the three
+ * principles, a screen further down. The same three blocks become a snap
+ * carousel instead. It is the same DOM either way, only the container changes
+ * (see the max-width block in the injected stylesheet), so the copy exists once
+ * for crawlers and assistive tech rather than once per breakpoint.
+ *
  * The origin narrative used to lead this rail and now has its own section,
  * OriginGallery, immediately above. The thresholds and keyframes in
  * lib/story-rail were re-derived for the shorter three-block rail.
@@ -74,19 +82,14 @@ function Panel({ className = '', children }) {
  */
 export default function StoryRail() {
   const wrapperRef = useRef(null);
+  const trackRef = useRef(null);
   const reduce = useReducedMotion();
   const isDesktop = useIsDesktop();
 
   const [block, setBlock] = useState(0);
+  const [slide, setSlide] = useState(0);
   const [active, setActive] = useState(false);
   const [mounted, setMounted] = useState(false);
-
-  /**
-   * The mobile panel never scrubs, it holds the resting pose from the end of
-   * the timeline (mat lit, calm hero framing) and relies on the scene's idle
-   * drift for life.
-   */
-  const staticProgressRef = useRef(0.94);
 
   /**
    * Scroll → ref, with no React state in the hot path. Only the block index
@@ -116,11 +119,68 @@ export default function StoryRail() {
     return () => cancelAnimationFrame(id);
   }, [reduce, isDesktop, progressRef]);
 
+  /**
+   * Mobile carousel focus.
+   *
+   * Snapping, momentum and the rubber band are the browser's, we only measure
+   * the result: each card gets a --t of 1 at the centre of the viewport falling
+   * to 0 a card-width away, and the stylesheet spends it on scale, opacity and
+   * the heat wash. Written straight to the node, so a swipe costs zero renders;
+   * only the index behind the tick rail is state, and only when it changes.
+   */
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || isDesktop !== false) return undefined;
+
+    let frame = 0;
+
+    const paint = () => {
+      frame = 0;
+      const cards = track.querySelectorAll('[data-rail-card]');
+      const mid = track.scrollLeft + track.clientWidth / 2;
+      let nearest = 0;
+      let nearestDist = Infinity;
+
+      cards.forEach((card, i) => {
+        // offsetLeft is measured from the shared offset parent, so subtracting
+        // the track's own puts both in the scroller's coordinate space.
+        const centre = card.offsetLeft - track.offsetLeft + card.offsetWidth / 2;
+        const dist = Math.abs(centre - mid);
+        card.style.setProperty('--t', Math.max(0, 1 - dist / card.offsetWidth).toFixed(3));
+        if (dist < nearestDist) {
+          nearestDist = dist;
+          nearest = i;
+        }
+      });
+
+      setSlide((prev) => (prev === nearest ? prev : nearest));
+    };
+
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(paint);
+    };
+
+    paint();
+    track.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      track.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [isDesktop]);
+
+  const goToSlide = (i) => {
+    const card = trackRef.current?.querySelectorAll('[data-rail-card]')[i];
+    card?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  };
+
   /* Render loop runs only while the section is on screen; the canvas mounts
-     only once the visitor is approaching it. */
+     only once the visitor is approaching it. Desktop only, since the mat is
+     the only consumer of either flag and it no longer renders below lg. */
   useEffect(() => {
     const el = wrapperRef.current;
-    if (!el || reduce) return undefined;
+    if (!el || reduce || isDesktop !== true) return undefined;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -132,7 +192,7 @@ export default function StoryRail() {
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [reduce]);
+  }, [reduce, isDesktop]);
 
   /* ── Reduced motion ───────────────────────────────────────────────
      No canvas, no sticky, no 485vh of scroll. The origin photograph as a
@@ -185,6 +245,73 @@ export default function StoryRail() {
           .rail-block { min-height: ${BLOCK_VH}vh; }
           .rail-tail  { height: ${TAIL_VH}vh; }
         }
+
+        /*
+          Below lg the same three blocks are a carousel. --card is the slide
+          width and the track's inline padding is derived from it, which is what
+          lets the first and last card sit dead centre when snapped: centring
+          card 0 asks for a scrollLeft of exactly 0, so the browser never has to
+          settle for "as close as the scroll range allows".
+        */
+        @media (max-width: 1023.98px) {
+          .rail-track {
+            --card: 82vw;
+            display: flex;
+            gap: 3vw;
+            /* Break out of the page gutter so the strip runs edge to edge. */
+            margin-inline: -1.25rem;
+            padding-inline: calc((100vw - var(--card)) / 2);
+            overflow-x: auto;
+            overscroll-behavior-x: contain;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            /* Cards dissolve into the bezel instead of being sliced by it. */
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+                    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+          }
+          .rail-track::-webkit-scrollbar { display: none; }
+
+          .rail-block {
+            --t: 0;
+            flex: 0 0 var(--card);
+            scroll-snap-align: center;
+            scroll-snap-stop: always;
+            justify-content: flex-start;
+            border-radius: 26px;
+            padding: 2.25rem 1.75rem 2.5rem;
+            border: 1px solid rgba(255, 255, 255, calc(0.06 + 0.06 * var(--t)));
+            background:
+              radial-gradient(130% 85% at 50% 0%, rgba(255, 138, 61, calc(0.13 * var(--t))), transparent 62%),
+              linear-gradient(180deg, #141312 0%, #0b0b0a 100%);
+            box-shadow:
+              0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
+              0 40px 90px -55px rgba(0, 0, 0, 0.95);
+            opacity: calc(0.42 + 0.58 * var(--t));
+            transform: scale(calc(0.935 + 0.065 * var(--t)));
+            /* Follows the finger frame by frame; the transition only smooths
+               the tail of a fling and the jump from a tick-rail tap. */
+            transition: opacity 120ms linear, transform 120ms linear;
+          }
+
+          /* Hairline of heat along the top edge, brightest on the focused card. */
+          .rail-block::before {
+            content: '';
+            position: absolute;
+            inset-inline: 2.25rem;
+            top: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 138, 61, calc(0.85 * var(--t))), transparent);
+          }
+        }
+
+        @media (min-width: 640px) and (max-width: 1023.98px) {
+          .rail-track { --card: 60vw; margin-inline: -2rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .rail-block { transition: none; }
+        }
       `}</style>
 
       {/* Ambient wash, matching the other About sections */}
@@ -198,42 +325,38 @@ export default function StoryRail() {
       />
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-        {/* ── Mobile visual: above the copy, not pinned, no scroll states ── */}
-        <div className="pt-16 lg:hidden">
-          <Panel className="h-[55vh] min-h-[320px]">
-            {mounted && isDesktop === false ? (
-              <StoryMatScene
-                progressRef={staticProgressRef}
-                active={active}
-                idle
-                /* Anchored <Html> cards are unreadable at this scale, and each
-                   one is a DOM portal composited over a live canvas, the most
-                   expensive thing here on the devices least able to afford it. */
-                showCallouts={false}
-              />
-            ) : null}
-            <span className="pointer-events-none absolute bottom-4 left-5 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-heat-400">
-              <span className="h-1.5 w-1.5 rounded-full bg-heat-400 shadow-[0_0_10px_2px_rgba(255,138,61,0.8)]" />
-              The heating mat
-            </span>
-          </Panel>
-        </div>
-
         <div className="grid lg:grid-cols-[1fr_1.05fr] lg:gap-16">
-          {/* ── Left: the scrolling copy ─────────────────────────────── */}
-          <div className="space-y-14 py-16 lg:space-y-0 lg:py-0">
+          {/* ── Left: the scrolling copy. A snap carousel below lg. ──── */}
+          {/* data-lenis-prevent: on a tablet-width window Lenis still owns the
+              wheel, and without this a trackpad's horizontal swipe over the
+              track is swallowed and scrolls the page instead. */}
+          <div ref={trackRef} data-lenis-prevent className="rail-track py-16 lg:py-0">
             {RAIL_BLOCKS.map((b, i) => {
-              const isActive = isDesktop !== true || block === i;
+              /* Desktop tracks the scrub; the carousel tracks the snap. */
+              const isActive = isDesktop === true ? block === i : slide === i;
               return (
                 <div
                   key={b.id}
-                  className="rail-block flex flex-col justify-center lg:max-w-xl"
+                  data-rail-card
+                  className="rail-block relative isolate flex flex-col justify-center lg:max-w-xl"
+                  /* Seeds the focus falloff so the first card is already lit on
+                     the first paint, before the scroll handler has measured
+                     anything. Overwritten by that handler on every frame. */
+                  style={{ '--t': i === 0 ? 1 : 0 }}
                 >
+                  {/*
+                    Dimming the copy is the pinned rail's job: there, three
+                    paragraphs share one screen and only one is being read. A
+                    carousel card is already the only thing in view, and the
+                    card itself carries the falloff, so stacking a second one
+                    inside it would just make the peeking card unreadable.
+                  */}
                   <div
                     className="transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
                     style={{
-                      opacity: isActive ? 1 : 0.28,
-                      transform: isActive ? 'translateY(0)' : 'translateY(10px)',
+                      opacity: isDesktop === true && !isActive ? 0.28 : 1,
+                      transform:
+                        isDesktop === true && !isActive ? 'translateY(10px)' : 'translateY(0)',
                     }}
                   >
                     <span className="inline-flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.28em] text-bone-500">
@@ -279,6 +402,48 @@ export default function StoryRail() {
             {/* Tail, gives the final block room to sit at rest before the
                 section releases, instead of the pin ending on top of it. */}
             <div className="rail-tail hidden lg:block" aria-hidden />
+          </div>
+
+          {/*
+            Carousel tick rail, the same instrument as the one on the pinned
+            panel so the two breakpoints read as one design. Tappable as well as
+            indicative: three cards is few enough that jumping straight to one
+            beats swiping to it. display:none on desktop, so it never becomes a
+            stray third cell in the two-column grid.
+          */}
+          <div className="-mt-8 flex items-center justify-between pb-16 lg:hidden">
+            <div className="flex items-center gap-1">
+              {RAIL_BLOCKS.map((b, i) => (
+                <button
+                  key={b.id}
+                  type="button"
+                  onClick={() => goToSlide(i)}
+                  aria-label={`Show ${b.title}`}
+                  aria-current={slide === i ? 'true' : undefined}
+                  /* 2px of ink, 44px of target. */
+                  className="flex h-11 items-center px-1.5"
+                >
+                  <span
+                    className="block h-[2px] overflow-hidden rounded-full bg-white/15 transition-[width] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                    style={{ width: slide === i ? '2.5rem' : '1.25rem' }}
+                  >
+                    <span
+                      className="block h-full origin-left bg-heat-500 transition-transform duration-500 ease-out"
+                      style={{
+                        transform: `scaleX(${slide >= i ? 1 : 0})`,
+                        boxShadow: slide === i ? '0 0 10px 1px rgba(255,138,61,0.6)' : 'none',
+                      }}
+                    />
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            <span className="font-serif text-sm tracking-[0.18em] text-bone-500">
+              <span className="text-bone-100">{String(slide + 1).padStart(2, '0')}</span>
+              <span className="mx-1.5 text-bone-500/50">/</span>
+              {String(RAIL_BLOCKS.length).padStart(2, '0')}
+            </span>
           </div>
 
           {/* ── Right: the pinned visual ─────────────────────────────── */}

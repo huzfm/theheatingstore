@@ -374,36 +374,40 @@ export default function FaqSection() {
 					line-height: 1.8;
 					color: #7A6650;
 					max-width: 340px;
-					margin: 0 0 40px;
+					margin: 0 0 28px;
 					font-weight: 400;
 				}
 
-				.faq-line {
-					width: 1px;
-					height: 64px;
-					background: linear-gradient(180deg, #C4623A, transparent);
-					transform-origin: top;
-					margin-bottom: 40px;
+				.faq-tabs {
+					display: flex;
+					flex-direction: column;
+					align-items: flex-start;
+					gap: 8px;
 				}
-
-				.faq-tabs { display: flex; flex-direction: column; gap: 4px; }
 				.faq-tab {
 					display: flex;
 					align-items: center;
-					gap: 12px;
-					background: none;
-					border: none;
+					gap: 10px;
 					cursor: pointer;
-					padding: 10px 0;
+					padding: 10px 18px;
 					text-align: left;
 					font-family: var(--font-body);
 					font-size: 14px;
 					font-weight: 500;
 					color: #9C8266;
-					transition: color 0.4s ease;
+					border-radius: 999px;
+					background: rgba(139,58,42,0.05);
+					border: 1px solid rgba(139,58,42,0.12);
+					transition: color 0.35s ease, background 0.35s ease, border-color 0.35s ease;
 				}
-				.faq-tab:hover { color: #8B3A2A; }
-				.faq-tab--active { color: #8B3A2A; font-weight: 600; }
+				.faq-tab:hover { color: #8B3A2A; background: rgba(139,58,42,0.09); }
+				.faq-tab--active,
+				.faq-tab--active:hover {
+					color: #FFF7EF;
+					font-weight: 600;
+					background: #8B3A2A;
+					border-color: #8B3A2A;
+				}
 				.faq-tab-dot {
 					width: 5px;
 					height: 5px;
@@ -413,7 +417,7 @@ export default function FaqSection() {
 					flex-shrink: 0;
 					transition: opacity 0.4s ease, transform 0.4s ease;
 				}
-				.faq-tab--active .faq-tab-dot { opacity: 1; transform: scale(1.6); }
+				.faq-tab--active .faq-tab-dot { opacity: 1; transform: scale(1.2); }
 
 				.faq-right { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
 
@@ -492,7 +496,7 @@ export default function FaqSection() {
 					.faq-inner { grid-template-columns: 1fr; gap: 56px; padding: 0 28px; }
 					.faq-left { position: static; }
 					.faq-subtitle { max-width: 520px; }
-					.faq-tabs { flex-direction: row; flex-wrap: wrap; gap: 8px 20px; }
+					.faq-tabs { flex-direction: row; flex-wrap: wrap; gap: 8px; }
 				}
 
 				@media (max-width: 640px) {
@@ -500,6 +504,8 @@ export default function FaqSection() {
 					.faq-card-trigger { padding: 22px 20px; gap: 14px; }
 					.faq-card-answer { padding: 0 20px 26px 20px; }
 					.faq-card-index { display: none; }
+					.faq-subtitle { margin-bottom: 20px; }
+					.faq-tab { padding: 9px 16px; gap: 8px; font-size: 13px; }
 				}
 
 				/* Coarse-pointer / small-screen devices: kill the effects that jitter
@@ -525,15 +531,6 @@ export default function FaqSection() {
 
 			<div className="faq-inner">
 				<div className="faq-left">
-					<motion.div
-						initial={{ opacity: 0, y: 16 }}
-						animate={inView ? { opacity: 1, y: 0 } : {}}
-						transition={{ duration: 0.8, ease: EASE }}
-						className="faq-eyebrow">
-						<span className="faq-eyebrow-num">04</span>
-						<span>&mdash;</span>
-						<span>Frequently Asked</span>
-					</motion.div>
 
 					<motion.h2
 						initial={{ opacity: 0, y: 24 }}
@@ -551,16 +548,9 @@ export default function FaqSection() {
 						transition={{ duration: 0.8, ease: EASE, delay: 0.22 }}
 						className="faq-subtitle">
 						Everything you need to know about electric hamam and radiant underfloor
-						heating &mdash; from cost and installation to safety and performance in
+						heating from cost and installation to safety and performance in
 						Kashmir winters.
 					</motion.p>
-
-					<motion.div
-						initial={{ scaleY: 0 }}
-						animate={inView ? { scaleY: 1 } : {}}
-						transition={{ duration: 1, ease: EASE, delay: 0.3 }}
-						className="faq-line"
-					/>
 
 					<motion.div
 						initial={{ opacity: 0 }}
