@@ -3,6 +3,7 @@
 import MeasuringUpHero from '@/components/sections/MeasuringUp/MeasuringUpHero';
 import MeasureSteps from '@/components/sections/MeasuringUp/MeasureSteps';
 import AreaCalculator from '@/components/sections/MeasuringUp/AreaCalculator';
+import InstallationEconomics from '@/components/sections/MeasuringUp/InstallationEconomics';
 import SystemComparison from '@/components/sections/MeasuringUp/SystemComparison';
 import MeasuringUpCTA from '@/components/sections/MeasuringUp/MeasuringUpCTA';
 
@@ -13,13 +14,14 @@ import MeasuringUpCTA from '@/components/sections/MeasuringUp/MeasuringUpCTA';
  * primitives. Reduced motion honoured throughout.
  *
  * This replaced a 1,658-line self-contained client component with its own
- * inline palette, a large inline <style> block, seven hand-rolled SVG icons,
- * and light-on-dark form fields that were the only white input surfaces on the
- * site.
+ * inline palette, a large inline <style> block, and seven hand-rolled SVG
+ * icons.
  *
- * The calculator's arithmetic is carried across untouched, it is the only
- * interactive tool on the site and the only thing here a customer might act
- * on. See the header comment in AreaCalculator for the formula.
+ * Two calculators sit in the middle of the page, both on warm bone worksheet
+ * panels so the parts you work in read differently from the parts you read.
+ * AreaCalculator answers "how much floor can I heat", InstallationEconomics
+ * answers "what does that cost to install". Both carry their arithmetic across
+ * untouched; see their header comments for the formulas.
  *
  * Three corrections went in with the rewrite, all noted at their site:
  *   - Step 2 claimed a "standard deduction of 20% for fixed furniture" that
@@ -37,6 +39,7 @@ export default function MeasuringUpClient() {
       <MeasuringUpHero />
       <MeasureSteps />
       <AreaCalculator />
+      <InstallationEconomics />
       <SystemComparison />
       <MeasuringUpCTA />
     </main>

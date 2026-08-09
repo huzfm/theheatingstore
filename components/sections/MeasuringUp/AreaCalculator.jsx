@@ -18,13 +18,23 @@ import { CALC } from './data';
  *   heatable    = netArea x 0.9        <- 10% perimeter + mat spacing
  *   percentage  = netArea / roomTotal  <- warn under 80%
  *
+ * Dimensions are entered in feet and areas read in square feet, matching the
+ * configurator below, which prices mats by the square foot. The formula is
+ * unit-agnostic, only the labels changed.
+ *
  * Window sill height is captured for installation planning and is deliberately
- * not part of any of the above; it is stored in millimetres and only echoed
+ * not part of any of the above; it stays in millimetres, which is how sill
+ * heights are specified whatever the floor is measured in, and is only echoed
  * back in the summary.
  *
- * Inputs are dark here rather than the previous light-on-dark fields, which
- * were the only white input surfaces on the site. Contrast is carried by the
- * border and the focus ring instead.
+ * The panel is a warm bone worksheet rather than another ink-on-ink block: it
+ * is the part of the page you work in rather than read, and it matches the
+ * configurator below it. The result card stays dark so the answer remains the
+ * one high-contrast object on the surface.
+ *
+ * Mobile: inputs are 16px below sm, because anything smaller makes iOS zoom
+ * the viewport on focus; width and length share a row, name/W/L/remove never
+ * costs more than two lines, and every control clears 44px.
  */
 export default function AreaCalculator() {
   const reduce = useReducedMotion();
@@ -85,13 +95,15 @@ export default function AreaCalculator() {
     }, 80);
   };
 
+  // text-base (16px) below sm: any smaller and iOS zooms the viewport when the
+  // field takes focus, leaving the user scrolled sideways into the form.
   const field =
-    'w-full rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-[15px] text-bone-100 outline-none transition-colors duration-200 placeholder:text-bone-500/50 focus:border-heat-500/60 focus:bg-white/[0.06] focus:ring-2 focus:ring-heat-500/20';
+    'mu-num w-full rounded-xl border border-ink-950/12 bg-white px-4 py-3 text-base text-ink-900 outline-none transition-colors duration-200 placeholder:text-ink-700/35 focus:border-heat-600 focus:ring-2 focus:ring-heat-500/25 sm:text-[15px]';
   const label =
-    'mb-2 block text-[10px] font-medium uppercase tracking-[0.2em] text-bone-500';
+    'mb-2 block text-[10px] font-medium uppercase tracking-[0.2em] text-ink-700/55';
 
   return (
-    <section className="relative bg-ink-950 px-5 py-24 text-bone-100 sm:px-8 lg:py-28">
+    <section className="relative bg-ink-950 px-4 py-20 text-bone-100 sm:px-8 sm:py-24 lg:py-28">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -124,21 +136,23 @@ export default function AreaCalculator() {
 
         <Reveal delay={0.1}>
           <div
-            className="relative isolate mt-12 overflow-hidden rounded-[28px] border border-white/10 p-6 sm:p-9 lg:p-10"
+            className="relative isolate mt-10 overflow-hidden rounded-[22px] border border-white/10 p-5 shadow-[0_40px_120px_-50px_rgba(0,0,0,0.9)] sm:mt-12 sm:rounded-[28px] sm:p-9 lg:p-10"
             style={{
               background:
-                'radial-gradient(85% 120% at 0% 0%, rgba(255,138,61,0.10), transparent 58%), linear-gradient(180deg, #161512 0%, #0b0b0a 100%)',
+                'radial-gradient(90% 60% at 0% 0%, rgba(255,176,97,0.22), transparent 60%), linear-gradient(165deg, #faf7f2 0%, #f1ebe2 55%, #e9e1d6 100%)',
             }}
           >
             {/* ── Room ── */}
             <fieldset className="border-0 p-0">
-              <legend className="mb-5 font-serif text-lg tracking-wide text-bone-100">
+              <legend className="mb-5 font-serif text-[17px] tracking-wide text-ink-900 sm:text-lg">
                 The room
               </legend>
-              <div className="grid gap-4 sm:grid-cols-3">
+              {/* Width and length pair up even on the narrowest phone, they
+                  read as one measurement. The optional sill gets its own row. */}
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
                 <div>
                   <label htmlFor="mu-w" className={label}>
-                    Width (m)
+                    Width (ft)
                   </label>
                   <input
                     id="mu-w"
@@ -154,7 +168,7 @@ export default function AreaCalculator() {
                 </div>
                 <div>
                   <label htmlFor="mu-l" className={label}>
-                    Length (m)
+                    Length (ft)
                   </label>
                   <input
                     id="mu-l"
@@ -168,7 +182,7 @@ export default function AreaCalculator() {
                     className={field}
                   />
                 </div>
-                <div>
+                <div className="col-span-2 sm:col-span-1">
                   <label htmlFor="mu-sill" className={label}>
                     Sill height (mm) · optional
                   </label>
@@ -187,19 +201,21 @@ export default function AreaCalculator() {
               </div>
 
               {roomTotal > 0 && (
-                <p className="mt-4 text-[13px] text-bone-500">
+                <p className="mt-4 text-[13px] text-ink-700/70">
                   Gross floor area{' '}
-                  <span className="text-heat-400">{roomTotal.toFixed(2)} m²</span>
+                  <span className="font-medium text-heat-700">
+                    {roomTotal.toFixed(2)} sq ft
+                  </span>
                 </p>
               )}
             </fieldset>
 
             {/* ── Obstructions ── */}
-            <fieldset className="mt-10 border-0 p-0">
-              <legend className="mb-2 font-serif text-lg tracking-wide text-bone-100">
+            <fieldset className="mt-9 border-0 p-0 sm:mt-10">
+              <legend className="mb-2 font-serif text-[17px] tracking-wide text-ink-900 sm:text-lg">
                 Fixed obstructions
               </legend>
-              <p className="mb-5 max-w-xl text-[13px] leading-relaxed text-bone-500">
+              <p className="mb-5 max-w-xl text-[13px] leading-relaxed text-ink-700/70">
                 One row per item that will never move. Leave the single empty
                 row if there are none.
               </p>
@@ -208,9 +224,12 @@ export default function AreaCalculator() {
                 {areas.map((a, i) => (
                   <div
                     key={a.id}
-                    className="grid grid-cols-2 items-end gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-4 sm:grid-cols-[1fr_auto_auto_auto] sm:items-center sm:gap-4"
+                    // On a phone the name takes its own row and W, L and the
+                    // remove button share the next one, so a row never costs
+                    // more than two lines of height.
+                    className="grid grid-cols-[1fr_1fr_auto] items-end gap-3 rounded-2xl border border-ink-950/[0.08] bg-white/70 p-3.5 sm:grid-cols-[1fr_auto_auto_auto] sm:items-center sm:gap-4 sm:p-4"
                   >
-                    <div className="col-span-2 sm:col-span-1">
+                    <div className="col-span-3 sm:col-span-1">
                       <label htmlFor={`mu-n-${a.id}`} className={label}>
                         What is it
                       </label>
@@ -225,7 +244,7 @@ export default function AreaCalculator() {
                     </div>
                     <div className="sm:w-[110px]">
                       <label htmlFor={`mu-aw-${a.id}`} className={label}>
-                        W (m)
+                        W (ft)
                       </label>
                       <input
                         id={`mu-aw-${a.id}`}
@@ -241,7 +260,7 @@ export default function AreaCalculator() {
                     </div>
                     <div className="sm:w-[110px]">
                       <label htmlFor={`mu-al-${a.id}`} className={label}>
-                        L (m)
+                        L (ft)
                       </label>
                       <input
                         id={`mu-al-${a.id}`}
@@ -255,13 +274,13 @@ export default function AreaCalculator() {
                         className={field}
                       />
                     </div>
-                    <div className="col-span-2 flex justify-end sm:col-span-1 sm:block">
+                    <div className="flex justify-end">
                       <button
                         type="button"
                         onClick={() => removeArea(a.id)}
                         disabled={areas.length === 1}
                         aria-label={`Remove ${a.name || 'obstruction'}`}
-                        className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 text-bone-500 transition-colors duration-200 hover:border-heat-500/40 hover:text-heat-400 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-white/10 disabled:hover:text-bone-500"
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-ink-950/10 bg-white text-ink-700/60 transition-colors duration-200 hover:border-heat-500/50 hover:text-heat-700 disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:border-ink-950/10 disabled:hover:text-ink-700/60"
                       >
                         <Trash2 size={16} strokeWidth={1.6} aria-hidden />
                       </button>
@@ -270,35 +289,37 @@ export default function AreaCalculator() {
                 ))}
               </div>
 
-              <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
                 <button
                   type="button"
                   onClick={addArea}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/12 px-4 py-2.5 text-[13px] font-medium text-bone-300 transition-colors duration-200 hover:border-heat-500/40 hover:text-heat-400"
+                  className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-ink-950/12 bg-white px-4 text-[13px] font-medium text-ink-800 transition-colors duration-200 hover:border-heat-500/50 hover:text-heat-700"
                 >
                   <Plus size={15} strokeWidth={1.8} aria-hidden />
                   Add another
                 </button>
                 {unheatable > 0 && (
-                  <p className="text-[13px] text-bone-500">
+                  <p className="text-[13px] text-ink-700/70">
                     Deducted{' '}
-                    <span className="text-heat-400">{unheatable.toFixed(2)} m²</span>
+                    <span className="font-medium text-heat-700">
+                      {unheatable.toFixed(2)} sq ft
+                    </span>
                   </p>
                 )}
               </div>
             </fieldset>
 
-            <div className="mt-10 border-t border-white/10 pt-8">
+            <div className="mt-9 border-t border-ink-950/[0.08] pt-7 sm:mt-10 sm:pt-8">
               <button
                 type="button"
                 onClick={handleCalculate}
                 disabled={!hasRoomDims}
-                className="inline-flex items-center justify-center rounded-full bg-heat-500 px-8 py-3.5 text-sm font-semibold text-ink-950 shadow-[0_10px_40px_-12px_rgba(255,138,61,0.75)] transition-colors duration-200 hover:bg-heat-400 disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-bone-500 disabled:shadow-none"
+                className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-heat-600 px-8 text-sm font-semibold text-white shadow-[0_12px_30px_-12px_rgba(242,104,28,0.8)] transition-colors duration-200 hover:bg-heat-700 disabled:cursor-not-allowed disabled:bg-ink-950/10 disabled:text-ink-700/40 disabled:shadow-none sm:w-auto"
               >
                 Calculate heatable area
               </button>
               {!hasRoomDims && (
-                <p className="mt-3 text-[12.5px] text-bone-500">
+                <p className="mt-3 text-[12.5px] text-ink-700/60">
                   Enter the room width and length to continue.
                 </p>
               )}
@@ -313,23 +334,25 @@ export default function AreaCalculator() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={reduce ? undefined : { opacity: 0, y: 8 }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className="mt-8 scroll-mt-28 rounded-2xl border border-heat-500/25 bg-heat-500/[0.06] p-6 sm:p-8"
+                  // Left dark on the bone worksheet: the answer is the one
+                  // thing here you are meant to walk away with.
+                  className="mt-8 scroll-mt-28 rounded-2xl border border-white/10 bg-ink-900 p-5 sm:p-8"
                 >
                   <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-heat-400">
                     Your heatable area
                   </p>
-                  <p className="mt-3 font-serif text-[clamp(2.6rem,8vw,4.5rem)] leading-none text-bone-100">
+                  <p className="mt-3 font-serif text-[clamp(2.6rem,13vw,4.5rem)] leading-none text-bone-100">
                     {heatableArea}
-                    <span className="ml-2 text-[0.4em] text-bone-500">m²</span>
+                    <span className="ml-2 text-[0.32em] text-bone-500">sq ft</span>
                   </p>
 
-                  <dl className="mt-8 grid gap-px overflow-hidden rounded-xl bg-white/10 sm:grid-cols-3">
+                  <dl className="mt-7 grid gap-px overflow-hidden rounded-xl bg-white/10 sm:mt-8 sm:grid-cols-3">
                     {[
-                      ['Gross room area', `${roomTotal.toFixed(2)} m²`],
-                      ['Fixed obstructions', `− ${unheatable.toFixed(2)} m²`],
+                      ['Gross room area', `${roomTotal.toFixed(2)} sq ft`],
+                      ['Fixed obstructions', `− ${unheatable.toFixed(2)} sq ft`],
                       ['Perimeter allowance', `− 10%`],
                     ].map(([k, v]) => (
-                      <div key={k} className="bg-ink-950/80 px-5 py-4">
+                      <div key={k} className="bg-ink-950/90 px-5 py-4">
                         <dt className="text-[10px] uppercase tracking-[0.18em] text-bone-500">
                           {k}
                         </dt>
@@ -364,6 +387,14 @@ export default function AreaCalculator() {
           </div>
         </Reveal>
       </div>
+
+      <style>{`
+        /* Spinners eat 20px of an already narrow field on a phone, and every
+           number here is typed rather than nudged. */
+        .mu-num::-webkit-inner-spin-button,
+        .mu-num::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        .mu-num { -moz-appearance: textfield; }
+      `}</style>
     </section>
   );
 }

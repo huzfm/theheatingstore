@@ -35,7 +35,7 @@ export const STEPS = {
     {
       n: '01',
       title: 'Measure the room',
-      body: 'Length times width, in metres, for the whole room. This is your gross floor area and everything else is taken off it.',
+      body: 'Length times width, in feet, for the whole room. This is your gross floor area and everything else is taken off it.',
       img: '/images/m1.png',
       alt: 'Top-down floor plan of an empty room',
     },
@@ -62,6 +62,18 @@ export const CALC = {
   intro:
     'Enter the room, then add a row for each fixed obstruction. The perimeter allowance is applied for you.',
   note: 'An estimate for specifying a system, not a substitute for the site survey. Window sill height is recorded for installation planning only and does not affect the area.',
+};
+
+/**
+ * Copy for the project cost configurator (InstallationEconomics). The tool
+ * itself is carried across from the product-page calculator with its
+ * arithmetic untouched, only the surface is restyled to this site's tokens.
+ */
+export const ECONOMICS = {
+  eyebrow: 'Installation economics',
+  title: 'From site work to final project cost.',
+  intro:
+    'Adjust the project parameters below to understand how your electric hammam installation is technically and commercially structured.',
 };
 
 /**
