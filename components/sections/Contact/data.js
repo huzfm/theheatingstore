@@ -92,25 +92,10 @@ export const SHOWROOM = {
     'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3300!2d74.7973!3d34.0836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38e1855f5454a0c1%3A0x7f39f9d5a9e3c2b0!2sLal%20Chowk%2C%20Srinagar%2C%20Jammu%20%26%20Kashmir!5e0!3m2!1sen!2sin!4v1715000000000!5m2!1sen!2sin',
 };
 
-export const COVERAGE = {
-  eyebrow: 'Where we work',
-  title: 'Across the Valley, and beyond it.',
-  regions: [
-    {
-      title: 'North Kashmir',
-      places: ['Baramulla', 'Sopore', 'Kupwara', 'Bandipora', 'Handwara', 'Rafiabad', 'Uri', 'Tangmarg'],
-    },
-    {
-      title: 'Central Kashmir',
-      places: ['Srinagar', 'Budgam', 'Ganderbal', 'Beerwah', 'Magam', 'Chadoora', 'Narbal', 'Khansahib'],
-    },
-    {
-      title: 'South Kashmir',
-      places: ['Anantnag', 'Pulwama', 'Shopian', 'Kulgam', 'Awantipora', 'Bijbehara', 'Dooru', 'Qazigund'],
-    },
-  ],
-  note: 'Jammu and Ladakh are served by the same team travelling out. Ask about your address, most of our coverage started as one enquiry from somewhere new.',
-};
+/* COVERAGE lived here: eyebrow, "Across the Valley, and beyond it.", three
+   region cards (North/Central/South Kashmir) of place names and a note about
+   Jammu and Ladakh. Removed with the CoverageSummary section it fed; the
+   coverage ground is /areasweserve. */
 
 export const CTA = {
   eyebrow: 'Not sure where to start',

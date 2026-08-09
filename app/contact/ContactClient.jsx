@@ -3,7 +3,6 @@
 import ContactHero from '@/components/sections/Contact/ContactHero';
 import ContactChannels from '@/components/sections/Contact/ContactChannels';
 import EnquiryForm from '@/components/sections/Contact/EnquiryForm';
-import CoverageSummary from '@/components/sections/Contact/CoverageSummary';
 import ContactCTA from '@/components/sections/Contact/ContactCTA';
 
 /**
@@ -29,6 +28,10 @@ import ContactCTA from '@/components/sections/Contact/ContactCTA';
  *   - "theheatingstore.in" was listed as a mailto: address. It is a domain, so
  *     the link opened a mail client addressed to nothing.
  *
+ * The coverage panel ("Across the Valley, and beyond it.", three region cards
+ * of place names) has since been dropped along with its COVERAGE data and
+ * CoverageSummary component. /areasweserve carries that ground in full.
+ *
  * The global footer is hidden on this route (SiteChrome hidePrefixes in
  * app/layout.js), so the closing panel here is the last thing on the page.
  */
@@ -38,7 +41,6 @@ export default function ContactClient() {
       <ContactHero />
       <ContactChannels />
       <EnquiryForm />
-      <CoverageSummary />
       <ContactCTA />
     </main>
   );
