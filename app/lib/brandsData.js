@@ -7,6 +7,14 @@
  * Image paths point to /public/brandimages/* and /public/brandimages/products/*
  * If a product image is missing, the BrandImage component falls back to a
  * gradient placeholder using accentColor.
+ *
+ * `img` vs `logo`: `img` is the original mark, drawn on a white plate by the
+ * grid, the brand detail page and the two BrandWalls. `logo` is the
+ * transparent-background mark in /public/productlogo, which sits straight on
+ * the dark stage with no plate behind it, currently used by /product. They are
+ * kept as separate fields rather than one repointed path so switching a
+ * surface over is deliberate: anything still drawing a white plate needs the
+ * opaque artwork, or the mark disappears into it.
  */
 
 export const BRANDS = [
@@ -18,6 +26,7 @@ export const BRANDS = [
 		slug: 'prowarm',
 		tag: 'ELECTRIC',
 		img: '/brandimages/prowarm.webp',
+		logo: '/productlogo/prowarm.png',
 		heroImage: '/brandimages/prowarm.webp',
 		accentColor: '#B86B45',
 		desc: "UK's #1 best-selling electric underfloor heating brand with over 300,000 systems sold worldwide. CE certified by SGS to IEC 60335 standards. Every system ships with a Lifetime Warranty and the CableSafe™ Guarantee, if the heating cable is accidentally cut during installation, ProWarm replaces it free of charge.",
@@ -98,6 +107,7 @@ export const BRANDS = [
 		slug: 'warmup',
 		tag: 'UNDERFLOOR',
 		img: '/brandimages/warmup.webp',
+		logo: '/productlogo/warmup.webp',
 		heroImage: '/brandimages/warmup.webp',
 		accentColor: '#E8933A',
 		desc: "The world's best-selling floor heating brand since 1994, with over 2.5 million systems installed across 72 countries. ISO 9001:2015 certified and accredited by BEAB, UL, CSA, FIMKO and SEMKO. Winner of the Queen's Award for Enterprise 2020. Every system backed by a Limited Lifetime Warranty and the SafetyNet™ Installation Guarantee.",
@@ -178,6 +188,7 @@ export const BRANDS = [
 		slug: 'thermosphere',
 		tag: 'TECHNOLOGY',
 		img: '/brandimages/thermosphere.webp',
+		logo: '/productlogo/thermosphere.png',
 		heroImage: '/brandimages/thermosphere.webp',
 		accentColor: '#6B4A2D',
 		desc: "Designed and manufactured in Great Britain with over 25 years of heating innovation. Features the exclusive TwistedTwin™ cable technology, a twisted dual-conductor construction that eliminates electromagnetic fields, minimises cable stress, and delivers industry-leading longevity. IP68 rated, fully earthed, and backed by a Lifetime Guarantee on every system.",
@@ -258,6 +269,10 @@ export const BRANDS = [
 		slug: 'amberheat',
 		tag: 'RADIANT',
 		img: '/brandimages/amberheat.webp',
+		// WRONG ARTWORK: public/productlogo/amber.png is currently a byte-for-byte
+		// copy of thermosphere.png, so this renders the ThermoSphere mark. Replace
+		// the file, the path is right.
+		logo: '/productlogo/amber.png',
 		heroImage: '/brandimages/amberheat.webp',
 		accentColor: '#FF7E5F',
 		desc: 'Premium CE certified radiant heating systems engineered for extreme cold climates. AmberHeat systems are specified for Kashmir and high-altitude installations where sustained heat retention during power interruptions is critical. Enhanced thermal mass design delivers 4 to 6 hours of residual warmth after power cut, built for Kashmir winters.',
@@ -338,6 +353,7 @@ export const BRANDS = [
 		slug: 'fastwarm',
 		tag: 'ALL-IN-ONE',
 		img: '/brandimages/fastwarm.webp',
+		logo: '/productlogo/fastwarm.png',
 		heroImage: '/brandimages/fastwarm.webp',
 		accentColor: '#E8933A',
 		desc: 'Complete all-in-one heating kits approved to IEC and CE standards, designed for rapid residential and commercial installation. Every kit is supplied in a single box with full-colour instructions and backed by a 25 to 50-year pipe guarantee. Rapid WhatsApp technical support ensures on-site queries are resolved without installation delays.',
@@ -418,6 +434,10 @@ export const BRANDS = [
 		slug: 'nvent',
 		tag: 'RADIANT',
 		img: '/brandimages/nvent.png',
+		// WRONG ARTWORK: public/productlogo/nvent.png is currently a byte-for-byte
+		// copy of fastwarm.png, so this renders the FastWarm mark. Replace the
+		// file, the path is right.
+		logo: '/productlogo/nvent.png',
 		heroImage: '/brandimages/nvent.png',
 		accentColor: '#3C2A25',
 		desc: "The global leader in electric heat tracing and radiant floor heating, operating across 60+ countries for over 50 years. nVent RAYCHEM pioneered self-regulating heating cable technology and remains the benchmark for industrial-grade residential heating. Systems are IEC certified and backed by a 20-year Total Care Warranty when installed by a Certified PRO installer.",

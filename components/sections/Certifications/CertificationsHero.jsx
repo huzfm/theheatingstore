@@ -52,20 +52,9 @@ export default function CertificationsHero() {
           it overflows by the height of the bar and pushes the CTAs under the
           fold. min-h so long copy grows the section rather than spilling. */}
       <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-5xl flex-col justify-center px-5 pb-16 pt-24 text-center sm:px-8 sm:pb-24 sm:pt-28">
-        <Reveal>
-          <span className="mx-auto flex max-w-full flex-wrap items-center justify-center gap-3 text-[10px] font-medium uppercase tracking-[0.24em] text-bone-500 sm:text-[11px] sm:tracking-[0.28em]">
-            <span className="hidden h-px w-8 bg-heat-500/60 sm:block" />
-            {HERO.eyebrow}
-            <span className="hidden h-px w-8 bg-heat-500/60 sm:block" />
-          </span>
-        </Reveal>
 
         <RevealText
           as="h1"
-          // [&_span]:leading-[inherit]: RevealText wraps each word in a bare
-          // <span>, which globals.css gives line-height 1.75, and an element
-          // selector beats an inherited value. Without this the wrapped lines
-          // sit twice as far apart as the clamp asks for.
           className="mx-auto mt-6 max-w-[15ch] font-serif text-[clamp(2rem,8.5vw,5.5rem)] leading-[1] tracking-[0.005em] text-bone-100 [&_span]:leading-[inherit] sm:mt-7 sm:leading-[0.96]"
         >
           {HERO.headline}

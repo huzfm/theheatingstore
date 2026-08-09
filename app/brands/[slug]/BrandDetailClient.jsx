@@ -134,7 +134,13 @@ function HeroSection({ brand }) {
 			</motion.nav>
 
 			<motion.div style={{ opacity, y: contentY, position: 'relative', zIndex: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-				{/* 3D logo plate */}
+				{/* 3D logo. This was a white square plate holding brand.img, whose
+				    artwork is drawn on an opaque background. brand.logo is the
+				    transparent mark from /public/productlogo, so it sits straight
+				    on the dark stage and the plate goes, same as on /product.
+				    Landscape box + objectFit contain because the six marks run
+				    from square to roughly 3:1, and every brand page should give
+				    its logo the same optical size. */}
 				<div style={{ perspective: 1400, marginBottom: 34 }}>
 					<motion.div style={{ rotateY: cardTurn }}>
 						<motion.div
@@ -148,18 +154,38 @@ function HeroSection({ brand }) {
 								rotateY: tiltY,
 								transformStyle: 'preserve-3d',
 								transformPerspective: 900,
-								width: 'clamp(150px, 20vw, 200px)',
-								height: 'clamp(150px, 20vw, 200px)',
-								borderRadius: 28,
-								background: '#ffffff',
-								boxShadow: `0 30px 80px rgba(0,0,0,0.55), 0 0 60px ${accent}33`,
+								position: 'relative',
+								width: 'clamp(210px, 28vw, 300px)',
+								height: 'clamp(112px, 15vw, 160px)',
 								display: 'flex',
 								alignItems: 'center',
 								justifyContent: 'center',
-								padding: 26,
 								willChange: 'transform',
 							}}>
-							<img src={brand.img} alt={brand.name} style={{ width: '100%', height: '100%', objectFit: 'contain', transform: 'translateZ(40px)' }} />
+							{/* Accent bloom, the glow the plate's box-shadow used to
+							    carry, now with nothing solid to cast it. */}
+							<span
+								aria-hidden
+								style={{
+									position: 'absolute',
+									inset: '-20%',
+									background: `radial-gradient(50% 50% at 50% 50%, ${accent}33, transparent 70%)`,
+									filter: 'blur(16px)',
+									pointerEvents: 'none',
+								}}
+							/>
+							<img
+								src={brand.logo || brand.img}
+								alt={brand.name}
+								style={{
+									position: 'relative',
+									width: '100%',
+									height: '100%',
+									objectFit: 'contain',
+									transform: 'translateZ(40px)',
+									filter: 'drop-shadow(0 14px 32px rgba(0,0,0,0.6))',
+								}}
+							/>
 						</motion.div>
 					</motion.div>
 				</div>
@@ -477,8 +503,15 @@ function RelatedBrands({ related }) {
 					{related.map((b, i) => (
 						<motion.div key={b.slug} initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, ease: EASE, delay: i * 0.1 }}>
 							<Link href={`/brands/${b.slug}`} className='bd-lift' style={{ display: 'block', background: CARD_BG, border: CARD_BORDER, borderRadius: 24, padding: '34px 24px', textAlign: 'center', textDecoration: 'none' }}>
-								<div style={{ width: 100, height: 100, borderRadius: 20, background: '#fff', boxShadow: '0 8px 24px rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: 12, margin: '0 auto 18px' }}>
-									<img src={b.img} alt={b.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+								{/* Same swap as the hero above: transparent mark on the
+								    card, no white plate under it. */}
+								<div style={{ width: 132, height: 72, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 18px' }}>
+									<img
+										src={b.logo || b.img}
+										alt={b.name}
+										loading='lazy'
+										style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 8px 20px rgba(0,0,0,0.5))' }}
+									/>
 								</div>
 								<p style={{ fontFamily: 'var(--font-heading)', fontSize: 26, color: BONE, margin: '0 0 6px', lineHeight: 1 }}>{b.name}</p>
 								<p style={{ fontFamily: 'var(--font-body)', fontSize: 10.5, letterSpacing: '0.25em', textTransform: 'uppercase', color: b.accentColor || HEAT, margin: 0, fontWeight: 700 }}>{b.tag}</p>

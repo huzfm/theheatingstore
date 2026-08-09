@@ -248,6 +248,22 @@ function Hero() {
 	);
 }
 
+// Optical size correction for individual marks. The shared contain box gives
+// every logo the same bounding area, but a mark drawn with a lot of its own
+// internal padding ends up reading smaller than its neighbours. Nudge those
+// back up here rather than resizing the box, so the baseline down the page
+// stays put.
+// Warmup, ThermoSphere, Amber and nVent are cropped tight to their ink, so
+// contain already sizes them right. FastWarm sits on a square canvas with its
+// wordmark only ~65% wide and 13% tall, and ProWarm's ink covers half its
+// canvas width, so both land far under the others. These factors bring their
+// ink back to roughly the same optical width; the extra bounds they gain are
+// transparent padding, and the card doesn't clip.
+const LOGO_SCALE = {
+	fastwarm: 2.2,
+	prowarm: 1.8,
+};
+
 // ── One brand panel with scroll-linked 3D turn + cursor tilt ─────────────────
 function BrandPanel({ brand, index }) {
 	const ref = useRef(null);
@@ -358,24 +374,56 @@ function BrandPanel({ brand, index }) {
 								boxShadow: `0 40px 120px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.03)`,
 								willChange: 'transform',
 							}}>
-							{/* Logo plate floating above the card */}
+							{/* Logo, floating above the card on the glass itself.
+							    This used to be a white square plate holding brand.img,
+							    because that artwork is drawn on an opaque background
+							    and would have vanished into the dark stage. The marks
+							    in /public/productlogo are transparent, so the plate
+							    goes and the logo sits directly on the panel.
+
+							    The box is landscape and fixed, with objectFit contain:
+							    the six marks range from square (ThermoSphere) to
+							    roughly 3:1 (Warmup), and a box that fits each one's
+							    own aspect would step around between panels. Contain
+							    inside one box means every logo shares an optical size
+							    and a baseline down the page. */}
 							<div
 								style={{
+									position: 'relative',
 									transform: 'translateZ(60px)',
-									width: 'clamp(160px, 22vw, 240px)',
-									height: 'clamp(160px, 22vw, 240px)',
-									borderRadius: 22,
-									background: '#ffffff',
+									width: 'clamp(190px, 26vw, 280px)',
+									height: 'clamp(104px, 14vw, 150px)',
+									// The box is narrower than the card's content area,
+									// so centre it rather than letting it hang left.
+									margin: '0 auto',
 									display: 'flex',
 									alignItems: 'center',
 									justifyContent: 'center',
-									padding: 26,
-									boxShadow: '0 20px 60px rgba(169, 165, 165, 0.45)',
 								}}>
+								{/* Accent bloom behind the mark, so it reads as lit
+								    rather than pasted onto the glass. */}
+								<span
+									aria-hidden
+									style={{
+										position: 'absolute',
+										inset: '-18%',
+										background: `radial-gradient(50% 50% at 50% 50%, ${brand.accentColor || HEAT}2e, transparent 70%)`,
+										filter: 'blur(14px)',
+										pointerEvents: 'none',
+									}}
+								/>
 								<img
-									src={brand.img}
+									src={brand.logo || brand.img}
 									alt={brand.name}
-									style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+									loading='lazy'
+									style={{
+										position: 'relative',
+										width: '100%',
+										height: '100%',
+										objectFit: 'contain',
+										transform: `scale(${LOGO_SCALE[brand.slug] || 1})`,
+										filter: 'drop-shadow(0 12px 28px rgba(0,0,0,0.55))',
+									}}
 								/>
 							</div>
 							<div style={{ transform: 'translateZ(30px)', marginTop: 22, display: 'flex', alignItems: 'center', gap: 10 }}>
