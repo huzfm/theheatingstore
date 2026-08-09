@@ -1,11 +1,11 @@
 'use client';
 
-import Flag from 'react-world-flags';
+import Flag from '@/components/ui/Flag';
 import { RevealText, Reveal, RevealGroup, RevealItem } from '@/components/ui/RevealText';
 import { COUNTRIES } from './data';
 
 /**
- * The countries these systems are proven in. Flags via react-world-flags,
+ * The countries these systems are proven in. Flags via components/ui/Flag,
  * already a dependency and already how the Why Choose Us global-presence
  * section renders them, so the two stay consistent.
  *

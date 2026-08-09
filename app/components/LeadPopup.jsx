@@ -3,6 +3,8 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Spinner from '@/components/ui/loading/Spinner';
+import PendingLabel from '@/components/ui/loading/PendingLabel';
 
 export default function LeadPopup() {
   const [open, setOpen] = useState(false);
@@ -122,9 +124,19 @@ export default function LeadPopup() {
             <button
               onClick={submit}
               disabled={loading}
+              aria-busy={loading}
               className="mt-4 mb-2 w-full rounded-full bg-gradient-to-r from-[#FF7E5F] to-[#FFB88C] py-4 text-base sm:text-sm font-bold text-white shadow-lg transition hover:scale-105 active:scale-95 disabled:opacity-60"
             >
-              {loading ? 'Submitting...' : 'Get Consultation'}
+              <PendingLabel
+                pending={loading}
+                idle="Get Consultation"
+                busy={
+                  <>
+                    <Spinner size={15} />
+                    Submitting...
+                  </>
+                }
+              />
             </button>
           </motion.div>
         </motion.div>

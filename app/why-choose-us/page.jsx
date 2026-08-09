@@ -1,3 +1,6 @@
+import { pageMetadata } from '@/app/lib/seo';
+import JsonLd from '@/components/seo/JsonLd';
+import { breadcrumbList } from '@/components/seo/schema';
 import WhyChooseUsClient from './WhyChooseUsClient';
 import { NETWORK, COUNTRIES } from '@/components/sections/WhyUs/data';
 
@@ -12,30 +15,7 @@ const SITE_URL = 'https://theheatingstore.in';
  * held, and the certification/manual terms /global-experience held. Both of
  * those URLs 301 here (next.config.mjs).
  */
-export const metadata = {
-  title: 'Why Choose Us | Underfloor Heating Kashmir, Proven Since 2011',
-  description:
-    'Two million systems, a 0.01% fault rate and 10–25 year warranties. The Srinagar team, the 17 towns we cover, and the nine countries these systems are proven in.',
-  keywords: [
-    'best underfloor heating installer Kashmir',
-    'underfloor heating Kashmir',
-    'electric hamam Srinagar',
-    'electric hamam warranty India',
-    'certified heating contractor Kashmir',
-    'underfloor heating fault rate',
-    'IEC certified heating cable',
-    'underfloor heating installation manual download',
-    'underfloor heating service network India',
-    'underfloor heating price match',
-  ],
-  openGraph: {
-    title: 'Why Choose Us | Underfloor Heating Kashmir, Proven Since 2011',
-    description:
-      'Anyone can sell you a heating cable. The question is who answers the phone in year six.',
-    type: 'article',
-  },
-  alternates: { canonical: '/why-choose-us' },
-};
+export const metadata = pageMetadata("/why-choose-us");
 
 /**
  * Structured data is built from the same constants the page renders, so the
@@ -49,7 +29,10 @@ export const metadata = {
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
-  '@id': `${SITE_URL}/why-choose-us#business`,
+  // Same @id as the site-wide LocalBusiness in the root layout, so this block
+  // ADDS its 17-town areaServed to that one entity instead of declaring a
+  // second business at the same address.
+  '@id': `${SITE_URL}/#business`,
   name: 'The Heating Store',
   url: `${SITE_URL}/why-choose-us`,
   description:
@@ -65,28 +48,17 @@ const serviceSchema = {
   slogan: 'Proven in nine countries. Answered from Srinagar.',
 };
 
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Why Choose Us',
-      item: `${SITE_URL}/why-choose-us`,
-    },
-  ],
-};
+const breadcrumbSchema = breadcrumbList([
+  { name: 'Home', path: '/' },
+  { name: 'Why Choose Us', path: '/why-choose-us' },
+]);
 
 export default function WhyChooseUs() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([serviceSchema, breadcrumbSchema]),
-        }}
+      <JsonLd
+        id="ld-why-choose-us"
+        data={[serviceSchema, breadcrumbSchema]}
       />
       <WhyChooseUsClient />
     </>

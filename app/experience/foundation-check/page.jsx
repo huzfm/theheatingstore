@@ -7,8 +7,15 @@ import FoundationCheckClient from './FoundationCheckClient';
  * designed for. Not linked from anywhere; delete when no longer useful.
  */
 export const metadata = {
-  title: 'Foundation check',
+  title: { absolute: 'Foundation check | The Heating Store' },
   robots: { index: false, follow: false },
+  // Declared only so this page stops inheriting /experience's share card and
+  // showing up as a duplicate in the metadata check.
+  twitter: {
+    card: 'summary',
+    title: 'Foundation check',
+    description: 'Internal verification route for the animation primitives.',
+  },
 };
 
 export default function FoundationCheckPage() {

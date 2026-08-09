@@ -1,7 +1,5 @@
-export const metadata = {
-  title: 'Become a Dealer | The Heating Store',
-  description: 'Join TheHeatingStore dealer network. Authorized dealer program for electric hammam and underfloor heating across Kashmir and India.',
-};
+import { pageMetadata } from '@/app/lib/seo';
+export const metadata = pageMetadata("/dealer");
 
 import DealerClient from './DealerClient';
 

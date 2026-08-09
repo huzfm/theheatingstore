@@ -39,7 +39,7 @@ const MORE_NAV = [
   { label: 'Contact', href: '/contact' },
 ];
 
-const HIDE_ON = ['/SpaceVerification'];
+const HIDE_ON = ['/book-site-visit'];
 
 /* ---------- COLORS ---------- */
 
@@ -97,10 +97,20 @@ function BrandMark({ compact = false }) {
     >
       <Image
         src="/images/ll.png"
-        alt="TheHeatingStore"
+        alt="The Heating Store"
         width={220}
         height={logoHeight}
-        priority
+        /* `priority` removed. It was set on the header, which renders on every
+           route, so every page issued a high-priority preload for the logo that
+           competed with that page's actual LCP element, including the homepage
+           hero photograph. The logo is in the viewport at mount, so the browser
+           fetches it immediately regardless; it just no longer jumps the queue
+           ahead of the thing the user is waiting to see.
+
+           The source is a 1536x1024 PNG rendered at 220px wide. next/image
+           downscales it, but the original is 538 KB and should be re-exported
+           at the size it is actually used. */
+        sizes="220px"
         style={{
           position: 'absolute',
           left: 0,
@@ -407,61 +417,76 @@ function NavLinks({ pathname }) {
           <span aria-hidden style={dotStyle(moreActive)} />
         </div>
 
-        <AnimatePresence>
-          {moreOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-              style={{
-                position: 'absolute',
-                top: 'calc(100% + 18px)',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                minWidth: 220,
-                borderRadius: 14,
-                background: C.glassBg,
-                border: `1px solid ${C.glassBorder}`,
-                backdropFilter: 'blur(28px)',
-                WebkitBackdropFilter: 'blur(28px)',
-                boxShadow: '0 24px 56px rgba(0,0,0,0.5)',
-                padding: 8,
-              }}
-            >
-              {MORE_NAV.map((item) => {
-                const active = isActive(item.href);
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setMoreOpen(false)}
-                    style={{
-                      display: 'block',
-                      padding: '10px 12px',
-                      borderRadius: 10,
-                      textDecoration: 'none',
-                      fontFamily: "var(--font-body)",
-                      fontSize: 13,
-                      fontWeight: active ? 600 : 500,
-                      color: active ? C.warmOrange : C.textPrimary,
-                      background: active ? 'rgba(232,147,58,0.08)' : 'transparent',
-                      transition: 'background 0.18s ease',
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!active) e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!active) e.currentTarget.style.background = 'transparent';
-                    }}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* ALWAYS MOUNTED.
+            ─────────────────────────────────────────────────────────────
+            This panel used to be wrapped in `{moreOpen && …}`, so its seven
+            links existed only after a human clicked "More". Crawlers do not
+            click. The result was that /why-choose-us, /how-it-works, /working,
+            /journal, /certifications and /measuring-up had ZERO <a href>
+            pointing at them anywhere in the served HTML of any page on the
+            site, while /why-choose-us sat in the sitemap at priority 0.9 and
+            absorbed two 308 redirects.
+
+            The panel is now in the DOM on every render and hidden with
+            visibility + opacity instead of being unmounted, so the hrefs are
+            in the initial markup. `inert` (with the aria-hidden fallback for
+            older Safari) keeps the closed panel out of the tab order and out
+            of the accessibility tree, so keyboard and screen-reader users get
+            the same behaviour as before. Animation is unchanged. */}
+        <motion.div
+          initial={false}
+          animate={moreOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
+          transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+          {...(moreOpen ? {} : { inert: '', 'aria-hidden': true })}
+          style={{
+            position: 'absolute',
+            top: 'calc(100% + 18px)',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            minWidth: 220,
+            borderRadius: 14,
+            background: C.glassBg,
+            border: `1px solid ${C.glassBorder}`,
+            backdropFilter: 'blur(28px)',
+            WebkitBackdropFilter: 'blur(28px)',
+            boxShadow: '0 24px 56px rgba(0,0,0,0.5)',
+            padding: 8,
+            visibility: moreOpen ? 'visible' : 'hidden',
+            pointerEvents: moreOpen ? 'auto' : 'none',
+          }}
+        >
+          {MORE_NAV.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMoreOpen(false)}
+                tabIndex={moreOpen ? undefined : -1}
+                style={{
+                  display: 'block',
+                  padding: '10px 12px',
+                  borderRadius: 10,
+                  textDecoration: 'none',
+                  fontFamily: "var(--font-body)",
+                  fontSize: 13,
+                  fontWeight: active ? 600 : 500,
+                  color: active ? C.warmOrange : C.textPrimary,
+                  background: active ? 'rgba(232,147,58,0.08)' : 'transparent',
+                  transition: 'background 0.18s ease',
+                }}
+                onMouseEnter={(e) => {
+                  if (!active) e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                }}
+                onMouseLeave={(e) => {
+                  if (!active) e.currentTarget.style.background = 'transparent';
+                }}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </motion.div>
       </div>
     </div>
   );

@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
+import { Skeleton, SkeletonGroup } from '@/components/ui/loading/Skeleton';
+import Spinner from '@/components/ui/loading/Spinner';
+import PendingLabel from '@/components/ui/loading/PendingLabel';
 
 const API_URL = process.env.NODE_ENV === 'production'
   ? 'https://evulation-api-electrichamambackend.0psc8x.easypanel.host'
@@ -15,13 +18,47 @@ const fadeUp = {
 	show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
 };
 
-function StatCard({ label, value, sub, color }) {
+/**
+ * `loading` renders the skeleton inside this component's own shell rather than
+ * from a separate StatCardSkeleton, so the card's padding, border, radius and
+ * the three line boxes cannot drift apart from the loaded card. The three
+ * skeleton heights are the real ones: the label is 10px at globals' 1.75
+ * line-height (17.5px), the figure carries its own clamp() and lineHeight 1,
+ * and the sub-label is 12px at 1.5 (18px).
+ *
+ * It matters here more than usual: `sizes` is seeded with zeros, so before the
+ * fetch resolved this dashboard showed "0 selections" and a "Most Popular
+ * Size" of "50 sq ft" as though they were the answer.
+ */
+function StatCard({ label, value, sub, color, loading }) {
 	return (
 		<div style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(28px)', WebkitBackdropFilter: 'blur(28px)', border: '1px solid rgba(255,255,255,0.5)', borderRadius: 22, padding: '28px 24px', boxShadow: '0 8px 32px rgba(60,42,37,0.07)' }}>
-			<p style={{ fontFamily: "var(--font-body)", fontSize: 10, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#6B4A2D', marginBottom: 12 }}>{label}</p>
-			<p style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, color: color, lineHeight: 1, marginBottom: 6 }}>{value}</p>
-			<p style={{ fontFamily: "var(--font-body)", fontSize: 12, color: '#6B4A2D', lineHeight: 1.5 }}>{sub}</p>
+			{loading ? (
+				<SkeletonGroup label='TODO_COPY'>
+					<Skeleton className='rounded' style={{ height: 17.5, width: 132, marginBottom: 12 }} />
+					<Skeleton className='rounded-lg' style={{ height: 'clamp(2rem, 4vw, 3rem)', width: 96, marginBottom: 6 }} />
+					<Skeleton className='rounded' style={{ height: 18, width: 168 }} />
+				</SkeletonGroup>
+			) : (
+				<>
+					<p style={{ fontFamily: "var(--font-body)", fontSize: 10, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#6B4A2D', marginBottom: 12 }}>{label}</p>
+					<p style={{ fontFamily: "var(--font-heading)", fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, color: color, lineHeight: 1, marginBottom: 6 }}>{value}</p>
+					<p style={{ fontFamily: "var(--font-body)", fontSize: 12, color: '#6B4A2D', lineHeight: 1.5 }}>{sub}</p>
+				</>
+			)}
 		</div>
+	);
+}
+
+/**
+ * Chart stand-in, at the exact 280px the two ResponsiveContainers are given by
+ * their wrappers, so neither card changes height when the data lands.
+ */
+function ChartSkeleton() {
+	return (
+		<SkeletonGroup label='TODO_COPY' style={{ height: '100%' }}>
+			<Skeleton className='rounded-xl' style={{ height: '100%', width: '100%' }} />
+		</SkeletonGroup>
 	);
 }
 
@@ -46,6 +83,13 @@ export default function AdminDashboard() {
 	const [total, setTotal] = useState(0);
 	const [leads, setLeads] = useState([]);
 	const [loading, setLoading] = useState(true);
+	/* Separate from `loading`, which only ever tracked the leads request. The
+	   stat cards and both charts are fed by fetchData and had no pending state
+	   at all. */
+	const [statsLoading, setStatsLoading] = useState(true);
+	/* Only the manual Refresh press, never the 30s interval: a spinner that
+	   fires twice a minute on its own is noise, not feedback. */
+	const [refreshing, setRefreshing] = useState(false);
 	const [lastUpdated, setLastUpdated] = useState(null);
 
 	const fetchData = async () => {
@@ -71,6 +115,19 @@ export default function AdminDashboard() {
 			setTotal(114);
 		}
 		setLastUpdated(new Date());
+		setStatsLoading(false);
+	};
+
+	/* Guarded so the button cannot queue a second request while the first is
+	   in flight, which it previously could on every press. */
+	const handleRefresh = async () => {
+		if (refreshing) return;
+		setRefreshing(true);
+		try {
+			await fetchData();
+		} finally {
+			setRefreshing(false);
+		}
 	};
 
 	const fetchLeads = async () => {
@@ -122,25 +179,39 @@ export default function AdminDashboard() {
 							</p>
 						</div>
 						<button
-							onClick={fetchData}
-							style={{ padding: '10px 20px', borderRadius: 999, border: '1px solid rgba(184,107,69,0.3)', background: 'rgba(255,255,255,0.7)', fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, color: '#8B3A2A', cursor: 'pointer' }}>
-							Refresh Data
+							onClick={handleRefresh}
+							disabled={refreshing}
+							style={{ padding: '10px 20px', borderRadius: 999, border: '1px solid rgba(184,107,69,0.3)', background: 'rgba(255,255,255,0.7)', fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, color: '#8B3A2A', cursor: refreshing ? 'not-allowed' : 'pointer', opacity: refreshing ? 0.6 : 1 }}>
+							{/* Same label in both states, so no new copy, and the
+							    pending branch is the wider of the two, which is what
+							    fixes the button's width. */}
+							<PendingLabel
+								pending={refreshing}
+								idle={<>Refresh Data</>}
+								busy={
+									<>
+										<Spinner size={13} />
+										Refresh Data
+									</>
+								}
+							/>
 						</button>
 					</div>
 
 					{/* Stat cards */}
 					<div className='adm-grid-3' style={{ marginBottom: 28 }}>
-						<StatCard label='Total Size Selections' value={total} sub='All time across all presets' color='#B86B45' />
-						<StatCard label='Most Popular Size' value={sizes.reduce((a, b) => a.value > b.value ? a : b, sizes[0]).name} sub='Highest demand segment' color='#8B3A2A' />
-						<StatCard label='Data Points' value={sizes.length} sub='Size categories tracked' color='#E88C2A' />
+						<StatCard loading={statsLoading} label='Total Size Selections' value={total} sub='All time across all presets' color='#B86B45' />
+						<StatCard loading={statsLoading} label='Most Popular Size' value={sizes.reduce((a, b) => a.value > b.value ? a : b, sizes[0]).name} sub='Highest demand segment' color='#8B3A2A' />
+						<StatCard loading={statsLoading} label='Data Points' value={sizes.length} sub='Size categories tracked' color='#E88C2A' />
 					</div>
 
 					<div className='adm-grid'>
 						{/* Bar Chart */}
 						<motion.div variants={fadeUp} initial='hidden' animate='show' className='adm-card' style={{ padding: '28px 28px 20px' }}>
-							<h3 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 600, color: '#2C1810', marginBottom: 4 }}>Size Demand Distribution</h3>
+							<h2 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 600, color: '#2C1810', marginBottom: 4 }}>Size Demand Distribution</h2>
 							<p style={{ fontFamily: "var(--font-body)", fontSize: 12, color: '#6B4A2D', marginBottom: 24 }}>Number of times each preset was selected in the cost calculator</p>
 							<div style={{ height: 280 }}>
+								{statsLoading ? <ChartSkeleton /> : (
 								<ResponsiveContainer width='100%' height='100%'>
 									<BarChart data={sizes} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
 										<XAxis dataKey='name' tick={{ fontFamily: "var(--font-body)", fontSize: 12, fill: '#6B4A2D' }} axisLine={false} tickLine={false} />
@@ -153,14 +224,16 @@ export default function AdminDashboard() {
 										</Bar>
 									</BarChart>
 								</ResponsiveContainer>
-							</div>
+									)}
+								</div>
 						</motion.div>
 
 						{/* Pie Chart */}
 						<motion.div variants={fadeUp} initial='hidden' animate='show' transition={{ delay: 0.1 }} className='adm-card' style={{ padding: '28px 28px 20px' }}>
-							<h3 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 600, color: '#2C1810', marginBottom: 4 }}>Market Share by Size</h3>
+							<h2 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 600, color: '#2C1810', marginBottom: 4 }}>Market Share by Size</h2>
 							<p style={{ fontFamily: "var(--font-body)", fontSize: 12, color: '#6B4A2D', marginBottom: 24 }}>Percentage breakdown of size selections</p>
 							<div style={{ height: 280 }}>
+								{statsLoading ? <ChartSkeleton /> : (
 								<ResponsiveContainer width='100%' height='100%'>
 									<PieChart>
 										<Pie data={sizes} cx='50%' cy='50%' innerRadius={60} outerRadius={100} paddingAngle={4} dataKey='value'>
@@ -171,15 +244,27 @@ export default function AdminDashboard() {
 										<Tooltip content={<CustomTooltip />} />
 									</PieChart>
 								</ResponsiveContainer>
+								)}
 							</div>
-							{/* Legend */}
+							{/* Legend. Skeletonised alongside the pie, because the
+							    percentages are computed from `total` and read "0%"
+							    for every slice until the fetch lands. */}
 							<div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', marginTop: 8 }}>
 								{sizes.map((s) => (
 									<div key={s.name} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-										<span style={{ width: 10, height: 10, borderRadius: '50%', background: s.color, display: 'inline-block' }} />
-										<span style={{ fontFamily: "var(--font-body)", fontSize: 11, color: '#6B4A2D' }}>
-											{s.name}, {total > 0 ? Math.round((s.value / total) * 100) : 0}%
-										</span>
+										{statsLoading ? (
+											<>
+												<Skeleton className='rounded-full' style={{ width: 10, height: 10 }} />
+												<Skeleton className='rounded' style={{ width: 78, height: 19.25 }} />
+											</>
+										) : (
+											<>
+												<span style={{ width: 10, height: 10, borderRadius: '50%', background: s.color, display: 'inline-block' }} />
+												<span style={{ fontFamily: "var(--font-body)", fontSize: 11, color: '#6B4A2D' }}>
+													{s.name}, {total > 0 ? Math.round((s.value / total) * 100) : 0}%
+												</span>
+											</>
+										)}
 									</div>
 								))}
 							</div>
@@ -188,12 +273,37 @@ export default function AdminDashboard() {
 
 					{/* Recent Leads */}
 					<motion.div variants={fadeUp} initial='hidden' animate='show' transition={{ delay: 0.2 }} className='adm-card' style={{ padding: '28px', marginTop: 24 }}>
-						<h3 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 600, color: '#2C1810', marginBottom: 20 }}>Recent Installation Inquiries</h3>
+						<h2 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 600, color: '#2C1810', marginBottom: 20 }}>Recent Installation Inquiries</h2>
 						{loading ? (
-							<div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '20px 0' }}>
-								<span style={{ width: 8, height: 8, borderRadius: '50%', background: '#B86B45', animation: 'adm-pulse 1.5s ease-in-out infinite', display: 'inline-block' }} />
-								<span style={{ fontFamily: "var(--font-body)", fontSize: 13, color: '#6B4A2D' }}>Loading inquiries...</span>
-							</div>
+							/* The real table shell with skeletons in the cells,
+							   rather than a one-line "Loading inquiries..." that
+							   collapsed the card to ~60px and then expanded it to
+							   full height when the rows arrived. The thead and the
+							   td paddings are the component's own, so the row
+							   geometry is the loaded geometry. Five rows is a
+							   guess at the count, flagged in the report. */
+							<SkeletonGroup label='TODO_COPY' style={{ overflowX: 'auto', display: 'block' }}>
+								<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+									<thead>
+										<tr style={{ borderBottom: '1px solid rgba(184,107,69,0.12)' }}>
+											{['Name', 'Phone', 'Location', 'Source', 'Date'].map((h) => (
+												<th key={h} style={{ padding: '10px 12px', fontFamily: "var(--font-body)", fontSize: 10, fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#6B4A2D', textAlign: 'left' }}>{h}</th>
+											))}
+										</tr>
+									</thead>
+									<tbody>
+										{[0, 1, 2, 3, 4].map((r) => (
+											<tr key={r} style={{ borderBottom: '1px solid rgba(184,107,69,0.06)' }}>
+												{[104, 92, 84, 56, 72].map((w, c) => (
+													<td key={c} style={{ padding: '12px 12px' }}>
+														<Skeleton className='rounded' style={{ height: 22.75, width: w }} />
+													</td>
+												))}
+											</tr>
+										))}
+									</tbody>
+								</table>
+							</SkeletonGroup>
 						) : leads.length === 0 ? (
 							<div style={{ padding: '20px 0', textAlign: 'center' }}>
 								<p style={{ fontFamily: "var(--font-body)", fontSize: 13, color: '#6B4A2D' }}>No leads data available. Connect to the backend API to track inquiries.</p>

@@ -1,5 +1,7 @@
 'use client';
 
+import { service } from '@/components/seo/schema';
+
 import ProductPageTemplate from '../../components/ProductPageTemplate';
 import { ALL_AREAS } from '../../lib/constants';
 
@@ -26,21 +28,14 @@ const FAQS = [
   },
 ];
 
-const JSON_LD = {
-  '@context': 'https://schema.org',
-  '@type': 'Product',
-  name: 'Heating Systems',
-  brand: { '@type': 'Brand', name: 'The Heating Store' },
+/* Was a Product with an Offer that had priceCurrency and availability but
+   no price, which is invalid, and it was never rendered anyway. This is a
+   fitted service, not a boxed product with stock. */
+const JSON_LD = service({
+  name: "Heating System Supply and Installation",
   description:
-    'Premium UK-imported heating systems for homes, hotels, and commercial spaces in Kashmir.',
-  category: 'Heating Equipment',
-  offers: {
-    '@type': 'Offer',
-    availability: 'https://schema.org/InStock',
-    priceCurrency: 'INR',
-    seller: { '@type': 'Organization', name: 'The Heating Store' },
-  },
-};
+    "UK-imported heating systems for Kashmir homes, hotels and commercial spaces, certified to CE and IEC 60335 and fitted by our Srinagar team.",
+});
 
 export default function HeatingsystemsClient() {
   return (

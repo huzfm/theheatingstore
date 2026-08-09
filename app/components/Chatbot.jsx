@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import siteFacts from '@/content/facts';
 
 const SYSTEM_PROMPT = `You are the helpful assistant for Electric Hamam, a premium underfloor heating (hamam) installation company serving Kashmir, specifically Srinagar, Anantnag, and Baramulla.
 
@@ -86,7 +87,7 @@ export default function AIChatbot() {
 		} catch {
 			setMessages(prev => [...prev, {
 				role: 'assistant',
-				content: 'Sorry, I\'m having trouble connecting. Please WhatsApp us directly at +91 9070907035.',
+				content: `Sorry, I'm having trouble connecting. Please WhatsApp us directly at ${siteFacts.phoneDisplay}.`,
 			}]);
 		} finally {
 			setLoading(false);
@@ -130,7 +131,7 @@ export default function AIChatbot() {
 								<span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-green-400 border-2 border-[#3C2A25]" />
 							</div>
 							<div className="flex-1 min-w-0">
-								<p className="text-white font-bold text-sm tracking-tight">Hammam Assistant</p>
+								<p className="text-white font-bold text-sm tracking-tight">Hamam Assistant</p>
 								<p className="text-[#D4A06A] text-[11px] font-medium">Electric Hamam · Online</p>
 							</div>
 							<button onClick={() => setOpen(false)}

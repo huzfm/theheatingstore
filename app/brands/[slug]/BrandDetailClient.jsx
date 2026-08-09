@@ -440,7 +440,7 @@ function ProductsGrid({ brand }) {
 									{/* Same two actions as the site-wide HeroCTAs pair, kept at card
 									    scale: a full-size pill pair does not fit a product card. */}
 									<Link href='/contact' style={{ flex: 1, textAlign: 'center', padding: '11px 12px', borderRadius: 10, background: accent, color: INK, fontFamily: 'var(--font-body)', fontSize: 12, fontWeight: 700, letterSpacing: '0.06em', textDecoration: 'none' }}>Talk to an Expert</Link>
-									<Link href='/SpaceVerification' style={{ flex: 1, textAlign: 'center', padding: '11px 12px', borderRadius: 10, background: 'transparent', color: BONE_MUTE, fontFamily: 'var(--font-body)', fontSize: 12, fontWeight: 600, letterSpacing: '0.06em', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.2)' }}>Book a Free Site Visit</Link>
+									<Link href='/book-site-visit' style={{ flex: 1, textAlign: 'center', padding: '11px 12px', borderRadius: 10, background: 'transparent', color: BONE_MUTE, fontFamily: 'var(--font-body)', fontSize: 12, fontWeight: 600, letterSpacing: '0.06em', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.2)' }}>Book a Free Site Visit</Link>
 								</div>
 							</div>
 						</motion.div>

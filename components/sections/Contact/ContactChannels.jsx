@@ -43,9 +43,9 @@ export default function ContactChannels() {
                     <Icon size={18} strokeWidth={1.6} aria-hidden />
                   </span>
 
-                  <h3 className="mt-5 font-serif text-xl leading-tight tracking-wide text-bone-100">
+                  <h2 className="mt-5 font-serif text-xl leading-tight tracking-wide text-bone-100">
                     {c.title}
-                  </h3>
+                  </h2>
                   <p className="mt-3 flex-1 text-[13.5px] leading-relaxed text-bone-300">
                     {c.body}
                   </p>
@@ -59,9 +59,15 @@ export default function ContactChannels() {
                       className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                     />
                   </span>
-                  <span className="mt-3 block border-t border-white/10 pt-3 text-[11.5px] leading-relaxed text-bone-500">
-                    {c.note}
-                  </span>
+                  {/* Guarded: the note carries its own rule above it, so a
+                      channel without one would otherwise draw an empty
+                      bordered strip. The email card lost its note when the
+                      @electrichamam.in trade address was removed. */}
+                  {c.note && (
+                    <span className="mt-3 block border-t border-white/10 pt-3 text-[11.5px] leading-relaxed text-bone-500">
+                      {c.note}
+                    </span>
+                  )}
                 </a>
               </RevealItem>
             );

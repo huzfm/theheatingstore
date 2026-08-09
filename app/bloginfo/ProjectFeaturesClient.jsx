@@ -122,7 +122,7 @@ export default function ProjectFeatures() {
 						</p>
 					</motion.div>
 
-					<motion.h2
+					<motion.h1
 						variants={item}
 						className='
               mt-6
@@ -136,7 +136,7 @@ export default function ProjectFeatures() {
 						<span className='font-light text-[#B86B45]'>
 							Electric Hamam Projects
 						</span>
-					</motion.h2>
+					</motion.h1>
 
 					<motion.p
 						variants={item}
@@ -237,13 +237,13 @@ export default function ProjectFeatures() {
 						<p className='text-[11px] uppercase tracking-[0.3em] text-[#B86B45]/70 font-semibold mb-4'>
 							Our Commitment
 						</p>
-						<h3 className='text-2xl sm:text-3xl font-serif font-semibold text-[#3C2A25] leading-snug'>
+						<h2 className='text-2xl sm:text-3xl font-serif font-semibold text-[#3C2A25] leading-snug'>
 							Built for Kashmir winters.
 							<br />
 							<span className='text-[#B86B45] font-light'>
 								Backed by our warranty.
 							</span>
-						</h3>
+						</h2>
 						<p className='mt-4 text-sm text-[#4A342E] max-w-lg leading-relaxed'>
 							Every electric hamam installation we deliver in Kashmir is backed by precision engineering, the layered concrete sandwich method for heat retention, and a team that holds itself accountable from first survey to final handover.
 						</p>

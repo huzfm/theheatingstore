@@ -1,12 +1,12 @@
 'use client';
 
-import Flag from 'react-world-flags';
+import Flag from '@/components/ui/Flag';
 import { RevealGroup, RevealItem } from '@/components/ui/RevealText';
 import SectionHeading from './SectionHeading';
 import { COUNTRIES } from './data';
 
 /**
- * The nine countries these systems are proven in. Flags via react-world-flags,
+ * The nine countries these systems are proven in. Flags via components/ui/Flag,
  * already a dependency.
  *
  * India leads and is marked as the home market. The two pages this one merges

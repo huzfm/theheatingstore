@@ -48,7 +48,7 @@ const BENEFITS = [
   },
   {
     title: 'Long-Term Value',
-    desc: 'Lower operating costs, fewer breakdowns, and a 25-year warranty, the strongest ROI of any heating system.',
+    desc: 'Lower operating costs, fewer breakdowns, and a lifetime warranty, the strongest ROI of any heating system.',
     Icon: TrendingUp,
     color: '#8B6FAE',
   },
@@ -605,7 +605,7 @@ export default function CommercialHeatingSystemsClient() {
               fontFamily: "var(--font-body)", fontSize: 15, color: 'rgba(255,255,255,0.85)',
               lineHeight: 1.8, margin: '16px 0 0', maxWidth: 760,
             }}>
-              We have been designing, supplying, and installing commercial heating systems across Kashmir since 2011. Every project, from boutique guest houses to large multi-floor hotels, is handled by our own in-house team, with a single point of contact, a written timeline, and a 25-year warranty.
+              We have been designing, supplying, and installing commercial heating systems across Kashmir since 2011. Every project, from boutique guest houses to large multi-floor hotels, is handled by our own in-house team, with a single point of contact, a written timeline, and a lifetime warranty.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
               {HIGHLIGHTS.map((h) => (

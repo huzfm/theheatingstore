@@ -21,6 +21,7 @@ import { motion } from 'framer-motion';
 import './HomeHero.css';
 import LeadPopup from './LeadPopup.jsx';
 import HeroCTAs from '@/components/ui/HeroCTAs';
+import siteFacts from '@/content/facts';
 
 const ShieldIcon = (props) => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
@@ -39,9 +40,9 @@ const StarIcon = (props) => (
    with copper by HomeHero.css, so mixed-temperature source photography still
    resolves to the one warm palette the rest of the site uses. */
 const STATS = [
-  { num: '2011', label: 'Trusted Since' },
+  { num: String(siteFacts.foundedYear), label: 'Trusted Since' },
   {
-    num: '5,000+',
+    num: siteFacts.installationsLocal.display,
     label: 'Installations',
     img: '/landing/land3.png',
     alt: 'Underfloor heating pipework laid out across a full open-plan kitchen floor before screeding',
@@ -53,7 +54,7 @@ const STATS = [
     alt: 'A branded electric underfloor heating mat part-rolled over a tiled floor beside stacked porcelain tiles',
   },
   {
-    num: <>5<span>yr</span></>,
+    num: siteFacts.installationWarranty,
     label: 'Warranty',
     img: '/landing/land1.png',
     alt: 'A warm timber-lined living room with a rug, throws and low lamplight',
@@ -62,7 +63,7 @@ const STATS = [
 
 /* Three of the four stats become grid cards; "Trusted Since 2011" reads better
    as a badge on the photo cell than as a fourth card, so it is pulled out here
-   and rendered over the plate instead. `5,000+ Installations` carries the
+   and rendered over the plate instead. The installations figure carries the
    copper-tinted "hero stat" treatment. */
 const [BADGE_STAT, ...CARD_STATS] = STATS;
 
@@ -180,12 +181,14 @@ export default function HomeHero() {
                 <span className="hhero__chip-ring">
                   <ShieldIcon />
                 </span>
+                {/* The five stars and "Rated 4.9/5 by homeowners" were removed
+                    on the owner's instruction: there is no review source
+                    anywhere behind the figure, and an unsourced rating above
+                    the fold is the first thing a careful buyer checks. The
+                    certification claim is checkable, so it stays. */}
                 <span className="hhero__chip-text">
-                  <span className="hhero__chip-stars" aria-hidden="true">
-                    <StarIcon /><StarIcon /><StarIcon /><StarIcon /><StarIcon />
-                  </span>
                   <span className="hhero__chip-top">Certified Installers</span>
-                  <span className="hhero__chip-sub">Rated 4.9/5 by homeowners</span>
+                  <span className="hhero__chip-sub">CE &amp; IEC 60335 systems</span>
                 </span>
               </div>
             </motion.div>

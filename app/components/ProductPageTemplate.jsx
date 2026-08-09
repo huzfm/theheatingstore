@@ -3,6 +3,8 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { useState } from 'react';
 import Link from 'next/link';
+import siteFacts from '@/content/facts';
+import JsonLd from '@/components/seo/JsonLd';
 import { ArrowLeft } from 'lucide-react';
 
 const EASE = [0.16, 1, 0.3, 1];
@@ -252,6 +254,11 @@ export default function ProductPageTemplate({
         backgroundImage: 'linear-gradient(180deg, #FFFFFF 0%, #FFF4E8 35%, #FFE0C2 70%, #F5B97A 100%)',
       }}
     >
+      {/* Same dead-prop bug AreaPageTemplate had: `jsonLd` was destructured
+          and never rendered, so the three pages that pass one shipped with no
+          service markup at all. */}
+      {jsonLd && <JsonLd id="ld-service" data={jsonLd} />}
+
       <style>{`
         @media (max-width: 640px) {
           .product-map-container { height: 280px !important; }
@@ -314,7 +321,7 @@ export default function ProductPageTemplate({
           )}
           <div className="flex flex-row justify-center gap-3 mt-7">
             <a
-              href="tel:+919070907035"
+              href={`tel:${siteFacts.phone}`}
               className="inline-flex items-center gap-2 rounded-full px-7 py-3 text-white font-semibold text-sm transition-transform hover:scale-[1.02]"
               style={{
                 background: 'linear-gradient(135deg, #FF7E5F, #FFB88C)',
@@ -524,7 +531,7 @@ export default function ProductPageTemplate({
               {whyUkImportedText || `Every ${productName} we install is sourced from leading UK manufacturers, certified for safety and efficiency, and built to perform in the most demanding climates. We don't sell local imitations, we sell the same systems used in European homes for decades, now installed by our Kashmir team.`}
             </p>
             <div className="flex flex-wrap gap-3 mt-2">
-              {['CE Certified', '25+ Year Warranty', '0.01% Fault Rate', 'Since 2011'].map((t) => (
+              {['CE Certified', 'Lifetime Warranty', '0.01% Fault Rate', 'Since 2011'].map((t) => (
                 <span key={t} style={{
                   fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 500,
                   background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.18)',
@@ -594,20 +601,20 @@ export default function ProductPageTemplate({
                       Phone
                     </p>
                     <a
-                      href="tel:+919070907035"
+                      href={`tel:${siteFacts.phone}`}
                       style={{
                         fontFamily: "var(--font-body)", fontSize: 14, color: '#B86B45',
                         fontWeight: 600, textDecoration: 'none', display: 'inline-block',
                         marginTop: 2,
                       }}
                     >
-                      +91 90709 07035
+                      {siteFacts.phoneDisplay}
                     </a>
                   </div>
                 </div>
               </div>
               <a
-                href="tel:+919070907035"
+                href={`tel:${siteFacts.phone}`}
                 className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-white font-semibold text-sm transition-transform hover:scale-[1.02]"
                 style={{
                   background: 'linear-gradient(135deg, #FF7E5F, #FFB88C)',

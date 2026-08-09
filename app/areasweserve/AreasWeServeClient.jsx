@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { MapPin, Phone, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import siteFacts from '@/content/facts';
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -155,7 +156,7 @@ export default function AreasWeServeClient() {
                 >
                   <MapPin className="w-5 h-5 text-[#B86B45]" />
                 </div>
-                <h3
+                <h2
                   style={{
                     fontFamily: "var(--font-heading)",
                     fontSize: 22, fontWeight: 600, color: '#3C2A25',
@@ -163,7 +164,7 @@ export default function AreasWeServeClient() {
                   }}
                 >
                   {area.name}
-                </h3>
+                </h2>
                 <p
                   style={{
                     fontFamily: "var(--font-body)", fontSize: 14,
@@ -219,7 +220,7 @@ export default function AreasWeServeClient() {
               >
                 Can't find your area?
               </p>
-              <h3
+              <h2
                 style={{
                   fontFamily: "var(--font-heading)",
                   fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
@@ -227,7 +228,7 @@ export default function AreasWeServeClient() {
                 }}
               >
                 We serve all of Srinagar.
-              </h3>
+              </h2>
               <p
                 style={{
                   fontFamily: "var(--font-body)", fontSize: 14,
@@ -245,7 +246,7 @@ export default function AreasWeServeClient() {
               }}
             >
               <a
-                href="tel:+919070907035"
+                href={`tel:${siteFacts.phone}`}
                 className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold transition-transform hover:scale-[1.02]"
                 style={{
                   background: 'white', color: '#3C2A25',
@@ -254,10 +255,10 @@ export default function AreasWeServeClient() {
                 }}
               >
                 <Phone className="w-4 h-4" />
-                Call +91 90709 07035
+                Call {siteFacts.phoneDisplay}
               </a>
               <a
-                href="https://wa.me/919070907035"
+                href={siteFacts.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-semibold transition-transform hover:scale-[1.02]"

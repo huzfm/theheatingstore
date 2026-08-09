@@ -24,12 +24,16 @@
  *    lists are, since those are checkable.
  */
 
+import siteFacts from '@/content/facts';
+
 /** Drives the form's location dropdown and the value posted as `location`. */
 export const LOCATIONS = ['Kashmir', 'Jammu', 'Ladakh'];
 
-export const PHONE = '+919070907035';
-export const PHONE_DISPLAY = '+91 90709 07035';
-export const WHATSAPP = 'https://wa.me/919070907035';
+/* Re-exported from the single source of truth rather than redeclared, so the
+   existing import sites in this section keep working unchanged. */
+export const PHONE = siteFacts.phone;
+export const PHONE_DISPLAY = siteFacts.phoneDisplay;
+export const WHATSAPP = siteFacts.whatsapp;
 
 export const HERO = {
   eyebrow: 'Contact · Kashmir, Jammu & Ladakh',
@@ -44,7 +48,13 @@ export const HERO = {
  *
  * The old page listed "theheatingstore.in" as a mailto: address. That is a
  * domain, not an address, so the link opened a mail client addressed to
- * nothing. The two real addresses it also listed are kept.
+ * nothing.
+ *
+ * It then listed support@electrichamam.in and trade@electrichamam.in, a
+ * second domain, on the one page whose whole job is to be trusted enough to
+ * be contacted, while the footer and the LocalBusiness schema published
+ * info@theheatingstore.in. Both @electrichamam.in addresses are gone; the
+ * trade/accounts note line went with them.
  */
 export const CHANNELS = [
   {
@@ -52,7 +62,7 @@ export const CHANNELS = [
     title: 'Call us',
     body: 'To talk through an installation, or to book a survey over the phone.',
     action: { label: PHONE_DISPLAY, href: `tel:${PHONE}` },
-    note: 'Monday to Saturday, 9am to 7pm IST.',
+    note: `${siteFacts.hours.display} IST.`,
   },
   {
     icon: 'whatsapp',
@@ -65,8 +75,7 @@ export const CHANNELS = [
     icon: 'mail',
     title: 'Email us',
     body: 'For quotes, support and trade enquiries.',
-    action: { label: 'support@electrichamam.in', href: 'mailto:support@electrichamam.in' },
-    note: 'Trade and accounts: trade@electrichamam.in',
+    action: { label: siteFacts.email, href: `mailto:${siteFacts.email}` },
   },
   {
     icon: 'calendar',
@@ -86,7 +95,7 @@ export const FORM = {
 export const SHOWROOM = {
   eyebrow: 'In person',
   title: 'The Srinagar showroom.',
-  body: 'Our showroom and technical office is in Srinagar. Open Saturday to Thursday, 10am to 6pm. Tap the map for directions.',
+  body: `Our showroom and technical office is in Srinagar. Open ${siteFacts.hours.display}. Tap the map for directions.`,
   mapsUrl: 'https://maps.google.com/?q=Lal+Chowk,+Srinagar,+Jammu+and+Kashmir',
   embedUrl:
     'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3300!2d74.7973!3d34.0836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38e1855f5454a0c1%3A0x7f39f9d5a9e3c2b0!2sLal%20Chowk%2C%20Srinagar%2C%20Jammu%20%26%20Kashmir!5e0!3m2!1sen!2sin!4v1715000000000!5m2!1sen!2sin',

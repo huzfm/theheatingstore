@@ -278,7 +278,7 @@ export const GLOBAL_STORY = {
 
 /**
  * Countries these systems are installed and proven in. `code` is an ISO 3166-1
- * alpha-2 for react-world-flags, already a dependency.
+ * alpha-2. Rendered by components/ui/Flag from /public/flags.
  *
  * India leads and is flagged `home`. The two source pages disagreed on the
  * count for exactly this reason — one list included India, one did not — so

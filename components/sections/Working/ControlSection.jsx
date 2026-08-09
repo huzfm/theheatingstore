@@ -1,11 +1,26 @@
 'use client';
 
 import { useCallback, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { AnimatePresence, motion } from 'framer-motion';
 import { RevealText, Reveal } from '@/components/ui/RevealText';
-import ThermostatDial from '@/components/ui/ThermostatDial';
 import HeatFloorAnimation from '@/components/sections/About/HeatFloorAnimation';
 import { CONTROL } from './data';
+
+/**
+ * The dial is a GSAP timeline and it sits well below the fold, so it is code-
+ * split rather than bundled into the route.
+ *
+ * It was a static import, which pulled the whole of GSAP into /working's
+ * initial JavaScript to animate something nobody has scrolled to yet.
+ * `ssr: false` because the dial draws to a canvas and has nothing meaningful
+ * to render on the server; the reserved box below keeps the layout from
+ * shifting when it arrives.
+ */
+const ThermostatDial = dynamic(() => import('@/components/ui/ThermostatDial'), {
+  ssr: false,
+  loading: () => <div aria-hidden style={{ aspectRatio: '1 / 1', width: '100%' }} />,
+});
 
 const EASE = [0.16, 1, 0.3, 1];
 

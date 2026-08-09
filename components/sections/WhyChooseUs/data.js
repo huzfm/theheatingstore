@@ -100,7 +100,7 @@ export const RELIABILITY = {
       desc: 'Heating layout plans, cable density maps and thermostat zone configurations drawn for your floor.',
     },
   ],
-  /* ISO 3166-1 alpha-2 for react-world-flags. */
+  /* ISO 3166-1 alpha-2. Rendered by components/ui/Flag from /public/flags. */
   countries: [
     { name: 'United Kingdom', code: 'GB' },
     { name: 'Sweden', code: 'SE' },
@@ -115,6 +115,23 @@ export const RELIABILITY = {
 };
 
 /** Formerly PROCESS. See the note at the top of this file. */
+/**
+ * NEEDS REAL PHOTOGRAPHY.
+ *
+ * Every `img` below is a stock photograph, and writing honest `alt` text for
+ * them exposed how badly they fit. Read the alt beside the title:
+ *
+ *   "Free consultation"            -> a retail shop counter with a card reader
+ *   "Service support that answers" -> an empty warehouse aisle
+ *   "Price match promise"          -> a concrete slab full of reinforcing bar
+ *
+ * None of these shows a consultation, a support call, or a price. None shows
+ * Kashmir, this company, or underfloor heating. They are placeholders that
+ * were never replaced, on the page whose entire job is to be believed.
+ *
+ * The alt text describes what is actually in the frame rather than what the
+ * caption wishes were in it, because alt text that lies is worse than none.
+ */
 export const OFFERS = {
   eyebrow: 'What you get',
   title: 'Included, not upsold.',
@@ -125,31 +142,36 @@ export const OFFERS = {
       num: '01',
       title: 'Free consultation',
       desc: 'Our experts assess the space, the floor type and how you actually use the rooms, before anything is specified.',
-      img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80',
+      img: '/images/stock/1556742049-0cfed4f6a45d-800.webp',
+      alt: 'A shop assistant and a customer talking across a bright retail counter',
     },
     {
       num: '02',
       title: 'Custom design and layout',
       desc: 'Engineers turn your floor plan into a heating layout, mapping cable density, wattage zones and thermostat placement room by room, before a single cable is ordered.',
-      img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80',
+      img: '/images/stock/1503387762-592deb58ef4e-800.webp',
+      alt: 'An engineer drawing on an architectural elevation with a scale rule',
     },
     {
       num: '03',
       title: 'Service support that answers',
       desc: 'From the first enquiry to aftercare years later. Technical questions, troubleshooting or a warranty claim, the same team handles all of it.',
-      img: 'https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&q=80',
+      img: '/images/stock/1553413077-190dd305871c-800.webp',
+      alt: 'A tall warehouse aisle stacked with palletised stock',
     },
     {
       num: '04',
       title: 'Price match promise',
       desc: 'Found the same system cheaper from an authorised supplier? We match it. Same product, same warranty, same certified installation.',
-      img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
+      img: '/images/stock/1504307651254-35680f356dfd-800.webp',
+      alt: 'Two workers in hi-vis on a concrete slab laid out with reinforcing bar',
     },
     {
       num: '05',
       title: 'Lifetime warranty options',
       desc: 'Many of the systems we carry come with lifetime manufacturer warranties, which is the strongest statement a maker can make about its own cable.',
-      img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80',
+      img: '/images/stock/1450101499163-c8848c66ca85-800.webp',
+      alt: 'A person signing a document at a desk',
     },
   ],
 };

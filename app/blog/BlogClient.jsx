@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { Skeleton, SkeletonGroup } from '@/components/ui/loading/Skeleton';
 
 export default function BlogsClient() {
 	const [blogs, setBlogs] = useState([]);
@@ -29,30 +30,57 @@ export default function BlogsClient() {
 		fetchBlogs();
 	}, []);
 
+	/**
+	 * The page header, rendered in BOTH the loading and loaded states.
+	 *
+	 * It used to live only in the loaded branch, and posts are fetched from the
+	 * API on the client, so the server-rendered HTML for /blog contained the
+	 * skeleton and nothing else: no h1, no heading of any kind, no text. The
+	 * page shipped to crawlers as an empty grey box.
+	 *
+	 * The article count is the only part that needs the data, so it is the only
+	 * part that waits for it.
+	 */
+	const header = (
+		<div className='mb-16 max-w-2xl'>
+			<p className='inline-block rounded-full bg-white/70 px-6 py-2 text-[11px] font-medium uppercase tracking-[0.35em] text-[#B86B45] border border-white/40'>
+				Knowledge & Insights
+			</p>
+			<h1 className='mt-6 text-4xl sm:text-5xl font-serif font-semibold text-[#3C2A25] leading-tight'>
+				All Articles
+			</h1>
+			{!loading && (
+				<p className='mt-4 text-[15px] text-[#5A4036]'>
+					{blogs.length} article{blogs.length !== 1 ? 's' : ''} published
+				</p>
+			)}
+		</div>
+	);
+
 	if (loading) {
 		return (
 			<section className='min-h-screen bg-[#FFF8F0] py-24'>
 				<div className='mx-auto max-w-7xl px-6'>
-					<div className='mb-16 space-y-4'>
-						<div className='h-7 w-40 bg-[#f0d5c0] rounded-full animate-pulse' />
-						<div className='h-12 w-64 bg-[#f0d5c0] rounded-2xl animate-pulse' />
-						<div className='h-4 w-32 bg-[#f0d5c0] rounded animate-pulse' />
-					</div>
-					<div className='flex flex-col gap-12'>
+					{header}
+					{/* Same blocks as before, moved onto the shared Skeleton so
+					    the shimmer stops under prefers-reduced-motion (Tailwind's
+					    animate-pulse does not) and the group is announced once
+					    instead of not at all. */}
+					<SkeletonGroup label='TODO_COPY' className='flex flex-col gap-12'>
 						{[1, 2].map((i) => (
 							<div
 								key={i}
 								className='w-full rounded-[32px] overflow-hidden bg-white shadow-sm'>
-								<div className='w-full h-[300px] bg-[#f0d5c0] animate-pulse' />
+								<Skeleton rounded='' className='w-full h-[300px]' />
 								<div className='p-10 space-y-4'>
-									<div className='h-4 w-24 bg-[#f0d5c0] rounded animate-pulse' />
-									<div className='h-7 w-80 bg-[#f0d5c0] rounded animate-pulse' />
-									<div className='h-4 w-full bg-[#f0d5c0] rounded animate-pulse' />
-									<div className='h-4 w-2/3 bg-[#f0d5c0] rounded animate-pulse' />
+									<Skeleton className='h-4 w-24' />
+									<Skeleton className='h-7 w-80' />
+									<Skeleton className='h-4 w-full' />
+									<Skeleton className='h-4 w-2/3' />
 								</div>
 							</div>
 						))}
-					</div>
+					</SkeletonGroup>
 				</div>
 			</section>
 		);
@@ -61,18 +89,7 @@ export default function BlogsClient() {
 	return (
 		<section className='min-h-screen bg-[#FFF8F0] py-24'>
 			<div className='mx-auto max-w-7xl px-6'>
-				<div className='mb-16 max-w-2xl'>
-					<p className='inline-block rounded-full bg-white/70 px-6 py-2 text-[11px] font-medium uppercase tracking-[0.35em] text-[#B86B45] border border-white/40'>
-						Knowledge & Insights
-					</p>
-					<h1 className='mt-6 text-4xl sm:text-5xl font-serif font-semibold text-[#3C2A25] leading-tight'>
-						All Articles
-					</h1>
-					<p className='mt-4 text-[15px] text-[#5A4036]'>
-						{blogs.length} article{blogs.length !== 1 ? 's' : ''}{' '}
-						published
-					</p>
-				</div>
+				{header}
 
 				{blogs.length === 0 ? (
 					<p className='text-center text-[#B86B45] py-20'>

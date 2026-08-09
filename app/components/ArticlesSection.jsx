@@ -17,7 +17,7 @@ const journal = [
 		tag: 'Comparison',
 		title: 'Electric Hamam vs Traditional Hamam',
 		dek: 'Which heating system is better for Kashmir homes? A complete cost, comfort and safety comparison.',
-		img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80',
+		img: '/images/stock/1558618666-fcd25c85cd64-1600.webp',
 		role: 'feature',
 	},
 	{
@@ -25,7 +25,7 @@ const journal = [
 		tag: 'Architecture',
 		title: 'Underfloor Heating for Luxury Homes & Hotels',
 		dek: 'Why architects in Gulmarg, Pahalgam and Srinagar choose electric hamam for premium properties.',
-		img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80',
+		img: '/images/stock/1600585154340-be6161a56a0c-1600.webp',
 		role: 'tall',
 	},
 	{
@@ -33,7 +33,7 @@ const journal = [
 		tag: 'Climate',
 		title: 'Best Heating Systems for Kashmir Winters',
 		dek: 'How underfloor heating performs in −15°C conditions, heavy snowfall and long power cuts.',
-		img: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1920&q=80',
+		img: '/images/stock/1513694203232-719a280e022f-1600.webp',
 		role: 'panorama',
 	},
 	{
@@ -43,7 +43,7 @@ const journal = [
 		dek: 'Cable mats or hot water pipes? Choosing the right system for your home in Srinagar.',
 		quote:
 			'Warmth should be felt, never seen, the quiet mark of a truly considered interior.',
-		img: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=1600&q=80',
+		img: '/images/stock/1585771724684-38269d6639fd-1600.webp',
 		role: 'quote',
 	},
 ];
@@ -215,7 +215,7 @@ export default function ArticlesSection() {
 							The Journal
 						</motion.p>
 
-						<h2 className='mt-5 font-serif font-medium leading-[1.05] text-[#2B2622] text-[clamp(2rem,5vw,3.75rem)]'>
+						<h1 className='mt-5 font-serif font-medium leading-[1.05] text-[#2B2622] text-[clamp(2rem,5vw,3.75rem)]'>
 							<span className='block overflow-hidden'>
 								<motion.span
 									className='block'
@@ -236,7 +236,7 @@ export default function ArticlesSection() {
 									and the architecture of comfort.
 								</motion.span>
 							</span>
-						</h2>
+						</h1>
 
 						<motion.p
 							initial={reduce ? false : { opacity: 0, y: 12 }}
@@ -290,9 +290,9 @@ export default function ArticlesSection() {
 							<p className='text-[11px] font-medium uppercase tracking-[0.3em] text-[#A6633F]'>
 								{feature.id}, {feature.tag}
 							</p>
-							<h3 className='mt-3 font-serif font-medium leading-snug text-[#2B2622] text-2xl sm:text-3xl lg:text-4xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[2px]'>
+							<h2 className='mt-3 font-serif font-medium leading-snug text-[#2B2622] text-2xl sm:text-3xl lg:text-4xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[2px]'>
 								{feature.title}
-							</h3>
+							</h2>
 							<p className='mt-3 text-sm sm:text-base leading-relaxed text-[#5A4F47] transition-opacity duration-500 group-hover:opacity-80'>
 								{feature.dek}
 							</p>
@@ -323,9 +323,9 @@ export default function ArticlesSection() {
 							<p className='text-[11px] font-medium uppercase tracking-[0.3em] text-[#A6633F]'>
 								{tall.id}, {tall.tag}
 							</p>
-							<h3 className='mt-3 font-serif font-medium leading-snug text-[#2B2622] text-2xl sm:text-3xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[2px]'>
+							<h2 className='mt-3 font-serif font-medium leading-snug text-[#2B2622] text-2xl sm:text-3xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[2px]'>
 								{tall.title}
-							</h3>
+							</h2>
 							<p className='mt-3 text-sm leading-relaxed text-[#5A4F47] transition-opacity duration-500 group-hover:opacity-80'>
 								{tall.dek}
 							</p>
@@ -356,9 +356,9 @@ export default function ArticlesSection() {
 								<p className='text-[11px] font-medium uppercase tracking-[0.3em] text-[#E6D5B8]'>
 									{panorama.id}, {panorama.tag}
 								</p>
-								<h3 className='mt-3 max-w-2xl font-serif font-medium leading-snug text-white text-2xl sm:text-3xl lg:text-4xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[2px]'>
+								<h2 className='mt-3 max-w-2xl font-serif font-medium leading-snug text-white text-2xl sm:text-3xl lg:text-4xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[2px]'>
 									{panorama.title}
-								</h3>
+								</h2>
 								<span className='relative mt-4 inline-block text-[11px] font-medium uppercase tracking-[0.25em] text-white'>
 									Read the Story
 									<span className='absolute left-0 -bottom-1 h-px w-full origin-left scale-x-0 bg-white transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100' />

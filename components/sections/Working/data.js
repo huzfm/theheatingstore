@@ -1,10 +1,12 @@
+import siteFacts from '@/content/facts';
+
 /**
  * Content for /working, "how the heat actually works".
  *
- * Every figure here is carried from copy that already exists elsewhere on the
- * site (app/components/FaqSection.jsx and lib/floor-timeline.js) rather than
- * newly invented, so the two can't contradict each other. If a number changes,
- * it has to change in both places, they are listed here with a source note.
+ * Company figures (heat retention, warranty) now come from content/facts.ts
+ * so they cannot drift from the rest of the site. The remaining figures here
+ * are physical properties of the system carried from lib/floor-timeline.js
+ * and app/components/FaqSection.jsx, noted inline where that is the case.
  */
 
 export const HERO = {
@@ -16,12 +18,12 @@ export const HERO = {
      render the shared HeroCTAs pair, so the labels and destinations stay
      identical to the home page's rather than being restated per section. */
   bgImage:
-    'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80&auto=format&fit=crop',
+    '/images/stock/1600880292203-757bb62b4baf-1600.webp',
   /* Three claims the rest of the page then proves, in order. */
   facts: [
     { value: '5 - 6 cm', label: 'Mat thickness under your floor' },
     { value: '150–200 W', label: 'Per m², depending on the room' }, // FaqSection, "Cost & Electricity"
-    { value: '6–10 hrs', label: 'Warmth held through a power cut' }, // FaqSection, "Cost & Electricity"
+    { value: siteFacts.heatRetention.hrsShort, label: 'Warmth held through a power cut' },
   ],
 };
 
@@ -126,7 +128,7 @@ export const SPECS = [
   { value: '15–18°C', label: 'Room temperature held through winter' },
   { value: '₹1,500–1,800', label: 'Typical monthly run cost, 10×10 room' },
   { value: '₹180–350', label: 'Installed cost per sq ft' },
-  { value: '5 years', label: 'Installation warranty, Kashmir' },
+  { value: siteFacts.installationWarranty, label: 'Installation warranty, Kashmir' },
 ];
 
 export const CTA = {

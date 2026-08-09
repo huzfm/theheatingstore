@@ -1,5 +1,7 @@
 'use client';
 
+import { areaBusiness } from '@/components/seo/schema';
+
 import AreaPageTemplate from '../../components/AreaPageTemplate';
 import { ALL_AREAS, PRODUCT_LINKS } from '../../lib/constants';
 
@@ -42,30 +44,11 @@ const FAQS = [
   },
 ];
 
-const JSON_LD = {
-  '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  name: 'The Heating Store',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Rajbagh',
-    addressLocality: 'Srinagar',
-    addressRegion: 'Jammu and Kashmir',
-    postalCode: '190008',
-    addressCountry: 'IN',
-  },
-  telephone: '+919070907035',
-  areaServed: [
-    'Pantha Chowk',
-    'Rajbagh',
-    'Srinagar',
-    'Dalgate',
-    'Nishat',
-    'Hazratbal',
-    'Rawalpora',
-  ],
-};
-
+/* LocalBusiness for this neighbourhood, scoped to the areas it covers.
+   Built from content/facts.ts and carrying the canonical @id, so it
+   resolves to the same entity as the site-wide block rather than
+   declaring a rival business at the same address. */
+const JSON_LD = areaBusiness('Pantha Chowk', ['Rajbagh', 'Srinagar', 'Dalgate', 'Nishat', 'Hazratbal', 'Rawalpora']);
 export default function PanthaChowkClient() {
   return (
     <AreaPageTemplate

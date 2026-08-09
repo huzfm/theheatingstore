@@ -1,3 +1,5 @@
+import siteFacts from '@/content/facts';
+
 /**
  * Content for /how-it-works, "the process, end to end".
  *
@@ -25,7 +27,7 @@ export const HERO = {
   headline: 'From first phone call to a warm floor.',
   sub: 'Five stages, no surprises. Who arrives, what they do, how long your house is a building site, and what you are left holding at the end.',
   bgImage:
-    'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1920&q=80&auto=format&fit=crop',
+    '/images/stock/1581092160562-40aa08e78837-1600.webp',
   facts: [
     { value: 'Free', label: 'Site visit and heat design' },
     { value: '₹180–350', label: 'Installed cost per sq ft' }, // FaqSection, "Cost & Electricity"
@@ -85,10 +87,10 @@ export const STAGES = [
     tag: 'Aftercare',
     icon: 'shield',
     title: 'A floor with no daily job, and someone to call',
-    lead: 'Nothing to feed, light, clean or service. You set a temperature and the thermostat holds it. When the power goes the screed keeps radiating for hours, which in a Kashmir winter is most of the point. Behind it sits a 5 year installation warranty and 10–25 years of manufacturer cover depending on the system specified.', // Working/data.js SPECS; FaqSection "Warranty"
+    lead: `Nothing to feed, light, clean or service. You set a temperature and the thermostat holds it. When the power goes the screed keeps radiating for hours, which in a Kashmir winter is most of the point. Behind it sits a ${siteFacts.installationWarranty.toLowerCase()} installation warranty and 10–25 years of manufacturer cover depending on the system specified.`,
     outcome: 'Heat you stop thinking about, and cover if you ever need it.',
     you: 'Nothing. That is the entire point of the system.',
-    metric: { value: '6–10 hrs', label: 'Warmth held through a power cut' }, // FaqSection
+    metric: { value: siteFacts.heatRetention.hrsShort, label: 'Warmth held through a power cut' },
   },
 ];
 

@@ -73,7 +73,7 @@ export const ECONOMICS = {
   eyebrow: 'Installation economics',
   title: 'From site work to final project cost.',
   intro:
-    'Adjust the project parameters below to understand how your electric hammam installation is technically and commercially structured.',
+    'Adjust the project parameters below to understand how your electric hamam installation is technically and commercially structured.',
 };
 
 /**

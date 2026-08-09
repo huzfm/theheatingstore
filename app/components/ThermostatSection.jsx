@@ -35,7 +35,7 @@ const features = [
 			</svg>
 		),
 		title: 'Precision Temperature',
-		desc: 'Digital thermostat with ±0.5°C accuracy, maintaining perfect warmth levels throughout your hammam session.',
+		desc: 'Digital thermostat with ±0.5°C accuracy, maintaining perfect warmth levels throughout your hamam session.',
 	},
 	{
 		icon: (
@@ -71,7 +71,7 @@ const features = [
 			</svg>
 		),
 		title: '7-Day Programmable',
-		desc: 'Set your weekly heating schedule in advance. Wake up to a warm hammam, every single day.',
+		desc: 'Set your weekly heating schedule in advance. Wake up to a warm hamam, every single day.',
 	},
 	{
 		icon: (
@@ -88,7 +88,7 @@ const features = [
 			</svg>
 		),
 		title: 'Adaptive Smart Mode',
-		desc: 'Learns your usage patterns and pre-heats your hammam automatically before your scheduled session.',
+		desc: 'Learns your usage patterns and pre-heats your hamam automatically before your scheduled session.',
 	},
 	{
 		icon: (
@@ -105,7 +105,7 @@ const features = [
 			</svg>
 		),
 		title: 'IP54 Water Resistant',
-		desc: 'Splash-proof design rated for wetroom installation, engineered for electric hammam environments.',
+		desc: 'Splash-proof design rated for wetroom installation, engineered for electric hamam environments.',
 	},
 	{
 		icon: (
@@ -127,8 +127,8 @@ const features = [
 ];
 
 const tempModes = [
-	{ label: 'Hammam', temp: 85, icon: '🔥' },
-	{ label: 'Hammam', temp: 45, icon: '♨️' },
+	{ label: 'Hamam', temp: 85, icon: '🔥' },
+	{ label: 'Hamam', temp: 45, icon: '♨️' },
 	{ label: 'Warm', temp: 30, icon: '☁️' },
 	{ label: 'Eco', temp: 18, icon: '❄️' },
 ];
@@ -221,7 +221,7 @@ export default function ThermostatSection() {
 					<motion.p
 						variants={fadeUp}
 						className='mt-6 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed text-[#3C2B27]'>
-						Every electric hammam installation comes with a premium
+						Every electric hamam installation comes with a premium
 						digital thermostat, designed for intuitive control,
 						energy efficiency, and reliable performance in wetroom
 						conditions.
@@ -435,7 +435,7 @@ export default function ThermostatSection() {
 						<motion.p
 							variants={fadeUp}
 							className='text-[#3C2B27] mb-8 sm:mb-10 text-sm sm:text-base leading-relaxed'>
-							Professional-grade features designed for electric hammam
+							Professional-grade features designed for electric hamam
 							environments, not generic home heating.
 						</motion.p>
 

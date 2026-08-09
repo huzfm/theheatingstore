@@ -262,7 +262,7 @@ export default function VideoGallery() {
 						variants={fadeUp}
 						className='mt-5 mx-auto max-w-xl text-base leading-relaxed'
 						style={{ color: '#3C2B27' }}>
-						Explore videos shared by our customers and installation teams, showcasing the comfort, craftsmanship, and performance of Electric Hammam systems in everyday homes.
+						Explore videos shared by our customers and installation teams, showcasing the comfort, craftsmanship, and performance of Electric Hamam systems in everyday homes.
 					</motion.p>
 
 					{/* Category tabs */}

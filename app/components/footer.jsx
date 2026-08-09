@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
+import siteFacts, { currentYear } from '@/content/facts';
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -14,9 +15,63 @@ const EASE = [0.16, 1, 0.3, 1];
  * and lets the values themselves be the largest thing in the column.
  */
 const CONTACT = [
-  { label: 'Telephone', value: '+91 9070907035', href: 'tel:+919070907035' },
-  { label: 'Email', value: 'info@theheatingstore.in', href: 'mailto:info@theheatingstore.in' },
+  { label: 'Telephone', value: siteFacts.phoneDisplay, href: `tel:${siteFacts.phone}` },
+  { label: 'Email', value: siteFacts.email, href: `mailto:${siteFacts.email}` },
   { label: 'Kashmir', value: 'Srinagar · Anantnag · Baramulla', href: null },
+];
+
+/**
+ * Footer navigation.
+ *
+ * The footer previously contained exactly one internal link, the wordmark
+ * pointing at "/". That left the site with no secondary navigation at all, and
+ * combined with the "More" dropdown rendering client-side only, it meant
+ * /why-choose-us, /areasweserve, /measuring-up, /working, /journal, /bloginfo,
+ * /dealer and /warranty-check had ZERO inbound links in any served HTML. Eight
+ * real pages, several of them in the sitemap, reachable by no crawler.
+ *
+ * Labels match the ones the header already uses wherever a page appears in
+ * both, so the two navigations cannot describe the same page differently.
+ */
+const NAV = [
+  {
+    heading: 'Systems',
+    links: [
+      { label: 'Products', href: '/product' },
+      { label: 'Electric Hamam', href: '/heatingequipmentsupplier/electrichamam' },
+      { label: 'Underfloor Heating', href: '/heatingequipmentsupplier/underfloorheating' },
+      { label: 'All Equipment', href: '/heatingequipmentsupplier' },
+    ],
+  },
+  {
+    heading: 'How It Works',
+    links: [
+      { label: 'Installation', href: '/installation' },
+      { label: 'The Process', href: '/how-it-works' },
+      { label: 'Working', href: '/working' },
+      { label: 'Measure-Up', href: '/measuring-up' },
+      { label: 'The Experience', href: '/experience' },
+    ],
+  },
+  {
+    heading: 'Company',
+    links: [
+      { label: 'About', href: '/about' },
+      { label: 'Why Choose Us', href: '/why-choose-us' },
+      { label: 'Certifications', href: '/certifications' },
+      { label: 'Become a Dealer', href: '/dealer' },
+    ],
+  },
+  {
+    heading: 'More',
+    links: [
+      { label: 'Areas We Serve', href: '/areasweserve' },
+      { label: 'The Journal', href: '/journal' },
+      { label: 'Features & Technology', href: '/bloginfo' },
+      { label: 'Warranty Check', href: '/warranty-check' },
+      { label: 'Book a Site Visit', href: '/book-site-visit' },
+    ],
+  },
 ];
 
 /**
@@ -41,7 +96,7 @@ const WORDMARK = [
 const SOCIAL = [
   {
     label: 'WhatsApp',
-    href: 'https://wa.me/919070907035',
+    href: siteFacts.whatsapp,
     path: 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.17 1.535 5.943L.057 23.571a.75.75 0 00.918.919l5.628-1.479A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.694 9.694 0 01-4.953-1.355l-.355-.211-3.676.964.981-3.589-.231-.368A9.712 9.712 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z',
   },
   {
@@ -193,7 +248,7 @@ export default function Footer() {
                 color: 'rgba(226,212,199,0.86)',
               }}
             >
-              Premium electric hammam &amp; underfloor heating, engineered for
+              Premium electric hamam &amp; underfloor heating, engineered for
               Kashmir&rsquo;s extreme winters and India&rsquo;s most demanding
               spaces.
             </motion.p>
@@ -271,6 +326,54 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* ── SITEMAP ── */}
+        <motion.nav
+          {...rise(0.42)}
+          aria-label="Footer"
+          className="mt-20 grid grid-cols-2 gap-x-8 gap-y-10 border-t border-white/[0.07] pt-14 sm:grid-cols-4"
+        >
+          {NAV.map(({ heading, links }) => (
+            <div key={heading}>
+              <h2
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: 10.5,
+                  fontWeight: 500,
+                  letterSpacing: '0.22em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(255,255,255,0.34)',
+                }}
+              >
+                {heading}
+              </h2>
+              <ul className="mt-5 space-y-3">
+                {links.map(({ label, href }) => (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      className="group inline-block no-underline"
+                      style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: 14.5,
+                        color: 'rgba(226,212,199,0.78)',
+                        transition: 'color 0.35s cubic-bezier(0.16,1,0.3,1)',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = '#E8933A';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = 'rgba(226,212,199,0.78)';
+                      }}
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </motion.nav>
+
         <motion.p
           {...rise(0.5)}
           className="mt-20 border-t border-white/[0.07] pt-8"
@@ -281,7 +384,12 @@ export default function Footer() {
             color: 'rgba(240,232,225,0.36)',
           }}
         >
-          © 2011 The Heating Store. All rights reserved.
+          {/* This read "© 2011", which is the founding year, not the
+              copyright year. suppressHydrationWarning because the page is
+              prerendered: the build stamps its own year into the HTML and the
+              client re-renders the real one, which differ for exactly as long
+              as it takes to redeploy after New Year. */}
+          © <span suppressHydrationWarning>{currentYear()}</span> The Heating Store. All rights reserved.
         </motion.p>
       </div>
     </footer>

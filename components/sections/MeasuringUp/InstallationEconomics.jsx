@@ -50,7 +50,7 @@ const THERMOSTATS = {
     label: 'Standard Thermostat',
     sublabel: 'Included free',
     price: 0,
-    image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80',
+    image: '/images/stock/1585771724684-38269d6639fd-600.webp',
     description:
       'A reliable and straightforward thermostat included with every installation. Features a simple dial or basic digital display for manual temperature control. Ideal for single-zone setups where smart connectivity is not required.',
   },
@@ -58,7 +58,7 @@ const THERMOSTATS = {
     label: 'Modular Thermostat',
     sublabel: '+ ₹2,500',
     price: 2500,
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+    image: '/images/stock/1558618666-fcd25c85cd64-600.webp',
     description:
       'A programmable modular thermostat with a clean digital interface. Supports weekly scheduling and floor sensor input for accurate temperature management. A popular upgrade for homeowners wanting more control without Wi-Fi dependency.',
   },
@@ -66,7 +66,7 @@ const THERMOSTATS = {
     label: 'Wi-Fi Smart Thermostat',
     sublabel: '+ ₹5,500',
     price: 5500,
-    image: 'https://images.unsplash.com/photo-1545259742-f4f55c610ee1?w=600&q=80',
+    image: '/images/stock/1513694203232-719a280e022f-600.webp',
     description:
       'A fully connected smart thermostat controllable via smartphone from anywhere. Compatible with Alexa and Google Home. Features energy usage reports, geo-fencing, and adaptive scheduling — ideal for modern smart homes.',
   },

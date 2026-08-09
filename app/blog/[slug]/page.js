@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { Skeleton, SkeletonGroup } from "@/components/ui/loading/Skeleton";
 
 export default function BlogDetailPage() {
   const { slug } = useParams();
@@ -42,19 +43,21 @@ export default function BlogDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#FFF8F0]">
-        <div className="w-full h-[500px] bg-[#f0d5c0] animate-pulse" />
+      <SkeletonGroup label="TODO_COPY" className="min-h-screen bg-[#FFF8F0]">
+        <Skeleton rounded="" className="w-full h-[500px]" />
         <div className="mx-auto max-w-3xl px-6 py-16 space-y-5">
-          <div className="h-4 w-28 bg-[#f0d5c0] rounded animate-pulse" />
-          <div className="h-10 w-3/4 bg-[#f0d5c0] rounded-2xl animate-pulse" />
-          <div className="h-4 w-full bg-[#f0d5c0] rounded animate-pulse" />
-          <div className="h-4 w-5/6 bg-[#f0d5c0] rounded animate-pulse" />
+          <Skeleton className="h-4 w-28" />
+          <Skeleton rounded="rounded-2xl" className="h-10 w-3/4" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-5/6" />
+          {/* The rule is a rule, not a placeholder, so it keeps its flat fill
+              and does not shimmer. */}
           <div className="h-px w-full bg-[#f0d5c0] mt-8" />
-          <div className="h-4 w-full bg-[#f0d5c0] rounded animate-pulse" />
-          <div className="h-4 w-full bg-[#f0d5c0] rounded animate-pulse" />
-          <div className="h-4 w-3/4 bg-[#f0d5c0] rounded animate-pulse" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-3/4" />
         </div>
-      </div>
+      </SkeletonGroup>
     );
   }
 

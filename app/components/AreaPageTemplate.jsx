@@ -3,6 +3,8 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { useState } from 'react';
 import Link from 'next/link';
+import siteFacts from '@/content/facts';
+import JsonLd from '@/components/seo/JsonLd';
 import {
   Phone,
   MapPin,
@@ -201,6 +203,12 @@ export default function AreaPageTemplate({
         backgroundImage: 'linear-gradient(180deg, #FFFFFF 0%, #FFF4E8 35%, #FFE0C2 70%, #F5B97A 100%)',
       }}
     >
+      {/* This template accepted a `jsonLd` prop and never rendered it. All 15
+          neighbourhood pages built a full LocalBusiness object, passed it in,
+          and had it silently discarded, so the entire area cluster shipped
+          with no local structured data at all. */}
+      {jsonLd && <JsonLd id="ld-area" data={jsonLd} />}
+
       <style>{`
         @media (max-width: 640px) {
           .area-map-container { height: 280px !important; }
@@ -247,7 +255,7 @@ export default function AreaPageTemplate({
           </p>
           <div className="flex flex-row justify-center gap-3 mt-7">
             <a
-              href="tel:+919070907035"
+              href={`tel:${siteFacts.phone}`}
               className="inline-flex items-center gap-2 rounded-full px-7 py-3 text-white font-semibold text-sm transition-transform hover:scale-[1.02]"
               style={{
                 background: 'linear-gradient(135deg, #FF7E5F, #FFB88C)',
@@ -490,14 +498,14 @@ export default function AreaPageTemplate({
                       Phone
                     </p>
                     <a
-                      href="tel:+919070907035"
+                      href={`tel:${siteFacts.phone}`}
                       style={{
                         fontFamily: "var(--font-body)", fontSize: 14, color: '#B86B45',
                         fontWeight: 600, textDecoration: 'none', display: 'inline-block',
                         marginTop: 2,
                       }}
                     >
-                      +91 90709 07035
+                      {siteFacts.phoneDisplay}
                     </a>
                   </div>
                 </div>

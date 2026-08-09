@@ -1,3 +1,4 @@
+import { pageMetadata } from '@/app/lib/seo';
 import { Sora } from 'next/font/google';
 import ExperienceShell from './ExperienceShell';
 
@@ -16,17 +17,7 @@ const sora = Sora({
 /* Body copy reuses the Hanken Grotesk already loaded by the root layout as
    --font-body, so this route adds exactly one font to the page weight. */
 
-export const metadata = {
-  title: 'The Experience | Underfloor Heating, Engineered',
-  description:
-    'Explore the engineering beneath the floor, an interactive look at our underfloor heating systems, installation process and warranty coverage.',
-  openGraph: {
-    title: 'The Experience | Underfloor Heating, Engineered',
-    description:
-      'An interactive look at the engineering beneath your floor.',
-    type: 'website',
-  },
-};
+export const metadata = pageMetadata("/experience");
 
 export const viewport = {
   themeColor: '#0a0a0a',

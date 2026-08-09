@@ -1,6 +1,6 @@
 'use client';
 
-import Flag from 'react-world-flags';
+import Flag from '@/components/ui/Flag';
 import { RevealText, Reveal, RevealGroup, RevealItem } from '@/components/ui/RevealText';
 import { RELIABILITY } from './data';
 

@@ -30,7 +30,7 @@ export default function HeroCTAs({ center = false, className = '' }) {
         Talk to an Expert
         <ArrowIcon />
       </Link>
-      <Link href="/SpaceVerification" className={`${styles.btn} ${styles.ghost}`}>
+      <Link href="/book-site-visit" className={`${styles.btn} ${styles.ghost}`}>
         Book a Free Site Visit
       </Link>
     </div>

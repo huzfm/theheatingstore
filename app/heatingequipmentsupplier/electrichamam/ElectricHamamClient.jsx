@@ -1,5 +1,7 @@
 'use client';
 
+import { service } from '@/components/seo/schema';
+
 import ProductPageTemplate from '../../components/ProductPageTemplate';
 import { ALL_AREAS } from '../../lib/constants';
 
@@ -26,21 +28,14 @@ const FAQS = [
   },
 ];
 
-const JSON_LD = {
-  '@context': 'https://schema.org',
-  '@type': 'Product',
-  name: 'Electric Hamam',
-  brand: { '@type': 'Brand', name: 'The Heating Store' },
+/* Was a Product with an Offer that had priceCurrency and availability but
+   no price, which is invalid, and it was never rendered anyway. This is a
+   fitted service, not a boxed product with stock. */
+const JSON_LD = service({
+  name: "Electric Hamam Installation",
   description:
-    'Premium UK-imported electric hamam systems for Kashmir winters, certified safe for wet areas and engineered for sub-zero temperatures.',
-  category: 'Heating Equipment',
-  offers: {
-    '@type': 'Offer',
-    availability: 'https://schema.org/InStock',
-    priceCurrency: 'INR',
-    seller: { '@type': 'Organization', name: 'The Heating Store' },
-  },
-};
+    "Supply and installation of UK-imported electric hamam systems, certified safe for wet areas and engineered for sub-zero Kashmir floors.",
+});
 
 export default function ElectricHamamClient() {
   return (

@@ -28,7 +28,7 @@ const BENEFITS = [
   },
   {
     title: 'Long-Term Reliability',
-    desc: 'No moving parts means nothing to service. Install once, enjoy silent radiant warmth for decades, backed by a 25-year warranty.',
+    desc: 'No moving parts means nothing to service. Install once, enjoy silent radiant warmth for decades, backed by a lifetime warranty.',
     Icon: ShieldCheck,
     color: '#E8933A',
   },
@@ -583,7 +583,7 @@ export default function RadiantFloorHeatingClient() {
               Every radiant floor heating system we install is sourced from leading UK manufacturers and certified to CE / IEC 60335 safety standards. UK heating systems are designed for some of the harshest European winters, making them ideally suited to Kashmir's Chilla Kalan. We don't sell local imitations; we sell the same systems used in European homes for decades, now installed by our Kashmir team.
             </p>
             <div className="flex flex-wrap gap-3 mt-6">
-              {['CE Certified', '25+ Year Warranty', '0.01% Fault Rate', 'Since 2011'].map((t) => (
+              {['CE Certified', 'Lifetime Warranty', '0.01% Fault Rate', 'Since 2011'].map((t) => (
                 <span key={t} style={{
                   fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 500,
                   background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.18)',

@@ -1,10 +1,17 @@
 /**
  * About-page content, isolated from presentation.
  *
- * Figures marked NEEDS-REAL-INFO in comments are carried over from the two
- * previous About implementations and have NOT been independently verified 
- * confirm or correct before launch. Nothing here is a newly invented number.
+ * Every company figure on this page now comes from content/facts.ts. The
+ * NEEDS-REAL-INFO markers that used to sit against the install count, the
+ * warranty and the years figure are gone because those values are no longer
+ * authored here, they are owned by the facts file and stated once.
+ *
+ * The PLACEHOLDER markers on the gallery and timeline imagery/milestones
+ * remain: those are stock photographs and illustrative dates, and replacing
+ * them needs real photography and real company history, not a constant.
  */
+
+import siteFacts, { yearsInBusiness } from '@/content/facts';
 
 export const HERO = {
   eyebrow: 'Since 2011',
@@ -19,16 +26,19 @@ export const HERO = {
   /* Three figures the rest of the page then backs up. Same shape as the
      /how-it-works hero strip. Kept to three: a fourth wraps on a phone. */
   facts: [
-    { value: '2011', label: 'Engineering floors since' },      // NEEDS-REAL-INFO
-    { value: '6,000+', label: 'Systems supplied & installed' }, // NEEDS-REAL-INFO
-    { value: '25 yr', label: 'Warranty as standard' },
+    { value: String(siteFacts.foundedYear), label: 'Engineering floors since' },
+    {
+      value: siteFacts.installationsWorldwide.display,
+      label: siteFacts.installationsWorldwideLabel,
+    },
+    { value: siteFacts.installationWarranty, label: 'Warranty as standard' },
   ],
   // Full-bleed atmospheric backdrop (heavily darkened behind the copy).
   bgImage:
-    'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80&auto=format&fit=crop',
+    '/images/stock/1600880292203-757bb62b4baf-1600.webp',
   // Static poster shown in place of the live 3D under reduced motion.
   poster:
-    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1000&q=80&auto=format&fit=crop',
+    '/images/stock/1558618666-fcd25c85cd64-1000.webp',
 };
 
 /* Origin story, narrative, not bullets. Founding year carried from prior copy. */
@@ -40,7 +50,7 @@ export const ORIGIN = {
     'So they built for the conditions that actually exist here: floors that hold heat for hours after the power cuts out, wiring certified for wet hamam areas, and warranties that assume a hard winter rather than an easy one. Every layer is chosen for the moment the grid goes quiet.',
   ],
   image:
-    'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=80&auto=format&fit=crop',
+    '/images/stock/1600880292203-757bb62b4baf-1200.webp',
 
   /**
    * Circular gallery items, PLACEHOLDER IMAGERY.
@@ -59,49 +69,49 @@ export const ORIGIN = {
       id: 'workshop',
       label: 'The first workshop',
       caption: 'Srinagar, 2011. Four engineers, a rented unit, and one bad winter for imported radiators.', // PLACEHOLDER
-      src: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=900&q=80&auto=format&fit=crop',
+      src: '/images/stock/1504328345606-18bbc8c9d7d1-900.webp',
     },
     {
       id: 'first-floor',
       label: 'The first floor',
       caption: 'The first mat we ever laid, specced for a house that lost power most evenings.', // PLACEHOLDER
-      src: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80&auto=format&fit=crop',
+      src: '/images/stock/1600880292203-757bb62b4baf-900.webp',
     },
     {
       id: 'cable',
       label: 'Cable, not guesswork',
       caption: 'Every run measured and logged before a single screed board goes down.', // PLACEHOLDER
-      src: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=900&q=80&auto=format&fit=crop',
+      src: '/images/stock/1581092160562-40aa08e78837-900.webp',
     },
     {
       id: 'hamam',
       label: 'Hamam, done right',
       caption: 'Wet-area-certified systems for the one room in a Kashmiri home that never gets to be cold.', // PLACEHOLDER
-      src: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=900&q=80&auto=format&fit=crop',
+      src: '/images/stock/1552321554-5fefe8c9ef14-900.webp',
     },
     {
       id: 'winter',
       label: 'Built for the valley',
       caption: 'Specced against the coldest week of the year, not the average one.', // PLACEHOLDER
-      src: 'https://images.unsplash.com/photo-1418985991508-e47386d96a71?w=900&q=80&auto=format&fit=crop',
+      src: '/images/stock/1418985991508-e47386d96a71-900.webp',
     },
     {
       id: 'commissioning',
       label: 'Commissioned by hand',
       caption: 'Insulation resistance and continuity checked twice, before the floor closes and after.', // PLACEHOLDER
-      src: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=900&q=80&auto=format&fit=crop',
+      src: '/images/stock/1621905251189-08b45d6a269e-900.webp',
     },
     {
       id: 'team',
       label: 'Engineers, not resellers',
       caption: 'The people who spec the system are the people who stand behind the install.', // PLACEHOLDER
-      src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80&auto=format&fit=crop',
+      src: '/images/stock/1600585154340-be6161a56a0c-900.webp',
     },
     {
       id: 'today',
       label: 'Warmer, every winter',
       caption: 'Thousands of floors later, still building for the moment the grid goes quiet.', // PLACEHOLDER
-      src: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=900&q=80&auto=format&fit=crop',
+      src: '/images/stock/1493809842364-78817add7ffb-900.webp',
     },
   ],
 };
@@ -116,7 +126,7 @@ export const PRINCIPLES = [
   {
     num: '02',
     title: 'Built for the Blackout',
-    desc: 'The only heating in Kashmir that gets more useful the moment the power goes out, floors engineered to hold warmth for 8–10 hours after a cut.', // NEEDS-REAL-INFO: 8–10h retention claim
+    desc: `The only heating in Kashmir that gets more useful the moment the power goes out, floors engineered to hold warmth for ${siteFacts.heatRetention.hours} after a cut.`,
   },
   {
     num: '03',
@@ -135,13 +145,24 @@ export const MILESTONES = [
   { year: 'Today', title: 'Warmer, every winter', desc: 'Thousands of floors later, still building for the coldest day, not the average one.' },
 ];
 
-/* Stats, CounterNumber animates the numeric part; `value` is the number and
-   `suffix`/`prefix` frame it. Figures carried from prior copy, verify. */
+/* Stats. `value` is a number CounterNumber counts up to; `text` is a stat that
+   is not a number and is rendered as-is (the warranty, which is a word).
+   Every figure here is owned by content/facts.ts.
+
+   `yearsInBusiness()` is evaluated when this page is built, so it is correct
+   at every deploy instead of being an authored number that silently goes
+   stale, which is how "14+" ended up contradicting /about's own meta
+   description ("Over 15 years"). */
 export const STATS = [
-  { value: 14, suffix: '+', label: 'Years installing' },          // NEEDS-REAL-INFO
-  { value: 6000, suffix: '+', label: 'Systems supplied', separator: true }, // NEEDS-REAL-INFO
-  { value: 100, suffix: '%', label: 'Customers satisfied' },        // NEEDS-REAL-INFO
-  { value: 25, suffix: ' yr', label: 'Warranty as standard' },
+  { value: yearsInBusiness(), suffix: '+', label: 'Years installing' },
+  {
+    value: siteFacts.installationsWorldwide.value,
+    suffix: '+',
+    label: siteFacts.installationsWorldwideLabel,
+    separator: true,
+  },
+  { value: 100, suffix: '%', label: 'Customers satisfied' }, // NEEDS-REAL-INFO
+  { text: siteFacts.installationWarranty, label: 'Warranty as standard' },
 ];
 
 export const CTA = {

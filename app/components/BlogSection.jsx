@@ -5,6 +5,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+import { Skeleton, SkeletonGroup } from "@/components/ui/loading/Skeleton";
 
 const container = {
   hidden: {},
@@ -64,16 +65,16 @@ useEffect(() => {
     return (
       <section className="relative isolate overflow-hidden bg-[#FFF8F0]">
         <div className="mx-auto max-w-7xl px-6 py-32">
-          <div className="grid gap-20 lg:grid-cols-2 items-center">
+          <SkeletonGroup label="TODO_COPY" className="grid gap-20 lg:grid-cols-2 items-center">
             <div className="space-y-5">
-              <div className="h-7 w-40 bg-[#f0d5c0] rounded-full animate-pulse" />
-              <div className="h-14 w-72 bg-[#f0d5c0] rounded-2xl animate-pulse" />
-              <div className="h-4 w-96 bg-[#f0d5c0] rounded animate-pulse" />
-              <div className="h-4 w-80 bg-[#f0d5c0] rounded animate-pulse" />
-              <div className="h-28 w-full bg-[#f0d5c0] rounded-2xl animate-pulse mt-4" />
+              <Skeleton rounded="rounded-full" className="h-7 w-40" />
+              <Skeleton rounded="rounded-2xl" className="h-14 w-72" />
+              <Skeleton className="h-4 w-96" />
+              <Skeleton className="h-4 w-80" />
+              <Skeleton rounded="rounded-2xl" className="h-28 w-full mt-4" />
             </div>
-            <div className="h-[520px] bg-[#f0d5c0] rounded-[32px] animate-pulse" />
-          </div>
+            <Skeleton rounded="rounded-[32px]" className="h-[520px]" />
+          </SkeletonGroup>
         </div>
       </section>
     );

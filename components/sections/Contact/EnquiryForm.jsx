@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import { RevealText, Reveal } from '@/components/ui/RevealText';
+import Spinner from '@/components/ui/loading/Spinner';
+import PendingLabel from '@/components/ui/loading/PendingLabel';
 import { FORM, LOCATIONS, SHOWROOM } from './data';
 
 /**
@@ -209,12 +211,29 @@ export default function EnquiryForm() {
                 )}
               </AnimatePresence>
 
+              {/* aria-busy on the form, so the pending state is exposed to
+                  assistive tech and not only through the button's label. */}
               <button
                 type="submit"
                 disabled={loading || success}
+                aria-busy={loading}
                 className="w-full rounded-full bg-heat-500 px-8 py-3.5 text-sm font-semibold text-ink-950 shadow-[0_10px_40px_-12px_rgba(255,138,61,0.75)] transition-colors duration-200 hover:bg-heat-400 disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-bone-500 disabled:shadow-none sm:w-auto"
               >
-                {success ? 'Submitted' : loading ? 'Sending…' : 'Send enquiry'}
+                {/* On `sm:w-auto` the button is content-sized, so the three
+                    labels were three different widths and it resized twice
+                    per submission. All three now share one grid cell. */}
+                <PendingLabel
+                  pending={loading}
+                  idle={
+                    <PendingLabel pending={success} idle="Send enquiry" busy="Submitted" />
+                  }
+                  busy={
+                    <>
+                      <Spinner size={15} />
+                      Sending…
+                    </>
+                  }
+                />
               </button>
             </form>
           </div>

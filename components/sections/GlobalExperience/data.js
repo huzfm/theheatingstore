@@ -52,7 +52,7 @@ export const STORY = {
 
 /**
  * Countries these systems are installed and proven in. `code` is an ISO 3166-1
- * alpha-2 for react-world-flags, which is already a dependency.
+ * alpha-2. Rendered by components/ui/Flag from /public/flags.
  */
 export const COUNTRIES = {
   eyebrow: 'Where these systems run',
@@ -78,33 +78,33 @@ export const PROJECTS = {
   list: [
     {
       label: 'Mosques & Religious Buildings',
-      image: 'https://images.unsplash.com/photo-1564769662533-4f00a87b4056?w=1200&q=80',
+      image: '/images/stock/1564769662533-4f00a87b4056-1200.webp',
       desc: 'Gentle radiant warmth across Kashmiri prayer halls, designed for winter prayers and power-cut resilience.',
       featured: true,
     },
     {
       label: 'Residential Homes',
-      image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80',
+      image: '/images/stock/1568605114967-8130f3a36994-800.webp',
       desc: 'Warm, energy-efficient heating for every room in a family home.',
     },
     {
       label: 'Villas',
-      image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80',
+      image: '/images/stock/1613977257363-707ba9348227-800.webp',
       desc: 'Premium underfloor systems tailored to high-end villa interiors.',
     },
     {
       label: 'Hotels & Resorts',
-      image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&q=80',
+      image: '/images/stock/1542314831-068cd1dbfeeb-800.webp',
       desc: 'Consistent, silent comfort across lobbies, suites and spa areas.',
     },
     {
       label: 'Commercial Offices',
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80',
+      image: '/images/stock/1497366216548-37526070297c-800.webp',
       desc: 'Zone-controlled heating that keeps workspaces usable year-round.',
     },
     {
       label: 'Renovation Projects',
-      image: 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&q=80',
+      image: '/images/stock/1581858726788-75bc0f6a952d-800.webp',
       desc: 'Ultra-thin mat systems that retrofit into an existing floor.',
     },
   ],

@@ -7,6 +7,9 @@ import AIChatbot from "./components/Chatbot";
 import SiteHeader from './components/SiteHeader';
 import SiteChrome from './components/SiteChrome';
 import SmoothScroll from './components/SmoothScroll';
+import facts from '@/content/facts';
+import JsonLd from '@/components/seo/JsonLd';
+import { localBusiness } from '@/components/seo/schema';
 
 // Display / headline font, Bebas Neue (Google Fonts, self-hosted at build).
 // Tall condensed all-caps gothic; ships a single 400 weight (never faux-bold it).
@@ -30,20 +33,15 @@ const hankenGrotesk = Hanken_Grotesk({
 
 export const metadata = {
   title: {
-    default: "The Heating Store | Underfloor Heating & Electric Hammam Installation in Kashmir",
+    default: "The Heating Store | Underfloor Heating & Electric Hamam Installation in Kashmir",
     template: "%s | The Heating Store",
   },
   description:
-    "Expert electric hammam and underfloor heating installation across India. Professional installation, imported systems, and Kashmir installation warranty, terms apply.",
-  keywords: [
-    "electric hammam installation",
-    "underfloor heating India",
-    "steam bath installation",
-    "luxury heating systems",
-    "electric floor heating",
-    "hammam system",
-    "warm floor installation",
-  ],
+    "Expert electric hamam and underfloor heating installation across India. Professional installation, imported systems, and Kashmir installation warranty, terms apply.",
+  // `keywords` deliberately removed here and on every route. Google has
+  // ignored the meta keywords tag since 2009, and this list was inherited by
+  // 55 pages while containing "steam bath installation", a Turkish steam room
+  // rather than the heated Kashmiri floor this company actually sells.
   authors: [{ name: "The Heating Store" }],
   creator: "The Heating Store",
   publisher: "The Heating Store",
@@ -63,12 +61,12 @@ export const metadata = {
     locale: "en_IN",
     url: "https://theheatingstore.in",
     siteName: "The Heating Store",
-    title: "The Heating Store | Underfloor Heating & Electric Hammam Installation in Kashmir",
+    title: "The Heating Store | Underfloor Heating & Electric Hamam Installation in Kashmir",
     description:
-      "Expert electric hammam and underfloor heating installation across India. Professional installation, imported systems, and Kashmir installation warranty.",
+      "Expert electric hamam and underfloor heating installation across India. Professional installation, imported systems, and Kashmir installation warranty.",
     images: [
       {
-        url: "/images/og-default.jpg",
+        url: "/og/default.jpg",
         width: 1200,
         height: 630,
         alt: "The Heating Store - Premium Underfloor Heating Installation",
@@ -77,52 +75,35 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Heating Store | Underfloor Heating & Electric Hammam Installation in Kashmir",
+    title: "The Heating Store | Underfloor Heating & Electric Hamam Installation in Kashmir",
     description:
-      "Expert electric hammam and underfloor heating installation across India. Professional installation, imported systems, and Kashmir installation warranty.",
-    images: ["/images/og-default.jpg"],
+      "Expert electric hamam and underfloor heating installation across India. Professional installation, imported systems, and Kashmir installation warranty.",
+    images: ["/og/default.jpg"],
     creator: "@theheatingstore",
   },
   metadataBase: new URL("https://theheatingstore.in"),
 };
 
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "The Heating Store",
-  url: "https://theheatingstore.in",
-  logo: {
-    "@type": "ImageObject",
-    url: "https://theheatingstore.in/images/logo.png",
-  },
-  sameAs: [
-    "https://www.facebook.com/theheatingstore",
-    "https://www.instagram.com/theheatingstore",
-    "https://www.linkedin.com/company/theheatingstore",
-  ],
-  contactPoint: {
-    "@type": "ContactPoint",
-    telephone: "+91-9070907035",
-    contactType: "customer service",
-    availableLanguage: "English",
-    areaServed: "IN",
-  },
-  areaServed: {
-    "@type": "Country",
-    name: "India",
-  },
-  description:
-    "Expert electric hammam and underfloor heating installation across India. Professional installation of imported heating systems with a Kashmir installation warranty.",
-};
+/**
+ * The company, emitted once here so every page carries it.
+ *
+ * Replaces a hand-written `Organization` block that had three problems: its
+ * logo URL (/images/logo.png) did not exist, its `sameAs` listed a Facebook
+ * and a LinkedIn profile neither of which was confirmed to be real, and it
+ * declared `areaServed: Country "India"` for a business whose whole case is
+ * that it is the Srinagar team who turn up.
+ *
+ * LocalBusiness rather than Organization: this has a showroom, opening hours
+ * and a service area, and LocalBusiness is the type Google reads for the local
+ * pack. Built from content/facts.ts, so it cannot drift from the page copy.
+ */
+const businessSchema = localBusiness();
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
+        <JsonLd id="ld-business" data={businessSchema} />
       </head>
       <body
         className={`${bebasNeue.variable} ${hankenGrotesk.variable} antialiased bg-white text-slate-900`}
@@ -138,7 +119,16 @@ export default function RootLayout({ children }) {
           </SiteChrome>
         </main>
 
-        <SiteChrome hidePrefixes={['/experience', '/product', '/brands', '/installation', '/why-choose-us', '/contact']}>
+        {/* The footer was hidden on /product, /brands/*, /installation,
+            /why-choose-us and /contact, which is nine routes with no footer
+            at all, including four of the five most commercially important
+            pages on the site. Those routes now render it like everything
+            else.
+
+            /experience keeps its exclusion: that subtree ships its own dark
+            full-page chrome including its own footer, and rendering both
+            would put two footers on one document. */}
+        <SiteChrome hidePrefixes={['/experience']}>
           <Footer />
         </SiteChrome>
       </body>

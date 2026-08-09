@@ -12,6 +12,7 @@ import Image from 'next/image';
 import HeroCTAs from '@/components/ui/HeroCTAs';
 import { RevealText, Reveal } from '@/components/ui/RevealText';
 import { useRef } from 'react';
+import siteFacts from '@/content/facts';
 
 /* ══════════════════════════════════════════════════════════════════════════
    INSTALLATION, dark cinematic
@@ -31,7 +32,7 @@ const CARD_BORDER = '1px solid rgba(255,255,255,0.1)';
 const steps = [
 	{
 		title: 'Install Insulation',
-		image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+		image: '/images/stock/1558618666-fcd25c85cd64-600.webp',
 		desc: 'Clean the subfloor thoroughly. Our expert will install high-density insulation boards across the entire surface, directing all generated heat upward into the living space, leading to quicker heat-up times and significant cost savings.',
 		points: [
 			'High-density boards eliminate downward heat loss',
@@ -40,7 +41,7 @@ const steps = [
 	},
 	{
 		title: 'Concrete Screed',
-		image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80',
+		image: '/images/stock/1504307651254-35680f356dfd-600.webp',
 		desc: 'Once the insulation is in place, our expert will proceed to lay a concrete screed layer approximately 20–25mm thick. This layer ensures even distribution of heat from the underfloor heating system across the entire floor area.',
 		points: [
 			'Subfloor levelled and prepared to correct depth',
@@ -49,7 +50,7 @@ const steps = [
 	},
 	{
 		title: 'Install the System',
-		image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=80',
+		image: '/images/stock/1621905251189-08b45d6a269e-600.webp',
 		desc: 'Our expert will install the underfloor heating system, tailored precisely to the room size and number of zones. Various quality checks are conducted throughout the installation process to ensure optimal performance and safety.',
 		points: [
 			'Cable fixed at precise spacing for uniform heat distribution',
@@ -58,7 +59,7 @@ const steps = [
 	},
 	{
 		title: 'Final Layer',
-		image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80',
+		image: '/images/stock/1504307651254-35680f356dfd-600.webp',
 		desc: 'Our expert will first install thermostat probes for precise temperature control. Following this, a final smooth layer of concrete, typically 25–30mm thick, is poured to provide an even surface for the final flooring and ensure heat is evenly spread across the floor.',
 		points: [
 			'Thermostat probes installed for precise temperature control',
@@ -67,8 +68,8 @@ const steps = [
 	},
 	{
 		title: 'Register Guarantee',
-		image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80',
-		desc: 'Finally, our expert will register the system, activating a 10-year worry-free guarantee. After this period, the system continues to be covered by a lifetime warranty, providing you with enduring support and complete peace of mind.',
+		image: '/images/stock/1585771724684-38269d6639fd-600.webp',
+		desc: 'Finally, our expert will register the system, activating a worry-free lifetime warranty, providing you with enduring support and complete peace of mind.',
 		points: [
 			'Full electrical safety validation and sensor placement verified',
 			'Manufacturer warranty registered and handover certificate issued',
@@ -91,8 +92,8 @@ const HERO = {
 	sub: 'Every stage is engineered to the highest installation standard, from subfloor preparation and insulation to cable laying, screed depth, and thermostat commissioning. Our layered method maximises thermal mass, delivering sustained warmth long after the system powers down.',
 	facts: [
 		{ value: String(steps.length), label: 'Stages on every install' },
-		{ value: '6–8 hr', label: 'Warmth held through load-shedding' },
-		{ value: '10 yr', label: 'Guarantee on registration' },
+		{ value: `${siteFacts.heatRetention.hrsShort}`, label: 'Warmth held through load-shedding' },
+		{ value: siteFacts.installationWarranty, label: 'Guarantee on registration' },
 	],
 };
 
@@ -108,7 +109,7 @@ const HERO = {
  * inline-style idiom, because matching it by hand in inline styles is exactly
  * how the two drifted apart in the first place. Same change on /product.
  */
-function Hero() {
+function Hero({ headingLevel: Heading = 'h1' }) {
 	const reduce = useReducedMotion();
 
 	return (
@@ -183,7 +184,7 @@ function Hero() {
 					    silently ignored. Same reason for lineHeight:'inherit' on the
 					    two halves, `span { line-height: 1.75 }` is unlayered too and
 					    would otherwise double-space every wrapped headline line. */}
-					<h1
+					<Heading
 						aria-label={HERO.headline}
 						className='mx-auto mt-5 max-w-[19ch] font-serif tracking-[0.005em] sm:mt-7'
 						style={{ fontSize: 'clamp(1.95rem, 6.6vw, 4.5rem)', lineHeight: 1.03 }}>
@@ -202,7 +203,7 @@ function Hero() {
 							style={{ lineHeight: 'inherit' }}>
 							{HERO.headlineAccent}
 						</RevealText>
-					</h1>
+					</Heading>
 
 					{/* Short rule on the axis, separates headline from standfirst so the
 					    paragraph doesn't read as the next thing down. */}
@@ -306,7 +307,13 @@ function TiltImage({ src, alt }) {
 	);
 }
 
-export default function InstallationContent() {
+/**
+ * `headingLevel` exists because /landing embeds this whole component below its
+ * own hero, which gave that page two h1 elements. On /installation this IS the
+ * page heading and stays an h1; /landing passes 'h2'. Only the level changes,
+ * the words are identical either way.
+ */
+export default function InstallationContent({ headingLevel = 'h1' }) {
 	const ref = useRef(null);
 	const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.8', 'end 0.4'] });
 	const lineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
@@ -316,7 +323,7 @@ export default function InstallationContent() {
 			{/* film grain */}
 			<div aria-hidden style={{ position: 'fixed', inset: 0, backgroundImage: "url('/noise.png')", opacity: 0.03, mixBlendMode: 'overlay', pointerEvents: 'none', zIndex: 2 }} />
 
-			<Hero />
+			<Hero headingLevel={headingLevel} />
 
 			{/* ── TIMELINE ── */}
 			<section ref={ref} style={{ position: 'relative', padding: '6vh 6vw 4vh' }}>
@@ -346,7 +353,7 @@ export default function InstallationContent() {
 								<div className='inst-card' style={{ flex: 1, borderRadius: 24, background: CARD_BG, border: CARD_BORDER, padding: 'clamp(20px, 3vw, 36px)' }}>
 									<div className='inst-card-grid' style={{ display: 'grid', gap: 32, gridTemplateColumns: '1.1fr 0.9fr', alignItems: 'center' }}>
 										<div>
-											<h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)', lineHeight: 0.95, color: BONE, margin: 0 }}>{step.title}</h3>
+											<h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)', lineHeight: 0.95, color: BONE, margin: 0 }}>{step.title}</h2>
 											<p style={{ fontFamily: 'var(--font-body)', fontSize: 15, lineHeight: 1.7, color: BONE_MUTE, margin: '16px 0 0' }}>{step.desc}</p>
 											<div style={{ marginTop: 20, display: 'flex', flexDirection: 'column', gap: 12 }}>
 												{step.points.map((p) => (
@@ -382,7 +389,7 @@ export default function InstallationContent() {
 						<span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: HEAT, color: INK, padding: '6px 16px', borderRadius: 999, fontFamily: 'var(--font-body)', fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' }}>Kashmir Climate Note</span>
 					</div>
 					<p style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(15px, 2vw, 18px)', color: BONE_MUTE, lineHeight: 1.75, margin: '10px 0 0' }}>
-						Using insulation ensures heat retention for <span style={{ color: HEAT, fontWeight: 600 }}>6–8 hours</span> even during electricity cut-offs (load shedding), optimised for the Kashmir climate.
+						Using insulation ensures heat retention for <span style={{ color: HEAT, fontWeight: 600 }}>{siteFacts.heatRetention.hours}</span> even during electricity cut-offs (load shedding), optimised for the Kashmir climate.
 					</p>
 				</motion.div>
 			</section>

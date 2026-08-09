@@ -47,7 +47,11 @@ export default function ProjectTypes() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={p.image}
-                  alt=""
+                  // Was alt="". Falls back to the card's own label so the
+                  // image is never announced as unlabelled; `p.alt` should be
+                  // filled in with a real description when these stock photos
+                  // are replaced with project photography.
+                  alt={p.alt || p.title || ''}
                   loading="lazy"
                   className={`w-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] ${
                     p.featured ? 'h-[280px] sm:h-[340px]' : 'h-[260px]'

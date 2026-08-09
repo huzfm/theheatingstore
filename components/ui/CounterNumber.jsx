@@ -59,7 +59,15 @@ export default function CounterNumber({
       return;
     }
 
-    if (!inView && !hasStarted.current) return;
+    // The server renders the REAL value (see the span below), so before the
+    // count can run it has to be walked back to `from`. That is done here,
+    // on the client, while the counter is still off screen, so the number
+    // never visibly snaps backwards; by the time it scrolls into view the
+    // count-up is what the user sees.
+    if (!hasStarted.current && !inView) {
+      if (ref.current) ref.current.textContent = format(from);
+      return;
+    }
 
     if (!hasStarted.current) {
       hasStarted.current = true;
@@ -82,9 +90,12 @@ export default function CounterNumber({
   return (
     <span className={className} {...rest}>
       {prefix}
-      {/* Server-renders as `from` so there's no layout jump on hydration and
-          the value is present for crawlers / no-JS. */}
-      <span ref={ref}>{format(reduceMotion ? value : from)}</span>
+      {/* Server-renders the REAL value, not `from`.
+          This used to render `from` (0), which meant the HTML Google, every
+          LLM crawler and every no-JS visitor received said "0% Customers
+          satisfied" and "0+ Systems supplied". The count-up is re-armed on
+          the client by the effect above. */}
+      <span ref={ref}>{format(value)}</span>
       {suffix}
     </span>
   );

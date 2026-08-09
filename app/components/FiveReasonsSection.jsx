@@ -88,7 +88,7 @@ const REASONS = [
     title: 'Energy Efficient Heating',
     desc: 'A heated hamam system is up to 70% more energy efficient than traditional wood-fired heating methods.',
     color: '#6BAE7F',
-    img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80&auto=format&fit=crop',
+    img: '/images/stock/1554224155-6726b3ff858f-800.webp',
   },
   {
     IconComp: Icon.Shield,
@@ -112,7 +112,7 @@ const REASONS = [
     title: 'Fast Installation',
     desc: 'From civil preparation and underfloor heating installation to final floor finishing and guarantee registration, the complete process is typically completed within 5–6 hours.',
     color: '#6BAE7F',
-    img: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&q=80&auto=format&fit=crop',
+    img: '/images/stock/1521791136064-7986c2920216-800.webp',
   },
 ];
 

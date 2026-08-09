@@ -76,7 +76,11 @@ export default function WhatYouGet() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={o.img}
-                  alt=""
+                  // Was alt="". These are photographs carrying content, not
+                  // decoration, so they get a description of what is in the
+                  // frame. Note the descriptions do not match the captions,
+                  // which is the point: see the note on OFFERS in ./data.js.
+                  alt={o.alt || ''}
                   loading="lazy"
                   className={`w-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] ${
                     i === 0 ? 'h-[280px] sm:h-[320px]' : 'h-[280px]'

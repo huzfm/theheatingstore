@@ -7,6 +7,9 @@ import {
   Search, ShieldCheck, ShieldX, Phone,
   Calendar, Package, User, XCircle, Clock, Hash
 } from "lucide-react";
+import { Skeleton, SkeletonGroup } from "@/components/ui/loading/Skeleton";
+import Spinner from "@/components/ui/loading/Spinner";
+import PendingLabel from "@/components/ui/loading/PendingLabel";
 
 /* ---------- TOKENS ---------- */
 
@@ -339,12 +342,24 @@ export default function WarrantyCheck() {
                   disabled={loading}
                   className="relative inline-flex items-center justify-center gap-2 rounded-full px-10 py-3.5 text-sm font-semibold text-white bg-gradient-to-r from-[#FF7E5F] to-[#FFB88C] shadow-[0_22px_70px_rgba(184,107,69,0.45)] transition-all duration-300 hover:scale-[1.05] disabled:opacity-60"
                 >
-                  {loading ? (
-                    <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
-                  ) : (
-                    <Search size={15} />
-                  )}
-                  {loading ? "Checking..." : "Check Warranty"}
+                  {/* Both labels occupy the same grid cell, so the button is
+                      always as wide as "Check Warranty" and does not shrink to
+                      "Checking..." mid-request and drag the row with it. */}
+                  <PendingLabel
+                    pending={loading}
+                    idle={
+                      <>
+                        <Search size={15} />
+                        Check Warranty
+                      </>
+                    }
+                    busy={
+                      <>
+                        <Spinner size={16} />
+                        Checking...
+                      </>
+                    }
+                  />
                 </button>
               </div>
 
@@ -393,6 +408,62 @@ export default function WarrantyCheck() {
                       Enter your registered phone number or warranty ID to view your electric hamam
                       warranty coverage and installation status in Kashmir.
                     </p>
+                  </motion.div>
+                ) : loading ? (
+                  /**
+                   * The certificate card had no pending state: `searched` is
+                   * still false while the lookup runs, so the panel kept
+                   * showing the "Your Warranty Details" prompt and the only
+                   * feedback was the spinner in the button on the other side
+                   * of the layout.
+                   *
+                   * Heights below are the real line boxes, not estimates.
+                   * globals.css gives every p/span/div `line-height: 1.75` and
+                   * every h1-h6 `1.05`, so a 14px paragraph occupies 24.5px
+                   * and the 24px serif heading occupies 25.2px. The InfoCard
+                   * shells are the component's own markup, so those six boxes
+                   * are the real height by construction. Widths are
+                   * representative, the real ones depend on the record.
+                   */
+                  <motion.div
+                    key="loading"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <SkeletonGroup label="TODO_COPY">
+                      <div className="flex items-start justify-between mb-6 pr-16">
+                        <div>
+                          <Skeleton className="h-[25.2px] w-44" rounded="rounded-lg" />
+                          <Skeleton className="mt-1 h-[24.5px] w-32" />
+                        </div>
+                        <Skeleton className="h-[35px] w-[86px] shrink-0" rounded="rounded-full" />
+                      </div>
+
+                      {/* The "N days remaining" banner. Only ACTIVE records
+                          render it, so it is the one block here that may not
+                          appear, flagged in the report. */}
+                      <Skeleton className="mb-5 h-[50.5px] w-full" rounded="rounded-xl" />
+
+                      <div className="grid grid-cols-2 gap-3">
+                        {[0, 1, 2, 3, 4, 5].map((i) => (
+                          <div key={i} className="rounded-xl p-3.5 bg-white/70 border border-[#FFE0C2]">
+                            <div className="flex items-center gap-1.5 mb-1.5">
+                              <Skeleton className="h-[11px] w-[11px] shrink-0" />
+                              <Skeleton className="h-[17.5px] w-16" />
+                            </div>
+                            <Skeleton className="h-[24.5px] w-24" />
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="mt-6 pt-4" style={{ borderTop: `1.5px dashed ${T.border}` }}>
+                        <div className="flex items-center justify-between gap-4">
+                          <Skeleton className="h-6 flex-1" />
+                          <Skeleton className="h-[19.25px] w-20 shrink-0" />
+                        </div>
+                      </div>
+                    </SkeletonGroup>
                   </motion.div>
                 ) : result && result.length === 0 ? (
                   <motion.div

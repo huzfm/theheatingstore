@@ -260,3 +260,98 @@ html.lenis body {
 }
 .icon-btn { transition: border-color 0.25s ease, background 0.25s ease; }
 .icon-btn:hover { border-color: rgba(255, 255, 255, 0.4) !important; background: rgba(255, 255, 255, 0.06) !important; }
+
+/* ── Loading primitives (components/ui/loading) ───────────────────
+   Two tones, because the site runs two palettes: the warm cream pages
+   (#FFF8F0 ground, #f0d5c0 placeholder, already used by the blog
+   skeletons) and the dark `.exp` system (ink ground, white-alpha
+   surfaces). Both are expressed as custom properties so Skeleton.jsx
+   switches tone without a second animation.
+
+   The sweep is a background-position animation on a gradient overlay
+   rather than an opacity pulse: pulsing dims the whole block, which on
+   the cream pages reads as the page flickering. */
+.eh-skel {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--eh-skel-base);
+  isolation: isolate;
+}
+.eh-skel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--eh-skel-sheen) 50%,
+    transparent 100%
+  );
+  animation: eh-skel-sweep 1.6s ease-in-out infinite;
+}
+.eh-skel-warm {
+  --eh-skel-base: #f0d5c0;
+  --eh-skel-sheen: rgba(255, 248, 240, 0.75);
+}
+.eh-skel-dark {
+  --eh-skel-base: rgba(255, 255, 255, 0.06);
+  --eh-skel-sheen: rgba(255, 255, 255, 0.10);
+}
+
+@keyframes eh-skel-sweep {
+  100% { transform: translateX(100%); }
+}
+
+@keyframes eh-spin {
+  to { transform: rotate(360deg); }
+}
+.eh-spinner {
+  animation: eh-spin 0.7s linear infinite;
+}
+
+/* Reduced motion: the block stays, the movement goes. A skeleton is a
+   layout reservation first and a signal second, so removing it entirely
+   would reintroduce the blank space it exists to prevent. The global
+   `.exp` rule above only covers the experience routes, and skeletons
+   render on the legacy pages too, hence the explicit reset here. */
+@media (prefers-reduced-motion: reduce) {
+  .eh-skel::after { animation: none; display: none; }
+  .eh-spinner { animation-duration: 1.6s; }
+}
+
+/* ── GSAP entrance, initial state ─────────────────────────────────
+   These cards are animated by a `gsap.fromTo(items, { opacity: 0, y: 64 }, …)`
+   in a mount effect, so the browser painted them finished, React hydrated, and
+   GSAP then knocked them back to invisible: one visible flash on every load.
+   Declaring the same from-state here means the first paint is already the
+   start of the animation. The values are identical to the tween's, so the
+   motion itself is unchanged.
+
+   Under reduced motion the effect calls gsap.set(opacity: 1, y: 0) instead of
+   tweening, and the matching media query below covers the window before that
+   effect runs. */
+[data-gsap-item] {
+  opacity: 0;
+  transform: translateY(64px);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-gsap-item] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Visually hidden, still announced. Used for the loading labels that
+   accompany a skeleton or spinner. */
+.eh-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
