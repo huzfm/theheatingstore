@@ -1,6 +1,7 @@
 import HomeHero from "./HomeHero";
 
 import WhyElectricHamamShowcase from "@/components/sections/WhyElectricHamam/WhyElectricHamam";
+import ElectricVsWood from "@/components/sections/ElectricVsWood/ElectricVsWood";
 import FaqSection from "./FaqSection";
 import HeatingMatViewerSection from "../../components/sections/HeatingMatViewerSection";
 
@@ -13,6 +14,9 @@ export default function HomePage() {
           render loop only runs while the panel is on screen. */}
       <HeatingMatViewerSection />
       <WhyElectricHamamShowcase />
+      {/* The seven reasons argue the electric case; this answers the question
+          that follows it — compared to what? */}
+      <ElectricVsWood />
       {/* <VideoGallery/> */}
       {/* <TrustedBrandsSection /> */}
       {/* <OurProcess /> */}

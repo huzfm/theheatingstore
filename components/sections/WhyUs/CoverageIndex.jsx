@@ -16,6 +16,17 @@ import { NETWORK } from './data';
  * separated by hairlines. J&K leads and is marked as the base of operations;
  * it has the most towns and is where the team physically is.
  */
+
+/**
+ * The warm wash that runs off the left edge of every region row. It used to sit
+ * on the first row only, which read as a rendering fault rather than emphasis —
+ * one tinted band above plain ones looks like the gradient failed to paint. As
+ * shared row styling it is just the index's texture, and J&K is still marked out
+ * by its heat-coloured name and the "Base of operations" tag.
+ */
+const ROW_TINT =
+  'linear-gradient(90deg, rgba(255,138,61,0.07), transparent 55%)';
+
 export default function CoverageIndex() {
   const total = NETWORK.regions.reduce((n, r) => n + r.places.length, 0);
 
@@ -35,15 +46,8 @@ export default function CoverageIndex() {
             return (
               <Reveal key={r.region} delay={i * 0.07}>
                 <div
-                  className="relative grid gap-6 border-b border-white/10 py-9 lg:grid-cols-[minmax(0,260px)_1fr] lg:gap-14 lg:py-11"
-                  style={
-                    home
-                      ? {
-                          background:
-                            'linear-gradient(90deg, rgba(255,138,61,0.07), transparent 55%)',
-                        }
-                      : undefined
-                  }
+                  className="relative grid gap-6 border-b border-white/10 px-4 py-9 sm:px-6 lg:grid-cols-[minmax(0,260px)_1fr] lg:gap-14 lg:px-8 lg:py-11"
+                  style={{ background: ROW_TINT }}
                 >
                   {/* Region */}
                   <div>
