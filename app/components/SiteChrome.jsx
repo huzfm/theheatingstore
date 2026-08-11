@@ -12,8 +12,9 @@ import { usePathname } from 'next/navigation';
  */
 const NO_CHROME_PREFIXES = ['/experience'];
 
-export default function SiteChrome({ children, hidePrefixes = NO_CHROME_PREFIXES }) {
+export default function SiteChrome({ children, hidePrefixes = NO_CHROME_PREFIXES, hideRoutes = [] }) {
   const pathname = usePathname();
+  if (hideRoutes.includes(pathname)) return null;
   if (hidePrefixes.some((p) => pathname?.startsWith(p))) return null;
   return <>{children}</>;
 }

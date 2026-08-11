@@ -127,8 +127,16 @@ export default function RootLayout({ children }) {
 
             /experience keeps its exclusion: that subtree ships its own dark
             full-page chrome including its own footer, and rendering both
-            would put two footers on one document. */}
-        <SiteChrome hidePrefixes={['/experience']}>
+            would put two footers on one document.
+
+            /landing is excluded too, for a different reason. It is the paid
+            traffic destination, and the site footer's four columns are about
+            twenty links out of it, sitting immediately under the closing CTA.
+            Every one of them is a way for a click someone paid for to leave
+            without filling in the form. It ships its own single-line footer
+            instead, which is also why SiteHeader already suppresses the global
+            nav on that route. */}
+        <SiteChrome hidePrefixes={['/experience']} hideRoutes={['/landing']}>
           <Footer />
         </SiteChrome>
       </body>

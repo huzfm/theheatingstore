@@ -174,74 +174,112 @@ export default function TrustVideos() {
   return (
     <section className="tv-section" ref={sectionRef}>
       <style>{`
+        /* Re-authored against the site's own tokens and faces.
+           ─────────────────────────────────────────────────────
+           This section was built for the old /landing design and named
+           'Fraunces', 'Instrument Sans' and 'IBM Plex Mono' directly. Those
+           three faces were loaded by app/landing/page.jsx and nothing else,
+           so once that route moved onto the site's Bebas Neue / Hanken
+           Grotesk pair the names resolved to nothing and every heading here
+           fell back to the browser's default serif. It is now set in
+           --font-heading / --font-body like the rest of the site, and its
+           palette is the ink/copper/ivory ramp from HomeHero.css.
+
+           It sits directly under Testimonials, which is on the same warm
+           cream ground, so this one takes the darker ink treatment: two
+           adjacent cream sections with centred headings read as one section
+           that lost its place. */
         .tv-section {
-          --ink: #14110D;
-          --walnut: #241A12;
-          --walnut-2: #3A2418;
-          --parchment: #F3EDE0;
-          --copper: #C17817;
-          --ember: #E8622C;
-          --cream: #FDFBF7;
-          --line: rgba(58,36,24,0.14);
-          font-family: 'Instrument Sans', sans-serif;
-          background: var(--parchment);
-          padding: 96px 40px;
+          --ink: #0a0705;
+          --copper: #a86b3f;
+          --copper-light: #c99669;
+          --copper-bright: #e7c39b;
+          --ivory: #f6f2ec;
+          --line: rgba(246,242,236,0.12);
+          font-family: var(--font-body);
+          background: linear-gradient(180deg, #150e08 0%, #0d0906 55%, var(--ink) 100%);
+          padding: clamp(4rem, 8vw, 6.5rem) clamp(1.25rem, 5vw, 2.5rem);
         }
         .tv-inner { max-width: 1160px; margin: 0 auto; }
         .tv-head { text-align: center; max-width: 620px; margin: 0 auto 52px; }
         .tv-eyebrow {
           display: inline-flex; align-items: center; gap: 8px; padding: 7px 16px; border-radius: 100px;
-          background: rgba(193,120,23,0.12); border: 1px solid rgba(193,120,23,0.32);
-          color: var(--copper); font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
-          margin-bottom: 18px; font-family: 'IBM Plex Mono', monospace;
+          background: rgba(168,107,63,0.16); border: 1px solid rgba(231,195,155,0.28);
+          color: var(--copper-bright); font-size: 11px; font-weight: 500;
+          letter-spacing: 0.22em; text-transform: uppercase;
+          margin-bottom: 18px; font-family: var(--font-body);
         }
-        .tv-title { font-family: 'Fraunces', serif; font-size: clamp(26px, 3.4vw, 40px); font-weight: 600; color: var(--ink); margin: 0 0 14px; line-height: 1.15; }
-        .tv-title em { font-style: italic; font-weight: 400; color: var(--copper); }
-        .tv-sub { font-size: 14.5px; color: rgba(20,17,13,0.62); line-height: 1.7; margin: 0; }
+        .tv-title {
+          font-family: var(--font-heading); font-weight: 400;
+          font-size: clamp(2rem, 4.2vw, 3.25rem); line-height: 0.98;
+          letter-spacing: 0.005em; text-transform: uppercase;
+          color: var(--ivory); margin: 0 0 16px;
+        }
+        .tv-title em {
+          font-style: normal;
+          background: linear-gradient(100deg, var(--copper-light) 0%, var(--copper-bright) 45%, var(--copper) 100%);
+          -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        .tv-sub { font-size: 15px; color: rgba(246,242,236,0.6); line-height: 1.7; margin: 0; }
 
         .tv-grid {
           display: grid;
           grid-template-columns: repeat(5, 1fr);
           gap: 18px;
         }
+        /* The dark-glass card the whole site uses (.hhero__card / .whc-card). */
         .tv-card {
-          background: var(--cream);
-          border: 1px solid var(--line);
+          background:
+            linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
+            rgba(20,13,8,0.5);
+          backdrop-filter: blur(22px);
+          -webkit-backdrop-filter: blur(22px);
+          border: 1px solid rgba(255,255,255,0.1);
+          box-shadow: 0 24px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
           border-radius: 18px;
           overflow: hidden;
           cursor: pointer;
           padding: 0;
           text-align: left;
-          font-family: 'Instrument Sans', sans-serif;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          font-family: var(--font-body);
+          transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
         }
-        .tv-card:hover { transform: translateY(-4px); box-shadow: 0 20px 44px rgba(20,17,13,0.14); }
+        .tv-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 30px 70px rgba(0,0,0,0.5),
+            0 0 30px -10px rgba(184,107,69,0.5),
+            inset 0 1px 0 rgba(255,255,255,0.06);
+        }
         .tv-card-media {
           position: relative;
           aspect-ratio: 9 / 13;
-          background: var(--walnut);
+          background: #150e08;
         }
         .tv-card-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .tv-card-overlay {
           position: absolute; inset: 0;
-          background: linear-gradient(180deg, rgba(20,17,13,0) 45%, rgba(20,17,13,0.55) 100%);
+          background: linear-gradient(180deg, rgba(10,7,5,0) 40%, rgba(10,7,5,0.7) 100%);
         }
         .tv-play-btn {
           position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
           width: 48px; height: 48px; border-radius: 50%;
-          background: linear-gradient(90deg,#F0A445,var(--copper));
+          background: linear-gradient(135deg, #e7c39b, #c99669 55%, #a86b3f);
           display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 10px 26px rgba(193,120,23,0.4);
+          box-shadow: 0 10px 30px -6px rgba(200,120,55,0.6), inset 0 1px 0 rgba(255,255,255,0.4);
         }
         .tv-play-btn svg { margin-left: 2px; }
         .tv-card-info { padding: 12px 14px 14px; }
-        .tv-card-name { font-size: 13.5px; font-weight: 600; color: var(--ink); margin: 0; }
-        .tv-card-loc { font-size: 11.5px; color: rgba(20,17,13,0.55); margin: 3px 0 0; font-family: 'IBM Plex Mono', monospace; }
+        .tv-card-name { font-size: 13.5px; font-weight: 600; color: var(--ivory); margin: 0; }
+        .tv-card-loc {
+          font-size: 10.5px; margin: 4px 0 0; font-family: var(--font-body);
+          font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+          color: rgba(246,242,236,0.5);
+        }
 
         /* Lightbox */
         .tv-lightbox {
           position: fixed; inset: 0; z-index: 200;
-          background: rgba(20,17,13,0.88);
+          background: rgba(10,7,5,0.9);
           backdrop-filter: blur(8px);
           display: flex; align-items: center; justify-content: center;
           padding: 24px;
@@ -249,8 +287,8 @@ export default function TrustVideos() {
         .tv-lightbox-close {
           position: absolute; top: 22px; right: 26px;
           width: 40px; height: 40px; border-radius: 50%;
-          background: rgba(253,251,247,0.1); border: 1px solid rgba(253,251,247,0.24);
-          color: var(--cream); display: flex; align-items: center; justify-content: center; cursor: pointer;
+          background: rgba(246,242,236,0.08); border: 1px solid rgba(246,242,236,0.22);
+          color: var(--ivory); display: flex; align-items: center; justify-content: center; cursor: pointer;
         }
         .tv-lightbox-inner { max-width: 420px; width: 100%; }
         .tv-lightbox-video {
@@ -258,8 +296,12 @@ export default function TrustVideos() {
           box-shadow: 0 30px 80px rgba(0,0,0,0.5);
         }
         .tv-lightbox-caption { text-align: center; margin-top: 14px; }
-        .tv-lightbox-name { color: var(--cream); font-size: 14px; font-weight: 600; margin: 0; }
-        .tv-lightbox-loc { color: rgba(253,251,247,0.6); font-size: 12px; margin: 3px 0 0; font-family: 'IBM Plex Mono', monospace; }
+        .tv-lightbox-name { color: var(--ivory); font-size: 14px; font-weight: 600; margin: 0; }
+        .tv-lightbox-loc {
+          color: rgba(246,242,236,0.55); font-size: 11px; margin: 4px 0 0;
+          font-family: var(--font-body); font-weight: 500;
+          letter-spacing: 0.14em; text-transform: uppercase;
+        }
 
         @media (max-width: 1024px) {
           .tv-grid { grid-template-columns: repeat(3, 1fr); }
@@ -289,9 +331,14 @@ export default function TrustVideos() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: EASE }}
         >
+          {/* Was "Real homes, real warmth" — word for word the heading the
+              Testimonials section directly above this one already carries.
+              Two sections running the same headline back to back reads as a
+              duplicated block rather than a second kind of proof, so this one
+              names what is actually different about it: these are on camera. */}
           <span className="tv-eyebrow"><ShieldCheck size={12} /> In Their Own Words</span>
-          <h2 className="tv-title">Real homes, <em>real warmth</em></h2>
-          <p className="tv-sub">Hear directly from families across Kashmir about their underfloor heating install and how it's changed their winters.</p>
+          <h2 className="tv-title">On <em>Camera</em></h2>
+          <p className="tv-sub">Hear directly from families across Kashmir about their underfloor heating install and how it&apos;s changed their winters.</p>
         </motion.div>
 
         <div className="tv-grid">

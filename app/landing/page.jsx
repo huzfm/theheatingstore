@@ -1,43 +1,4 @@
-import { Fraunces, Instrument_Sans, IBM_Plex_Mono } from 'next/font/google';
 import LandingClient from './LandingClient';
-
-/**
- * This page's three faces, self-hosted at build by next/font.
- *
- * They were loaded with a runtime `@import url('https://fonts.googleapis.com/…')`
- * inside an inline <style> block in the client component. A CSS @import is
- * render-blocking and cannot begin until the stylesheet containing it has
- * parsed, so it serialises a third-party round trip in front of first paint,
- * and it leaks the visitor's IP to Google on every view.
- *
- * next/font downloads them at build time, serves them from this origin, and
- * emits `font-display: swap` so text paints in a fallback immediately.
- *
- * `preload: false` on the mono face: it is used for small labels well below
- * the fold, so preloading it would compete with the two faces the hero needs.
- */
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-lp-display',
-  display: 'swap',
-});
-
-const instrumentSans = Instrument_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-lp-body',
-  display: 'swap',
-});
-
-const ibmPlexMono = IBM_Plex_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-lp-mono',
-  display: 'swap',
-  preload: false,
-});
 
 /**
  * Server wrapper so this route can export metadata at all. The page body is a
@@ -50,6 +11,18 @@ const ibmPlexMono = IBM_Plex_Mono({
  * approved marketing copy for a page that is probably about to be deindexed
  * would be wasted work. It inherits the root layout's title, description and
  * share card, and now declares where it lives.
+ *
+ * The three next/font faces that used to be declared here (Fraunces,
+ * Instrument Sans, IBM Plex Mono) are gone. This route is now set in the
+ * site's own two faces — Bebas Neue and Hanken Grotesk, already loaded by the
+ * root layout as --font-heading / --font-body — so /landing is no longer the
+ * one page in a different typeface, and no longer pays for a fourth, fifth and
+ * sixth font download on a page whose entire job is a fast first paint.
+ *
+ * It also fixes a leak: the old `.lp h1, .lp h2, .lp h3` rule set every
+ * heading inside the wrapper in Fraunces, which meant the shared sections this
+ * page embeds (Installation, FAQ, Testimonials, Our Process) rendered their
+ * headlines in a serif here and in Bebas everywhere else on the site.
  */
 export const metadata = {
   alternates: { canonical: '/landing' },
@@ -63,9 +36,5 @@ export const metadata = {
 };
 
 export default function LandingPage() {
-  return (
-    <div className={`${fraunces.variable} ${instrumentSans.variable} ${ibmPlexMono.variable}`}>
-      <LandingClient />
-    </div>
-  );
+  return <LandingClient />;
 }
