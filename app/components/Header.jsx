@@ -36,6 +36,7 @@ const MORE_NAV = [
   // entries pointing at the same argument became one.
   { label: 'Certifications', href: '/certifications' },
   { label: 'Measure-Up', href: '/measuring-up' },
+  { label: 'Warranty Check', href: '/warranty-check' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -437,7 +438,7 @@ function NavLinks({ pathname }) {
           initial={false}
           animate={moreOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
           transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-          {...(moreOpen ? {} : { inert: '', 'aria-hidden': true })}
+          {...(moreOpen ? {} : { inert: true, 'aria-hidden': true })}
           style={{
             position: 'absolute',
             top: 'calc(100% + 18px)',
