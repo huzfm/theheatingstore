@@ -6,31 +6,31 @@ import { Check } from 'lucide-react';
 import { RevealText, Reveal } from '@/components/ui/RevealText';
 import Spinner from '@/components/ui/loading/Spinner';
 import PendingLabel from '@/components/ui/loading/PendingLabel';
-import { FORM, LOCATIONS, SHOWROOM } from './data';
+import LocationField from '@/components/ui/LocationField';
+import { submitLead } from '@/lib/leads';
+import { FORM, SHOWROOM } from './data';
 
 /**
  * Enquiry form, paired with the showroom map.
  *
- * The submission is carried across from the previous implementation
- * unchanged, same endpoint, same payload shape, same phone-length guard, same
- * success and error handling:
+ * The submission goes through `submitLead`, which every public form on the
+ * site now shares — one endpoint (POST {API}/api/leads), one payload shape,
+ * one place the host is configured. See lib/leads.js.
  *
- *   POST {API_URL}/api/leads
- *   { name, phone, message, source: 'Contact Form', location }
+ * The phone-length guard, the success state and the error line are unchanged.
  *
- * `location` is validated against LOCATIONS before it is sent and falls back
- * to 'Unknown', which is what the backend expects, so that guard stays too.
- *
- * The API base is resolved the same way as before, a local server in
- * development and the hosted one in production.
+ * What did change is the location. This asked for a region with a three-option
+ * dropdown — Kashmir, Jammu, Ladakh — and posted the chosen word as
+ * `location`. The API only files a lead under Srinagar, Anantnag or Baramulla,
+ * so all three of those options landed as 'Unknown', and none of them told
+ * anyone where the house actually was. It is now a searchable address field
+ * that can also drop a GPS pin, so the lead carries the address, the
+ * coordinates and a Google Maps link, and the district resolves from those.
  */
-const API_URL =
-  process.env.NODE_ENV === 'production'
-    ? 'https://evulation-api-electrichamambackend.0psc8x.easypanel.host'
-    : 'http://localhost:5050';
 
 export default function EnquiryForm() {
-  const [form, setForm] = useState({ name: '', phone: '', location: '', message: '' });
+  const [form, setForm] = useState({ name: '', phone: '', message: '' });
+  const [place, setPlace] = useState({ address: '', lat: null, lng: null });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -46,22 +46,18 @@ export default function EnquiryForm() {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`${API_URL}/api/leads`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: form.name,
-          phone: form.phone,
-          message: form.message || '',
-          source: 'Contact Form',
-          location: LOCATIONS.includes(form.location) ? form.location : 'Unknown',
-        }),
+      await submitLead({
+        name: form.name,
+        phone: form.phone,
+        message: form.message,
+        formLabel: 'Contact page enquiry',
+        place,
       });
-      if (!res.ok) throw new Error();
       setSuccess(true);
-      setForm({ name: '', phone: '', location: '', message: '' });
-    } catch {
-      setError('Failed to submit. Please try again.');
+      setForm({ name: '', phone: '', message: '' });
+      setPlace({ address: '', lat: null, lng: null });
+    } catch (err) {
+      setError(err.message || 'Failed to submit. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -152,29 +148,14 @@ export default function EnquiryForm() {
                 <label htmlFor="ct-loc" className={label}>
                   Project location
                 </label>
-                <select
+                <LocationField
                   id="ct-loc"
-                  name="location"
-                  value={form.location}
-                  onChange={handleChange}
+                  variant="dark"
+                  value={place}
+                  onChange={setPlace}
                   required
-                  className={`${field} appearance-none bg-[length:14px] bg-[right_1rem_center] bg-no-repeat pr-11`}
-                  style={{
-                    // Inline caret, so the select keeps a native control's
-                    // behaviour without a wrapper element over the top of it.
-                    backgroundImage:
-                      "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238c857d' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 9l-7 7-7-7'/%3E%3C/svg%3E\")",
-                  }}
-                >
-                  <option value="" className="bg-ink-900">
-                    Select your region
-                  </option>
-                  {LOCATIONS.map((loc) => (
-                    <option key={loc} value={loc} className="bg-ink-900">
-                      {loc}
-                    </option>
-                  ))}
-                </select>
+                  placeholder="Search your area, street or landmark…"
+                />
               </div>
 
               <div>

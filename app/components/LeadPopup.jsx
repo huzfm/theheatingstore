@@ -1,10 +1,21 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Spinner from '@/components/ui/loading/Spinner';
 import PendingLabel from '@/components/ui/loading/PendingLabel';
+import { submitLead } from '@/lib/leads';
+
+/**
+ * The timed hero popup.
+ *
+ * Two fields only, on purpose — it interrupts someone who did not ask for it,
+ * so it asks for the least that is still a lead. No location field here: the
+ * address is what the contact and landing forms are for.
+ *
+ * It posted to a hardcoded easypanel host that is no longer the API. It now
+ * goes through `submitLead` with every other form.
+ */
 
 export default function LeadPopup() {
   const [open, setOpen] = useState(false);
@@ -35,29 +46,22 @@ export default function LeadPopup() {
       setError('Please fill all details');
       return;
     }
-// fixed command
     try {
       setLoading(true);
       setError('');
 
-      const res = await fetch(`https://evulation-api-electrichamambackend.0psc8x.easypanel.host/api/leads`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: form.name,
-          phone: form.whatsapp,
-          message: 'Interested in electric underfloor heating',
-          source: 'Hero Popup',
-        }),
+      await submitLead({
+        name: form.name,
+        phone: form.whatsapp,
+        message: 'Interested in electric underfloor heating',
+        formLabel: 'Hero popup',
       });
-
-      if (!res.ok) throw new Error();
 
       localStorage.setItem('lead_submitted', 'true');
       setOpen(false);
       setForm({ name: '', whatsapp: '' });
-    } catch {
-      setError('Something went wrong. Please try again.');
+    } catch (err) {
+      setError(err.message || 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }

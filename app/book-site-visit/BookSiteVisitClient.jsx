@@ -4,13 +4,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Spinner from '@/components/ui/loading/Spinner';
 import PendingLabel from '@/components/ui/loading/PendingLabel';
+import { LEADS_API_BASE } from '@/lib/leads';
 
 const MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-const API_URL =
-  process.env.NODE_ENV === 'production'
-    ? 'https://evulation-api-electrichamambackend.0psc8x.easypanel.host'
-    : 'http://localhost:5050';
+/* Shares the leads host with every other form on the site. This pointed at the
+   old easypanel deployment in production and at localhost in development, so
+   a booking made here reached neither. Its endpoint is still the
+   space-details one, /api/detailed-leads, only the host is shared. */
+const API_URL = LEADS_API_BASE;
 
 const EASE = [0.16, 1, 0.3, 1];
 

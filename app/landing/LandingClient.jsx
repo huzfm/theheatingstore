@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { ArrowRight, Phone, Mail, MapPin } from 'lucide-react';
 import Spinner from '@/components/ui/loading/Spinner';
 import PendingLabel from '@/components/ui/loading/PendingLabel';
+import LocationField from '@/components/ui/LocationField';
+import { submitLead, buildGoogleMapsLink } from '@/lib/leads';
 import WhyChooseUFH from '../components/WhyChooseUFH';
 import FaqSection from '../components/FaqSection';
 import Testimonials from '../components/Testimonials';
@@ -131,14 +133,12 @@ function HeroCarousel() {
   );
 }
 
-/* ── Backend base URL, swap to your production URL when deploying ── */
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5050';
-
 /* Reads ad-tracking params from the current page URL (works for Meta/Google
    ads that append utm_source, utm_campaign, fbclid, gclid to the link).
    These get folded into the lead's message so the team can see the source
    in the admin panel, since the /api/leads endpoint's own `source` field
-   only accepts 'Contact Form' / 'Popup'. */
+   accepts nothing but 'Website Enquiry' from a public form — attribution to a
+   paid channel is something only the backend's own ad ingestion may write. */
 function getAdTrackingSummary() {
   if (typeof window === 'undefined') return '';
   const params = new URLSearchParams(window.location.search);
@@ -160,7 +160,13 @@ function getAdTrackingSummary() {
 
 /* ── Hero enquiry card ────────────────────────────────────────────── */
 function HeroEnquiryForm() {
-  const [form, setForm] = useState({ name: '', address: '', phone: '' });
+  const [form, setForm] = useState({ name: '', phone: '' });
+  /* The plain "Enter your address" text input is now a searchable location
+     field: a picked suggestion or a GPS fix carries coordinates and a maps
+     link with the lead, which is what a site-visit booking actually needs.
+     Typing an address and picking nothing still submits — the API geocodes it
+     on arrival. */
+  const [place, setPlace] = useState({ address: '', lat: null, lng: null });
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
   const handleChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
@@ -168,20 +174,14 @@ function HeroEnquiryForm() {
     e.preventDefault();
     setStatus('sending');
 
-    const adTag = getAdTrackingSummary();
-    const messageForBackend = `Landing page enquiry ${adTag}\nAddress: ${form.address}`;
-
     try {
-      const res = await fetch(`${API_BASE}/api/leads`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: form.name,
-          phone: form.phone,
-          message: messageForBackend,
-        }),
+      await submitLead({
+        name: form.name,
+        phone: form.phone,
+        formLabel: 'Landing page enquiry — free site visit',
+        notes: [getAdTrackingSummary()],
+        place,
       });
-      if (!res.ok) throw new Error('Lead save failed');
       setStatus('sent');
     } catch (err) {
       console.error('Lead submit error:', err);
@@ -190,7 +190,16 @@ function HeroEnquiryForm() {
 
     // WhatsApp still opens as before, regardless of backend result,
     // so the customer's message always reaches you even if the API is down.
-    const text = `Hi, I'd like a free site visit.\nName: ${form.name}\nAddress: ${form.address}\nPhone: ${form.phone}`;
+    const mapsLink = buildGoogleMapsLink(place.lat, place.lng);
+    const text = [
+      "Hi, I'd like a free site visit.",
+      `Name: ${form.name}`,
+      `Address: ${place.address}`,
+      mapsLink && `Map: ${mapsLink}`,
+      `Phone: ${form.phone}`,
+    ]
+      .filter(Boolean)
+      .join('\n');
     window.open(`https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(text)}`, '_blank');
   };
 
@@ -208,7 +217,13 @@ function HeroEnquiryForm() {
       </span>
       <h2 className="lp-form-title">Book a Free Site Visit</h2>
       <input required name="name" value={form.name} onChange={handleChange} placeholder="Enter your name" className="lp-form-input" />
-      <input required name="address" value={form.address} onChange={handleChange} placeholder="Enter your address" className="lp-form-input" />
+      <LocationField
+        variant="light"
+        value={place}
+        onChange={setPlace}
+        required
+        placeholder="Enter your address"
+      />
       <input required name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="Enter your phone number" className="lp-form-input" />
       {/* `sent` now disables too. It did not, so after a successful submit the
           button was live again and a second press re-POSTed the same lead and

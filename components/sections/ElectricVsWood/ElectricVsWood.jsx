@@ -506,7 +506,7 @@ export default function ElectricVsWood() {
             {VERDICT.map((v, i) => (
               <motion.div
                 key={v.label}
-                className="border-t border-white/10 pt-5"
+                className="border-t border-white/10 pt-5 text-center"
                 initial={reduce ? false : { opacity: 0, y: 18 }}
                 whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '0px 0px -12% 0px' }}

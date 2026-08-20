@@ -15,7 +15,7 @@
  *    The testimonials in particular are attributed quotes from named people,
  *    which should not sit unused in a source file, if they are real they
  *    belong somewhere visible, so they are called out here rather than quietly
- *    deleted. LOCATIONS still drives the dropdown.
+ *    deleted. The dropdown it fed is gone too, see below.
  *
  * 2. The installation counts on the coverage cards, "45k+", "200k+" and
  *    "35k+". Those totalled 280,000 installations in the Kashmir Valley alone,
@@ -26,8 +26,14 @@
 
 import siteFacts from '@/content/facts';
 
-/** Drives the form's location dropdown and the value posted as `location`. */
-export const LOCATIONS = ['Kashmir', 'Jammu', 'Ladakh'];
+/*
+ * LOCATIONS ('Kashmir', 'Jammu', 'Ladakh') used to drive a region dropdown in
+ * the form, and its chosen value was posted as the lead's `location`. The
+ * leads API only files a lead under Srinagar, Anantnag or Baramulla, so every
+ * one of those three answers was stored as 'Unknown' — the field cost the
+ * customer a choice and told us nothing. The form now asks for the address
+ * itself (components/ui/LocationField), so the constant is gone with it.
+ */
 
 /* Re-exported from the single source of truth rather than redeclared, so the
    existing import sites in this section keep working unchanged. */
