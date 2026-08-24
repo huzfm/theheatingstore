@@ -4,7 +4,7 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Phone, Mail, MapPin } from 'lucide-react';
+import { ArrowRight, Phone, Mail, MapPin, Menu, X } from 'lucide-react';
 import Spinner from '@/components/ui/loading/Spinner';
 import PendingLabel from '@/components/ui/loading/PendingLabel';
 import LocationField from '@/components/ui/LocationField';
@@ -259,6 +259,7 @@ export default function LandingClient() {
   const [heroRef, heroIn] = useRevealRef(0.1);
   const [statsRef, statsIn] = useRevealRef(0.3);
   const [scrolled, setScrolled] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const { scrollYProgress } = useScroll({ target: heroWrapRef, offset: ['start start', 'end start'] });
   const heroTextOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
@@ -268,6 +269,11 @@ export default function LandingClient() {
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileNavOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileNavOpen]);
 
   /**
    * Anchor scrolling, handed to Lenis rather than done around it.
@@ -285,6 +291,7 @@ export default function LandingClient() {
    */
   const handleNavClick = (e, href) => {
     e.preventDefault();
+    setMobileNavOpen(false);
     const headerEl = document.querySelector('.lp-header');
     const headerHeight = headerEl ? headerEl.getBoundingClientRect().height : 90;
     scrollToTarget(href, { offset: -(headerHeight + 16) });
@@ -440,6 +447,8 @@ export default function LandingClient() {
           box-shadow: 0 6px 18px rgba(232, 147, 58, 0.32);
           white-space: nowrap;
         }
+        .lp-mobile-toggle { display: none; }
+        .lp-mobile-panel { display: none; }
 
         /* ── Hero ────────────────────────────────────────────────────
            Same construction as the home hero: an ink ground carrying its
@@ -782,6 +791,31 @@ export default function LandingClient() {
              logo at this width, so the links drop and the CTA carries
              the header on its own, exactly as the site header does. */
           .lp-nav-links { display: none; }
+          .lp-nav { padding: 12px 20px; }
+          .lp-nav-logo img { left: -12px; }
+          .lp-nav-cta { display: none; }
+          .lp-mobile-toggle {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; padding: 0; border-radius: 999px;
+            color: var(--ivory); background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(246, 242, 236, 0.16); cursor: pointer;
+          }
+          .lp-mobile-panel {
+            position: fixed; top: 84px; left: 0; right: 0; z-index: 99;
+            display: flex; flex-direction: column; gap: 4px;
+            max-height: calc(100vh - 84px); overflow-y: auto;
+            padding: 12px 20px 20px;
+            background: rgba(20, 17, 15, 0.96);
+            border-bottom: 1px solid rgba(246, 242, 236, 0.12);
+            backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+          }
+          .lp-mobile-link {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px 12px; color: var(--ivory); text-decoration: none;
+            font-size: 14px; font-weight: 500; letter-spacing: 0.12em;
+            text-transform: uppercase; border-radius: 10px;
+          }
+          .lp-mobile-link:hover { background: rgba(255,255,255,0.06); }
           .lp-hero-inner {
             grid-template-columns: minmax(0, 1fr);
             padding-top: 8.5rem; padding-bottom: 4.5rem;
@@ -858,7 +892,7 @@ export default function LandingClient() {
 
           <nav className={`lp-nav ${scrolled ? 'scrolled' : ''}`}>
             <Link href="/" className="lp-nav-logo" aria-label="The Heating Store, Home">
-              <Image src="/images/ll.png" alt="The Heating Store" width={220} height={150} sizes="220px" />
+              <Image src="/logo.svg" alt="The Heating Store" width={220} height={150} sizes="220px" />
             </Link>
 
             <div className="lp-nav-links">
@@ -876,7 +910,38 @@ export default function LandingClient() {
               Book Installation
               <ArrowRight size={14} />
             </Link>
+
+            <button
+              type="button"
+              className="lp-mobile-toggle"
+              onClick={() => setMobileNavOpen((open) => !open)}
+              aria-label={mobileNavOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileNavOpen}
+              aria-controls="landing-mobile-nav"
+            >
+              {mobileNavOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
           </nav>
+
+          {mobileNavOpen && (
+            <div id="landing-mobile-nav" className="lp-mobile-panel">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="lp-mobile-link"
+                  onClick={(e) => handleNavClick(e, link.href)}
+                >
+                  {link.label}
+                  <ArrowRight size={16} aria-hidden="true" />
+                </a>
+              ))}
+              <Link href="/contact" className="lp-nav-cta lp-mobile-cta" onClick={() => setMobileNavOpen(false)}>
+                Book Installation
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+          )}
         </div>
 
         <div className="lp-hero" ref={heroWrapRef}>

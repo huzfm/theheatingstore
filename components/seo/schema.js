@@ -40,7 +40,7 @@ export function localBusiness() {
       'Electric hamam and underfloor heating supply and installation across Kashmir. UK-imported systems, certified for wet areas, installed by a Srinagar-based team.',
     logo: {
       '@type': 'ImageObject',
-      url: `${facts.url}/images/electriclogo.png`,
+      url: `${facts.url}/logo.svg`,
     },
     image: `${facts.url}/og/default.jpg`,
     telephone: facts.phone,

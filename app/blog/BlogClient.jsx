@@ -14,7 +14,7 @@ export default function BlogsClient() {
 		const fetchBlogs = async () => {
 			try {
 				const res = await fetch(
-					`${process.env.NEXT_PUBLIC_BLOG_API_BASE}/blogs?page=1&limit=50`,
+						`https://api.theheatingstore.in/blogs?page=1&limit=50`,
 					{
 						headers: { 'x-api-key': process.env.NEXT_PUBLIC_BLOG_API_KEY || '' },
 						cache: 'no-store',

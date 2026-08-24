@@ -69,7 +69,7 @@ const C = {
 //           ratio differs, adjust these two numbers to match it; the CSS below
 //           just scales proportionally from whatever you set here. */}
 //       <Image
-//         src="/images/ll.png"
+//         src="/logo.svg"
 //         alt="TheHeatingStore"
 //         width={220}
 //         height={logoHeight}
@@ -97,10 +97,11 @@ function BrandMark({ compact = false }) {
       }}
     >
       <Image
-        src="/images/ll.png"
+        src="/logo.svg"
         alt="The Heating Store"
         width={220}
         height={logoHeight}
+        className="eh-brand-image"
         /* `priority` removed. It was set on the header, which renders on every
            route, so every page issued a high-priority preload for the logo that
            competed with that page's actual LCP element, including the homepage
@@ -108,9 +109,7 @@ function BrandMark({ compact = false }) {
            fetches it immediately regardless; it just no longer jumps the queue
            ahead of the thing the user is waiting to see.
 
-           The source is a 1536x1024 PNG rendered at 220px wide. next/image
-           downscales it, but the original is 538 KB and should be re-exported
-           at the size it is actually used. */
+           The SVG remains sharp at the rendered navigation size. */
         sizes="220px"
         style={{
           position: 'absolute',
@@ -182,6 +181,7 @@ function MobileMenu({ open, onClose, pathname }) {
             zIndex: 9998,
             padding: '16px 20px 20px',
           }}
+          className="eh-header-nav"
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             {PRIMARY_NAV.map((item) => {
@@ -439,6 +439,7 @@ function NavLinks({ pathname }) {
           animate={moreOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
           transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
           {...(moreOpen ? {} : { inert: true, 'aria-hidden': true })}
+          className="eh-mobile-menu"
           style={{
             position: 'absolute',
             top: 'calc(100% + 18px)',

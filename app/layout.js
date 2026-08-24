@@ -45,6 +45,9 @@ export const metadata = {
   authors: [{ name: "The Heating Store" }],
   creator: "The Heating Store",
   publisher: "The Heating Store",
+  icons: {
+    icon: "/logotab.png",
+  },
   robots: {
     index: true,
     follow: true,
@@ -88,7 +91,7 @@ export const metadata = {
  * The company, emitted once here so every page carries it.
  *
  * Replaces a hand-written `Organization` block that had three problems: its
- * logo URL (/images/logo.png) did not exist, its `sameAs` listed a Facebook
+ * logo URL did not exist, its `sameAs` listed a Facebook
  * and a LinkedIn profile neither of which was confirmed to be real, and it
  * declared `areaServed: Country "India"` for a business whose whole case is
  * that it is the Srinagar team who turn up.
