@@ -8,7 +8,7 @@ import {
 	useSpring,
 	useReducedMotion,
 } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import HeroCTAs from '@/components/ui/HeroCTAs';
 import { RevealText, Reveal } from '@/components/ui/RevealText';
@@ -536,6 +536,135 @@ function BrandPanel({ brand, index }) {
 	);
 }
 
+// ── THERMOSTATS SECTION ──────────────────────────────────────────────────────
+function ThermostatsSection() {
+	const [thermostats, setThermostats] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		fetch('http://localhost:5050/api/thermostats')
+			.then((r) => r.json())
+			.then((data) => setThermostats(data.items || []))
+			.catch(console.error)
+			.finally(() => setLoading(false));
+	}, []);
+
+	return (
+		<section className='relative overflow-hidden px-5 py-20 sm:px-8 sm:py-28 lg:py-36'>
+			{/* Background wash */}
+			<div
+				aria-hidden
+				className='pointer-events-none absolute inset-0'
+				style={{
+					background:
+						'radial-gradient(70% 50% at 50% 20%, rgba(255,138,61,0.07), transparent 70%)',
+				}}
+			/>
+
+			<div className='relative mx-auto max-w-6xl'>
+				{/* Header */}
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, amount: 0.4 }}
+					transition={{ duration: 0.8, ease: EASE }}
+					className='mb-12 text-center sm:mb-16 lg:mb-20'>
+					<Eyebrow>Thermostats & Controls</Eyebrow>
+					<h2
+						style={{
+							fontFamily: 'var(--font-heading)',
+							fontSize: 'clamp(2.2rem, 5vw, 4.5rem)',
+							lineHeight: 0.95,
+							color: BONE,
+							margin: '14px 0 16px',
+						}}>
+						Choose Your<br className='hidden sm:block' />
+						<span style={{ color: HEAT }}> Thermostat.</span>
+					</h2>
+					<p
+						className='mx-auto max-w-xl'
+						style={{
+							fontFamily: 'var(--font-body)',
+							fontSize: 'clamp(14px, 1.4vw, 17px)',
+							lineHeight: 1.7,
+							color: BONE_MUTE,
+						}}>
+						Every system ships with a free thermostat. Upgrade to a smarter controller for scheduling, app control, and precision.
+					</p>
+				</motion.div>
+
+				{/* Cards grid — 1 col mobile · 2 col sm · 3 col lg */}
+				<div className='grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3'>
+					{loading
+						? [1, 2, 3].map((i) => (
+								<div
+									key={i}
+									className='h-[360px] rounded-2xl border border-white/[0.06] bg-white/[0.04]'
+								/>
+							))
+						: thermostats.map((t, i) => (
+							<motion.div
+								key={t.sku}
+								initial={{ opacity: 0, y: 30 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								viewport={{ once: true, amount: 0.2 }}
+								transition={{ duration: 0.6, ease: EASE, delay: i * 0.06 }}
+								className={`thermo-card group relative flex flex-col overflow-hidden rounded-2xl border transition-[box-shadow,border-color] duration-300 ${
+									t.isIncluded
+										? 'border-[#ff8a3d44] bg-gradient-to-br from-[#ff8a3d22] to-white/[0.04]'
+										: 'border-white/10 bg-gradient-to-br from-white/[0.06] to-white/[0.02]'
+								} hover:-translate-y-1 hover:shadow-[0_32px_100px_rgba(0,0,0,0.55)] hover:border-[#ff8a3d88]`}>{
+								/* Image */}
+								<div className='relative aspect-square w-full bg-white/[0.03]'>
+									<img
+									src={t.imageUrl}
+									alt={t.name}
+									loading='lazy'
+									className='absolute inset-0 h-full w-full object-contain p-[12%] drop-shadow-[0_8px_24px_rgba(0,0,0,0.4)] transition-transform duration-500 group-hover:scale-105'
+								/>
+								{t.isIncluded && (
+									<span className='absolute right-3.5 top-3.5 rounded-full bg-[#ff8a3d] px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.18em] text-[#0a0a0a]'>
+										Free
+									</span>
+								)}
+								</div>
+
+								{/* Content */}
+								<div className='flex flex-1 flex-col px-5 py-5 sm:px-6'>
+									<h3
+										style={{
+											fontFamily: 'var(--font-heading)',
+											lineHeight: 1.15,
+											color: BONE,
+										}}
+										className='text-lg sm:text-xl'>
+										{t.name}
+									</h3>
+									<p
+										className='mt-2 flex-1 text-[13px] leading-relaxed sm:text-sm'
+										style={{ color: BONE_FAINT }}>
+										{t.description}
+									</p>
+									<div className='mt-4 border-t border-white/[0.08] pt-3'>
+										<span
+											style={{
+												fontFamily: 'var(--font-heading)',
+												lineHeight: 1,
+												color: t.isIncluded ? HEAT : BONE,
+											}}
+											className='text-base sm:text-lg'>
+											{t.priceLabel}
+										</span>
+									</div>
+								</div>
+							</motion.div>
+						))}
+				</div>
+			</div>
+		</section>
+	);
+}
+
 // ── Closing CTA ──────────────────────────────────────────────────────────────
 function ClosingCTA() {
 	return (
@@ -633,6 +762,9 @@ export default function ProductClient() {
 					.pb-inner { grid-template-columns: 1fr; gap: 40px; }
 					.pb-inner[data-reversed='true'] { direction: ltr; }
 				}
+
+				.thermo-card { transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+				.thermo-card:hover { box-shadow: 0 32px 100px rgba(0,0,0,0.55), 0 0 30px rgba(255,138,61,0.08); }
 			`}</style>
 
 			{/* subtle film grain over the whole page */}
@@ -654,6 +786,8 @@ export default function ProductClient() {
 			{BRANDS.map((brand, i) => (
 				<BrandPanel key={brand.slug} brand={brand} index={i} />
 			))}
+
+			<ThermostatsSection />
 
 			<ClosingCTA />
 		</main>

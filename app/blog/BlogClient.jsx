@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { ArrowUpRight } from 'lucide-react';
 import { Skeleton, SkeletonGroup } from '@/components/ui/loading/Skeleton';
 
 export default function BlogsClient() {
@@ -12,14 +14,14 @@ export default function BlogsClient() {
 		const fetchBlogs = async () => {
 			try {
 				const res = await fetch(
-					'https://evulation-api-electrichamambackend.0psc8x.easypanel.host/api/blogs',
+					`${process.env.NEXT_PUBLIC_BLOG_API_BASE}/blogs?page=1&limit=50`,
 					{
+						headers: { 'x-api-key': process.env.NEXT_PUBLIC_BLOG_API_KEY || '' },
 						cache: 'no-store',
 					},
 				);
 				const data = await res.json();
-				const list = Array.isArray(data) ? data : [];
-				setBlogs(list);
+				setBlogs(data.items || []);
 			} catch (err) {
 				console.error('Blog fetch error:', err);
 			} finally {
@@ -30,53 +32,22 @@ export default function BlogsClient() {
 		fetchBlogs();
 	}, []);
 
-	/**
-	 * The page header, rendered in BOTH the loading and loaded states.
-	 *
-	 * It used to live only in the loaded branch, and posts are fetched from the
-	 * API on the client, so the server-rendered HTML for /blog contained the
-	 * skeleton and nothing else: no h1, no heading of any kind, no text. The
-	 * page shipped to crawlers as an empty grey box.
-	 *
-	 * The article count is the only part that needs the data, so it is the only
-	 * part that waits for it.
-	 */
-	const header = (
-		<div className='mb-16 max-w-2xl'>
-			<p className='inline-block rounded-full bg-white/70 px-6 py-2 text-[11px] font-medium uppercase tracking-[0.35em] text-[#B86B45] border border-white/40'>
-				Knowledge & Insights
-			</p>
-			<h1 className='mt-6 text-4xl sm:text-5xl font-serif font-semibold text-[#3C2A25] leading-tight'>
-				All Articles
-			</h1>
-			{!loading && (
-				<p className='mt-4 text-[15px] text-[#5A4036]'>
-					{blogs.length} article{blogs.length !== 1 ? 's' : ''} published
-				</p>
-			)}
-		</div>
-	);
-
 	if (loading) {
 		return (
 			<section className='min-h-screen bg-[#FFF8F0] py-24'>
 				<div className='mx-auto max-w-7xl px-6'>
-					{header}
-					{/* Same blocks as before, moved onto the shared Skeleton so
-					    the shimmer stops under prefers-reduced-motion (Tailwind's
-					    animate-pulse does not) and the group is announced once
-					    instead of not at all. */}
-					<SkeletonGroup label='TODO_COPY' className='flex flex-col gap-12'>
-						{[1, 2].map((i) => (
-							<div
-								key={i}
-								className='w-full rounded-[32px] overflow-hidden bg-white shadow-sm'>
-								<Skeleton rounded='' className='w-full h-[300px]' />
-								<div className='p-10 space-y-4'>
-									<Skeleton className='h-4 w-24' />
-									<Skeleton className='h-7 w-80' />
-									<Skeleton className='h-4 w-full' />
-									<Skeleton className='h-4 w-2/3' />
+					<div className='mb-16 max-w-2xl'>
+						<Skeleton className='h-3 w-32 mb-4' />
+						<Skeleton className='h-10 w-48' />
+					</div>
+					<SkeletonGroup label='Loading articles' className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
+						{[1, 2, 3].map((i) => (
+							<div key={i} className='rounded-2xl overflow-hidden bg-white shadow-sm'>
+								<Skeleton className='w-full aspect-[16/10]' />
+								<div className='p-6 space-y-3'>
+									<Skeleton className='h-3 w-20' />
+									<Skeleton className='h-6 w-full' />
+									<Skeleton className='h-4 w-5/6' />
 								</div>
 							</div>
 						))}
@@ -89,64 +60,80 @@ export default function BlogsClient() {
 	return (
 		<section className='min-h-screen bg-[#FFF8F0] py-24'>
 			<div className='mx-auto max-w-7xl px-6'>
-				{header}
-
-				{blogs.length === 0 ? (
-					<p className='text-center text-[#B86B45] py-20'>
-						No blogs yet
+				{/* Header */}
+				<div className='mb-16 max-w-2xl'>
+					<p className='text-[11px] font-medium uppercase tracking-[0.35em] text-[#B86B45]'>
+						Knowledge & Insights
 					</p>
+					<h1 className='mt-4 text-4xl sm:text-5xl font-serif font-semibold text-[#3C2A25] leading-tight'>
+						All Articles
+					</h1>
+					{!loading && (
+						<p className='mt-4 text-[15px] text-[#5A4036]'>
+							{blogs.length} article{blogs.length !== 1 ? 's' : ''} published
+						</p>
+					)}
+				</div>
+
+				{/* Cards grid */}
+				{blogs.length === 0 ? (
+					<p className='text-center text-[#B86B45] py-20'>No articles yet.</p>
 				) : (
-					<div className='lg:grid lg:grid-cols-2 gap-12'>
+					<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
 						{blogs.map((blog) => (
-							<Link href={`/blog/${blog.slug}`} key={blog._id}>
-								<article className='w-full flex flex-col justify-around items-start overflow-hidden rounded-[32px] bg-white shadow-[0_35px_120px_rgba(0,0,0,0.10)] transition hover:-translate-y-1 cursor-pointer'>
-									{/* Only this block changed */}
-									{blog.featuredImage && (
-										<div className='w-full flex justify-center pt-8'>
-											<img
-												src={blog.featuredImage}
+							<Link href={`/blog/${blog.slug}`} key={blog.slug}>
+								<article className='group h-full flex flex-col rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-300'>
+									{/* Image */}
+									{blog.coverImage ? (
+										<div className='relative w-full aspect-[16/10] overflow-hidden'>
+											<Image
+												src={blog.coverImage}
 												alt={blog.title}
-												className='w-40 h-40 rounded-full object-cover transition duration-700 hover:scale-105'
+												fill
+												sizes='(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw'
+												className='object-cover transition-transform duration-500 group-hover:scale-105'
 											/>
 										</div>
+									) : (
+										<div className='w-full aspect-[16/10] bg-[#F7F1E7]' />
 									)}
 
-									<div className='p-10'>
-										{blog.category && (
-											<span className='text-xs font-semibold uppercase tracking-widest text-[#B86B45]'>
-												{blog.category}
-											</span>
-										)}
-										<h2 className='mt-2 text-2xl font-serif font-semibold text-[#3C2A25] leading-snug'>
+									{/* Content */}
+									<div className='flex flex-col flex-1 p-6'>
+										<div className='flex items-center gap-2 mb-3'>
+											{blog.category && (
+												<span className='text-[10px] font-semibold uppercase tracking-widest text-[#B86B45]'>
+													{blog.category}
+												</span>
+											)}
+											{blog.readingTime && (
+												<span className='text-[10px] text-[#8A7A6D]'>
+													· {blog.readingTime} min
+												</span>
+											)}
+										</div>
+
+										<h2 className='font-serif font-semibold text-lg text-[#3C2A25] leading-snug group-hover:text-[#B86B45] transition-colors duration-300'>
 											{blog.title}
 										</h2>
-										<p className='mt-4 text-[15px] text-[#5A4036] max-h-[3em] overflow-hidden leading-[1.5em]'>
-											{blog.shortDescription}
+
+										<p className='mt-2 text-sm text-[#5A4036] leading-relaxed line-clamp-2 flex-1'>
+											{blog.excerpt}
 										</p>
-										{blog.tags?.length > 0 && (
-											<div className='flex flex-wrap gap-2 mt-5'>
-												{blog.tags.map((tag) => (
-													<span
-														key={tag}
-														className='text-xs bg-[#FFF8F0] text-[#B86B45] border border-[#f0d5c0] px-3 py-1 rounded-full'>
-														#{tag}
-													</span>
-												))}
-											</div>
-										)}
-										<div className='mt-6 flex items-center justify-between'>
-											<span className='text-xs text-[#B86B45]/60'>
-												{new Date(blog.createdAt).toLocaleDateString(
-													'en-US',
-													{
-														month: 'long',
+
+										<div className='mt-4 pt-4 border-t border-[#f0d5c0] flex items-center justify-between'>
+											{blog.publishedAt && (
+												<span className='text-[11px] text-[#8A7A6D]'>
+													{new Date(blog.publishedAt).toLocaleDateString('en-US', {
+														month: 'short',
 														day: 'numeric',
 														year: 'numeric',
-													},
-												)}
-											</span>
-											<span className='text-sm font-medium text-[#B86B45]'>
-												Read Article
+													})}
+												</span>
+											)}
+											<span className='inline-flex items-center gap-1 text-[11px] font-medium text-[#B86B45]'>
+												Read
+												<ArrowUpRight className='w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5' />
 											</span>
 										</div>
 									</div>

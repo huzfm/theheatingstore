@@ -9,6 +9,9 @@ import { BRANDS } from '@/app/lib/brandsData';
 
 const SITE_URL = facts.url;
 
+const BLOG_API_BASE = process.env.NEXT_PUBLIC_BLOG_API_BASE || 'http://localhost:5050/api/public';
+const BLOG_API_KEY = process.env.NEXT_PUBLIC_BLOG_API_KEY || '';
+
 /**
  * Every indexable route, with a real last-modified date.
  *
@@ -120,7 +123,7 @@ const SUPPLIER_PAGES = [
  *                  generated sitemap for once that API is queried at build.
  */
 
-export default function sitemap() {
+export default async function sitemap() {
   const entries = [];
 
   for (const [route, source, priority] of ROUTES) {
@@ -162,11 +165,33 @@ export default function sitemap() {
     });
   }
 
+  // Blog posts: fetched from the API so the sitemap stays in sync with the CMS.
+  try {
+    const blogRes = await fetch(`${BLOG_API_BASE}/blogs/sitemap`, {
+      headers: { 'x-api-key': BLOG_API_KEY },
+      cache: 'no-store',
+    });
+    if (blogRes.ok) {
+      const blogData = await blogRes.json();
+      for (const item of blogData.items || []) {
+        entries.push({
+          url: item.url,
+          lastModified: new Date(item.lastmod),
+          changeFrequency: 'monthly',
+          priority: 0.7,
+        });
+      }
+    }
+  } catch {
+    // Blog API unavailable at build time — skip rather than fail the build.
+  }
+
   // A URL in the sitemap that has no approved metadata entry is a route that
   // slipped through Phase 2. Fail the build rather than submit it.
+  // Blog posts (/blog/*) are dynamic and excluded from this check.
   const missing = entries
     .map((e) => e.url.replace(SITE_URL, '') || '/')
-    .filter((p) => !PAGE_META[p]);
+    .filter((p) => !PAGE_META[p] && !p.startsWith('/blog/'));
   if (missing.length) {
     throw new Error(
       `sitemap: these routes have no entry in content/page-meta.ts: ${missing.join(', ')}`

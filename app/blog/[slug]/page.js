@@ -1,9 +1,10 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
+import { ArrowLeft } from "lucide-react";
 import { Skeleton, SkeletonGroup } from "@/components/ui/loading/Skeleton";
 
 export default function BlogDetailPage() {
@@ -12,17 +13,19 @@ export default function BlogDetailPage() {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
-
-
   useEffect(() => {
     if (!slug) return;
 
     const fetchBlog = async () => {
       try {
-        const res = await fetch(`https://evulation-api-electrichamambackend.0psc8x.easypanel.host/api/blogs/${slug}`, { 
-          cache: "no-store" 
-        });
-        
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BLOG_API_BASE}/blogs/${slug}`,
+          {
+            headers: { "x-api-key": process.env.NEXT_PUBLIC_BLOG_API_KEY || "" },
+            cache: "no-store",
+          }
+        );
+
         if (res.status === 404) {
           setNotFound(true);
           setLoading(false);
@@ -31,6 +34,12 @@ export default function BlogDetailPage() {
 
         const data = await res.json();
         setBlog(data);
+
+        document.title = data.seoTitle || data.title;
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute("content", data.seoDescription || data.excerpt || "");
+        const ogImage = document.querySelector('meta[property="og:image"]');
+        if (ogImage && data.seoImage) ogImage.setAttribute("content", data.seoImage);
       } catch (err) {
         console.error("Blog fetch error:", err);
       } finally {
@@ -43,21 +52,21 @@ export default function BlogDetailPage() {
 
   if (loading) {
     return (
-      <SkeletonGroup label="TODO_COPY" className="min-h-screen bg-[#FFF8F0]">
-        <Skeleton rounded="" className="w-full h-[500px]" />
-        <div className="mx-auto max-w-3xl px-6 py-16 space-y-5">
-          <Skeleton className="h-4 w-28" />
-          <Skeleton rounded="rounded-2xl" className="h-10 w-3/4" />
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-5/6" />
-          {/* The rule is a rule, not a placeholder, so it keeps its flat fill
-              and does not shimmer. */}
-          <div className="h-px w-full bg-[#f0d5c0] mt-8" />
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-3/4" />
-        </div>
-      </SkeletonGroup>
+      <div className="min-h-screen bg-[#FFF8F0]">
+        <SkeletonGroup label="Loading article">
+          <Skeleton className="w-full h-[400px]" />
+          <div className="mx-auto max-w-3xl px-6 py-12 space-y-4">
+            <Skeleton className="h-3 w-28" />
+            <Skeleton className="h-10 w-3/4" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-5/6" />
+            <div className="h-px w-full bg-[#f0d5c0] my-8" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-3/4" />
+          </div>
+        </SkeletonGroup>
+      </div>
     );
   }
 
@@ -72,74 +81,114 @@ export default function BlogDetailPage() {
     );
   }
 
+  const publishDate = blog.publishedAt || blog.updatedAt;
+
   return (
     <div className="min-h-screen bg-[#FFF8F0]">
-
-      {blog.featuredImage && (
-        <div className="w-full h-[500px] bg-[#FFF8F0]">
-          <img
-            src={blog.featuredImage}
+      {/* Hero image */}
+      {blog.coverImage && (
+        <div className="w-full h-[350px] sm:h-[450px] overflow-hidden">
+          <Image
+            src={blog.coverImage}
             alt={blog.title}
-            // className="w-full h-full object-cover object-center"
-            className="w-full h-full object-cover object-top transition duration-700 hover:scale-105"
-            style={{ objectPosition: "center 15%" }}
+            width={1200}
+            height={500}
+            className="w-full h-full object-cover object-top"
+            priority
           />
         </div>
       )}
 
-      <div className="mx-auto max-w-3xl px-6 py-16">
-
-        <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-[#B86B45] hover:underline mb-10 block">
-          ← Back to all articles
+      {/* Content */}
+      <div className="mx-auto max-w-3xl px-6 py-12">
+        {/* Back link */}
+        <Link
+          href="/blog"
+          className="inline-flex items-center gap-2 text-sm text-[#B86B45] hover:underline mb-8"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to all articles
         </Link>
 
-        <div className="flex items-center gap-4 mb-4">
+        {/* Meta */}
+        <div className="flex flex-wrap items-center gap-3 mb-4">
           {blog.category && (
-            <span className="text-xs font-semibold uppercase tracking-widest text-[#B86B45]">
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-[#B86B45]">
               {blog.category}
             </span>
           )}
-          <span className="text-xs text-[#B86B45]/50">
-            {new Date(blog.createdAt).toLocaleDateString("en-US", {
-              month: "long", day: "numeric", year: "numeric",
-            })}
-          </span>
+          {publishDate && (
+            <span className="text-[11px] text-[#8A7A6D]">
+              {new Date(publishDate).toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })}
+            </span>
+          )}
+          {blog.readingTime && (
+            <span className="text-[11px] text-[#8A7A6D]">
+              · {blog.readingTime} min read
+            </span>
+          )}
         </div>
 
+        {/* Title */}
         <h1 className="text-3xl sm:text-4xl font-serif font-semibold text-[#3C2A25] leading-tight mb-6">
           {blog.title}
         </h1>
 
-        {blog.shortDescription && (
-          <p className="text-lg text-[#5A4036] leading-relaxed border-l-4 border-[#B86B45]/30 pl-5 mb-10">
-            {blog.shortDescription}
+        {/* Excerpt */}
+        {blog.excerpt && (
+          <p className="text-lg text-[#5A4036] leading-relaxed border-l-4 border-[#B86B45]/30 pl-5 mb-8">
+            {blog.excerpt}
           </p>
         )}
 
-        {blog.tags?.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-10">
-            {blog.tags.map((tag) => (
-              <span key={tag} className="text-xs bg-white text-[#B86B45] border border-[#f0d5c0] px-3 py-1 rounded-full">
-                #{tag}
-              </span>
-            ))}
-          </div>
-        )}
+        {/* Tags + Author */}
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+          {blog.tags?.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {blog.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs bg-white text-[#B86B45] border border-[#f0d5c0] px-3 py-1 rounded-full"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
+          {blog.author && (
+            <span className="text-sm text-[#5A4036]">
+              By <span className="font-medium text-[#3C2A25]">{blog.author}</span>
+            </span>
+          )}
+        </div>
 
         <hr className="border-[#f0d5c0] mb-10" />
 
+        {/* Article body */}
         <div
           className="prose prose-lg max-w-none text-[#3C2A25]
             prose-headings:font-serif prose-headings:text-[#3C2A25]
             prose-a:text-[#B86B45] prose-a:no-underline hover:prose-a:underline
-            prose-img:rounded-2xl prose-img:shadow-md
+            prose-img:rounded-xl prose-img:shadow-md
           "
           dangerouslySetInnerHTML={{ __html: blog.content }}
         />
+
+        {/* Bottom link */}
+        <div className="mt-16 pt-8 border-t border-[#f0d5c0]">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 text-sm font-medium text-[#B86B45] hover:underline"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Browse all articles
+          </Link>
+        </div>
       </div>
     </div>
   );
 }
-
-
-

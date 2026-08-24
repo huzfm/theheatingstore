@@ -66,7 +66,7 @@ const NAV = [
     heading: 'More',
     links: [
       { label: 'Areas We Serve', href: '/areasweserve' },
-      { label: 'The Journal', href: '/journal' },
+      { label: 'Blog', href: '/blog' },
       { label: 'Features & Technology', href: '/bloginfo' },
       { label: 'Warranty Check', href: '/warranty-check' },
       { label: 'Book a Site Visit', href: '/book-site-visit' },
