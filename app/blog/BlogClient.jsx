@@ -21,7 +21,15 @@ export default function BlogsClient() {
 					},
 				);
 				const data = await res.json();
-				setBlogs(data.items || []);
+				const items = Array.isArray(data) ? data : data.items || [];
+				setBlogs(
+					items.map((blog) => ({
+						...blog,
+						coverImage: blog.featuredImage || blog.coverImage,
+						excerpt: blog.shortDescription || blog.excerpt,
+						publishedAt: blog.publishedAt || blog.createdAt,
+					})),
+				);
 			} catch (err) {
 				console.error('Blog fetch error:', err);
 			} finally {
