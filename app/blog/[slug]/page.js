@@ -19,7 +19,7 @@ export default function BlogDetailPage() {
     const fetchBlog = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BLOG_API_BASE}/blogs/${slug}`,
+          `https://api.theheatingstore.in/api/blogs/${slug}`,
           {
             headers: { "x-api-key": process.env.NEXT_PUBLIC_BLOG_API_KEY || "" },
             cache: "no-store",
@@ -37,9 +37,11 @@ export default function BlogDetailPage() {
 
         document.title = data.seoTitle || data.title;
         const metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc) metaDesc.setAttribute("content", data.seoDescription || data.excerpt || "");
+        if (metaDesc) metaDesc.setAttribute("content", data.seoDescription || data.shortDescription || data.excerpt || "");
         const ogImage = document.querySelector('meta[property="og:image"]');
-        if (ogImage && data.seoImage) ogImage.setAttribute("content", data.seoImage);
+        if (ogImage && (data.metaImage || data.seoImage || data.featuredImage)) {
+          ogImage.setAttribute("content", data.metaImage || data.seoImage || data.featuredImage);
+        }
       } catch (err) {
         console.error("Blog fetch error:", err);
       } finally {
@@ -86,10 +88,10 @@ export default function BlogDetailPage() {
   return (
     <div className="min-h-screen bg-[#FFF8F0]">
       {/* Hero image */}
-      {blog.coverImage && (
+      {(blog.featuredImage || blog.coverImage) && (
         <div className="w-full h-[350px] sm:h-[450px] overflow-hidden">
           <Image
-            src={blog.coverImage}
+            src={blog.featuredImage || blog.coverImage}
             alt={blog.title}
             width={1200}
             height={500}
@@ -139,9 +141,9 @@ export default function BlogDetailPage() {
         </h1>
 
         {/* Excerpt */}
-        {blog.excerpt && (
+        {(blog.shortDescription || blog.excerpt) && (
           <p className="text-lg text-[#5A4036] leading-relaxed border-l-4 border-[#B86B45]/30 pl-5 mb-8">
-            {blog.excerpt}
+            {blog.shortDescription || blog.excerpt}
           </p>
         )}
 
