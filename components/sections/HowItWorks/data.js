@@ -133,6 +133,62 @@ export const TIMELINE = {
   ],
 };
 
+/**
+ * Variable Wattage Technology section — the advanced cable that self-regulates.
+ * Pulled from the technical write-up: physics, output curve, Kashmir-specific
+ * advantages, and comparison with standard fixed-output cable.
+ */
+export const VARIABLE_WATTAGE = {
+  eyebrow: 'Advanced technology',
+  title: 'A cable that adjusts itself.',
+  sub: 'Variable wattage technology means the heating element responds to the temperature around it — producing more heat when the floor is cold and less when it is warm. No sensors, no signals. The physics does the work.',
+  principle: {
+    title: 'How it works',
+    body: 'Standard heating cables produce a fixed wattage whenever the circuit is closed. Variable wattage cables are built from multiple alloys with different temperature coefficients of resistance. As the cable warms, its total resistance changes, which changes the current drawn, which changes the heat produced. The cable modulates its own output as a continuous physical process.',
+  },
+  outputCurve: {
+    title: 'The output curve',
+    intro: 'A variable wattage cable with a nominal rating of 150 W/m² behaves roughly as follows across its operating range:',
+    rows: [
+      { temp: '5 °C', desc: 'Cold floor, deep winter morning', output: '~200–220 W/m²' },
+      { temp: '15 °C', desc: 'Floor warming up', output: '~170 W/m²' },
+      { temp: '25 °C', desc: 'Floor at normal operating temperature', output: '~130–150 W/m²' },
+      { temp: '35 °C', desc: 'Approaching upper limit', output: '~100–120 W/m²' },
+    ],
+    note: 'The nominal rating refers to output at a defined reference temperature — typically a mid-range operating condition. It is not the maximum output, and it is not the minimum.',
+  },
+  kashmir: [
+    {
+      title: 'Supply voltage fluctuation',
+      body: 'Kashmir winter supply can fall to around 160 V against a nominal 230 V. A fixed-output cable at 160 V draws roughly half its rated wattage. A variable wattage cable compensates partially through its resistance-temperature behaviour and recovers more quickly when voltage returns to normal.',
+    },
+    {
+      title: 'Temperature extremes across the season',
+      body: 'Heating runs from early November through mid-March. A variable wattage cable runs at lower output in mild weeks and climbs to higher output as conditions deteriorate — matching the actual demand rather than being sized for the worst day alone.',
+    },
+    {
+      title: 'Building fabric variation',
+      body: 'Kashmiri homes vary enormously in insulation quality, wall mass and glazing. A cable that self-adjusts to ambient conditions is more forgiving of a building that does not behave exactly as the heat loss calculation predicted.',
+    },
+  ],
+  comparison: {
+    title: 'Compared to standard cable',
+    rows: [
+      { property: 'Output when cold', fixed: 'Rated wattage', variable: 'Higher — peak output' },
+      { property: 'Output when warm', fixed: 'Rated wattage', variable: 'Lower — reduced output' },
+      { property: 'Response to voltage drop', fixed: 'Output falls sharply', variable: 'Partial self-compensation' },
+      { property: 'Warm-up time from cold', fixed: 'Longer', variable: 'Faster' },
+      { property: 'Steady-state consumption', fixed: 'Fixed', variable: 'Lower — matches room heat loss' },
+      { property: 'Specification sensitivity', fixed: 'Higher — one direction only', variable: 'Lower — tolerates variation' },
+      { property: 'Price', fixed: 'Standard band', variable: '₹350/sq ft (same price)' },
+    ],
+  },
+  brands: {
+    title: 'Available through TheHeatingStore',
+    body: 'Variable wattage cable is supplied in Kashmir through Prowarm and Fastwarm — the only variable wattage electric floor heating available in J&K. Priced at ₹350 per sq ft, the same as standard fixed-output systems.',
+  },
+};
+
 export const CTA = {
   eyebrow: 'Stage 01',
   title: 'Start with the free site visit.',

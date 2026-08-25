@@ -6,70 +6,26 @@ import { Play, X, ShieldCheck } from 'lucide-react';
 
 const EASE = [0.16, 1, 0.3, 1];
 
-/* ─────────────────────────────────────────────────────────────────
-   HOW TO ADD YOUR VIDEOS (Cloudinary)
-   ─────────────────────────────────────────────────────────────────
-   1. cloudinary.com par free account banao. Dashboard ke top pe
-      "Cloud Name" milega (e.g. "theheatingstore"), wahi CLOUD_NAME
-      neeche daalna hai.
-   2. Media Library kholo → "Upload" button → apni 4-5 videos
-      drag-drop karo. Organize rakhne ke liye ek folder bana lo,
-      jaise "trust-videos".
-   3. Upload hone ke baad har video par click karo → "Copy URL"
-      (secure_url) le lo. Kuch aisa dikhega:
-      https://res.cloudinary.com/theheatingstore/video/upload/v1721234567/trust-videos/customer1.mp4
-   4. Performance ke liye URL mein /upload/ ke baad transformation
-      params daal do, f_auto (best format browser ke hisaab se,
-      webm/mp4) aur q_auto (auto compression). Isse site smooth
-      chalegi, heavy raw video load nahi hogi:
-      .../upload/f_auto,q_auto/v1721234567/trust-videos/customer1.mp4
-   5. Thumbnail/poster ke liye same public id se ek frame nikaal lo 
-      extension .mp4 se .jpg kardo aur so_1 (second 1 ka frame) daalo:
-      .../upload/so_1,f_auto,q_auto/v1721234567/trust-videos/customer1.jpg
-   6. Dono URLs (video + poster) neeche VIDEOS array mein paste karo.
-   Bas itna hi, ye component khud video ko lazy-load karta hai,
-   sirf thumbnail dikhta hai jab tak user play na kare, isliye page
-   load pe koi video download nahi hoti.
-   ───────────────────────────────────────────────────────────────── */
 
-const CLOUD_NAME = 'dn93qohq'; 
 
 const VIDEOS = [
   {
     id: 'v1',
     name: 'Bilal Ahmad',
     location: 'Rajbagh, Srinagar',
-    // Replace with your real Cloudinary video URL:
-    src: `https://res.cloudinary.com/dn93qohq/video/upload/f_auto,q_auto/C8011_b23li0.mp4`,
-    poster: `https://res.cloudinary.com/dn93qohq/video/upload/so_1,f_auto,q_auto/C8011_b23li0.jpg`,
+    src: '/testmonials/test1.mp4',
   },
   {
     id: 'v2',
     name: 'Nusrat Jan',
     location: 'Hyderpora, Srinagar',
-    src: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/f_auto,q_auto/trust-videos/customer2.mp4`,
-    poster: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/so_1,f_auto,q_auto/trust-videos/customer2.jpg`,
+    src: '/testmonials/test2.mov',
   },
   {
     id: 'v3',
     name: 'Owais Bhat',
     location: 'Anantnag',
-    src: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/f_auto,q_auto/trust-videos/customer3.mp4`,
-    poster: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/so_1,f_auto,q_auto/trust-videos/customer3.jpg`,
-  },
-  {
-    id: 'v4',
-    name: 'Farhana Khan',
-    location: 'Baramulla',
-    src: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/f_auto,q_auto/trust-videos/customer4.mp4`,
-    poster: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/so_1,f_auto,q_auto/trust-videos/customer4.jpg`,
-  },
-  {
-    id: 'v5',
-    name: 'Imran Sofi',
-    location: 'Sopore',
-    src: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/f_auto,q_auto/trust-videos/customer5.mp4`,
-    poster: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/so_1,f_auto,q_auto/trust-videos/customer5.jpg`,
+    src: '/testmonials/test3.mp4',
   },
 ];
 
@@ -89,15 +45,11 @@ function VideoCard({ video, index, onOpen }) {
       aria-label={`Play video testimonial from ${video.name}`}
     >
       <div className="tv-card-media">
-        <img src={video.poster} alt={`${video.name} testimonial`} loading="lazy" />
+        <video src={video.src} preload="metadata" muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         <div className="tv-card-overlay" />
         <span className="tv-play-btn">
           <Play size={18} fill="#14110D" strokeWidth={0} />
         </span>
-      </div>
-      <div className="tv-card-info">
-        <p className="tv-card-name">{video.name}</p>
-        <p className="tv-card-loc">{video.location}</p>
       </div>
     </motion.button>
   );
@@ -139,7 +91,7 @@ function VideoLightbox({ video, onClose, onPrev, onNext }) {
         <video
           key={video.id}
           src={video.src}
-          poster={video.poster}
+
           controls
           autoPlay
           playsInline
@@ -224,7 +176,7 @@ export default function TrustVideos() {
 
         .tv-grid {
           display: grid;
-          grid-template-columns: repeat(5, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           gap: 18px;
         }
         /* The dark-glass card the whole site uses (.hhero__card / .whc-card). */
@@ -304,7 +256,7 @@ export default function TrustVideos() {
         }
 
         @media (max-width: 1024px) {
-          .tv-grid { grid-template-columns: repeat(3, 1fr); }
+          .tv-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 640px) {
           .tv-section { padding: 64px 20px; }

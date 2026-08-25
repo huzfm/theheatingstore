@@ -46,14 +46,7 @@ const NAV_LINKS = [
   { label: 'FAQ', href: '#faq' },                  // FaqSection
 ];
 
-const HERO_IMAGES = [
-  '/landing/land2.png',
-  '/landing/land3.png',
-  '/landing/land4.png',
-  '/landing/land5.png',
-  '/landing/land6.png',
-  '/landing/land1.png',
-];
+const HERO_IMAGE = '/landing/land2.png';
 const CONTACT = {
   address: 'Srinagar · Anantnag · Baramulla, Kashmir',
   phone1: siteFacts.phoneDisplay,
@@ -108,30 +101,7 @@ function StatCounter({ stat, inView }) {
   );
 }
 
-/* ── Hero image carousel ──────────────────────────────────────────── */
-function HeroCarousel() {
-  const [active, setActive] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => {
-      setActive((i) => (i + 1) % HERO_IMAGES.length);
-    }, 2000);
-    return () => clearInterval(id);
-  }, []);
-  return (
-    <div className="lp-carousel">
-      {HERO_IMAGES.map((src, i) => (
-        <div key={src} className="lp-slide" style={{ opacity: i === active ? 1 : 0 }}>
-          <Image src={src} alt="Underfloor heating installation" fill priority={i === 0} sizes="100vw" style={{ objectFit: 'cover' }} />
-        </div>
-      ))}
-      <div className="lp-slide-dots">
-        {HERO_IMAGES.map((src, i) => (
-          <span key={src} className={`lp-slide-dot ${i === active ? 'is-active' : ''}`} />
-        ))}
-      </div>
-    </div>
-  );
-}
+
 
 /* Reads ad-tracking params from the current page URL (works for Meta/Google
    ads that append utm_source, utm_campaign, fbclid, gclid to the link).
@@ -411,10 +381,11 @@ export default function LandingClient() {
         .lp-nav-logo {
           position: relative; display: flex; align-items: center;
           height: 60px; flex-shrink: 0; text-decoration: none; z-index: 10;
+          overflow: visible;
         }
         .lp-nav-logo img {
           position: absolute; left: 0; top: 50%; transform: translateY(-50%);
-          height: 150px; width: auto; max-width: none; object-fit: contain;
+          height: 90px; width: auto; max-width: none;
         }
 
         .lp-nav-links {
@@ -447,6 +418,15 @@ export default function LandingClient() {
           box-shadow: 0 6px 18px rgba(232, 147, 58, 0.32);
           white-space: nowrap;
         }
+        .lp-nav-right {
+          position: relative; z-index: 10;
+          display: flex; align-items: center; gap: 8px;
+          flex-shrink: 0;
+        }
+        @media (min-width: 1025px) {
+          .lp-nav-right { display: none; }
+        }
+        .lp-nav-phone { display: none; }
         .lp-mobile-toggle { display: none; }
         .lp-mobile-panel { display: none; }
 
@@ -465,20 +445,7 @@ export default function LandingClient() {
           background: var(--ink);
           isolation: isolate;
         }
-        .lp-carousel { position: absolute; inset: 0; z-index: 0; }
-        .lp-slide { position: absolute; inset: 0; transition: opacity 1.1s ease; }
-        /* Right-set, not centred: the scroll cue owns the centre of the hero's
-           bottom edge, the same position it holds on the home hero. */
-        .lp-slide-dots {
-          position: absolute; bottom: 26px; right: clamp(1.25rem, 5vw, 5rem);
-          display: flex; gap: 7px; z-index: 4;
-        }
-        .lp-slide-dot {
-          width: 6px; height: 6px; border-radius: 50%;
-          background: rgba(246, 242, 236, 0.3);
-          transition: background 0.3s ease, width 0.3s ease;
-        }
-        .lp-slide-dot.is-active { background: var(--copper-bright); width: 18px; border-radius: 4px; }
+
 
         .lp-hero-scrim {
           position: absolute; inset: 0; z-index: 1; pointer-events: none;
@@ -794,6 +761,13 @@ export default function LandingClient() {
           .lp-nav { padding: 12px 20px; }
           .lp-nav-logo img { left: -12px; }
           .lp-nav-cta { display: none; }
+          .lp-nav-phone {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; padding: 0; border-radius: 999px;
+            color: var(--ivory); background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(246, 242, 236, 0.16); cursor: pointer;
+            text-decoration: none; flex-shrink: 0;
+          }
           .lp-mobile-toggle {
             display: inline-flex; align-items: center; justify-content: center;
             width: 40px; height: 40px; padding: 0; border-radius: 999px;
@@ -849,7 +823,7 @@ export default function LandingClient() {
           .lp-topbar { display: none; }
           .lp-nav, .lp-nav.scrolled { padding: 12px 20px; }
           .lp-nav-logo { height: 44px; }
-          .lp-nav-logo img { height: 104px; }
+          .lp-nav-logo img { height: 60px; }
           .lp-nav-cta { padding: 9px 16px; font-size: 11px; letter-spacing: 0.06em; }
           .lp-hero-inner { padding-top: 7.5rem; padding-bottom: 3.5rem; }
           .lp-stats-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 0; padding: 36px 20px; }
@@ -892,7 +866,7 @@ export default function LandingClient() {
 
           <nav className={`lp-nav ${scrolled ? 'scrolled' : ''}`}>
             <Link href="/" className="lp-nav-logo" aria-label="The Heating Store, Home">
-              <Image src="/logo.svg" alt="The Heating Store" width={220} height={150} sizes="220px" />
+              <Image src="/final.png" alt="The Heating Store" width={130} height={90} sizes="130px" />
             </Link>
 
             <div className="lp-nav-links">
@@ -911,16 +885,26 @@ export default function LandingClient() {
               <ArrowRight size={14} />
             </Link>
 
-            <button
-              type="button"
-              className="lp-mobile-toggle"
-              onClick={() => setMobileNavOpen((open) => !open)}
-              aria-label={mobileNavOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={mobileNavOpen}
-              aria-controls="landing-mobile-nav"
-            >
-              {mobileNavOpen ? <X size={18} /> : <Menu size={18} />}
-            </button>
+            <div className="lp-nav-right">
+              <a
+                href={`tel:${CONTACT.phone1.replace(/\s+/g, '')}`}
+                className="lp-nav-phone"
+                aria-label="Call us"
+              >
+                <Phone size={18} />
+              </a>
+
+              <button
+                type="button"
+                className="lp-mobile-toggle"
+                onClick={() => setMobileNavOpen((open) => !open)}
+                aria-label={mobileNavOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={mobileNavOpen}
+                aria-controls="landing-mobile-nav"
+              >
+                {mobileNavOpen ? <X size={18} /> : <Menu size={18} />}
+              </button>
+            </div>
           </nav>
 
           {mobileNavOpen && (
@@ -945,7 +929,7 @@ export default function LandingClient() {
         </div>
 
         <div className="lp-hero" ref={heroWrapRef}>
-          <HeroCarousel />
+          <Image src={HERO_IMAGE} alt="Underfloor heating installation" fill priority sizes="100vw" style={{ objectFit: 'cover' }} />
           <div className="lp-hero-scrim" />
           <div className="lp-hero-glow" />
           <div className="lp-grain" />
@@ -1013,26 +997,13 @@ export default function LandingClient() {
           </div>
         </div>
 
-        {/* Proof, then the reasons, then the objections. That is the order a
-            cold click needs them in: someone who has just been told a claim
-            wants to know who else believed it before they want the argument
-            for it, and they only reach the FAQ once they are far enough in to
-            have specific doubts. */}
+        {/* Video testimonials right after stats — strongest proof first. */}
+        <TrustVideos />
+
+        {/* Written reviews below the video ones. */}
         <div id="reviews" className="lp-anchor">
           <Testimonials />
         </div>
-
-        {/* Video reviews, directly under the written ones: a customer saying
-            it on camera is the strongest proof on the page, and it belongs
-            next to the quotes rather than stranded further down.
-
-            HEADS UP: only the first of the five entries in TrustVideos.jsx
-            points at a real Cloudinary asset. The other four still carry the
-            placeholder paths from that file's setup comment
-            (trust-videos/customer2..5), so they render broken posters. Worth
-            fixing before spend goes live — see the instructions at the top of
-            app/components/TrustVideos.jsx. */}
-        <TrustVideos />
 
         <div id="why-choose" className="lp-anchor">
           <WhyChooseUFH />

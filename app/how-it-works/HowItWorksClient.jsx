@@ -3,6 +3,7 @@
 import HowItWorksHero from '@/components/sections/HowItWorks/HowItWorksHero';
 import ProcessRail from '@/components/sections/HowItWorks/ProcessRail';
 import OnSiteTimeline from '@/components/sections/HowItWorks/OnSiteTimeline';
+import VariableWattage from '@/components/sections/HowItWorks/VariableWattage';
 import HowItWorksCTA from '@/components/sections/HowItWorks/HowItWorksCTA';
 
 /**
@@ -30,6 +31,7 @@ export default function HowItWorksClient() {
       <HowItWorksHero />
       <ProcessRail />
       <OnSiteTimeline />
+      <VariableWattage />
       <HowItWorksCTA />
     </main>
   );

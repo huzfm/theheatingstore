@@ -69,7 +69,7 @@ const C = {
 //           ratio differs, adjust these two numbers to match it; the CSS below
 //           just scales proportionally from whatever you set here. */}
 //       <Image
-//         src="/logo.svg"
+//         src="/logo.png"
 //         alt="TheHeatingStore"
 //         width={220}
 //         height={logoHeight}
@@ -81,7 +81,7 @@ const C = {
 // }
 function BrandMark({ compact = false }) {
   const navRowHeight = compact ? 74 : 60; // fixed — matches current nav content height, doesn't change
-  const logoHeight = compact ? 74 : 150;  // grow this freely, it will overflow the wrapper
+  const logoHeight = compact ? 50 : 90;
 
   return (
     <Link
@@ -96,26 +96,38 @@ function BrandMark({ compact = false }) {
         textDecoration: 'none',
       }}
     >
+      {/* Desktop logo */}
       <Image
-        src="/logo.svg"
+        src="/final.png"
         alt="The Heating Store"
-        width={220}
+        width={115}
         height={logoHeight}
-        className="eh-brand-image"
-        /* `priority` removed. It was set on the header, which renders on every
-           route, so every page issued a high-priority preload for the logo that
-           competed with that page's actual LCP element, including the homepage
-           hero photograph. The logo is in the viewport at mount, so the browser
-           fetches it immediately regardless; it just no longer jumps the queue
-           ahead of the thing the user is waiting to see.
-
-           The SVG remains sharp at the rendered navigation size. */
+        className="eh-brand-image eh-brand-desktop"
         sizes="220px"
         style={{
           position: 'absolute',
           left: 0,
           top: '50%',
-          transform: 'translateY(-50%)', // vertically centered, overflows top/bottom freely
+          transform: 'translateY(-50%)',
+          height: logoHeight,
+          width: 'auto',
+          maxWidth: 'none',
+          objectFit: 'contain',
+        }}
+      />
+      {/* Mobile logo */}
+      <Image
+        src="/final.png"
+        alt="The Heating Store"
+        width={115}
+        height={logoHeight}
+        className="eh-brand-image eh-brand-mobile"
+        sizes="220px"
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: '50%',
+          transform: 'translateY(-50%)',
           height: logoHeight,
           width: 'auto',
           maxWidth: 'none',
@@ -535,7 +547,7 @@ export default function Header() {
           }}
         >
           {/* Logo */}
-          <div style={{ position: 'relative', zIndex: 10 }}>
+          <div style={{ position: 'relative', zIndex: 10, marginLeft: '-6px' }}>
             <BrandMark />
           </div>
 
