@@ -45,7 +45,8 @@ export default function BlogSection() {
 useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await fetch("https://evulation-api-electrichamambackend.0psc8x.easypanel.host/api/blogs", { 
+        const res = await fetch("https://api.theheatingstore.in/api/public/blogs?page=1&limit=1", { 
+          headers: { "x-api-key": process.env.NEXT_PUBLIC_BLOG_API_KEY || "" },
           cache: "no-store" 
         });
         const data = await res.json();

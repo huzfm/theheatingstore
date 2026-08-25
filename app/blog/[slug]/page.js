@@ -19,7 +19,7 @@ export default function BlogDetailPage() {
     const fetchBlog = async () => {
       try {
         const res = await fetch(
-          `https://api.theheatingstore.in/api/blogs/${slug}`,
+          `https://api.theheatingstore.in/api/public/blogs/${slug}`,
           {
             headers: { "x-api-key": process.env.NEXT_PUBLIC_BLOG_API_KEY || "" },
             cache: "no-store",

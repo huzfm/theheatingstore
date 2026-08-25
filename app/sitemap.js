@@ -9,7 +9,7 @@ import { BRANDS } from '@/app/lib/brandsData';
 
 const SITE_URL = facts.url;
 
-const BLOG_API_BASE = process.env.NEXT_PUBLIC_BLOG_API_BASE || 'http://localhost:5050/api/public';
+const BLOG_API_BASE = process.env.NEXT_PUBLIC_BLOG_API_BASE || 'https://api.theheatingstore.in/api/public';
 const BLOG_API_KEY = process.env.NEXT_PUBLIC_BLOG_API_KEY || '';
 
 /**
