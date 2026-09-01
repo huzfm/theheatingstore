@@ -190,8 +190,15 @@ export default async function sitemap() {
   // slipped through Phase 2. Fail the build rather than submit it.
   // Blog posts (/blog/*) are dynamic and excluded from this check.
   const missing = entries
-    .map((e) => e.url.replace(SITE_URL, '') || '/')
-    .filter((p) => !PAGE_META[p] && !p.startsWith('/blog/'));
+    .filter((e) => !e.url.includes('/blog/'))
+    .map((e) => {
+      try {
+        return new URL(e.url, SITE_URL).pathname || '/';
+      } catch {
+        return e.url.replace(SITE_URL, '') || '/';
+      }
+    })
+    .filter((p) => !PAGE_META[p]);
   if (missing.length) {
     throw new Error(
       `sitemap: these routes have no entry in content/page-meta.ts: ${missing.join(', ')}`
