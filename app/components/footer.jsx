@@ -70,6 +70,7 @@ const NAV = [
       { label: 'Features & Technology', href: '/bloginfo' },
       { label: 'Warranty Check', href: '/warranty-check' },
       { label: 'Book a Site Visit', href: '/book-site-visit' },
+      { label: 'Privacy Policy', href: '/privacy-policy' },
     ],
   },
 ];

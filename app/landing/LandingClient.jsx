@@ -153,6 +153,11 @@ function HeroEnquiryForm() {
         place,
       });
       setStatus('sent');
+
+      // Fire conversion event for Google Ads / GTM.
+      // No hardcoded conversion ID — GTM or gtag.js picks this up when installed.
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'generate_lead' });
     } catch (err) {
       console.error('Lead submit error:', err);
       setStatus('error');
@@ -219,6 +224,15 @@ function HeroEnquiryForm() {
         <p className="lp-form-error">
           Lead save had an issue, but your WhatsApp message still went through.
         </p>
+      )}
+      {status === 'sent' && (
+        <div className="lp-form-success" role="status" aria-live="polite">
+          <p className="lp-form-success-title">Thank you!</p>
+          <p className="lp-form-success-text">
+            Your enquiry has been received. We&rsquo;ll be in touch shortly to
+            arrange your free site visit.
+          </p>
+        </div>
       )}
     </motion.form>
   );
@@ -629,6 +643,20 @@ export default function LandingClient() {
         .lp-form-error {
           margin: 2px 0 0; font-size: 12.5px; line-height: 1.5;
           color: var(--copper-bright);
+        }
+        .lp-form-success {
+          text-align: center; padding: 0.5rem 0 0.25rem;
+        }
+        .lp-form-success-title {
+          margin: 0 0 0.4rem;
+          font-family: var(--font-heading); font-weight: 400;
+          font-size: 1.4rem; line-height: 1;
+          letter-spacing: 0.01em; text-transform: uppercase;
+          color: var(--copper-bright);
+        }
+        .lp-form-success-text {
+          margin: 0; font-size: 13.5px; line-height: 1.6;
+          color: var(--muted);
         }
 
         /* ── Stats ───────────────────────────────────────────────────

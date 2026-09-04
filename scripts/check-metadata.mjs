@@ -27,7 +27,7 @@ const EXEMPT = new Set([
   '/admin',          // internal dashboard, flagged for noindex
   '/experience/foundation-check', // noindex tool page
   '/hero',           // legacy demo, copy left as authored pending noindex
-  '/landing',        // duplicate landing page, flagged for noindex
+  '/landing',        // Google Ads landing page, noindex by design
   '/local-experience',   // 308s to /why-choose-us
   '/global-experience',  // 308s to /why-choose-us
 ]);

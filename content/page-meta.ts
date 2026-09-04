@@ -155,6 +155,11 @@ export const PAGE_META: Readonly<Record<string, PageMeta>> = Object.freeze({
     description: "Join The Heating Store dealer network. Authorised dealer programme for electric hamam and underfloor heating systems across Kashmir and the rest of India.",
     twitter: "Authorised dealer programme for electric hamam and underfloor heating systems.",
   },
+  "/privacy-policy": {
+    title: "Privacy Policy | The Heating Store",
+    description: "How The Heating Store collects, uses and protects your data. Meta Pixel disclosure, cookies, and your rights under Indian data protection law.",
+    twitter: "How we handle your data, Meta Pixel disclosure, and your rights.",
+  },
   "/warranty-check": {
     title: "Check Your Electric Hamam Warranty | Kashmir",
     description: "Verify your electric hamam or underfloor heating warranty. Enter your product details to check validity, coverage terms and whether a claim is eligible.",

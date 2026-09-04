@@ -6,11 +6,12 @@ import LandingClient from './LandingClient';
  * `metadata`, which is why /landing was the only marketing route on the site
  * with no canonical.
  *
- * Deliberately no title/description here: /landing duplicates the homepage's
- * intent, has zero inbound links and is flagged for `noindex`. Writing
- * approved marketing copy for a page that is probably about to be deindexed
- * would be wasted work. It inherits the root layout's title, description and
- * share card, and now declares where it lives.
+ * This is the Google Ads paid-traffic landing page. It carries `noindex` to
+ * prevent organic indexing — the page duplicates the homepage's intent, has
+ * zero inbound links, and an organically indexed Ads page competes with the
+ * homepage for the same queries. Google Ads does not require organic indexing.
+ * The canonical is kept so link equity (if any) consolidates rather than
+ * fragmenting.
  *
  * The three next/font faces that used to be declared here (Fraunces,
  * Instrument Sans, IBM Plex Mono) are gone. This route is now set in the
@@ -25,6 +26,13 @@ import LandingClient from './LandingClient';
  * headlines in a serif here and in Bebas everywhere else on the site.
  */
 export const metadata = {
+  title: { absolute: 'Underfloor Heating in Kashmir | Free Site Visit' },
+  description:
+    'Book a free site visit for electric hamam and underfloor heating in Kashmir. Professional installation, UK-imported systems, lifetime warranty.',
+  robots: {
+    index: false,
+    follow: true,
+  },
   alternates: { canonical: '/landing' },
   // Only to stop this route sharing the root layout's share card with six
   // others. Not approved marketing copy; it describes what the page is.

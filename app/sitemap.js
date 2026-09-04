@@ -93,6 +93,7 @@ const ROUTES = [
   ['/bloginfo', 'app/bloginfo', 0.6],
   ['/dealer', 'app/dealer', 0.6],
   ['/warranty-check', 'app/warranty-check', 0.6],
+  ['/privacy-policy', 'app/privacy-policy', 0.3],
   ['/experience', 'app/experience/page.jsx', 0.6],
 ];
 
@@ -112,7 +113,8 @@ const SUPPLIER_PAGES = [
  *   /hero          Legacy WebGL demo duplicating the homepage hero. Zero
  *                  inbound links. Awaiting a noindex decision; listing it
  *                  meanwhile invites the duplicate-content comparison.
- *   /landing       Second landing page duplicating the homepage. Same.
+ *   /landing       Google Ads paid-traffic landing page. noindex by design;
+ *                  duplicate intent with the homepage and no organic value.
  *   /admin         Internal dashboard, Disallowed in robots.
  *   /AboutSection  308 -> /about.
  *   /local-experience, /global-experience   308 -> /why-choose-us.
