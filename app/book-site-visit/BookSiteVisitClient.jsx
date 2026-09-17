@@ -4,15 +4,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Spinner from '@/components/ui/loading/Spinner';
 import PendingLabel from '@/components/ui/loading/PendingLabel';
-import { LEADS_API_BASE } from '@/lib/leads';
+import { submitLead } from '@/lib/leads';
 
 const MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-/* Shares the leads host with every other form on the site. This pointed at the
-   old easypanel deployment in production and at localhost in development, so
-   a booking made here reached neither. Its endpoint is still the
-   space-details one, /api/detailed-leads, only the host is shared. */
-const API_URL = LEADS_API_BASE;
+/**
+ * The coverage we recommend, as a percentage of total room area.
+ *
+ * One number, referenced by everything on this page that names a figure: the
+ * slider's starting value, the hint under the dimensions, the status pill and
+ * the colour of the slider track. It matches the 80% the pricing estimator on
+ * /measuring-up recommends (components/sections/MeasuringUp/
+ * InstallationEconomics.jsx), which this page contradicted by starting at 75%
+ * and calling anything from 70% to 80% "recommended".
+ */
+const RECOMMENDED_COVERAGE = 80;
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -665,7 +671,7 @@ export default function BookSiteVisitClient() {
   const [length, setLength] = useState('');
   const [width, setWidth] = useState('');
   const [measurementUnit, setMeasurementUnit] = useState('feet');
-  const [heatedPercent, setHeatedPercent] = useState(75);
+  const [heatedPercent, setHeatedPercent] = useState(RECOMMENDED_COVERAGE);
   const [thermostat, setThermostat] = useState('');
   const [insulation, setInsulation] = useState('');
   const [insulationThickness, setInsulationThickness] = useState('6mm');
@@ -674,32 +680,44 @@ export default function BookSiteVisitClient() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [location, setLocation] = useState(null);
-  const sliderRef = useRef(null);
-
   const totalSteps = 9;
 
   const totalArea = (length && width) ? (parseFloat(length) * parseFloat(width)).toFixed(1) : null;
   const heatedArea = totalArea ? ((parseFloat(totalArea) * heatedPercent) / 100).toFixed(1) : null;
 
-  const getSliderColor = () => {
-    if (heatedPercent < 70) return '#E05252';
-    if (heatedPercent <= 80) return '#6BAE7F';
-    return '#E88C2A';
-  };
-
-  const getSliderStatus = () => {
-    if (heatedPercent < 70) return { color: '#E05252', text: '⚠ Not recommended, insufficient coverage for efficient heating', type: 'warn' };
-    if (heatedPercent <= 80) return { color: '#6BAE7F', text: '✓ Recommended coverage for comfort and efficiency', type: 'good' };
-    return { color: '#E88C2A', text: '↑ High coverage, ensure no fixed furniture in heated zone', type: 'high' };
-  };
-
-  useEffect(() => {
-    if (sliderRef.current) {
-      sliderRef.current.style.setProperty('--val', heatedPercent);
-      const color = getSliderColor();
-      sliderRef.current.style.background = `linear-gradient(to right, ${color} 0%, ${color} ${heatedPercent}%, #E8D5C0 ${heatedPercent}%, #E8D5C0 100%)`;
-    }
-  }, [heatedPercent]);
+  /**
+   * One coverage verdict, derived from RECOMMENDED_COVERAGE and used by both
+   * the slider track and the status pill beneath it.
+   *
+   * This was two helpers over a 70–80% band: `getSliderStatus` was never
+   * called at all, and `getSliderColor` only fed an effect writing to a ref
+   * the slider never carried, so the pill hard-coded its own copy of the rule
+   * and the track stayed the same orange gradient whatever the value.
+   */
+  const coverageVerdict =
+    heatedPercent === RECOMMENDED_COVERAGE
+      ? {
+          type: 'good',
+          color: '#6BAE7F',
+          bg: 'rgba(107,174,127,0.10)',
+          border: 'rgba(107,174,127,0.30)',
+          text: `Recommended, ${RECOMMENDED_COVERAGE}% coverage for comfort and efficiency`,
+        }
+      : heatedPercent < RECOMMENDED_COVERAGE
+        ? {
+            type: 'low',
+            color: '#E88C2A',
+            bg: 'rgba(232,140,42,0.08)',
+            border: 'rgba(232,140,42,0.25)',
+            text: `Below the recommended ${RECOMMENDED_COVERAGE}%, consider increasing for even warmth`,
+          }
+        : {
+            type: 'high',
+            color: '#4FA3D1',
+            bg: 'rgba(79,163,209,0.08)',
+            border: 'rgba(79,163,209,0.25)',
+            text: `Above the recommended ${RECOMMENDED_COVERAGE}%, keep fixed furniture out of the heated zone`,
+          };
 
   const goToStep = (s) => {
     setDirection(s > step ? 1 : -1);
@@ -715,7 +733,7 @@ export default function BookSiteVisitClient() {
     setLength('');
     setWidth('');
     setMeasurementUnit('feet');
-    setHeatedPercent(75);
+    setHeatedPercent(RECOMMENDED_COVERAGE);
     setThermostat('');
     setInsulation('');
     setInsulationThickness('6mm');
@@ -729,31 +747,56 @@ export default function BookSiteVisitClient() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  /**
+   * The finished space verification is submitted exactly like the contact
+   * form: `submitLead`, POST {API}/api/leads, one payload shape shared by
+   * every public form on the site. See lib/leads.js.
+   *
+   * It used to POST to /api/detailed-leads, a separate collection that
+   * /admin never reads — AdminDashboard.jsx fetches {API}/api/leads and
+   * nothing else — so a completed nine-step verification was accepted by the
+   * backend and then seen by nobody.
+   *
+   * None of the room configuration is lost in the move. `submitLead` takes
+   * `notes`, lines it folds into the message body ahead of the customer's own
+   * text, which is where the team reads a lead. The email address rides there
+   * too, since the leads payload has no field of its own for it.
+   */
   const handleSubmit = async () => {
     if (!name.trim() || !phone.trim()) return;
     setSubmitting(true);
     try {
-      const res = await fetch(`${API_URL}/api/detailed-leads`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name, phone, email, message,
-          roomType, subfloor, floorSurface, flooringType: floorSurface,
-          length, width, measurementUnit,
-          totalArea, heatedArea, heatedPercent,
-          thermostat, insulation, insulationThickness,
-          customerAddress: location?.address || '',
-          customerLat: location?.lat || null,
-          customerLng: location?.lng || null,
-          googleMapsLink: location?.lat ? `https://www.google.com/maps?q=${location.lat},${location.lng}` : '',
-          source: 'Space Verification',
-        }),
+      await submitLead({
+        name,
+        phone,
+        message,
+        formLabel: 'Site visit request — space verification',
+        place: location
+          ? {
+              address: location.address || '',
+              lat: typeof location.lat === 'number' ? location.lat : null,
+              lng: typeof location.lng === 'number' ? location.lng : null,
+            }
+          : null,
+        notes: [
+          email.trim() && `Email: ${email.trim()}`,
+          roomType && `Room: ${roomLabels[roomType]}`,
+          subfloor && `Subfloor: ${subfloorLabels[subfloor]}`,
+          floorSurface && `Floor surface: ${surfaceLabels[floorSurface]}`,
+          length && width && `Dimensions: ${length} × ${width} ${measurementUnit === 'feet' ? 'ft' : 'm'}`,
+          totalArea && `Total area: ${totalArea} ${unitLabel}`,
+          heatedArea &&
+            `Heated area: ${heatedArea} ${unitLabel} (${heatedPercent}% coverage, ${RECOMMENDED_COVERAGE}% recommended)`,
+          thermostat && `Thermostat: ${thermostatLabels[thermostat]}`,
+          insulation && `Insulation: ${insulationLabels[insulation]}, ${insulationThickness}`,
+        ].filter(Boolean),
       });
-      if (!res.ok) throw new Error('Submission failed');
       setSubmitted(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } catch {
-      alert('Something went wrong. Please try again.');
+    } catch (err) {
+      // The API answers a rejected lead with a reason, most often a phone
+      // number it will not take. Showing it beats a generic failure line.
+      alert(err?.message || 'Something went wrong. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -1613,7 +1656,7 @@ export default function BookSiteVisitClient() {
                               <line x1="12" y1="8" x2="12" y2="12"/>
                               <line x1="12" y1="16" x2="12.01" y2="16"/>
                             </svg>
-                            Heated area is typically 70–80% of total room area
+                            We recommend heating {RECOMMENDED_COVERAGE}% of the total room area
                           </div>
                         </div>
                       )}
@@ -1767,7 +1810,36 @@ export default function BookSiteVisitClient() {
                         </div>
                       </div>
 
-                      <div style={{ marginBottom: 20 }}>
+                      <div style={{ marginBottom: 20, position: 'relative' }}>
+                        {/* The recommendation, marked on the track itself.
+                            The range runs 10–100, so the tick sits at
+                            (80 - 10) / 90 of the width. */}
+                        <div
+                          aria-hidden
+                          style={{
+                            position: 'absolute',
+                            top: -14,
+                            left: `${((RECOMMENDED_COVERAGE - 10) / 90) * 100}%`,
+                            transform: 'translateX(-50%)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            gap: 3,
+                            pointerEvents: 'none',
+                          }}
+                        >
+                          <span style={{
+                            fontFamily: "var(--font-body)",
+                            fontSize: 10,
+                            fontWeight: 700,
+                            letterSpacing: '0.04em',
+                            color: '#6BAE7F',
+                            whiteSpace: 'nowrap',
+                          }}>
+                            {RECOMMENDED_COVERAGE}% recommended
+                          </span>
+                          <span style={{ width: 1, height: 6, background: 'rgba(107,174,127,0.55)' }} />
+                        </div>
                         <input
                           type="range"
                           min="10"
@@ -1778,7 +1850,7 @@ export default function BookSiteVisitClient() {
                           className="premium-slider"
                           style={{
                             width: '100%',
-                            background: `linear-gradient(to right, #C4623A 0%, #E88C2A ${heatedPercent}%, rgba(196,98,58,0.15) ${heatedPercent}%, rgba(196,98,58,0.15) 100%)`,
+                            background: `linear-gradient(to right, ${coverageVerdict.color} 0%, ${coverageVerdict.color} ${heatedPercent}%, rgba(196,98,58,0.15) ${heatedPercent}%, rgba(196,98,58,0.15) 100%)`,
                           }}
                         />
                         <div style={{
@@ -1802,45 +1874,29 @@ export default function BookSiteVisitClient() {
                         alignItems: 'center',
                         justifyContent: 'center',
                       }}>
-                        {heatedPercent >= 70 && heatedPercent <= 80 ? (
-                          <div style={{
+                        <div
+                          role="status"
+                          style={{
                             display: 'inline-flex', alignItems: 'center', gap: 6,
-                            fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600,
-                            color: '#6BAE7F', background: 'rgba(107,174,127,0.1)',
-                            border: '1px solid rgba(107,174,127,0.3)', borderRadius: 999, padding: '7px 16px',
-                          }}>
+                            fontFamily: "var(--font-body)", fontSize: 12,
+                            fontWeight: coverageVerdict.type === 'good' ? 600 : 400,
+                            color: coverageVerdict.color, background: coverageVerdict.bg,
+                            border: `1px solid ${coverageVerdict.border}`, borderRadius: 999, padding: '7px 16px',
+                          }}
+                        >
+                          {coverageVerdict.type === 'good' ? (
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                               <polyline points="20 6 9 17 4 12"/>
                             </svg>
-                            Recommended coverage for comfort and efficiency
-                          </div>
-                        ) : heatedPercent < 70 ? (
-                          <div style={{
-                            display: 'inline-flex', alignItems: 'center', gap: 6,
-                            fontFamily: "var(--font-body)", fontSize: 12,
-                            color: '#E88C2A', background: 'rgba(232,140,42,0.08)',
-                            border: '1px solid rgba(232,140,42,0.25)', borderRadius: 999, padding: '7px 16px',
-                          }}>
+                          ) : (
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                               <circle cx="12" cy="12" r="10"/>
                               <line x1="12" y1="8" x2="12" y2="12"/>
                               <line x1="12" y1="16" x2="12.01" y2="16"/>
                             </svg>
-                            Consider increasing for better warmth distribution
-                          </div>
-                        ) : (
-                          <div style={{
-                            display: 'inline-flex', alignItems: 'center', gap: 6,
-                            fontFamily: "var(--font-body)", fontSize: 12,
-                            color: '#4FA3D1', background: 'rgba(79,163,209,0.08)',
-                            border: '1px solid rgba(79,163,209,0.25)', borderRadius: 999, padding: '7px 16px',
-                          }}>
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                              <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                            Full coverage, ideal for open-plan spaces
-                          </div>
-                        )}
+                          )}
+                          {coverageVerdict.text}
+                        </div>
                       </div>
 
                       <button
@@ -2397,7 +2453,7 @@ export default function BookSiteVisitClient() {
                           { icon: floorSurface ? surfaceIcons[floorSurface] : null, label: 'Surface', value: floorSurface ? surfaceLabels[floorSurface] : ' ', color: floorSurface ? surfaceColors[floorSurface] : '#C4623A', step: 3 },
                           { icon: Icon.Ruler, label: 'Dimensions', value: length && width ? `${length} × ${width} ${measurementUnit === 'feet' ? 'ft' : 'm'}` : ' ', step: 4 },
                           { icon: Icon.Grid, label: 'Total Area', value: totalArea ? `${totalArea} ${unitLabel}` : ' ', step: 4 },
-                          { icon: Icon.Zap, label: 'Heated Area', value: heatedArea ? `${heatedArea} ${unitLabel} (${heatedPercent}%)` : ' ', step: 5 },
+                          { icon: Icon.Zap, label: 'Heated Area', value: heatedArea ? `${heatedArea} ${unitLabel} (${heatedPercent}%, ${RECOMMENDED_COVERAGE}% recommended)` : ' ', step: 5 },
                           { icon: thermostat ? thermostatIcons[thermostat] : null, label: 'Thermostat', value: thermostat ? thermostatLabels[thermostat] : ' ', color: thermostat ? thermostatColors[thermostat] : '#C4623A', step: 6 },
                           { icon: Icon.Insulation, label: 'Insulation', value: insulation ? `${insulation.toUpperCase()}, ${insulationThickness}` : ' ', step: 7 },
                         ].map((item) => (

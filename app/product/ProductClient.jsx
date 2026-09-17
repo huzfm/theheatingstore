@@ -13,6 +13,7 @@ import Link from 'next/link';
 import HeroCTAs from '@/components/ui/HeroCTAs';
 import { RevealText, Reveal } from '@/components/ui/RevealText';
 import { BRANDS } from '../lib/brandsData';
+import { API_BASE } from '@/lib/leads';
 
 /* ══════════════════════════════════════════════════════════════════════════
    PRODUCTS, dark cinematic brands showcase
@@ -537,16 +538,44 @@ function BrandPanel({ brand, index }) {
 }
 
 // ── THERMOSTATS SECTION ──────────────────────────────────────────────────────
+/**
+ * The thermostat cards are served by the backend.
+ *
+ * This fetched http://localhost:5050 with the host written into the call, so
+ * outside a machine running the API on that port it threw "Failed to fetch"
+ * into the console on every visit and the grid stayed empty. The host now
+ * comes from API_BASE, the one place it is configured (lib/leads.js).
+ *
+ * A failed fetch and an empty catalogue are different states and now read
+ * differently: the first is worth saying out loud, the second is just a
+ * section with nothing to show yet.
+ */
 function ThermostatsSection() {
 	const [thermostats, setThermostats] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [failed, setFailed] = useState(false);
 
 	useEffect(() => {
-		fetch('http://localhost:5050/api/thermostats')
-			.then((r) => r.json())
-			.then((data) => setThermostats(data.items || []))
-			.catch(console.error)
-			.finally(() => setLoading(false));
+		let cancelled = false;
+		fetch(`${API_BASE}/api/thermostats`)
+			.then((r) => {
+				if (!r.ok) throw new Error(`Thermostats request failed (${r.status})`);
+				return r.json();
+			})
+			.then((data) => {
+				if (!cancelled) setThermostats(data.items || []);
+			})
+			.catch((err) => {
+				if (cancelled) return;
+				console.error(err);
+				setFailed(true);
+			})
+			.finally(() => {
+				if (!cancelled) setLoading(false);
+			});
+		return () => {
+			cancelled = true;
+		};
 	}, []);
 
 	return (
@@ -660,6 +689,21 @@ function ThermostatsSection() {
 							</motion.div>
 						))}
 				</div>
+
+				{!loading && thermostats.length === 0 && (
+					<p
+						className='mx-auto mt-2 max-w-md text-center'
+						style={{
+							fontFamily: 'var(--font-body)',
+							fontSize: 15,
+							lineHeight: 1.7,
+							color: BONE_MUTE,
+						}}>
+						{failed
+							? 'We could not load the thermostat range just now. Call us and we will talk you through the options.'
+							: 'The thermostat range is being updated. Call us and we will talk you through the options.'}
+					</p>
+				)}
 			</div>
 		</section>
 	);

@@ -3,8 +3,14 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { X, Play } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { API_BASE } from '@/lib/leads';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5050';
+/* Was process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5050'. With that
+   variable unset, which it is, this polled a dead local port every two
+   seconds and swallowed the failure, so the gallery was permanently empty and
+   said nothing about why. API_BASE carries the same env override and falls
+   back to the live host instead. */
+const API_URL = API_BASE;
 
 // ── Framer variants, same easing as About section ───────────────────────────
 const container = {

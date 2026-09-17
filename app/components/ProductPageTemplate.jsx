@@ -5,7 +5,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 import siteFacts from '@/content/facts';
 import JsonLd from '@/components/seo/JsonLd';
-import { ArrowLeft } from 'lucide-react';
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -100,15 +99,15 @@ const ChevronDownIcon = () => (
 // ── Reusable badge (matches existing "Since 2011" pill style) ───────────────
 function Badge({ children }) {
   return (
-    <div style={{ position: 'relative', display: 'inline-flex', marginBottom: 12 }}>
+    <div style={{ position: 'relative', display: 'inline-flex', marginBottom: 12, maxWidth: '100%' }}>
       <span aria-hidden style={{
         position: 'absolute', inset: 0, borderRadius: 999, pointerEvents: 'none',
         background: 'linear-gradient(180deg,rgba(255,255,255,0.55),rgba(255,255,255,0.08))',
         opacity: 0.7,
       }} />
-      <p style={{
+      <p className="product-badge" style={{
         position: 'relative', display: 'inline-flex', alignItems: 'center', gap: 8,
-        whiteSpace: 'nowrap', padding: '8px 22px',
+        padding: '8px 22px',
         fontFamily: "var(--font-body)", fontSize: 10, fontWeight: 500,
         textTransform: 'uppercase', letterSpacing: '0.32em', color: '#4FA3D1',
         borderRadius: 999, background: 'rgba(255,255,255,0.22)',
@@ -199,7 +198,7 @@ function FaqItem({ q, a, isOpen, onToggle }) {
         </span>
       </button>
       <div style={{
-        maxHeight: isOpen ? 320 : 0, overflow: 'hidden',
+        maxHeight: isOpen ? 900 : 0, overflow: 'hidden',
         transition: 'max-height 0.35s ease',
       }}>
         <p style={{
@@ -260,9 +259,29 @@ export default function ProductPageTemplate({
       {jsonLd && <JsonLd id="ld-service" data={jsonLd} />}
 
       <style>{`
+        .product-badge { white-space: nowrap; }
+
         @media (max-width: 640px) {
-          .product-map-container { height: 280px !important; }
-          .product-map-container iframe { height: 280px !important; }
+          /* The nowrap pill is wider than a phone screen once the label is
+             long ("UK Imported · Kashmir Specialist"), so let it wrap. */
+          .product-badge {
+            white-space: normal;
+            text-align: center;
+            letter-spacing: 0.18em;
+            padding: 7px 15px;
+            line-height: 1.6;
+          }
+          /* minHeight is set inline on both the box and the iframe, so the
+             height override alone never took effect. */
+          .product-map-container {
+            height: 280px !important;
+            min-height: 280px !important;
+          }
+          .product-map-container iframe {
+            height: 280px !important;
+            min-height: 280px !important;
+          }
+          .product-hero-cta > a { width: 100%; max-width: 320px; justify-content: center; }
         }
       `}</style>
       <motion.div
@@ -288,15 +307,6 @@ export default function ProductPageTemplate({
             padding: 'clamp(64px,8vw,96px) clamp(20px,4vw,40px) 56px',
           }}
         >
-          <div style={{ textAlign: 'left', maxWidth: 820, margin: '-32px auto 28px' }}>
-            <Link
-              href="/heatingequipmentsupplier"
-              className="inline-flex items-center gap-2 text-sm text-[#B86B45] hover:underline"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Heating Equipment
-            </Link>
-          </div>
           <Badge>UK Imported · Kashmir Specialist</Badge>
           <h1 style={{
             fontSize: 'clamp(1.875rem, 4.5vw, 3.25rem)',
@@ -319,7 +329,7 @@ export default function ProductPageTemplate({
               {heroSubtitle}
             </p>
           )}
-          <div className="flex flex-row justify-center gap-3 mt-7">
+          <div className="product-hero-cta flex flex-col sm:flex-row items-center justify-center gap-3 mt-7">
             <a
               href={`tel:${siteFacts.phone}`}
               className="inline-flex items-center gap-2 rounded-full px-7 py-3 text-white font-semibold text-sm transition-transform hover:scale-[1.02]"
@@ -497,7 +507,7 @@ export default function ProductPageTemplate({
             style={{
               background: 'linear-gradient(135deg, #3C2A25 0%, #5C3D2E 50%, #B86B45 100%)',
               borderRadius: 28,
-              padding: 'clamp(36px,5vw,56px)',
+              padding: 'clamp(24px,5vw,56px)',
               display: 'grid',
               gridTemplateColumns: '1fr',
               gap: 24,

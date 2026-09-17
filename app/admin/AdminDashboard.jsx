@@ -6,10 +6,18 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieCha
 import { Skeleton, SkeletonGroup } from '@/components/ui/loading/Skeleton';
 import Spinner from '@/components/ui/loading/Spinner';
 import PendingLabel from '@/components/ui/loading/PendingLabel';
+import { API_BASE } from '@/lib/leads';
 
-const API_URL = process.env.NODE_ENV === 'production'
-  ? 'https://evulation-api-electrichamambackend.0psc8x.easypanel.host'
-  : 'http://localhost:5050';
+/**
+ * The dashboard reads leads from the same host the forms post them to.
+ *
+ * It used to pick by NODE_ENV: the old easypanel deployment in production,
+ * http://localhost:5050 in development. The public forms post to API_BASE
+ * (lib/leads.js), so this read from somewhere else entirely — in development
+ * from a port with nothing on it, and `fetchLeads` swallows a failed request
+ * and leaves the table empty, which is indistinguishable from having no leads.
+ */
+const API_URL = API_BASE;
 
 const COLORS = ['#C4623A', '#E88C2A', '#8B3A2A'];
 
